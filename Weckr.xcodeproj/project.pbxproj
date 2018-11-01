@@ -12,6 +12,13 @@
 		22BCC83F218B1BEE00C77CB1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22BCC83D218B1BEE00C77CB1 /* Main.storyboard */; };
 		22BCC841218B1BF000C77CB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22BCC840218B1BF000C77CB1 /* Assets.xcassets */; };
 		22BCC844218B1BF000C77CB1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22BCC842218B1BF000C77CB1 /* LaunchScreen.storyboard */; };
+		22C8D184218B28A50029C1EA /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C8D183218B28A50029C1EA /* Scene.swift */; };
+		22C8D186218B29AF0029C1EA /* Scene+ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C8D185218B29AF0029C1EA /* Scene+ViewController.swift */; };
+		22C8D188218B2AAD0029C1EA /* SceneCoordinatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C8D187218B2AAD0029C1EA /* SceneCoordinatorType.swift */; };
+		22C8D18A218B2AC90029C1EA /* SceneTransitionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C8D189218B2AC90029C1EA /* SceneTransitionType.swift */; };
+		22C8D18E218B2BF70029C1EA /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C8D18D218B2BF70029C1EA /* MainViewController.swift */; };
+		22C8D190218B2C060029C1EA /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C8D18F218B2C060029C1EA /* MainViewModel.swift */; };
+		22C8D192218B2DEB0029C1EA /* SceneCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C8D191218B2DEB0029C1EA /* SceneCoordinator.swift */; };
 		829E084E26D392D5A7965F6D /* Pods_Weckr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D8F1BEF8290C85232F136C5 /* Pods_Weckr.framework */; };
 /* End PBXBuildFile section */
 
@@ -24,6 +31,13 @@
 		22BCC840218B1BF000C77CB1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		22BCC843218B1BF000C77CB1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		22BCC845218B1BF000C77CB1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		22C8D183218B28A50029C1EA /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
+		22C8D185218B29AF0029C1EA /* Scene+ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Scene+ViewController.swift"; sourceTree = "<group>"; };
+		22C8D187218B2AAD0029C1EA /* SceneCoordinatorType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneCoordinatorType.swift; sourceTree = "<group>"; };
+		22C8D189218B2AC90029C1EA /* SceneTransitionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneTransitionType.swift; sourceTree = "<group>"; };
+		22C8D18D218B2BF70029C1EA /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		22C8D18F218B2C060029C1EA /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		22C8D191218B2DEB0029C1EA /* SceneCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneCoordinator.swift; sourceTree = "<group>"; };
 		8592F6B004899364C54363F9 /* Pods-Weckr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weckr.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Weckr/Pods-Weckr.debug.xcconfig"; sourceTree = "<group>"; };
 		8D8F1BEF8290C85232F136C5 /* Pods_Weckr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Weckr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -71,6 +85,9 @@
 			isa = PBXGroup;
 			children = (
 				22BCC839218B1BEE00C77CB1 /* AppDelegate.swift */,
+				22C8D182218B28800029C1EA /* Scenes */,
+				22C8D18B218B2AFC0029C1EA /* ViewController */,
+				22C8D18C218B2B0C0029C1EA /* ViewModel */,
 				22BCC83B218B1BEE00C77CB1 /* ViewController.swift */,
 				22BCC83D218B1BEE00C77CB1 /* Main.storyboard */,
 				22BCC840218B1BF000C77CB1 /* Assets.xcassets */,
@@ -86,6 +103,34 @@
 				8D8F1BEF8290C85232F136C5 /* Pods_Weckr.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		22C8D182218B28800029C1EA /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				22C8D183218B28A50029C1EA /* Scene.swift */,
+				22C8D185218B29AF0029C1EA /* Scene+ViewController.swift */,
+				22C8D187218B2AAD0029C1EA /* SceneCoordinatorType.swift */,
+				22C8D191218B2DEB0029C1EA /* SceneCoordinator.swift */,
+				22C8D189218B2AC90029C1EA /* SceneTransitionType.swift */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		22C8D18B218B2AFC0029C1EA /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				22C8D18D218B2BF70029C1EA /* MainViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		22C8D18C218B2B0C0029C1EA /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				22C8D18F218B2C060029C1EA /* MainViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -234,8 +279,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22C8D192218B2DEB0029C1EA /* SceneCoordinator.swift in Sources */,
+				22C8D18E218B2BF70029C1EA /* MainViewController.swift in Sources */,
 				22BCC83C218B1BEE00C77CB1 /* ViewController.swift in Sources */,
+				22C8D186218B29AF0029C1EA /* Scene+ViewController.swift in Sources */,
+				22C8D188218B2AAD0029C1EA /* SceneCoordinatorType.swift in Sources */,
 				22BCC83A218B1BEE00C77CB1 /* AppDelegate.swift in Sources */,
+				22C8D184218B28A50029C1EA /* Scene.swift in Sources */,
+				22C8D18A218B2AC90029C1EA /* SceneTransitionType.swift in Sources */,
+				22C8D190218B2C060029C1EA /* MainViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -385,6 +437,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MZTB89FPHK;
 				INFOPLIST_FILE = Weckr/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -404,6 +457,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MZTB89FPHK;
 				INFOPLIST_FILE = Weckr/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
