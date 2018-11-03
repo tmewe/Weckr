@@ -18,8 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         let coordinator = SceneCoordinator(window: window!)
-        let mainViewModel = MainViewModel()
-        coordinator.transition(to: Scene.main(mainViewModel), withType: .root)
+        let walkthroughViewModel = WalkthroughViewModel()
+        coordinator.transition(to: Scene.walkthrough(walkthroughViewModel), withType: .root)
         
         return true
     }

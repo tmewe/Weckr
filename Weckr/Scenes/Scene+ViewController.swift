@@ -14,7 +14,10 @@ extension Scene {
         switch self {
         case .main(let viewModel):
             let vc = MainViewController(viewModel: viewModel)
-            return vc            
+            return vc
+        case .walkthrough(let viewModel):
+            let vc = WalkthroughViewController(viewModel: viewModel)
+            return vc
         }
     }
 }

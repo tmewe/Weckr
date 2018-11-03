@@ -19,6 +19,8 @@
 		22C8D18E218B2BF70029C1EA /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C8D18D218B2BF70029C1EA /* MainViewController.swift */; };
 		22C8D190218B2C060029C1EA /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C8D18F218B2C060029C1EA /* MainViewModel.swift */; };
 		22C8D192218B2DEB0029C1EA /* SceneCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C8D191218B2DEB0029C1EA /* SceneCoordinator.swift */; };
+		49DB25DD218DDACD0037CFBB /* WalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DB25DC218DDACD0037CFBB /* WalkthroughViewController.swift */; };
+		49DB25DF218DDAFB0037CFBB /* WalkthroughViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DB25DE218DDAFB0037CFBB /* WalkthroughViewModel.swift */; };
 		829E084E26D392D5A7965F6D /* Pods_Weckr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D8F1BEF8290C85232F136C5 /* Pods_Weckr.framework */; };
 /* End PBXBuildFile section */
 
@@ -38,6 +40,8 @@
 		22C8D18D218B2BF70029C1EA /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		22C8D18F218B2C060029C1EA /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		22C8D191218B2DEB0029C1EA /* SceneCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneCoordinator.swift; sourceTree = "<group>"; };
+		49DB25DC218DDACD0037CFBB /* WalkthroughViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughViewController.swift; sourceTree = "<group>"; };
+		49DB25DE218DDAFB0037CFBB /* WalkthroughViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughViewModel.swift; sourceTree = "<group>"; };
 		8592F6B004899364C54363F9 /* Pods-Weckr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weckr.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Weckr/Pods-Weckr.debug.xcconfig"; sourceTree = "<group>"; };
 		8D8F1BEF8290C85232F136C5 /* Pods_Weckr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Weckr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -120,6 +124,7 @@
 		22C8D18B218B2AFC0029C1EA /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				49DB25DA218DDA6A0037CFBB /* Walkthrough */,
 				22C8D18D218B2BF70029C1EA /* MainViewController.swift */,
 			);
 			path = ViewController;
@@ -128,9 +133,26 @@
 		22C8D18C218B2B0C0029C1EA /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				49DB25DB218DDA760037CFBB /* Walkthrough */,
 				22C8D18F218B2C060029C1EA /* MainViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		49DB25DA218DDA6A0037CFBB /* Walkthrough */ = {
+			isa = PBXGroup;
+			children = (
+				49DB25DC218DDACD0037CFBB /* WalkthroughViewController.swift */,
+			);
+			path = Walkthrough;
+			sourceTree = "<group>";
+		};
+		49DB25DB218DDA760037CFBB /* Walkthrough */ = {
+			isa = PBXGroup;
+			children = (
+				49DB25DE218DDAFB0037CFBB /* WalkthroughViewModel.swift */,
+			);
+			path = Walkthrough;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -280,6 +302,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22C8D192218B2DEB0029C1EA /* SceneCoordinator.swift in Sources */,
+				49DB25DF218DDAFB0037CFBB /* WalkthroughViewModel.swift in Sources */,
 				22C8D18E218B2BF70029C1EA /* MainViewController.swift in Sources */,
 				22BCC83C218B1BEE00C77CB1 /* ViewController.swift in Sources */,
 				22C8D186218B29AF0029C1EA /* Scene+ViewController.swift in Sources */,
@@ -288,6 +311,7 @@
 				22C8D184218B28A50029C1EA /* Scene.swift in Sources */,
 				22C8D18A218B2AC90029C1EA /* SceneTransitionType.swift in Sources */,
 				22C8D190218B2C060029C1EA /* MainViewModel.swift in Sources */,
+				49DB25DD218DDACD0037CFBB /* WalkthroughViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
