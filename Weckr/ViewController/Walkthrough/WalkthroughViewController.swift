@@ -9,11 +9,13 @@
 import Foundation
 import UIKit
 import PureLayout
+import RxSwift
 
-class WalkthroughViewController: UIViewController {
+class WalkthroughViewController: UIViewController, BindableType {
     
-    private var viewModel: WalkthroughViewModelType!
-    private var currentPage = 0
+    var viewModel: WalkthroughViewModelType!
+    
+    private var disposeBag = DisposeBag()
     
     init(viewModel: WalkthroughViewModelType) {
         super.init(nibName: nil, bundle: nil)
@@ -24,6 +26,7 @@ class WalkthroughViewController: UIViewController {
         super.init(coder: aDecoder)
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,13 +35,26 @@ class WalkthroughViewController: UIViewController {
         addSubview()
         setupConstraints()
         
-        continueButton.addTarget(self, action: #selector(scrollToNextPage), for: .touchUpInside)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        let slides = createSlides()
-        setupSlideScrollView(slides: slides)
+        bindViewModel()
+    }
+    
+    func bindViewModel() {
+        viewModel.outputs.slides
+            .subscribe(onNext: setupSlideScrollView)
+            .disposed(by: disposeBag)
+        
+        viewModel.outputs.pageNumber
+            .subscribe(onNext: scrollToPage)
+            .disposed(by: disposeBag)
+        
+        continueButton.rx.tap
+            .bind(to: viewModel.inputs.nextPage)
+            .disposed(by: disposeBag)
+        
     }
     
     private func addSubview() {
@@ -55,12 +71,7 @@ class WalkthroughViewController: UIViewController {
         pagingView.autoPinEdge(.bottom, to: .top, of: continueButton)
     }
     
-    private func createSlides() -> [UIView] {
-        let landing = LandingPageViewController.init(nibName: nil, bundle: nil)
-        let calendar = CalendarViewController.init(nibName: nil, bundle: nil)
-        
-        return [landing.view, calendar.view]
-    }
+    
     
     private func setupSlideScrollView(slides: [UIView]) {
         pagingView.contentSize = CGSize(width: pagingView.frame.width * CGFloat(slides.count),
@@ -75,9 +86,8 @@ class WalkthroughViewController: UIViewController {
         }
     }
     
-    @objc private func scrollToNextPage() {
-        currentPage += 1
-        let rect = CGRect(x: CGFloat(currentPage)*pagingView.frame.width, y: 0, width: pagingView.frame.width, height: pagingView.frame.height)
+    private func scrollToPage(page: Int) {
+        let rect = CGRect(x: CGFloat(page)*pagingView.frame.width, y: 0, width: pagingView.frame.width, height: pagingView.frame.height)
         pagingView.scrollRectToVisible(rect, animated: true)
     }
     

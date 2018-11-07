@@ -12,6 +12,7 @@
 		22BCC83F218B1BEE00C77CB1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22BCC83D218B1BEE00C77CB1 /* Main.storyboard */; };
 		22BCC841218B1BF000C77CB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22BCC840218B1BF000C77CB1 /* Assets.xcassets */; };
 		22BCC844218B1BF000C77CB1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22BCC842218B1BF000C77CB1 /* LaunchScreen.storyboard */; };
+		22BE36A02193484500B56BF9 /* BindableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BE369F2193484500B56BF9 /* BindableType.swift */; };
 		22C8D184218B28A50029C1EA /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C8D183218B28A50029C1EA /* Scene.swift */; };
 		22C8D186218B29AF0029C1EA /* Scene+ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C8D185218B29AF0029C1EA /* Scene+ViewController.swift */; };
 		22C8D188218B2AAD0029C1EA /* SceneCoordinatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C8D187218B2AAD0029C1EA /* SceneCoordinatorType.swift */; };
@@ -35,6 +36,7 @@
 		22BCC840218B1BF000C77CB1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		22BCC843218B1BF000C77CB1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		22BCC845218B1BF000C77CB1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		22BE369F2193484500B56BF9 /* BindableType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindableType.swift; sourceTree = "<group>"; };
 		22C8D183218B28A50029C1EA /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 		22C8D185218B29AF0029C1EA /* Scene+ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Scene+ViewController.swift"; sourceTree = "<group>"; };
 		22C8D187218B2AAD0029C1EA /* SceneCoordinatorType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneCoordinatorType.swift; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 		22BCC838218B1BEE00C77CB1 /* Weckr */ = {
 			isa = PBXGroup;
 			children = (
+				22BE369D2193482900B56BF9 /* Utility */,
 				22BCC839218B1BEE00C77CB1 /* AppDelegate.swift */,
 				22C8D182218B28800029C1EA /* Scenes */,
 				22C8D18B218B2AFC0029C1EA /* ViewController */,
@@ -103,6 +106,22 @@
 				22BCC845218B1BF000C77CB1 /* Info.plist */,
 			);
 			path = Weckr;
+			sourceTree = "<group>";
+		};
+		22BE369D2193482900B56BF9 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				22BE369E2193483700B56BF9 /* Protocols */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		22BE369E2193483700B56BF9 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				22BE369F2193484500B56BF9 /* BindableType.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		22C6A4DB58696015B3AAA704 /* Frameworks */ = {
@@ -316,6 +335,7 @@
 				22BCC83A218B1BEE00C77CB1 /* AppDelegate.swift in Sources */,
 				49DB25E1218DE0460037CFBB /* LandingPageViewController.swift in Sources */,
 				49DB25E5218DE0B50037CFBB /* CalendarViewController.swift in Sources */,
+				22BE36A02193484500B56BF9 /* BindableType.swift in Sources */,
 				22C8D184218B28A50029C1EA /* Scene.swift in Sources */,
 				22C8D18A218B2AC90029C1EA /* SceneTransitionType.swift in Sources */,
 				22C8D190218B2C060029C1EA /* MainViewModel.swift in Sources */,
