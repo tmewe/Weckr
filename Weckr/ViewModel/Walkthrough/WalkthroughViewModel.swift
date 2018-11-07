@@ -65,7 +65,6 @@ class WalkthroughViewModel: WalkthroughViewModelType {
                 if page < maxPages {
                     self?.internalPageNumber.onNext(page + 1)
                 }
-                
             })
             .disposed(by: disposeBag)
         
@@ -75,10 +74,9 @@ class WalkthroughViewModel: WalkthroughViewModelType {
                 guard let page = try! self?.internalPageNumber.value() else {
                     return
                 }
-                if page < maxPages {
+                if page > 0 {
                     self?.internalPageNumber.onNext(page - 1)
                 }
-                
             })
             .disposed(by: disposeBag)
     }
