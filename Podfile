@@ -12,7 +12,6 @@ target 'Weckr' do
   pod 'NSObject+Rx'
   pod 'XCGLogger'
   pod 'RxOptional'
-  pod 'RxGesture'
   pod 'PureLayout'
   pod 'RealmSwift'
   pod 'RxRealm'

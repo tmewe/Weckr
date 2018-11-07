@@ -1,7 +1,7 @@
 PODS:
-  - Action (3.8.0):
-    - RxCocoa (~> 4.3.0)
-    - RxSwift (~> 4.3.0)
+  - Action (3.9.1):
+    - RxCocoa (~> 4.3)
+    - RxSwift (~> 4.3)
   - Differentiator (3.1.0)
   - "NSObject+Rx (4.4.1)":
     - RxSwift (~> 4.3)
@@ -14,22 +14,21 @@ PODS:
   - Realm/Headers (3.11.1)
   - RealmSwift (3.11.1):
     - Realm (= 3.11.1)
-  - RxCocoa (4.3.1):
+  - RxAtomic (4.4.0)
+  - RxCocoa (4.4.0):
     - RxSwift (~> 4.0)
   - RxDataSources (3.1.0):
     - Differentiator (~> 3.0)
     - RxCocoa (~> 4.0)
     - RxSwift (~> 4.0)
-  - RxGesture (2.0.1):
-    - RxCocoa (~> 4.3.1)
-    - RxSwift (~> 4.3.1)
   - RxOptional (3.5.0):
     - RxCocoa (~> 4.0)
     - RxSwift (~> 4.0)
   - RxRealm (0.7.6):
     - RealmSwift (~> 3.0)
     - RxSwift (~> 4.0)
-  - RxSwift (4.3.1)
+  - RxSwift (4.4.0):
+    - RxAtomic (~> 4.4)
   - XCGLogger (6.1.0):
     - XCGLogger/Core (= 6.1.0)
   - XCGLogger/Core (6.1.0):
@@ -42,7 +41,6 @@ DEPENDENCIES:
   - RealmSwift
   - RxCocoa
   - RxDataSources
-  - RxGesture
   - RxOptional
   - RxRealm
   - RxSwift
@@ -57,30 +55,30 @@ SPEC REPOS:
     - PureLayout
     - Realm
     - RealmSwift
+    - RxAtomic
     - RxCocoa
     - RxDataSources
-    - RxGesture
     - RxOptional
     - RxRealm
     - RxSwift
     - XCGLogger
 
 SPEC CHECKSUMS:
-  Action: 2275d04a407ecaf46a58d58a304388a28155a0a1
+  Action: 2f461c203c480b17aa99b3bb166e4329ecff6908
   Differentiator: be49ca3408f0ecfc761e4c7763d20c62be01b9ad
   "NSObject+Rx": 9884a92f19b610795c431e10b4e601913b59c9e9
   ObjcExceptionBridging: c30e00eb3700467e695faeea30e26e18bd445001
   PureLayout: f08c01b8dec00bb14a1fefa3de4c7d9c265df85e
   Realm: 037c5919b9ceb59d6beed5d3b031096856b119b3
   RealmSwift: c9580133e73ef40ed340401af2dbc9a5790dfea7
-  RxCocoa: 78763c7b07d02455598d9fc3c1ad091a28b73635
+  RxAtomic: eacf60db868c96bfd63320e28619fe29c179656f
+  RxCocoa: df63ebf7b9a70d6b4eeea407ed5dd4efc8979749
   RxDataSources: a843bad90c29817f5923ec8163f4af2de084ceb3
-  RxGesture: 26ede4ed13ffc6336d29dbd9a8dff229bdb72de7
   RxOptional: bd32ff8ca9df4177683d56ffeb618a9d4d5d5cad
   RxRealm: 5379eddd74f8d617ca7681d1f8d144af25b432b0
-  RxSwift: fe0fd770a43acdb7d0a53da411c9b892e69bb6e4
+  RxSwift: 5976ecd04fc2fefd648827c23de5e11157faa973
   XCGLogger: 7f7f43f15dfe3a305fa1342b7dc29af656289abd
 
-PODFILE CHECKSUM: 83f11d70ce150ddb2ed94ca3bd2a01011c5788f5
+PODFILE CHECKSUM: 0d4e1cd24a5b19993d476698a3b14dec365a13c3
 
 COCOAPODS: 1.5.3
