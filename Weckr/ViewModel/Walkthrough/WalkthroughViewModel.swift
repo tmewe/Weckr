@@ -12,7 +12,6 @@ import RxSwift
 protocol WalkthroughViewModelInputsType {
     var nextPage: PublishSubject<Void> { get }
     var previousPage: PublishSubject<Void> { get }
-    
 }
 
 protocol WalkthroughViewModelOutputsType {
@@ -56,28 +55,22 @@ class WalkthroughViewModel: WalkthroughViewModelType {
         pageNumber = internalPageNumber.asObservable()
         slides = Observable.of([landing.view, calendar.view])
         
-        Observable.combineLatest(nextPage, slides) {($0, $1)}
-            .map { $0.1.count }
-            .subscribe(onNext: {[weak self] maxPages in
-                guard let page = try! self?.internalPageNumber.value() else {
-                    return
-                }
-                if page < maxPages {
-                    self?.internalPageNumber.onNext(page + 1)
-                }
-            })
+        nextPage
+            .withLatestFrom(internalPageNumber)
+            .map { $0 + 1 }
+            .withLatestFrom(slides) {($0, $1)}
+            .filter { $0.0 < $0.1.count }
+            .map { $0.0 }
+            .debug()
+            .bind(to: internalPageNumber)
             .disposed(by: disposeBag)
         
-        Observable.combineLatest(previousPage, slides) {($0, $1)}
-            .map { $0.1.count }
-            .subscribe(onNext: {[weak self] maxPages in
-                guard let page = try! self?.internalPageNumber.value() else {
-                    return
-                }
-                if page > 0 {
-                    self?.internalPageNumber.onNext(page - 1)
-                }
-            })
+        previousPage
+            .withLatestFrom(internalPageNumber)
+            .map { $0 - 1 }
+            .filter { $0 >= 0 }
+            .debug()
+            .bind(to: internalPageNumber)
             .disposed(by: disposeBag)
     }
 }

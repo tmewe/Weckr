@@ -17,6 +17,7 @@ extension Scene {
             return vc
         case .walkthrough(let viewModel):
             let vc = WalkthroughViewController(viewModel: viewModel)
+            vc.bindViewModel()
             return vc
         }
     }

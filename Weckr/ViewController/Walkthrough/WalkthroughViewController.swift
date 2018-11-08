@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import PureLayout
 import RxSwift
+import RxViewController
 
 class WalkthroughViewController: UIViewController, BindableType {
     
@@ -36,14 +37,11 @@ class WalkthroughViewController: UIViewController, BindableType {
         setupConstraints()
         
     }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        bindViewModel()
-    }
-    
+        
     func bindViewModel() {
-        viewModel.outputs.slides
+        
+        rx.viewDidLayoutSubviews
+            .withLatestFrom(viewModel.outputs.slides)
             .subscribe(onNext: setupSlideScrollView)
             .disposed(by: disposeBag)
         
@@ -55,10 +53,14 @@ class WalkthroughViewController: UIViewController, BindableType {
             .bind(to: viewModel.inputs.nextPage)
             .disposed(by: disposeBag)
         
+        previousButton.rx.tap
+            .bind(to: viewModel.inputs.previousPage)
+            .disposed(by: disposeBag)
     }
     
     private func addSubview() {
         view.addSubview(continueButton)
+        view.addSubview(previousButton)
         view.addSubview(pagingView)
     }
     
@@ -66,6 +68,10 @@ class WalkthroughViewController: UIViewController, BindableType {
         continueButton.autoSetDimensions(to: CGSize(width: 200, height: 60))
         continueButton.autoAlignAxis(.vertical, toSameAxisOf: view)
         continueButton.autoPinEdge(.bottom, to: .bottom, of: view, withOffset: -65.0)
+        
+        previousButton.autoSetDimensions(to: CGSize(width: 50, height: 60))
+        previousButton.autoPinEdge(.bottom, to: .bottom, of: view, withOffset: -65.0)
+        previousButton.autoPinEdge(.left, to: .left, of: view, withOffset: 10.0)
         
         pagingView.autoPinEdgesToSuperviewSafeArea(with: UIEdgeInsets.zero, excludingEdge: .bottom)
         pagingView.autoPinEdge(.bottom, to: .top, of: continueButton)
@@ -94,6 +100,13 @@ class WalkthroughViewController: UIViewController, BindableType {
     let continueButton: UIButton = {
         let button = UIButton.newAutoLayout()
         button.setTitle("How?", for: .normal)
+        button.backgroundColor = .purple
+        return button
+    }()
+    
+    let previousButton: UIButton = {
+        let button = UIButton.newAutoLayout()
+        button.setTitle("Back", for: .normal)
         button.backgroundColor = .purple
         return button
     }()

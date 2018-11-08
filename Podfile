@@ -16,5 +16,5 @@ target 'Weckr' do
   pod 'RealmSwift'
   pod 'RxRealm'
   pod 'Action'
-
+  pod 'RxViewController'
 end
