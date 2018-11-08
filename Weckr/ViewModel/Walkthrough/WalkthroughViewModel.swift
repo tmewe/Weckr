@@ -61,7 +61,6 @@ class WalkthroughViewModel: WalkthroughViewModelType {
             .withLatestFrom(slides) {($0, $1)}
             .filter { $0.0 < $0.1.count }
             .map { $0.0 }
-            .debug()
             .bind(to: internalPageNumber)
             .disposed(by: disposeBag)
         
@@ -69,7 +68,6 @@ class WalkthroughViewModel: WalkthroughViewModelType {
             .withLatestFrom(internalPageNumber)
             .map { $0 - 1 }
             .filter { $0 >= 0 }
-            .debug()
             .bind(to: internalPageNumber)
             .disposed(by: disposeBag)
     }
