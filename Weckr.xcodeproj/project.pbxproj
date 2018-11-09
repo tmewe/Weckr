@@ -25,6 +25,10 @@
 		49DB25E1218DE0460037CFBB /* LandingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DB25E0218DE0460037CFBB /* LandingPageViewController.swift */; };
 		49DB25E5218DE0B50037CFBB /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DB25E4218DE0B50037CFBB /* CalendarViewController.swift */; };
 		829E084E26D392D5A7965F6D /* Pods_Weckr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D8F1BEF8290C85232F136C5 /* Pods_Weckr.framework */; };
+		84E7CDE72195B73F0088CF98 /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E7CDE62195B73F0088CF98 /* Alarm.swift */; };
+		84E7CDE92195D4210088CF98 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84E7CDE82195D4210088CF98 /* EventKit.framework */; };
+		84E7CDEB2195DC930088CF98 /* CalendarEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E7CDEA2195DC930088CF98 /* CalendarEntry.swift */; };
+		84E7CDED2195DD260088CF98 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E7CDEC2195DD260088CF98 /* Route.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +52,10 @@
 		49DB25DE218DDAFB0037CFBB /* WalkthroughViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughViewModel.swift; sourceTree = "<group>"; };
 		49DB25E0218DE0460037CFBB /* LandingPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingPageViewController.swift; sourceTree = "<group>"; };
 		49DB25E4218DE0B50037CFBB /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		84E7CDE62195B73F0088CF98 /* Alarm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; };
+		84E7CDE82195D4210088CF98 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		84E7CDEA2195DC930088CF98 /* CalendarEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEntry.swift; sourceTree = "<group>"; };
+		84E7CDEC2195DD260088CF98 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		8592F6B004899364C54363F9 /* Pods-Weckr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weckr.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Weckr/Pods-Weckr.debug.xcconfig"; sourceTree = "<group>"; };
 		8D8F1BEF8290C85232F136C5 /* Pods_Weckr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Weckr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -57,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84E7CDE92195D4210088CF98 /* EventKit.framework in Frameworks */,
 				829E084E26D392D5A7965F6D /* Pods_Weckr.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -94,6 +103,7 @@
 		22BCC838218B1BEE00C77CB1 /* Weckr */ = {
 			isa = PBXGroup;
 			children = (
+				84E7CDE52195B6D40088CF98 /* Model */,
 				22BE369D2193482900B56BF9 /* Utility */,
 				22BCC839218B1BEE00C77CB1 /* AppDelegate.swift */,
 				22C8D182218B28800029C1EA /* Scenes */,
@@ -127,6 +137,7 @@
 		22C6A4DB58696015B3AAA704 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				84E7CDE82195D4210088CF98 /* EventKit.framework */,
 				8D8F1BEF8290C85232F136C5 /* Pods_Weckr.framework */,
 			);
 			name = Frameworks;
@@ -178,6 +189,16 @@
 				49DB25DE218DDAFB0037CFBB /* WalkthroughViewModel.swift */,
 			);
 			path = Walkthrough;
+			sourceTree = "<group>";
+		};
+		84E7CDE52195B6D40088CF98 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				84E7CDE62195B73F0088CF98 /* Alarm.swift */,
+				84E7CDEA2195DC930088CF98 /* CalendarEntry.swift */,
+				84E7CDEC2195DD260088CF98 /* Route.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -330,13 +351,16 @@
 			files = (
 				22C8D192218B2DEB0029C1EA /* SceneCoordinator.swift in Sources */,
 				49DB25DF218DDAFB0037CFBB /* WalkthroughViewModel.swift in Sources */,
+				84E7CDE72195B73F0088CF98 /* Alarm.swift in Sources */,
 				22C8D18E218B2BF70029C1EA /* MainViewController.swift in Sources */,
 				22BCC83C218B1BEE00C77CB1 /* ViewController.swift in Sources */,
 				22C8D186218B29AF0029C1EA /* Scene+ViewController.swift in Sources */,
 				22C8D188218B2AAD0029C1EA /* SceneCoordinatorType.swift in Sources */,
 				22BCC83A218B1BEE00C77CB1 /* AppDelegate.swift in Sources */,
 				49DB25E1218DE0460037CFBB /* LandingPageViewController.swift in Sources */,
+				84E7CDED2195DD260088CF98 /* Route.swift in Sources */,
 				49DB25E5218DE0B50037CFBB /* CalendarViewController.swift in Sources */,
+				84E7CDEB2195DC930088CF98 /* CalendarEntry.swift in Sources */,
 				22BE36A02193484500B56BF9 /* BindableType.swift in Sources */,
 				22C8D184218B28A50029C1EA /* Scene.swift in Sources */,
 				22C8D18A218B2AC90029C1EA /* SceneTransitionType.swift in Sources */,
