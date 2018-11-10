@@ -31,10 +31,11 @@ class WalkthroughViewController: UIViewController, BindableType {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .blue
+        view.backgroundColor = .backgroundColor
         
         addSubview()
         setupConstraints()
+
         
     }
         
@@ -45,8 +46,22 @@ class WalkthroughViewController: UIViewController, BindableType {
             .subscribe(onNext: setupSlideScrollView)
             .disposed(by: disposeBag)
         
+        let pageNumberAndSlides = Observable.combineLatest(viewModel.outputs.pageNumber, viewModel.outputs.slides)
+        
+        rx.viewDidLayoutSubviews
+            .withLatestFrom(pageNumberAndSlides)
+            .subscribe(onNext: updateCurrentPage)
+            .disposed(by: disposeBag)
+   
+        pageNumberAndSlides
+            .subscribe(onNext: updateCurrentPage)
+            .disposed(by: disposeBag)
+
+        
         viewModel.outputs.pageNumber
-            .subscribe(onNext: scrollToPage)
+            .map { ($0 == 0) }
+            .asDriver(onErrorJustReturn: true)
+            .drive (previousButton.rx.isHidden)
             .disposed(by: disposeBag)
         
         continueButton.rx.tap
@@ -65,31 +80,41 @@ class WalkthroughViewController: UIViewController, BindableType {
     }
     
     private func setupConstraints() {
-        continueButton.autoSetDimensions(to: CGSize(width: 200, height: 60))
+        continueButton.autoSetDimensions(to: CGSize(
+            width: Constraints.Walkthrough.NextButton.width,
+            height: Constraints.Walkthrough.NextButton.height))
         continueButton.autoAlignAxis(.vertical, toSameAxisOf: view)
-        continueButton.autoPinEdge(.bottom, to: .bottom, of: view, withOffset: -65.0)
+        continueButton.autoPinEdge(.bottom, to: .bottom, of: view,
+                                   withOffset: -Constraints.Walkthrough.NextButton.bottomOffset)
         
-        previousButton.autoSetDimensions(to: CGSize(width: 50, height: 60))
-        previousButton.autoPinEdge(.bottom, to: .bottom, of: view, withOffset: -65.0)
-        previousButton.autoPinEdge(.left, to: .left, of: view, withOffset: 10.0)
+        previousButton.autoSetDimensions(to: CGSize(
+            width: Constraints.Walkthrough.NextButton.width,
+            height: Constraints.Walkthrough.NextButton.bottomOffset))
+        previousButton.autoAlignAxis(.vertical, toSameAxisOf: view)
+        previousButton.autoPinEdge(.top, to: .bottom, of: continueButton)
         
         pagingView.autoPinEdgesToSuperviewSafeArea(with: UIEdgeInsets.zero, excludingEdge: .bottom)
         pagingView.autoPinEdge(.bottom, to: .top, of: continueButton)
     }
     
     
-    
-    private func setupSlideScrollView(slides: [UIView]) {
+    private func setupSlideScrollView(slides: [WalkthroughSlideWrapper]) {
         pagingView.contentSize = CGSize(width: pagingView.frame.width * CGFloat(slides.count),
                                         height: pagingView.frame.height)
         
         for i in 0 ..< slides.count {
-            slides[i].frame = CGRect(x: pagingView.frame.width * CGFloat(i),
+            slides[i].view.frame = CGRect(x: pagingView.frame.width * CGFloat(i),
                                      y: 0,
                                      width: pagingView.frame.width,
                                      height: pagingView.frame.height)
-            pagingView.addSubview(slides[i])
+            pagingView.addSubview(slides[i].view)
         }
+    }
+
+    
+    private func updateCurrentPage(pageNumber: Int, pages: [WalkthroughSlideWrapper]) {
+        scrollToPage(page: pageNumber)
+        updateContinueButtonLook(text: pages[pageNumber].buttonText, color: pages[pageNumber].buttonColor)
     }
     
     private func scrollToPage(page: Int) {
@@ -97,17 +122,29 @@ class WalkthroughViewController: UIViewController, BindableType {
         pagingView.scrollRectToVisible(rect, animated: true)
     }
     
+    private func updateContinueButtonLook (text: String, color: UIColor) {
+        continueButton.setTitle(text, for: .normal)
+        continueButton.setGradientBackground(colorOne: color, colorTwo: .backGroundColorTransparent)
+    }
+    
+    private func updatePreviousButtonVisibility(visible: Bool) {
+        previousButton.isHidden = !visible
+    }
+    
     let continueButton: UIButton = {
         let button = UIButton.newAutoLayout()
         button.setTitle("How?", for: .normal)
-        button.backgroundColor = .purple
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.bold)
+        button.layer.cornerRadius = button.layer.frame.height / 2
+        button.layer.masksToBounds = true
+        button.setGradientBackground(colorOne: .black, colorTwo: .green)
         return button
     }()
     
     let previousButton: UIButton = {
         let button = UIButton.newAutoLayout()
         button.setTitle("Back", for: .normal)
-        button.backgroundColor = .purple
+        button.setTitleColor(.walkthroughPreviousButtonColor, for: .normal)
         return button
     }()
     

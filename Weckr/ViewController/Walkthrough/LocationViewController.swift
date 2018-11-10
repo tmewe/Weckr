@@ -1,15 +1,16 @@
 //
-//  CalendarViewController.swift
+//  LocationViewController.swift
 //  Weckr
 //
-//  Created by Tim Mewe on 03.11.18.
+//  Created by Tim Lehmann on 10.11.18.
 //  Copyright © 2018 Tim Lehmann. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
-class CalendarViewController: UIViewController {
-
+class LocationViewController: UIViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .backgroundColor
@@ -21,7 +22,7 @@ class CalendarViewController: UIViewController {
     func setupViews() {
         view.addSubview(topLabel)
         view.addSubview(bottomLabel)
-
+        
     }
     
     func setupConstraints() {
@@ -40,10 +41,10 @@ class CalendarViewController: UIViewController {
     
     let topLabel: UILabel = {
         var label = UILabel(
-            text: "walkthrough.calendar.title".localized(),
-            coloredPart: "walkthrough.calendar.title.coloredPart".localized(),
+            text: "walkthrough.location.title".localized(),
+            coloredPart: "walkthrough.location.title.coloredPart".localized(),
             textColor: .white,
-            coloredColor: .walkthroughGreenAccent)
+            coloredColor: .walkthroughOrangeAccent)
             .configureForAutoLayout()
         
         label.textAlignment = .left
@@ -54,10 +55,10 @@ class CalendarViewController: UIViewController {
     
     let bottomLabel: UILabel = {
         var label = UILabel(
-            text: "walkthrough.calendar.title2".localized(),
-            coloredPart: "walkthrough.calendar.title2.coloredPart".localized(),
+            text: "walkthrough.location.title2".localized(),
+            coloredPart: "walkthrough.location.title2.coloredPart".localized(),
             textColor: .white,
-            coloredColor: .walkthroughGreenAccent)
+            coloredColor: .walkthroughOrangeAccent)
             .configureForAutoLayout()
         
         label.textAlignment = .right

@@ -1,0 +1,31 @@
+/* 
+  Localizable.strings
+  Weckr
+
+  Created by Tim Lehmann on 09.11.18.
+  Copyright © 2018 Tim Lehmann. All rights reserved.
+*/
+
+"walkthrough.landing.title" = "Let your Alarm work for You.";
+"walkthrough.landing.title.coloredPart" = "You";
+
+"walkthrough.landing.buttonTitle" = "How?";
+
+
+
+"walkthrough.calendar.title" = "Weckr knows your schedule...";
+"walkthrough.calendar.title.coloredPart" = "Weckr";
+
+"walkthrough.calendar.title2" = "and rings right on time.";
+"walkthrough.calendar.title2.coloredPart" = "right on time.";
+
+"walkthrough.calendar.buttonTitle" = "Wow!";
+
+
+"walkthrough.location.title" = "It will also know where to go...";
+"walkthrough.location.title.coloredPart" = "where";
+
+"walkthrough.location.title2" = "and how to get there.";
+"walkthrough.location.title2.coloredPart" = "how";
+
+"walkthrough.location.buttonTitle" = "Great!";

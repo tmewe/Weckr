@@ -1,0 +1,14 @@
+/* 
+  Localizable.strings
+  Weckr
+
+  Created by Tim Lehmann on 09.11.18.
+  Copyright © 2018 Tim Lehmann. All rights reserved.
+*/
+
+"walkthrough.landingPage.title" = "Lass' deinen Wecker für dich arbeiten.";
+"walkthrough.landingPage.buttonTitle" = "Wie?";
+
+"walkthrough.calendarPage.title" = "Weckr versteht deinen Terminplan...";
+"walkthrough.calendarPage.title2" = "und klingelt immer pünktlich.";
+"walkthrough.calendarPage.buttonTitle" = "Wow!";

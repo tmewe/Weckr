@@ -10,11 +10,39 @@ import UIKit
 
 class LandingPageViewController: UIViewController {
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
-        // Do any additional setup after loading the view.
+        view.backgroundColor = .backgroundColor
+        setupViews()
+        setupConstraints()
+    }
+    
+    
+    func setupViews() {
+        view.addSubview(topLabel)
+    }
+    
+    func setupConstraints() {
+        topLabel.autoPinEdge(.top, to: .top, of: view, withOffset: Constraints.Walkthrough.Title.title1Top)
+        topLabel.autoPinEdge(.left, to: .left, of: view, withOffset: Constraints.Walkthrough.Title.horizontalSides)
+        topLabel.autoSetDimension(.width, toSize: Constraints.Walkthrough.Title.width)
+
     }
 
     
+    
+    let topLabel: UILabel = {
+        var label = UILabel(
+            text: "walkthrough.landing.title".localized(),
+            coloredPart: "walkthrough.landing.title.coloredPart".localized(),
+            textColor: .white,
+            coloredColor: .walkthroughPurpleAccent)
+            .configureForAutoLayout()
+    
+        label.textAlignment = .left
+        label.font = UIFont.systemFont(ofSize: 34, weight: .bold)
+        label.numberOfLines = 0
+        return label
+    }()
 }

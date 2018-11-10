@@ -16,7 +16,7 @@ protocol WalkthroughViewModelInputsType {
 
 protocol WalkthroughViewModelOutputsType {
     var pageNumber : Observable<Int> { get }
-    var slides : Observable<[UIView]> { get }
+    var slides : Observable<[WalkthroughSlideWrapper]> { get }
 }
 
 protocol WalkthroughViewModelType {
@@ -39,13 +39,29 @@ class WalkthroughViewModel: WalkthroughViewModelType {
     
     //Outputs
     var pageNumber: Observable<Int>
-    var slides: Observable<[UIView]>
+    var slides: Observable<[WalkthroughSlideWrapper]>
     
     init() {
         
         //Setup
-        let landing = LandingPageViewController.init(nibName: nil, bundle: nil)
-        let calendar = CalendarViewController.init(nibName: nil, bundle: nil)
+        let landingView = LandingPageViewController.init(nibName: nil, bundle: nil)
+        let calendarView = CalendarViewController.init(nibName: nil, bundle: nil)
+        let locationView = LocationViewController.init(nibName: nil, bundle: nil)
+        
+        let landing = WalkthroughSlideWrapper(
+            view: landingView.view,
+            buttonColor: UIColor.walkthroughPurpleAccent,
+            buttonText: "walkthrough.landing.buttonTitle".localized())
+        
+        let calendar = WalkthroughSlideWrapper(
+            view: calendarView.view,
+            buttonColor: UIColor.walkthroughGreenAccent,
+            buttonText: "walkthrough.calendar.buttonTitle".localized())
+        
+        let location = WalkthroughSlideWrapper(
+            view: locationView.view,
+            buttonColor: UIColor.walkthroughOrangeAccent,
+            buttonText: "walkthrough.location.buttonTitle".localized())
         
         //Inputs
         nextPage = PublishSubject()
@@ -53,7 +69,7 @@ class WalkthroughViewModel: WalkthroughViewModelType {
         
         //Outputs
         pageNumber = internalPageNumber.asObservable()
-        slides = Observable.of([landing.view, calendar.view])
+        slides = Observable.of([landing, calendar, location])
         
         nextPage
             .withLatestFrom(internalPageNumber)
@@ -74,3 +90,5 @@ class WalkthroughViewModel: WalkthroughViewModelType {
 }
 
 extension WalkthroughViewModel: WalkthroughViewModelInputsType, WalkthroughViewModelOutputsType {}
+
+
