@@ -12,5 +12,6 @@ import RealmSwift
 class Step: Object {
     @objc dynamic var distance: Int = 0
     @objc dynamic var duration: Int = 0
+    @objc dynamic var maneuver: String!
     @objc dynamic var transitDetails: TransitDetails?
 }
