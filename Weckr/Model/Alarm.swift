@@ -13,7 +13,13 @@ import RealmSwift
 class Alarm: Object {
     @objc dynamic var id: Int = 0
     @objc dynamic var date: Date!
+    @objc dynamic var latitude: Double = 0.0
+    @objc dynamic var longitude: Double = 0.0
     @objc dynamic var selectedEvent: CalendarEntry!
-    let otherEvents = List<CalendarEntry>()
     @objc dynamic var route: Route!
+    let otherEvents = List<CalendarEntry>()
+    
+    override public class func primaryKey() -> String? {
+        return "id"
+    }
 }
