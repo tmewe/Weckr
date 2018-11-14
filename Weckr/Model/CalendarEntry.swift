@@ -12,4 +12,9 @@ import EventKit
 
 class CalendarEntry: Object {
     @objc dynamic var event: EKEvent!
+    
+    convenience init(event: EKEvent) {
+        self.init()
+        self.event = event
+    }
 }
