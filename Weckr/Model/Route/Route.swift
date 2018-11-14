@@ -9,5 +9,5 @@ import Foundation
 import RealmSwift
 
 class Route: Object {
-    
+    let legs = List<Leg>()
 }
