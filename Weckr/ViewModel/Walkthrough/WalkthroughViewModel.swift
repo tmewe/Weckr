@@ -12,11 +12,13 @@ import RxSwift
 protocol WalkthroughViewModelInputsType {
     var nextPage: PublishSubject<Void> { get }
     var previousPage: PublishSubject<Void> { get }
+    var scrollAmount: PublishSubject<CGFloat> { get }
 }
 
 protocol WalkthroughViewModelOutputsType {
     var pageNumber : Observable<Int> { get }
     var slides : Observable<[WalkthroughSlideWrapper]> { get }
+    var buttonColor: Observable<UIColor> { get }
 }
 
 protocol WalkthroughViewModelType {
@@ -31,15 +33,19 @@ class WalkthroughViewModel: WalkthroughViewModelType {
     
     //Setup
     private var internalPageNumber = BehaviorSubject(value: 0)
+    private var internalButtonColor = BehaviorSubject(value: UIColor.transparent)
+    
     private let disposeBag = DisposeBag()
     
     //Inputs
     var nextPage: PublishSubject<Void>
     var previousPage: PublishSubject<Void>
+    var scrollAmount: PublishSubject<CGFloat>
     
     //Outputs
     var pageNumber: Observable<Int>
     var slides: Observable<[WalkthroughSlideWrapper]>
+    var buttonColor: Observable<UIColor>
     
     init() {
         
@@ -66,10 +72,12 @@ class WalkthroughViewModel: WalkthroughViewModelType {
         //Inputs
         nextPage = PublishSubject()
         previousPage = PublishSubject()
+        scrollAmount = PublishSubject()
         
         //Outputs
         pageNumber = internalPageNumber.asObservable()
         slides = Observable.of([landing, calendar, location])
+        buttonColor = internalButtonColor.asObservable()
         
         nextPage
             .withLatestFrom(internalPageNumber)
@@ -86,6 +94,13 @@ class WalkthroughViewModel: WalkthroughViewModelType {
             .filter { $0 >= 0 }
             .bind(to: internalPageNumber)
             .disposed(by: disposeBag)
+        
+        Observable.combineLatest(scrollAmount, slides)
+            .map{ (arg) -> UIColor in let (amount, s) = arg
+                return s[Int(floor(amount))].buttonColor}
+            .bind(to: internalButtonColor)
+            .disposed(by: disposeBag)
+        
     }
 }
 

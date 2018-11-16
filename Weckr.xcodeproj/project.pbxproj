@@ -195,9 +195,9 @@
 		22C8D18B218B2AFC0029C1EA /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				22C8D18D218B2BF70029C1EA /* MainViewController.swift */,
 				220365AD2195BB48002BDE91 /* Resources */,
 				49DB25DA218DDA6A0037CFBB /* Walkthrough */,
-				22C8D18D218B2BF70029C1EA /* MainViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";

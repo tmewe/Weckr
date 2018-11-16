@@ -56,12 +56,18 @@ class WalkthroughViewController: UIViewController, BindableType {
         pageNumberAndSlides
             .subscribe(onNext: updateCurrentPage)
             .disposed(by: disposeBag)
-
         
         viewModel.outputs.pageNumber
             .map { ($0 == 0) }
             .asDriver(onErrorJustReturn: true)
             .drive (previousButton.rx.isHidden)
+            .disposed(by: disposeBag)
+        
+        viewModel.outputs.buttonColor
+            .asDriver(onErrorJustReturn: UIColor.walkthroughPurpleAccent)
+            .map{[$0.cgColor, UIColor.backGroundColorTransparent.cgColor]}
+            .debug()
+            .drive(continueButton.rx.gradientColor)
             .disposed(by: disposeBag)
         
         continueButton.rx.tap
@@ -70,6 +76,12 @@ class WalkthroughViewController: UIViewController, BindableType {
         
         previousButton.rx.tap
             .bind(to: viewModel.inputs.previousPage)
+            .disposed(by: disposeBag)
+        
+        pagingView.rx.contentOffset
+            .map{ $0.x / self.pagingView.frame.width }
+            .filter{ $0 >= 0 }
+            .bind(to: viewModel.inputs.scrollAmount)
             .disposed(by: disposeBag)
     }
     
@@ -95,6 +107,8 @@ class WalkthroughViewController: UIViewController, BindableType {
         
         pagingView.autoPinEdgesToSuperviewSafeArea(with: UIEdgeInsets.zero, excludingEdge: .bottom)
         pagingView.autoPinEdge(.bottom, to: .top, of: continueButton)
+        
+      
     }
     
     
@@ -124,7 +138,7 @@ class WalkthroughViewController: UIViewController, BindableType {
     
     private func updateContinueButtonLook (text: String, color: UIColor) {
         continueButton.setTitle(text, for: .normal)
-        continueButton.setGradientBackground(colorOne: color, colorTwo: .backGroundColorTransparent)
+        //continueButton.setGradientBackground(colorOne: color, colorTwo: .backGroundColorTransparent)
     }
     
     private func updatePreviousButtonVisibility(visible: Bool) {
@@ -137,7 +151,6 @@ class WalkthroughViewController: UIViewController, BindableType {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.bold)
         button.layer.cornerRadius = button.layer.frame.height / 2
         button.layer.masksToBounds = true
-        button.setGradientBackground(colorOne: .black, colorTwo: .green)
         return button
     }()
     

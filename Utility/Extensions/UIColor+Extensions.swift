@@ -41,6 +41,36 @@ extension UIColor {
         self.init(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0, blue: CGFloat(blue) / 255.0, alpha: 1.0)
     }
     
+    func interpolateTo(color: UIColor, fraction: CGFloat) -> UIColor? {
+        
+        let f = min(max(0, fraction), 1)
+        
+        guard let c1 = self.cgColor.components, let c2 = color.cgColor.components else { return nil }
+        
+        let r: CGFloat = CGFloat(c1[0] + (c2[0] - c1[0]) * f)
+        let g: CGFloat = CGFloat(c1[1] + (c2[1] - c1[1]) * f)
+        let b: CGFloat = CGFloat(c1[2] + (c2[2] - c1[2]) * f)
+        let a: CGFloat = CGFloat(c1[3] + (c2[3] - c1[3]) * f)
+        
+        return UIColor(red: r, green: g, blue: b, alpha: a)
+    }
+    
+    func interpolateTo(colors: [UIColor], value: CGFloat) -> UIColor{
+        
+        var colors = colors
+        
+        let v = min(max(0, value), CGFloat(colors.count))
+        
+        colors.insert(self, at: 0)
+        
+        let color1 = colors[Int(floor(v))]
+        let color2 = colors[Int(ceil(v))]
+        
+        
+        return (color1.interpolateTo(color: color2, fraction: value - floor(value)) ?? self)
+        
+    }
+    
     class var transparent: UIColor {
         return #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
     }
