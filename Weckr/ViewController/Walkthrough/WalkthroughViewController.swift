@@ -52,6 +52,14 @@ class WalkthroughViewController: UIViewController, BindableType {
             .withLatestFrom(pageNumberAndSlides)
             .subscribe(onNext: updateCurrentPage)
             .disposed(by: disposeBag)
+        
+        rx.viewDidLayoutSubviews
+            .withLatestFrom(viewModel.outputs.buttonColor)
+            .asDriver(onErrorJustReturn: UIColor.walkthroughPurpleAccent)
+            .map {[$0.cgColor, UIColor.backGroundColorTransparent.cgColor]}
+            .debug()
+            .drive(continueButton.rx.gradientColor)
+            .disposed(by: disposeBag)
    
         pageNumberAndSlides
             .subscribe(onNext: updateCurrentPage)
@@ -63,10 +71,10 @@ class WalkthroughViewController: UIViewController, BindableType {
             .drive (previousButton.rx.isHidden)
             .disposed(by: disposeBag)
         
+        
         viewModel.outputs.buttonColor
             .asDriver(onErrorJustReturn: UIColor.walkthroughPurpleAccent)
             .map{[$0.cgColor, UIColor.backGroundColorTransparent.cgColor]}
-            .debug()
             .drive(continueButton.rx.gradientColor)
             .disposed(by: disposeBag)
         
@@ -83,6 +91,8 @@ class WalkthroughViewController: UIViewController, BindableType {
             .filter{ $0 >= 0 }
             .bind(to: viewModel.inputs.scrollAmount)
             .disposed(by: disposeBag)
+        
+        
     }
     
     private func addSubview() {
@@ -138,7 +148,6 @@ class WalkthroughViewController: UIViewController, BindableType {
     
     private func updateContinueButtonLook (text: String, color: UIColor) {
         continueButton.setTitle(text, for: .normal)
-        //continueButton.setGradientBackground(colorOne: color, colorTwo: .backGroundColorTransparent)
     }
     
     private func updatePreviousButtonVisibility(visible: Bool) {
