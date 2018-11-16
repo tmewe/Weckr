@@ -17,7 +17,7 @@ import CoreGraphics
 extension Reactive where Base: UIView {
     
     public var gradientColor: Binder<[CGColor]> {
-        return Binder(self.base) { (view, colors) in
+        return Binder(self.base) { view, colors in
             let gradientLayer = CAGradientLayer()
             gradientLayer.frame = view.bounds
             gradientLayer.colors = colors

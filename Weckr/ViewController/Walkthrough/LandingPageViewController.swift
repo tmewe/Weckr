@@ -10,6 +10,17 @@ import UIKit
 
 class LandingPageViewController: UIViewController {
 
+    private var viewModel: LandingPageViewModel!
+    
+    init(viewModel: LandingPageViewModel) {
+        super.init(nibName: nil, bundle: nil)
+        
+        self.viewModel = viewModel
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +38,6 @@ class LandingPageViewController: UIViewController {
         topLabel.autoPinEdge(.top, to: .top, of: view, withOffset: Constraints.Walkthrough.Title.title1Top)
         topLabel.autoPinEdge(.left, to: .left, of: view, withOffset: Constraints.Walkthrough.Title.horizontalSides)
         topLabel.autoSetDimension(.width, toSize: Constraints.Walkthrough.Title.width)
-
     }
 
     

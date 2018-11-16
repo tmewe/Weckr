@@ -44,30 +44,17 @@ class WalkthroughViewModel: WalkthroughViewModelType {
     
     //Outputs
     var pageNumber: Observable<Int>
-    var slides: Observable<[WalkthroughSlideWrapper]>
+    var slides: Observable<[WalkthroughPageViewController]>
     var buttonColor: Observable<UIColor>
     
     init() {
         
         //Setup
-        let landingView = LandingPageViewController.init(nibName: nil, bundle: nil)
-        let calendarView = CalendarViewController.init(nibName: nil, bundle: nil)
-        let locationView = LocationViewController.init(nibName: nil, bundle: nil)
+        let landingViewModel = LandingPageViewModel()
         
-        let landing = WalkthroughSlideWrapper(
-            view: landingView.view,
-            buttonColor: UIColor.walkthroughPurpleAccent,
-            buttonText: "walkthrough.landing.buttonTitle".localized())
+        let landingPage = WalkthroughPageViewController(viewModel: landingViewModel)
         
-        let calendar = WalkthroughSlideWrapper(
-            view: calendarView.view,
-            buttonColor: UIColor.walkthroughGreenAccent,
-            buttonText: "walkthrough.calendar.buttonTitle".localized())
         
-        let location = WalkthroughSlideWrapper(
-            view: locationView.view,
-            buttonColor: UIColor.walkthroughOrangeAccent,
-            buttonText: "walkthrough.location.buttonTitle".localized())
         
         //Inputs
         nextPage = PublishSubject()
@@ -76,7 +63,7 @@ class WalkthroughViewModel: WalkthroughViewModelType {
         
         //Outputs
         pageNumber = internalPageNumber.asObservable()
-        slides = Observable.of([landing, calendar, location])
+        slides = Observable.of([landingPage])
         buttonColor = internalButtonColor.asObservable()
         
         nextPage
@@ -96,10 +83,13 @@ class WalkthroughViewModel: WalkthroughViewModelType {
             .disposed(by: disposeBag)
         
         Observable.combineLatest(scrollAmount, slides)
-            .map{ (arg) -> UIColor in let (amount, s) = arg
-                return s[Int(floor(amount))].buttonColor}
-            .bind(to: internalButtonColor)
-            .disposed(by: disposeBag)
+            .map { $0.1[Int(floor($0.0))] }
+            .map { $0.viewModel.outputs.accentColor }
+            
+            //TODO : Hier liegen Leichen beraben
+            .asDriver(onErrorJustReturn: <#T##Observable<CGColor>#>))
+            .drive
+            
         
     }
 }

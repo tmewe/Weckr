@@ -8,21 +8,40 @@
 
 import Foundation
 import UIKit
+import RxSwift
+import RxCocoa
+
+public struct LabelColoredPartInfo {
+    let text: String
+    let color: UIColor
+}
 
 extension UILabel {
     
-    
-    convenience init(text: String, coloredPart: String, textColor: UIColor, coloredColor: UIColor) {
+    func setTextWithColoredPart(text: String, coloredText: String, textColor: UIColor, coloredColor: UIColor) {
         
         let attrText = NSMutableAttributedString.init(string: text)
         
         let totalRange = (text as NSString).range(of: text)
-        let coloredRange = (text as NSString).range(of: (coloredPart))
+        let coloredRange = (text as NSString).range(of: (coloredText))
         
         attrText.addAttribute(NSAttributedString.Key.foregroundColor, value: textColor, range: totalRange)
         attrText.addAttribute(NSAttributedString.Key.foregroundColor, value: coloredColor, range: coloredRange)
         
-        self.init()
         self.attributedText = attrText
     }
 }
+
+extension Reactive where Base:UILabel {
+    
+    public var coloredPart: Binder<LabelColoredPartInfo> {
+        return Binder(self.base){ label, colored in
+            label.setTextWithColoredPart(
+                text: label.attributedText?.string ?? label.text ?? "",
+                coloredText: colored.text,
+                textColor: label.textColor,
+                coloredColor: colored.color)
+        }
+    }
+}
+

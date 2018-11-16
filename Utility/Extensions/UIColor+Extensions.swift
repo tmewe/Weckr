@@ -66,7 +66,6 @@ extension UIColor {
         let color1 = colors[Int(floor(v))]
         let color2 = colors[Int(ceil(v))]
         
-        
         return (color1.interpolateTo(color: color2, fraction: value - floor(value)) ?? self)
         
     }

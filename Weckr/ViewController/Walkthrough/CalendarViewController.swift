@@ -21,7 +21,6 @@ class CalendarViewController: UIViewController {
     func setupViews() {
         view.addSubview(topLabel)
         view.addSubview(bottomLabel)
-
     }
     
     func setupConstraints() {
@@ -32,11 +31,7 @@ class CalendarViewController: UIViewController {
         bottomLabel.autoPinEdge(.top, to: .bottom, of: topLabel, withOffset: Constraints.Walkthrough.Title.title2Offset)
         bottomLabel.autoPinEdge(.right, to: .right, of: view, withOffset: -Constraints.Walkthrough.Title.horizontalSides)
         bottomLabel.autoSetDimension(.width, toSize: Constraints.Walkthrough.Title.width)
-        
-        
     }
-    
-    
     
     let topLabel: UILabel = {
         var label = UILabel(
