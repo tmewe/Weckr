@@ -49,13 +49,9 @@ class WalkthroughViewModel: WalkthroughViewModelType {
     var buttonColor: Observable<CGColor>
     var buttonText: Observable<String>
     
-    init() {
+    init(pages: [WalkthroughPageViewController]) {
         
         //Setup
-        let landingViewModel = LandingPageViewModel()
-        let landingPage = WalkthroughPageViewController(viewModel: landingViewModel)
-        let calendarViewModel = CalendarPageViewModel()
-        let calendarPage = WalkthroughPageViewController(viewModel: calendarViewModel)
         
         //Inputs
         nextPage = PublishSubject()
@@ -64,7 +60,7 @@ class WalkthroughViewModel: WalkthroughViewModelType {
         
         //Outputs
         pageNumber = internalPageNumber.asObservable()
-        slides = Observable.of([landingPage, calendarPage])
+        slides = Observable.of(pages)
         
         let currentPageController = scrollAmount
             .withLatestFrom(slides) { ($0, $1) }

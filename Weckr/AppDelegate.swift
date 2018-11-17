@@ -17,8 +17,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        let landingViewModel = LandingPageViewModel()
+        let landingPage = WalkthroughPageViewController(viewModel: landingViewModel)
+        let calendarViewModel = CalendarPageViewModel()
+        let calendarPage = WalkthroughPageViewController(viewModel: calendarViewModel)
+        
+        let pages = [landingPage, calendarPage]
+        
         let coordinator = SceneCoordinator(window: window!)
-        let walkthroughViewModel = WalkthroughViewModel()
+        let walkthroughViewModel = WalkthroughViewModel(pages: pages)
         coordinator.transition(to: Scene.walkthrough(walkthroughViewModel), withType: .root)
         
         return true
