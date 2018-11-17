@@ -15,7 +15,6 @@ import RxViewController
 class WalkthroughViewController: UIViewController, BindableType {
     
     var viewModel: WalkthroughViewModelType!
-    
     private var disposeBag = DisposeBag()
     
     init(viewModel: WalkthroughViewModelType) {
@@ -27,16 +26,12 @@ class WalkthroughViewController: UIViewController, BindableType {
         super.init(coder: aDecoder)
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .backgroundColor
         
         addSubview()
         setupConstraints()
-
-        
     }
         
     func bindViewModel() {
@@ -100,10 +95,6 @@ class WalkthroughViewController: UIViewController, BindableType {
                                      bottom: Constraints.Walkthrough.PreviousButton.bottomOffset,
                                      right: 0)
         
-        previousButton.autoSetDimensions(to: CGSize(
-            width: Constraints.Walkthrough.NextButton.width,
-            height: Constraints.Walkthrough.NextButton.bottomOffset))
-        previousButton.autoAlignAxis(.vertical, toSameAxisOf: view)
         previousButton.autoPinEdgesToSuperviewSafeArea(with: edgeInsets,
                                                        excludingEdge: .top)
         
@@ -116,8 +107,6 @@ class WalkthroughViewController: UIViewController, BindableType {
         
         pagingView.autoPinEdgesToSuperviewSafeArea(with: UIEdgeInsets.zero, excludingEdge: .bottom)
         pagingView.autoPinEdge(.bottom, to: .top, of: continueButton)
-        
-      
     }
     
     
@@ -133,24 +122,14 @@ class WalkthroughViewController: UIViewController, BindableType {
             pagingView.addSubview(slides[i].view)
         }
     }
-
     
     private func updateCurrentPage(pageNumber: Int, pages: [WalkthroughPageViewController]) {
         scrollToPage(page: pageNumber)
-//        updateContinueButtonLook(text: pages[pageNumber].buttonText, color: pages[pageNumber].buttonColor)
     }
     
     private func scrollToPage(page: Int) {
         let rect = CGRect(x: CGFloat(page)*pagingView.frame.width, y: 0, width: pagingView.frame.width, height: pagingView.frame.height)
         pagingView.scrollRectToVisible(rect, animated: true)
-    }
-    
-    private func updateContinueButtonLook (text: String, color: UIColor) {
-        continueButton.setTitle(text, for: .normal)
-    }
-    
-    private func updatePreviousButtonVisibility(visible: Bool) {
-        previousButton.isHidden = !visible
     }
     
     let continueButton: UIButton = {

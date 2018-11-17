@@ -22,7 +22,7 @@ protocol WalkthroughSlideableOutputsType {
 }
 
 protocol WalkthroughSlideableActionsType {
-    var onNextAction: CocoaAction? { get }
+    var continueAction: CocoaAction? { get }
 }
 
 protocol WalkthroughSlideableType {

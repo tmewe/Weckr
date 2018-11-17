@@ -35,7 +35,7 @@ class LocationPageViewModel : WalkthroughSlideableType {
     }
     
     //Actions
-    lazy var onNextAction: CocoaAction? = nil
+    lazy var continueAction: CocoaAction? = nil
 }
 
 extension LocationPageViewModel : WalkthroughSlideableOutputsType, WalkthroughSlideableActionsType {}

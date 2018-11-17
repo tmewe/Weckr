@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import RxOptional
 
 protocol WalkthroughViewModelInputsType {
     var nextPage: PublishSubject<Void> { get }
@@ -65,6 +66,9 @@ class WalkthroughViewModel: WalkthroughViewModelType {
         let currentPageController = scrollAmount
             .withLatestFrom(slides) { ($0, $1) }
             .map { $0.1[Int(floor($0.0))] }
+            .startWith(pages.first)
+            .distinctUntilChanged()
+            .filterNil()
             .share()
         
         buttonColor = currentPageController
@@ -90,6 +94,11 @@ class WalkthroughViewModel: WalkthroughViewModelType {
             .map { $0 - 1 }
             .filter { $0 >= 0 }
             .bind(to: internalPageNumber)
+            .disposed(by: disposeBag)
+        
+        nextPage
+            .withLatestFrom(currentPageController)
+            .subscribe(onNext: { $0.viewModel.actions.continueAction?.execute(Void()) })
             .disposed(by: disposeBag)
     }
 }

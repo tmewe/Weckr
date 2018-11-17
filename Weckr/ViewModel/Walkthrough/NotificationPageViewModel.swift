@@ -35,7 +35,7 @@ class NotificationPageViewModel : WalkthroughSlideableType {
     }
     
     //Actions
-    lazy var onNextAction: CocoaAction? = nil
+    lazy var continueAction: CocoaAction? = nil
 }
 
 extension NotificationPageViewModel : WalkthroughSlideableOutputsType, WalkthroughSlideableActionsType {}

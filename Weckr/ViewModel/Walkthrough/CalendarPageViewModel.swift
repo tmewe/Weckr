@@ -35,7 +35,7 @@ class CalendarPageViewModel : WalkthroughSlideableType {
     }
     
     //Actions
-    lazy var onNextAction: CocoaAction? = nil
+    lazy var continueAction: CocoaAction? = nil
 }
 
 extension CalendarPageViewModel : WalkthroughSlideableOutputsType, WalkthroughSlideableActionsType {}
