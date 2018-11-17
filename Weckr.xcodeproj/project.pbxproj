@@ -110,6 +110,9 @@
 			children = (
 				22BCC840218B1BF000C77CB1 /* Assets.xcassets */,
 				220365B82195BD86002BDE91 /* Localizable.strings */,
+				22BCC845218B1BF000C77CB1 /* Info.plist */,
+				22BCC83D218B1BEE00C77CB1 /* Main.storyboard */,
+				22BCC842218B1BF000C77CB1 /* LaunchScreen.storyboard */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -126,7 +129,6 @@
 			isa = PBXGroup;
 			children = (
 				22BCC838218B1BEE00C77CB1 /* Weckr */,
-				22BE369D2193482900B56BF9 /* Utility */,
 				22BCC837218B1BEE00C77CB1 /* Products */,
 				1CD998EABFC8FB7F397D0182 /* Pods */,
 				22C6A4DB58696015B3AAA704 /* Frameworks */,
@@ -148,10 +150,8 @@
 				22C8D182218B28800029C1EA /* Scenes */,
 				22C8D18B218B2AFC0029C1EA /* ViewController */,
 				22C8D18C218B2B0C0029C1EA /* ViewModel */,
+				22BE369D2193482900B56BF9 /* Utility */,
 				220365AD2195BB48002BDE91 /* Resources */,
-				22BCC83D218B1BEE00C77CB1 /* Main.storyboard */,
-				22BCC842218B1BF000C77CB1 /* LaunchScreen.storyboard */,
-				22BCC845218B1BF000C77CB1 /* Info.plist */,
 			);
 			path = Weckr;
 			sourceTree = "<group>";
