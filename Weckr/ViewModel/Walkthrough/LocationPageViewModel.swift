@@ -34,7 +34,6 @@ class LocationPageViewModel : WalkthroughSlideableType {
         bottomLabelColoredText = Observable.just("walkthrough.location.title2.coloredPart".localized())
     }
     
-    
     //Actions
     lazy var onNextAction: CocoaAction? = nil
 }

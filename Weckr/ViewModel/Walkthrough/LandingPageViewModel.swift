@@ -34,7 +34,6 @@ class LandingPageViewModel : WalkthroughSlideableType {
         bottomLabelColoredText = Observable.empty()
     }
     
-    
     //Actions
     lazy var onNextAction: CocoaAction? = nil
 }

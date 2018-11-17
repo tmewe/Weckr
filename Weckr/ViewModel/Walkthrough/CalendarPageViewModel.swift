@@ -34,7 +34,6 @@ class CalendarPageViewModel : WalkthroughSlideableType {
         bottomLabelColoredText = Observable.just("walkthrough.calendar.title2.coloredPart".localized())
     }
     
-    
     //Actions
     lazy var onNextAction: CocoaAction? = nil
 }
