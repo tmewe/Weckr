@@ -21,8 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let landingPage = WalkthroughPageViewController(viewModel: landingViewModel)
         let calendarViewModel = CalendarPageViewModel()
         let calendarPage = WalkthroughPageViewController(viewModel: calendarViewModel)
+        let locationViewModel = LocationPageViewModel()
+        let locationPage = WalkthroughPageViewController(viewModel: locationViewModel)
         
-        let pages = [landingPage, calendarPage]
+        let pages = [landingPage, calendarPage, locationPage]
         
         let coordinator = SceneCoordinator(window: window!)
         let walkthroughViewModel = WalkthroughViewModel(pages: pages)
