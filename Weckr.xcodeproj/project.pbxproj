@@ -16,7 +16,6 @@
 		22458680219722EF00072C6C /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2245867F219722EF00072C6C /* UIView+Extensions.swift */; };
 		2245868221972D5200072C6C /* WalkthroughSlideable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2245868121972D5200072C6C /* WalkthroughSlideable.swift */; };
 		22BCC83A218B1BEE00C77CB1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BCC839218B1BEE00C77CB1 /* AppDelegate.swift */; };
-		22BCC83C218B1BEE00C77CB1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BCC83B218B1BEE00C77CB1 /* ViewController.swift */; };
 		22BCC83F218B1BEE00C77CB1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22BCC83D218B1BEE00C77CB1 /* Main.storyboard */; };
 		22BCC841218B1BF000C77CB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22BCC840218B1BF000C77CB1 /* Assets.xcassets */; };
 		22BCC844218B1BF000C77CB1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22BCC842218B1BF000C77CB1 /* LaunchScreen.storyboard */; };
@@ -34,6 +33,7 @@
 		49DB25DF218DDAFB0037CFBB /* WalkthroughViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DB25DE218DDAFB0037CFBB /* WalkthroughViewModel.swift */; };
 		49DB25E1218DE0460037CFBB /* LandingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DB25E0218DE0460037CFBB /* LandingPageViewController.swift */; };
 		49DB25E5218DE0B50037CFBB /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DB25E4218DE0B50037CFBB /* CalendarViewController.swift */; };
+		49FAADCD21A06B560019D5FA /* CalendarPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FAADCC21A06B560019D5FA /* CalendarPageViewModel.swift */; };
 		829E084E26D392D5A7965F6D /* Pods_Weckr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D8F1BEF8290C85232F136C5 /* Pods_Weckr.framework */; };
 /* End PBXBuildFile section */
 
@@ -52,7 +52,6 @@
 		22975B7C712437B3CE4FCE59 /* Pods-Weckr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weckr.release.xcconfig"; path = "Pods/Target Support Files/Pods-Weckr/Pods-Weckr.release.xcconfig"; sourceTree = "<group>"; };
 		22BCC836218B1BEE00C77CB1 /* Weckr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weckr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22BCC839218B1BEE00C77CB1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		22BCC83B218B1BEE00C77CB1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		22BCC83E218B1BEE00C77CB1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		22BCC840218B1BF000C77CB1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		22BCC843218B1BF000C77CB1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -71,6 +70,7 @@
 		49DB25DE218DDAFB0037CFBB /* WalkthroughViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughViewModel.swift; sourceTree = "<group>"; };
 		49DB25E0218DE0460037CFBB /* LandingPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingPageViewController.swift; sourceTree = "<group>"; };
 		49DB25E4218DE0B50037CFBB /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		49FAADCC21A06B560019D5FA /* CalendarPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPageViewModel.swift; sourceTree = "<group>"; };
 		8592F6B004899364C54363F9 /* Pods-Weckr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weckr.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Weckr/Pods-Weckr.debug.xcconfig"; sourceTree = "<group>"; };
 		8D8F1BEF8290C85232F136C5 /* Pods_Weckr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Weckr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -150,7 +150,7 @@
 				22C8D182218B28800029C1EA /* Scenes */,
 				22C8D18B218B2AFC0029C1EA /* ViewController */,
 				22C8D18C218B2B0C0029C1EA /* ViewModel */,
-				22BCC83B218B1BEE00C77CB1 /* ViewController.swift */,
+				220365AD2195BB48002BDE91 /* Resources */,
 				22BCC83D218B1BEE00C77CB1 /* Main.storyboard */,
 				22BCC842218B1BF000C77CB1 /* LaunchScreen.storyboard */,
 				22BCC845218B1BF000C77CB1 /* Info.plist */,
@@ -200,7 +200,6 @@
 			isa = PBXGroup;
 			children = (
 				22C8D18D218B2BF70029C1EA /* MainViewController.swift */,
-				220365AD2195BB48002BDE91 /* Resources */,
 				49DB25DA218DDA6A0037CFBB /* Walkthrough */,
 			);
 			path = ViewController;
@@ -233,6 +232,7 @@
 				2245868121972D5200072C6C /* WalkthroughSlideable.swift */,
 				49DB25DE218DDAFB0037CFBB /* WalkthroughViewModel.swift */,
 				22C51524219EF6EB003783A7 /* LandingPageViewModel.swift */,
+				49FAADCC21A06B560019D5FA /* CalendarPageViewModel.swift */,
 			);
 			path = Walkthrough;
 			sourceTree = "<group>";
@@ -394,7 +394,6 @@
 				49DB25DF218DDAFB0037CFBB /* WalkthroughViewModel.swift in Sources */,
 				22C8D18E218B2BF70029C1EA /* MainViewController.swift in Sources */,
 				220365BC2195C372002BDE91 /* Constraints.swift in Sources */,
-				22BCC83C218B1BEE00C77CB1 /* ViewController.swift in Sources */,
 				22C8D186218B29AF0029C1EA /* Scene+ViewController.swift in Sources */,
 				2245867E21971A1800072C6C /* LocationViewController.swift in Sources */,
 				22C8D188218B2AAD0029C1EA /* SceneCoordinatorType.swift in Sources */,
@@ -404,6 +403,7 @@
 				220365B32195BD2B002BDE91 /* String+Extenstions.swift in Sources */,
 				49DB25E5218DE0B50037CFBB /* CalendarViewController.swift in Sources */,
 				221202852197121C00474B5D /* UILabel+Extensions.swift in Sources */,
+				49FAADCD21A06B560019D5FA /* CalendarPageViewModel.swift in Sources */,
 				22BE36A02193484500B56BF9 /* BindableType.swift in Sources */,
 				22C8D184218B28A50029C1EA /* Scene.swift in Sources */,
 				22C8D18A218B2AC90029C1EA /* SceneTransitionType.swift in Sources */,

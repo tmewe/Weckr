@@ -17,8 +17,9 @@ protocol WalkthroughViewModelInputsType {
 
 protocol WalkthroughViewModelOutputsType {
     var pageNumber : Observable<Int> { get }
-    var slides : Observable<[WalkthroughSlideWrapper]> { get }
-    var buttonColor: Observable<UIColor> { get }
+    var slides : Observable<[WalkthroughPageViewController]> { get }
+    var buttonColor: Observable<CGColor> { get }
+    var buttonText: Observable<String> { get }
 }
 
 protocol WalkthroughViewModelType {
@@ -33,7 +34,7 @@ class WalkthroughViewModel: WalkthroughViewModelType {
     
     //Setup
     private var internalPageNumber = BehaviorSubject(value: 0)
-    private var internalButtonColor = BehaviorSubject(value: UIColor.walkthroughPurpleAccent)
+    private var internalButtonColor = BehaviorSubject(value: UIColor.walkthroughPurpleAccent.cgColor)
     
     private let disposeBag = DisposeBag()
     
@@ -45,16 +46,16 @@ class WalkthroughViewModel: WalkthroughViewModelType {
     //Outputs
     var pageNumber: Observable<Int>
     var slides: Observable<[WalkthroughPageViewController]>
-    var buttonColor: Observable<UIColor>
+    var buttonColor: Observable<CGColor>
+    var buttonText: Observable<String>
     
     init() {
         
         //Setup
         let landingViewModel = LandingPageViewModel()
-        
         let landingPage = WalkthroughPageViewController(viewModel: landingViewModel)
-        
-        
+        let calendarViewModel = CalendarPageViewModel()
+        let calendarPage = WalkthroughPageViewController(viewModel: calendarViewModel)
         
         //Inputs
         nextPage = PublishSubject()
@@ -63,8 +64,21 @@ class WalkthroughViewModel: WalkthroughViewModelType {
         
         //Outputs
         pageNumber = internalPageNumber.asObservable()
-        slides = Observable.of([landingPage])
-        buttonColor = internalButtonColor.asObservable()
+        slides = Observable.of([landingPage, calendarPage])
+        
+        let currentPageController = scrollAmount
+            .withLatestFrom(slides) { ($0, $1) }
+            .map { $0.1[Int(floor($0.0))] }
+            .share()
+        
+        buttonColor = currentPageController
+            .map { $0.viewModel.outputs.accentColor }
+            .flatMap { $0 }
+            .startWith(UIColor.walkthroughPurpleAccent.cgColor)
+
+        buttonText = currentPageController
+            .map { $0.viewModel.outputs.buttonText }
+            .flatMap { $0 }
         
         nextPage
             .withLatestFrom(internalPageNumber)
@@ -81,16 +95,6 @@ class WalkthroughViewModel: WalkthroughViewModelType {
             .filter { $0 >= 0 }
             .bind(to: internalPageNumber)
             .disposed(by: disposeBag)
-        
-        Observable.combineLatest(scrollAmount, slides)
-            .map { $0.1[Int(floor($0.0))] }
-            .map { $0.viewModel.outputs.accentColor }
-            
-            //TODO : Hier liegen Leichen beraben
-            .asDriver(onErrorJustReturn: <#T##Observable<CGColor>#>))
-            .drive
-            
-        
     }
 }
 

@@ -43,12 +43,7 @@ class LandingPageViewController: UIViewController {
     
     
     let topLabel: UILabel = {
-        var label = UILabel(
-            text: "walkthrough.landing.title".localized(),
-            coloredPart: "walkthrough.landing.title.coloredPart".localized(),
-            textColor: .white,
-            coloredColor: .walkthroughPurpleAccent)
-            .configureForAutoLayout()
+        var label = UILabel.newAutoLayout()
     
         label.textAlignment = .left
         label.font = UIFont.systemFont(ofSize: 34, weight: .bold)

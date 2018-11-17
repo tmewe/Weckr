@@ -32,6 +32,7 @@ class WalkthroughPageViewController: UIViewController {
     }
     
     private func setupViews() {
+        view.backgroundColor = .backgroundColor
         view.addSubview(topLabel)
         view.addSubview(bottomLabel)
     }
@@ -57,7 +58,7 @@ class WalkthroughPageViewController: UIViewController {
         Observable.combineLatest(viewModel.outputs.bottomLabelText, viewModel.outputs.bottomLabelColoredText, viewModel.outputs.accentColor)
             .asDriver(onErrorJustReturn: ("", "", UIColor.white.cgColor))
             .drive(onNext: { [weak self] (t,c,a) in
-                self?.topLabel.setTextWithColoredPart(text: t, coloredText: c, textColor: .white, coloredColor: UIColor(cgColor: a))
+                self?.bottomLabel.setTextWithColoredPart(text: t, coloredText: c, textColor: .white, coloredColor: UIColor(cgColor: a))
             })
             .disposed(by: disposeBag)
     }

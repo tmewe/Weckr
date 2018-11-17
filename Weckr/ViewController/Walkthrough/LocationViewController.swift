@@ -40,12 +40,7 @@ class LocationViewController: UIViewController {
     
     
     let topLabel: UILabel = {
-        var label = UILabel(
-            text: "walkthrough.location.title".localized(),
-            coloredPart: "walkthrough.location.title.coloredPart".localized(),
-            textColor: .white,
-            coloredColor: .walkthroughOrangeAccent)
-            .configureForAutoLayout()
+        var label = UILabel.newAutoLayout()
         
         label.textAlignment = .left
         label.font = UIFont.systemFont(ofSize: 34, weight: .bold)
@@ -54,12 +49,7 @@ class LocationViewController: UIViewController {
     }()
     
     let bottomLabel: UILabel = {
-        var label = UILabel(
-            text: "walkthrough.location.title2".localized(),
-            coloredPart: "walkthrough.location.title2.coloredPart".localized(),
-            textColor: .white,
-            coloredColor: .walkthroughOrangeAccent)
-            .configureForAutoLayout()
+        var label = UILabel.newAutoLayout()
         
         label.textAlignment = .right
         label.font = UIFont.systemFont(ofSize: 34, weight: .bold)

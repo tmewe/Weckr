@@ -34,12 +34,7 @@ class CalendarViewController: UIViewController {
     }
     
     let topLabel: UILabel = {
-        var label = UILabel(
-            text: "walkthrough.calendar.title".localized(),
-            coloredPart: "walkthrough.calendar.title.coloredPart".localized(),
-            textColor: .white,
-            coloredColor: .walkthroughGreenAccent)
-            .configureForAutoLayout()
+        var label = UILabel.newAutoLayout()
         
         label.textAlignment = .left
         label.font = UIFont.systemFont(ofSize: 34, weight: .bold)
@@ -48,12 +43,7 @@ class CalendarViewController: UIViewController {
     }()
     
     let bottomLabel: UILabel = {
-        var label = UILabel(
-            text: "walkthrough.calendar.title2".localized(),
-            coloredPart: "walkthrough.calendar.title2.coloredPart".localized(),
-            textColor: .white,
-            coloredColor: .walkthroughGreenAccent)
-            .configureForAutoLayout()
+        var label = UILabel.newAutoLayout()
         
         label.textAlignment = .right
         label.font = UIFont.systemFont(ofSize: 34, weight: .bold)
