@@ -28,6 +28,8 @@
 		22C8D18E218B2BF70029C1EA /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C8D18D218B2BF70029C1EA /* MainViewController.swift */; };
 		22C8D190218B2C060029C1EA /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C8D18F218B2C060029C1EA /* MainViewModel.swift */; };
 		22C8D192218B2DEB0029C1EA /* SceneCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C8D191218B2DEB0029C1EA /* SceneCoordinator.swift */; };
+		4921B8D021A1A41700BD6145 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4921B8CF21A1A41700BD6145 /* Constants.swift */; };
+		4921B8D221A1A69000BD6145 /* EventStore+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4921B8D121A1A69000BD6145 /* EventStore+Extensions.swift */; };
 		49DB25DD218DDACD0037CFBB /* WalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DB25DC218DDACD0037CFBB /* WalkthroughViewController.swift */; };
 		49DB25DF218DDAFB0037CFBB /* WalkthroughViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DB25DE218DDAFB0037CFBB /* WalkthroughViewModel.swift */; };
 		49FAADCD21A06B560019D5FA /* CalendarPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FAADCC21A06B560019D5FA /* CalendarPageViewModel.swift */; };
@@ -64,6 +66,8 @@
 		22C8D18D218B2BF70029C1EA /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		22C8D18F218B2C060029C1EA /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		22C8D191218B2DEB0029C1EA /* SceneCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneCoordinator.swift; sourceTree = "<group>"; };
+		4921B8CF21A1A41700BD6145 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		4921B8D121A1A69000BD6145 /* EventStore+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventStore+Extensions.swift"; sourceTree = "<group>"; };
 		49DB25DC218DDACD0037CFBB /* WalkthroughViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughViewController.swift; sourceTree = "<group>"; };
 		49DB25DE218DDAFB0037CFBB /* WalkthroughViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughViewModel.swift; sourceTree = "<group>"; };
 		49FAADCC21A06B560019D5FA /* CalendarPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPageViewModel.swift; sourceTree = "<group>"; };
@@ -101,6 +105,7 @@
 				220365B22195BD2B002BDE91 /* String+Extenstions.swift */,
 				221202842197121C00474B5D /* UILabel+Extensions.swift */,
 				2245867F219722EF00072C6C /* UIView+Extensions.swift */,
+				4921B8D121A1A69000BD6145 /* EventStore+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -162,6 +167,7 @@
 				220365BA2195C33B002BDE91 /* Appearance */,
 				220365AA2195B709002BDE91 /* Extensions */,
 				22BE369E2193483700B56BF9 /* Protocols */,
+				4921B8CF21A1A41700BD6145 /* Constants.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -390,6 +396,7 @@
 				220365AC2195B741002BDE91 /* UIColor+Extensions.swift in Sources */,
 				22458680219722EF00072C6C /* UIView+Extensions.swift in Sources */,
 				49DB25DF218DDAFB0037CFBB /* WalkthroughViewModel.swift in Sources */,
+				4921B8D021A1A41700BD6145 /* Constants.swift in Sources */,
 				22C8D18E218B2BF70029C1EA /* MainViewController.swift in Sources */,
 				220365BC2195C372002BDE91 /* Constraints.swift in Sources */,
 				22C8D186218B29AF0029C1EA /* Scene+ViewController.swift in Sources */,
@@ -399,6 +406,7 @@
 				22BCC83A218B1BEE00C77CB1 /* AppDelegate.swift in Sources */,
 				220365B32195BD2B002BDE91 /* String+Extenstions.swift in Sources */,
 				221202852197121C00474B5D /* UILabel+Extensions.swift in Sources */,
+				4921B8D221A1A69000BD6145 /* EventStore+Extensions.swift in Sources */,
 				49FAADCD21A06B560019D5FA /* CalendarPageViewModel.swift in Sources */,
 				22BE36A02193484500B56BF9 /* BindableType.swift in Sources */,
 				22C8D184218B28A50029C1EA /* Scene.swift in Sources */,

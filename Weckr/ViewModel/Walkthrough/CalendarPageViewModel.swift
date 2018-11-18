@@ -9,6 +9,7 @@
 import Foundation
 import RxSwift
 import Action
+import EventKit
 
 class CalendarPageViewModel : WalkthroughSlideableType {
     
@@ -35,7 +36,27 @@ class CalendarPageViewModel : WalkthroughSlideableType {
     }
     
     //Actions
-    lazy var continueAction: CocoaAction? = nil
+    lazy var continueAction: CocoaAction? = {
+        return CocoaAction {
+            let calendarAccess = UserDefaults.standard.bool(forKey: Constants.UserDefaults.CalendarAccess)
+            guard calendarAccess == false else {
+                return Observable.empty()
+            }
+            
+            let status = EKEventStore.authorizationStatus(for: .event)
+            switch (status) {
+            case .notDetermined:
+                break
+            case .authorized:
+                return Observable.empty()
+            case .restricted, .denied:
+                return Observable.empty()
+            }
+            
+            print("yeaaaag")
+            return Observable.empty()
+        }
+    }()
 }
 
 extension CalendarPageViewModel : WalkthroughSlideableOutputsType, WalkthroughSlideableActionsType {}

@@ -35,12 +35,7 @@ class LandingPageViewModel : WalkthroughSlideableType {
     }
     
     //Actions
-    lazy var continueAction: CocoaAction? = {
-        return CocoaAction {
-            print("yeaaaag")
-            return Observable.empty()
-        }
-    }()
+    lazy var continueAction: CocoaAction? = nil
 }
 
 extension LandingPageViewModel : WalkthroughSlideableOutputsType, WalkthroughSlideableActionsType {}
