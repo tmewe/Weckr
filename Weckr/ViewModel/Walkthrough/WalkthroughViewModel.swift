@@ -36,7 +36,6 @@ class WalkthroughViewModel: WalkthroughViewModelType {
     //Setup
     private var internalPageNumber = BehaviorSubject(value: 0)
     private var internalButtonColor = BehaviorSubject(value: UIColor.walkthroughPurpleAccent.cgColor)
-    
     private let disposeBag = DisposeBag()
     
     //Inputs

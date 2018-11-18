@@ -15,7 +15,7 @@ struct Constraints {
         struct Title {
             static let horizontalSides: CGFloat = 50
             static let title1Top: CGFloat = 80
-            static let title2Offset: CGFloat = 260
+            static let title2Offset: CGFloat = 200
             static let width: CGFloat = 272
         }
     

@@ -115,7 +115,6 @@
 			children = (
 				22BCC840218B1BF000C77CB1 /* Assets.xcassets */,
 				220365B82195BD86002BDE91 /* Localizable.strings */,
-				22BCC845218B1BF000C77CB1 /* Info.plist */,
 				22BCC83D218B1BEE00C77CB1 /* Main.storyboard */,
 				22BCC842218B1BF000C77CB1 /* LaunchScreen.storyboard */,
 			);
@@ -156,6 +155,7 @@
 				22C8D18B218B2AFC0029C1EA /* ViewController */,
 				22C8D18C218B2B0C0029C1EA /* ViewModel */,
 				22BE369D2193482900B56BF9 /* Utility */,
+				22BCC845218B1BF000C77CB1 /* Info.plist */,
 				220365AD2195BB48002BDE91 /* Resources */,
 			);
 			path = Weckr;
@@ -574,7 +574,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MZTB89FPHK;
+				DEVELOPMENT_TEAM = 57REX7BTC9;
 				INFOPLIST_FILE = Weckr/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -594,7 +594,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MZTB89FPHK;
+				DEVELOPMENT_TEAM = 57REX7BTC9;
 				INFOPLIST_FILE = Weckr/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (

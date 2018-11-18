@@ -16,6 +16,9 @@ class CalendarPageViewModel : WalkthroughSlideableType {
     var outputs: WalkthroughSlideableOutputsType { return self }
     var actions: WalkthroughSlideableActionsType { return self }
     
+    //Setup
+    private let disposeBag = DisposeBag()
+    
     //Outputs
     var accentColor: Observable<CGColor>
     var buttonText: Observable<String>
@@ -38,7 +41,8 @@ class CalendarPageViewModel : WalkthroughSlideableType {
     //Actions
     lazy var continueAction: CocoaAction? = {
         return CocoaAction {
-            let calendarAccess = UserDefaults.standard.bool(forKey: Constants.UserDefaults.CalendarAccess)
+            let defaults = UserDefaults.standard
+            let calendarAccess = defaults.bool(forKey: Constants.UserDefaults.CalendarAccess)
             guard calendarAccess == false else {
                 return Observable.empty()
             }
@@ -46,15 +50,19 @@ class CalendarPageViewModel : WalkthroughSlideableType {
             let status = EKEventStore.authorizationStatus(for: .event)
             switch (status) {
             case .notDetermined:
-                break
+                EKEventStore().rx.requestAccess(to: .event)
+                    .map { $0.0 }
+                    .filter { $0 }
+                    .subscribe(onNext: { granted in
+                        defaults.set(granted, forKey: Constants.UserDefaults.CalendarAccess)
+                    })
+                    .disposed(by: self.disposeBag)
             case .authorized:
                 return Observable.empty()
             case .restricted, .denied:
                 return Observable.empty()
             }
-            
-            print("yeaaaag")
-            return Observable.empty()
+        return Observable.empty()
         }
     }()
 }

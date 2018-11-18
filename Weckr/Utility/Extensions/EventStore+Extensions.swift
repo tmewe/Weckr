@@ -14,7 +14,7 @@ extension Reactive where Base: EKEventStore {
     func requestAccess(to entityType: EKEntityType) -> Observable<(Bool, Error?)> {
         return Observable.create { observer in
             self.base.requestAccess(to: entityType, completion: { (granted, error) in
-                guard error != nil else {
+                guard error == nil else {
                     observer.onError(error!)
                     return
                 }

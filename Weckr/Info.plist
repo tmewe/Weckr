@@ -45,5 +45,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Weckr needs calendar access to know when the first event of the day happens.</string>
 </dict>
 </plist>
