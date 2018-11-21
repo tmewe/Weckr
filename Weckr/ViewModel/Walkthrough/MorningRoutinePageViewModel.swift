@@ -30,6 +30,9 @@ class MorningRoutinePageViewModel : WalkthroughSlideableType {
     
     init() {
         
+        //Inputs
+        morningRoutineTime = PublishSubject()
+        
         //Outputs
         accentColor = Observable.just(UIColor.walkthroughRedAccent.cgColor)
         buttonText = Observable.just("walkthrough.morningroutine.buttonTitle".localized())

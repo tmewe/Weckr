@@ -77,6 +77,14 @@ class WalkthroughViewModel: WalkthroughViewModelType {
             .flatMap { $0 }
             .startWith(.car)
         
+        //Time in seconds
+        let morningRoutineTime = currentPageController
+            .filter { $0.viewModel is MorningRoutinePageViewModel }
+            .map { $0.viewModel.inputs.morningRoutineTime }
+            .filterNil()
+            .flatMap { $0 }
+            .startWith(1)
+        
         buttonColor = currentPageController
             .map { $0.viewModel.outputs.accentColor }
             .flatMap { $0 }

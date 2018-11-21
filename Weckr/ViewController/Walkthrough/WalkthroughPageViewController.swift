@@ -36,7 +36,11 @@ class WalkthroughPageViewController: UIViewController {
         view.addSubview(bottomLabel)
         
         if viewModel.inputs.vehicle != nil {
-            setupVehicle()
+            setupSegmentedControl()
+        }
+        
+        if viewModel.inputs.morningRoutineTime != nil {
+            setupDatePicker()
         }
     }
     
@@ -67,12 +71,20 @@ class WalkthroughPageViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    private func setupVehicle() {
+    private func setupSegmentedControl() {
         view.addSubview(segmentedControl)
         segmentedControl.autoCenterInSuperview()
         segmentedControl.rx.selectedSegmentIndex
             .map { Vehicle(rawValue: $0) ?? Vehicle.car }
             .bind(to: viewModel.inputs.vehicle!)
+            .disposed(by: disposeBag)
+    }
+    
+    private func setupDatePicker() {
+        view.addSubview(datePicker)
+        datePicker.autoCenterInSuperview()
+        datePicker.rx.countDownDuration
+            .bind(to: viewModel.inputs.morningRoutineTime!)
             .disposed(by: disposeBag)
     }
     
@@ -99,5 +111,12 @@ class WalkthroughPageViewController: UIViewController {
         let control = UISegmentedControl(items: items)
         control.selectedSegmentIndex = 0
         return control
+    }()
+    
+    let datePicker: UIDatePicker = {
+       let picker = UIDatePicker.newAutoLayout()
+        picker.datePickerMode = .countDownTimer
+        picker.setValue(UIColor.textColor, forKeyPath: "textColor")
+        return picker
     }()
 }

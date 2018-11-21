@@ -20,7 +20,7 @@ enum Vehicle: Int {
 
 protocol WalkthroughSlideableInputsType {
     var vehicle: PublishSubject<Vehicle>? { get }
-    var morningRoutineTime: PublishSubject<TimeInterval>? { get }
+    var morningRoutineTime: PublishSubject<TimeInterval>? { get } //Seconds
 }
     
 protocol WalkthroughSlideableOutputsType {
