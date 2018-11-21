@@ -12,8 +12,13 @@ import Action
 
 class LocationPageViewModel : WalkthroughSlideableType {
     
+    var inputs: WalkthroughSlideableInputsType { return self }
     var outputs: WalkthroughSlideableOutputsType { return self }
     var actions: WalkthroughSlideableActionsType { return self }
+    
+    //Inputs
+    var vehicle: PublishSubject<Vehicle>?
+    var morningRoutineTime: PublishSubject<TimeInterval>?
     
     //Outputs
     var accentColor: Observable<CGColor>
@@ -38,4 +43,4 @@ class LocationPageViewModel : WalkthroughSlideableType {
     lazy var continueAction: CocoaAction? = nil
 }
 
-extension LocationPageViewModel : WalkthroughSlideableOutputsType, WalkthroughSlideableActionsType {}
+extension LocationPageViewModel : WalkthroughSlideableOutputsType, WalkthroughSlideableActionsType, WalkthroughSlideableInputsType {}

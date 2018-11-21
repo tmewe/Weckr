@@ -12,6 +12,18 @@ import UIKit.UIColor
 import RxSwift
 import Action
 
+enum Vehicle {
+    case feet
+    case transit
+    case car
+    case bike
+}
+
+protocol WalkthroughSlideableInputsType {
+    var vehicle: PublishSubject<Vehicle>? { get }
+    var morningRoutineTime: PublishSubject<TimeInterval>? { get }
+}
+    
 protocol WalkthroughSlideableOutputsType {
     var accentColor: Observable<CGColor> { get }
     var buttonText: Observable<String> { get }
@@ -26,6 +38,7 @@ protocol WalkthroughSlideableActionsType {
 }
 
 protocol WalkthroughSlideableType {
+    var inputs: WalkthroughSlideableInputsType { get }
     var outputs: WalkthroughSlideableOutputsType { get }
     var actions: WalkthroughSlideableActionsType { get }
 }

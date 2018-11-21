@@ -33,5 +33,15 @@
 "walkthrough.notification.buttonTitle" = "Neat!";
 
 //Travel
+"walkthrough.travel.title" = "How do you travel?";
+"walkthrough.travel.title.coloredPart" = "travel";
+"walkthrough.travel.title2" = "";
+"walkthrough.travel.title2.coloredPart" = "";
+"walkthrough.travel.buttonTitle" = "Continue";
 
 //Morning routine
+"walkthrough.morningroutine.title" = "How long is your morning routine?";
+"walkthrough.morningroutine.title.coloredPart" = "morning routine";
+"walkthrough.morningroutine.title2" = "";
+"walkthrough.morningroutine.title2.coloredPart" = "";
+"walkthrough.morningroutine.buttonTitle" = "Done!";

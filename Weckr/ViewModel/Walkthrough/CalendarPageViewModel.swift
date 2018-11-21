@@ -13,11 +13,16 @@ import EventKit
 
 class CalendarPageViewModel : WalkthroughSlideableType {
     
+    var inputs: WalkthroughSlideableInputsType { return self }
     var outputs: WalkthroughSlideableOutputsType { return self }
     var actions: WalkthroughSlideableActionsType { return self }
     
     //Setup
     private let disposeBag = DisposeBag()
+    
+    //Inputs
+    var vehicle: PublishSubject<Vehicle>?
+    var morningRoutineTime: PublishSubject<TimeInterval>?
     
     //Outputs
     var accentColor: Observable<CGColor>
@@ -67,4 +72,4 @@ class CalendarPageViewModel : WalkthroughSlideableType {
     }()
 }
 
-extension CalendarPageViewModel : WalkthroughSlideableOutputsType, WalkthroughSlideableActionsType {}
+extension CalendarPageViewModel : WalkthroughSlideableOutputsType, WalkthroughSlideableActionsType, WalkthroughSlideableInputsType {}

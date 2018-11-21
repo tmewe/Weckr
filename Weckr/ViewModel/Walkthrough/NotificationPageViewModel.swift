@@ -12,8 +12,13 @@ import Action
 
 class NotificationPageViewModel : WalkthroughSlideableType {
     
+    var inputs: WalkthroughSlideableInputsType { return self }
     var outputs: WalkthroughSlideableOutputsType { return self }
     var actions: WalkthroughSlideableActionsType { return self }
+    
+    //Inputs
+    var vehicle: PublishSubject<Vehicle>?
+    var morningRoutineTime: PublishSubject<TimeInterval>?
     
     //Outputs
     var accentColor: Observable<CGColor>
@@ -38,4 +43,4 @@ class NotificationPageViewModel : WalkthroughSlideableType {
     lazy var continueAction: CocoaAction? = nil
 }
 
-extension NotificationPageViewModel : WalkthroughSlideableOutputsType, WalkthroughSlideableActionsType {}
+extension NotificationPageViewModel : WalkthroughSlideableOutputsType, WalkthroughSlideableActionsType, WalkthroughSlideableInputsType {}
