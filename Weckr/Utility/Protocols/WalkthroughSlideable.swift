@@ -12,11 +12,10 @@ import UIKit.UIColor
 import RxSwift
 import Action
 
-enum Vehicle {
+enum Vehicle: Int {
+    case car
     case feet
     case transit
-    case car
-    case bike
 }
 
 protocol WalkthroughSlideableInputsType {

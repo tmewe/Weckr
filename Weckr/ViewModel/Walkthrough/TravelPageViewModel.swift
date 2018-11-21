@@ -30,6 +30,9 @@ class TravelPageViewModel : WalkthroughSlideableType {
     
     init() {
         
+        //Inputs
+        vehicle = PublishSubject()
+        
         //Outputs
         accentColor = Observable.just(UIColor.walkthroughOrangeAccent.cgColor)
         buttonText = Observable.just("walkthrough.travel.buttonTitle".localized())

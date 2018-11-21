@@ -14,7 +14,6 @@ class WalkthroughPageViewController: UIViewController {
     var viewModel: WalkthroughSlideableType!
     private let disposeBag: DisposeBag = DisposeBag()
     
-    
     init(viewModel: WalkthroughSlideableType) {
         super.init(nibName: nil, bundle: nil)
         self.viewModel = viewModel
@@ -35,6 +34,10 @@ class WalkthroughPageViewController: UIViewController {
         view.backgroundColor = .backgroundColor
         view.addSubview(topLabel)
         view.addSubview(bottomLabel)
+        
+        if viewModel.inputs.vehicle != nil {
+            setupVehicle()
+        }
     }
     
     private func setupConstraints() {
@@ -48,6 +51,7 @@ class WalkthroughPageViewController: UIViewController {
     }
     
     private func bindViewModel() {
+        
         Observable.combineLatest(viewModel.outputs.topLabelText, viewModel.outputs.topLabelColoredText, viewModel.outputs.accentColor)
             .asDriver(onErrorJustReturn: ("", "", UIColor.white.cgColor))
             .drive(onNext: { [weak self] (t,c,a) in
@@ -60,6 +64,15 @@ class WalkthroughPageViewController: UIViewController {
             .drive(onNext: { [weak self] (t,c,a) in
                 self?.bottomLabel.setTextWithColoredPart(text: t, coloredText: c, textColor: .white, coloredColor: UIColor(cgColor: a))
             })
+            .disposed(by: disposeBag)
+    }
+    
+    private func setupVehicle() {
+        view.addSubview(segmentedControl)
+        segmentedControl.autoCenterInSuperview()
+        segmentedControl.rx.selectedSegmentIndex
+            .map { Vehicle(rawValue: $0) ?? Vehicle.car }
+            .bind(to: viewModel.inputs.vehicle!)
             .disposed(by: disposeBag)
     }
     
@@ -79,5 +92,12 @@ class WalkthroughPageViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 34, weight: .bold)
         label.numberOfLines = 0
         return label
+    }()
+    
+    let segmentedControl: UISegmentedControl = {
+        let items = ["Car", "Feet", "Transit"]
+        let control = UISegmentedControl(items: items)
+        control.selectedSegmentIndex = 0
+        return control
     }()
 }

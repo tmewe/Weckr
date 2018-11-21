@@ -70,6 +70,13 @@ class WalkthroughViewModel: WalkthroughViewModelType {
             .filterNil()
             .share()
         
+        let vehicle = currentPageController
+            .filter { $0.viewModel is TravelPageViewModel }
+            .map { $0.viewModel.inputs.vehicle }
+            .filterNil()
+            .flatMap { $0 }
+            .startWith(.car)
+        
         buttonColor = currentPageController
             .map { $0.viewModel.outputs.accentColor }
             .flatMap { $0 }
