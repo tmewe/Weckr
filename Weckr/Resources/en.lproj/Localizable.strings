@@ -45,3 +45,11 @@
 "walkthrough.morningroutine.title2" = "";
 "walkthrough.morningroutine.title2.coloredPart" = "";
 "walkthrough.morningroutine.buttonTitle" = "Done!";
+
+//Done
+"walkthrough.done.title" = "All done";
+"walkthrough.done.title.coloredPart" = "";
+"walkthrough.done.title2" = "Welcome to your new Alarm!";
+"walkthrough.done.title2.coloredPart" = "Alarm!";
+"walkthrough.done.buttonTitle" = "Gooo!";
+
