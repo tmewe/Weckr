@@ -11,5 +11,6 @@ import Foundation
 struct Constants {
     struct UserDefaults {
         static let CalendarAccess = "CalendarAccess"
+        static let NotificationAuthorization = "NotificationAuthorization"
     }
 }
