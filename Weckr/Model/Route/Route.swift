@@ -10,4 +10,6 @@ import RealmSwift
 
 class Route: Object {
     let legs = List<Leg>()
+    let transitLines = List<TransitLine>()
+    @objc dynamic var summary: RouteSummary!
 }

@@ -10,8 +10,11 @@ import Foundation
 import RealmSwift
 
 class Leg: Object {
-    @objc dynamic var distance: Int = 0
-    @objc dynamic var duration: Int = 0
-    @objc dynamic var durationInTraffic: Int = 0
-    @objc dynamic var arrival: Date!
+    @objc dynamic var start: Waypoint!
+    @objc dynamic var end: Waypoint!
+    @objc dynamic var lenght: Double = 0.0 //meters
+    @objc dynamic var travelTime: Double = 0.0 //seconds
+    @objc dynamic var trafficTime: Double = 0.0 //seconds
+    @objc dynamic var summary: RouteSummary!
+    let maneuvers = List<Maneuver>()
 }

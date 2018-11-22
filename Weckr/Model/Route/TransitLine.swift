@@ -12,7 +12,8 @@ import RealmSwift
 class TransitLine: Object {
     @objc dynamic var name: String!
     @objc dynamic var shortName: String!
-    @objc dynamic var color: String!
-    @objc dynamic var icon: String!
-    @objc dynamic var vehicle: TransitVehicle!
+    @objc dynamic var foregroundColor: String!
+    @objc dynamic var backgroundColor: String!
+    @objc dynamic var destination: String!
+    @objc dynamic var type: String!
 }
