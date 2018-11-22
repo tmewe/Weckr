@@ -1,0 +1,55 @@
+/* 
+  Localizable.strings
+  Weckr
+
+  Created by Tim Lehmann on 09.11.18.
+  Copyright © 2018 Tim Lehmann. All rights reserved.
+*/
+
+//Landig
+"walkthrough.landing.title" = "Let your Alarm work for You.";
+"walkthrough.landing.title.coloredPart" = "You";
+"walkthrough.landing.buttonTitle" = "How?";
+
+//Calendar
+"walkthrough.calendar.title" = "Weckr knows your schedule...";
+"walkthrough.calendar.title.coloredPart" = "Weckr";
+"walkthrough.calendar.title2" = "and rings right on time.";
+"walkthrough.calendar.title2.coloredPart" = "right on time.";
+"walkthrough.calendar.buttonTitle" = "Wow!";
+
+//Location
+"walkthrough.location.title" = "It will also know where to go...";
+"walkthrough.location.title.coloredPart" = "where";
+"walkthrough.location.title2" = "and how to get there.";
+"walkthrough.location.title2.coloredPart" = "how";
+"walkthrough.location.buttonTitle" = "Great!";
+
+//Notification
+"walkthrough.notification.title" = "Don’t worry about oversleeping!";
+"walkthrough.notification.title.coloredPart" = "";
+"walkthrough.notification.title2" = "Weckr notices irregularities and warns you the in the evening!";
+"walkthrough.notification.title2.coloredPart" = "irregularities";
+"walkthrough.notification.buttonTitle" = "Neat!";
+
+//Travel
+"walkthrough.travel.title" = "How do you travel?";
+"walkthrough.travel.title.coloredPart" = "travel";
+"walkthrough.travel.title2" = "";
+"walkthrough.travel.title2.coloredPart" = "";
+"walkthrough.travel.buttonTitle" = "Continue";
+
+//Morning routine
+"walkthrough.morningroutine.title" = "How long is your morning routine?";
+"walkthrough.morningroutine.title.coloredPart" = "morning routine";
+"walkthrough.morningroutine.title2" = "";
+"walkthrough.morningroutine.title2.coloredPart" = "";
+"walkthrough.morningroutine.buttonTitle" = "Done!";
+
+//Done
+"walkthrough.done.title" = "All done";
+"walkthrough.done.title.coloredPart" = "";
+"walkthrough.done.title2" = "Welcome to your new Alarm!";
+"walkthrough.done.title2.coloredPart" = "Alarm!";
+"walkthrough.done.buttonTitle" = "Gooo!";
+

@@ -17,8 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        let pages = createPages()
         let coordinator = SceneCoordinator(window: window!)
-        let walkthroughViewModel = WalkthroughViewModel()
+        let walkthroughViewModel = WalkthroughViewModel(pages: pages)
         coordinator.transition(to: Scene.walkthrough(walkthroughViewModel), withType: .root)
         
         return true
@@ -46,6 +47,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-
+    private func createPages() -> [WalkthroughPageViewController] {
+        let landingViewModel = LandingPageViewModel()
+        let landingPage = WalkthroughPageViewController(viewModel: landingViewModel)
+        let calendarViewModel = CalendarPageViewModel()
+        let calendarPage = WalkthroughPageViewController(viewModel: calendarViewModel)
+        let locationViewModel = LocationPageViewModel()
+        let locationPage = WalkthroughPageViewController(viewModel: locationViewModel)
+        let notificationViewModel = NotificationPageViewModel()
+        let notificationPage = WalkthroughPageViewController(viewModel: notificationViewModel)
+        let travelViewModel = TravelPageViewModel()
+        let travelPage = WalkthroughPageViewController(viewModel: travelViewModel)
+        let routineViewModel = MorningRoutinePageViewModel()
+        let routinePage = WalkthroughPageViewController(viewModel: routineViewModel)
+        let doneViewModel = DonePageViewModel()
+        let donePage = WalkthroughPageViewController(viewModel: doneViewModel)
+        
+        let pages = [landingPage, calendarPage, locationPage,
+                     notificationPage, travelPage, routinePage, donePage]
+        return pages
+    }
 }
 

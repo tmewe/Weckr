@@ -8,15 +8,19 @@
 
 import Foundation
 import RxSwift
+import RxOptional
 
 protocol WalkthroughViewModelInputsType {
     var nextPage: PublishSubject<Void> { get }
     var previousPage: PublishSubject<Void> { get }
+    var scrollAmount: PublishSubject<CGFloat> { get }
 }
 
 protocol WalkthroughViewModelOutputsType {
     var pageNumber : Observable<Int> { get }
-    var slides : Observable<[UIView]> { get }
+    var slides : Observable<[WalkthroughPageViewController]> { get }
+    var buttonColor: Observable<CGColor> { get }
+    var buttonText: Observable<String> { get }
 }
 
 protocol WalkthroughViewModelType {
@@ -31,29 +35,64 @@ class WalkthroughViewModel: WalkthroughViewModelType {
     
     //Setup
     private var internalPageNumber = BehaviorSubject(value: 0)
+    private var internalButtonColor = BehaviorSubject(value: UIColor.walkthroughPurpleAccent.cgColor)
     private let disposeBag = DisposeBag()
     
     //Inputs
     var nextPage: PublishSubject<Void>
     var previousPage: PublishSubject<Void>
+    var scrollAmount: PublishSubject<CGFloat>
     
     //Outputs
     var pageNumber: Observable<Int>
-    var slides: Observable<[UIView]>
+    var slides: Observable<[WalkthroughPageViewController]>
+    var buttonColor: Observable<CGColor>
+    var buttonText: Observable<String>
     
-    init() {
+    init(pages: [WalkthroughPageViewController]) {
         
         //Setup
-        let landing = LandingPageViewController.init(nibName: nil, bundle: nil)
-        let calendar = CalendarViewController.init(nibName: nil, bundle: nil)
         
         //Inputs
         nextPage = PublishSubject()
         previousPage = PublishSubject()
+        scrollAmount = PublishSubject()
         
         //Outputs
         pageNumber = internalPageNumber.asObservable()
-        slides = Observable.of([landing.view, calendar.view])
+        slides = Observable.of(pages)
+        
+        let currentPageController = scrollAmount
+            .withLatestFrom(slides) { ($0, $1) }
+            .map { $0.1[Int(floor($0.0))] }
+            .startWith(pages.first)
+            .distinctUntilChanged()
+            .filterNil()
+            .share()
+        
+        let vehicle = currentPageController
+            .filter { $0.viewModel is TravelPageViewModel }
+            .map { $0.viewModel.inputs.vehicle }
+            .filterNil()
+            .flatMap { $0 }
+            .startWith(.car)
+        
+        //Time in seconds
+        let morningRoutineTime = currentPageController
+            .filter { $0.viewModel is MorningRoutinePageViewModel }
+            .map { $0.viewModel.inputs.morningRoutineTime }
+            .filterNil()
+            .flatMap { $0 }
+            .startWith(1)
+        
+        buttonColor = currentPageController
+            .map { $0.viewModel.outputs.accentColor }
+            .flatMap { $0 }
+            .startWith(UIColor.walkthroughPurpleAccent.cgColor)
+
+        buttonText = currentPageController
+            .map { $0.viewModel.outputs.buttonText }
+            .flatMap { $0 }
         
         nextPage
             .withLatestFrom(internalPageNumber)
@@ -70,7 +109,14 @@ class WalkthroughViewModel: WalkthroughViewModelType {
             .filter { $0 >= 0 }
             .bind(to: internalPageNumber)
             .disposed(by: disposeBag)
+        
+        nextPage
+            .withLatestFrom(currentPageController)
+            .subscribe(onNext: { $0.viewModel.actions.continueAction?.execute(Void()) })
+            .disposed(by: disposeBag)
     }
 }
 
 extension WalkthroughViewModel: WalkthroughViewModelInputsType, WalkthroughViewModelOutputsType {}
+
+
