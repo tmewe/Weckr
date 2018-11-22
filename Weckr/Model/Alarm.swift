@@ -16,7 +16,7 @@ class Alarm: Object {
     @objc dynamic var selectedEvent: CalendarEntry!
     @objc dynamic var route: Route!
     @objc dynamic var weather: Weather!
-    @objc dynamic var location: Location!
+    @objc dynamic var location: GeoCoordinate!
     let otherEvents = List<CalendarEntry>()
     
     override public class func primaryKey() -> String? {
@@ -27,7 +27,7 @@ class Alarm: Object {
                      selectedEvent: CalendarEntry,
                      route: Route,
                      weather: Weather,
-                     location: Location) {
+                     location: GeoCoordinate) {
         self.init()
         self.date = date
         self.selectedEvent = selectedEvent

@@ -36,7 +36,6 @@
 		49DB25DD218DDACD0037CFBB /* WalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DB25DC218DDACD0037CFBB /* WalkthroughViewController.swift */; };
 		49DB25DF218DDAFB0037CFBB /* WalkthroughViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DB25DE218DDAFB0037CFBB /* WalkthroughViewModel.swift */; };
 		49DD02F3219C262C00C57041 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DD02F2219C262C00C57041 /* Weather.swift */; };
-		49DD02F5219C29B400C57041 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DD02F4219C29B400C57041 /* Location.swift */; };
 		49DD02F8219C379000C57041 /* TransitLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DD02F7219C379000C57041 /* TransitLine.swift */; };
 		49DD02FE219C3A6600C57041 /* Leg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DD02FD219C3A6600C57041 /* Leg.swift */; };
 		49DD0300219C3B4500C57041 /* Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DD02FF219C3B4500C57041 /* Step.swift */; };
@@ -91,7 +90,6 @@
 		49DB25DC218DDACD0037CFBB /* WalkthroughViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughViewController.swift; sourceTree = "<group>"; };
 		49DB25DE218DDAFB0037CFBB /* WalkthroughViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughViewModel.swift; sourceTree = "<group>"; };
 		49DD02F2219C262C00C57041 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
-		49DD02F4219C29B400C57041 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		49DD02F7219C379000C57041 /* TransitLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitLine.swift; sourceTree = "<group>"; };
 		49DD02FD219C3A6600C57041 /* Leg.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Leg.swift; sourceTree = "<group>"; };
 		49DD02FF219C3B4500C57041 /* Step.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step.swift; sourceTree = "<group>"; };
@@ -303,7 +301,6 @@
 				84E7CDE62195B73F0088CF98 /* Alarm.swift */,
 				84E7CDEA2195DC930088CF98 /* CalendarEntry.swift */,
 				49DD02F2219C262C00C57041 /* Weather.swift */,
-				49DD02F4219C29B400C57041 /* Location.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -491,7 +488,6 @@
 				4921B8D221A1A69000BD6145 /* EventStore+Extensions.swift in Sources */,
 				49FAADCD21A06B560019D5FA /* CalendarPageViewModel.swift in Sources */,
 				22BE36A02193484500B56BF9 /* BindableType.swift in Sources */,
-				49DD02F5219C29B400C57041 /* Location.swift in Sources */,
 				22C8D184218B28A50029C1EA /* Scene.swift in Sources */,
 				22C8D18A218B2AC90029C1EA /* SceneTransitionType.swift in Sources */,
 				22C8D190218B2C060029C1EA /* MainViewModel.swift in Sources */,

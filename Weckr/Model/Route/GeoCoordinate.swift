@@ -12,4 +12,10 @@ import RealmSwift
 class GeoCoordinate: Object {
     @objc dynamic var latitude: Double = 0.0
     @objc dynamic var longitude: Double = 0.0
+    
+    convenience init(lat: Double, long: Double) {
+        self.init()
+        latitude = lat
+        longitude = long
+    }
 }
