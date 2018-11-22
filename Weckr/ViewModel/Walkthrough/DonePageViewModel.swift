@@ -29,7 +29,7 @@ class DonePageViewModel : WalkthroughSlideableType {
     var bottomLabelColoredText: Observable<String>
     
     init() {
-        
+
         //Outputs
         accentColor = Observable.just(UIColor.walkthroughTealAccent.cgColor)
         buttonText = Observable.just("walkthrough.done.buttonTitle".localized())
