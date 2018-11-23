@@ -49,7 +49,7 @@ class WalkthroughPageViewController: UIViewController {
         topLabel.autoPinEdge(.left, to: .left, of: view, withOffset: Constraints.Walkthrough.Title.horizontalSides)
         topLabel.autoSetDimension(.width, toSize: Constraints.Walkthrough.Title.width)
         
-        bottomLabel.autoAlignAxis(.horizontal, toSameAxisOf: view, withOffset: Constraints.Walkthrough.Title.title2Offset)
+        bottomLabel.autoPinEdge(.bottom, to: .bottom, of: view, withOffset: -Constraints.Walkthrough.Title.title2Bottom)
         bottomLabel.autoPinEdge(.right, to: .right, of: view, withOffset: -Constraints.Walkthrough.Title.horizontalSides)
         bottomLabel.autoSetDimension(.width, toSize: Constraints.Walkthrough.Title.width)
     }
