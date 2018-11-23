@@ -38,7 +38,6 @@
 		49DD02F3219C262C00C57041 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DD02F2219C262C00C57041 /* Weather.swift */; };
 		49DD02F8219C379000C57041 /* TransitLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DD02F7219C379000C57041 /* TransitLine.swift */; };
 		49DD02FE219C3A6600C57041 /* Leg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DD02FD219C3A6600C57041 /* Leg.swift */; };
-		49DD0300219C3B4500C57041 /* Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DD02FF219C3B4500C57041 /* Step.swift */; };
 		49EF7ACE21A709E100FEDFEC /* UNUserNotificationCenter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EF7ACD21A709E100FEDFEC /* UNUserNotificationCenter+Extensions.swift */; };
 		49EF7AD021A72B8D00FEDFEC /* RouteSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EF7ACF21A72B8C00FEDFEC /* RouteSummary.swift */; };
 		49EF7AD221A72CB600FEDFEC /* Waypoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EF7AD121A72CB600FEDFEC /* Waypoint.swift */; };
@@ -92,7 +91,6 @@
 		49DD02F2219C262C00C57041 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		49DD02F7219C379000C57041 /* TransitLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitLine.swift; sourceTree = "<group>"; };
 		49DD02FD219C3A6600C57041 /* Leg.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Leg.swift; sourceTree = "<group>"; };
-		49DD02FF219C3B4500C57041 /* Step.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step.swift; sourceTree = "<group>"; };
 		49EF7ACD21A709E100FEDFEC /* UNUserNotificationCenter+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UNUserNotificationCenter+Extensions.swift"; sourceTree = "<group>"; };
 		49EF7ACF21A72B8C00FEDFEC /* RouteSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteSummary.swift; sourceTree = "<group>"; };
 		49EF7AD121A72CB600FEDFEC /* Waypoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Waypoint.swift; sourceTree = "<group>"; };
@@ -288,7 +286,6 @@
 				49EF7AD121A72CB600FEDFEC /* Waypoint.swift */,
 				49EF7AD321A72CE000FEDFEC /* GeoCoordinate.swift */,
 				49EF7AD521A72ECF00FEDFEC /* Maneuver.swift */,
-				49DD02FF219C3B4500C57041 /* Step.swift */,
 				49DD02F7219C379000C57041 /* TransitLine.swift */,
 			);
 			path = Route;
@@ -479,7 +476,6 @@
 				49DD02F8219C379000C57041 /* TransitLine.swift in Sources */,
 				84E7CDED2195DD260088CF98 /* Route.swift in Sources */,
 				84E7CDEB2195DC930088CF98 /* CalendarEntry.swift in Sources */,
-				49DD0300219C3B4500C57041 /* Step.swift in Sources */,
 				220365B32195BD2B002BDE91 /* String+Extenstions.swift in Sources */,
 				4982E48221A5B730003AC90D /* TravelPageViewModel.swift in Sources */,
 				49EF7AD221A72CB600FEDFEC /* Waypoint.swift in Sources */,
