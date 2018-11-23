@@ -10,5 +10,5 @@ import Foundation
 import RxSwift
 
 protocol WeatherServiceType {
-    func forecast(for lat: Double, long: Double) -> Observable<Weather>
+    func forecast(for lat: Double, long: Double) -> Observable<WeatherForecast>
 }

@@ -15,7 +15,7 @@ class Alarm: Object {
     @objc dynamic var date: Date!
     @objc dynamic var selectedEvent: CalendarEntry!
     @objc dynamic var route: Route!
-    @objc dynamic var weather: Weather!
+    @objc dynamic var weather: WeatherForecast!
     @objc dynamic var location: GeoCoordinate!
     let otherEvents = List<CalendarEntry>()
     
