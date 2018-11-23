@@ -10,5 +10,50 @@ import Foundation
 import Moya
 
 public enum OpenWeatherMap {
+    static private let appId = "6fb5512c186f5afced3e5bc104eaec12"
+    
+    case fiveDayForecast(lat: Double, long: Double)
+}
+
+extension OpenWeatherMap: TargetType {
+    public var baseURL: URL {
+        return URL(string: "api.openweathermap.org/data/2.5")!
+    }
+    
+    public var path: String {
+        switch self {
+        case .fiveDayForecast: return "/forecast"
+        }
+    }
+    
+    public var method: Moya.Method {
+        switch self {
+        case .fiveDayForecast: return .get
+        }
+    }
+    
+    public var sampleData: Data {
+        return Data()
+    }
+    
+    public var task: Task {
+        switch self {
+        case .fiveDayForecast(let lat, let long):
+            return .requestParameters(parameters:[
+                "lat": lat,
+                "long": long,
+                "units": "metric",
+                "APPID": OpenWeatherMap.appId
+                ], encoding: URLEncoding.default)
+        }
+    }
+    
+    public var headers: [String : String]? {
+        return ["Content-Type": "application/json"]
+    }
+    
+    public var validationType: ValidationType {
+        return .successCodes
+    }
     
 }
