@@ -38,10 +38,10 @@ extension OpenWeatherMap: TargetType {
     
     public var task: Task {
         switch self {
-        case .fiveDayForecast(let lat, let long):
+        case let .fiveDayForecast(value):
             return .requestParameters(parameters:[
-                "lat": lat,
-                "long": long,
+                "lat": value.lat,
+                "long": value.long,
                 "units": "metric",
                 "APPID": OpenWeatherMap.appId
                 ], encoding: URLEncoding.default)

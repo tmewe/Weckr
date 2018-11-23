@@ -31,6 +31,8 @@
 		4921B8D021A1A41700BD6145 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4921B8CF21A1A41700BD6145 /* Constants.swift */; };
 		4921B8D221A1A69000BD6145 /* EventStore+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4921B8D121A1A69000BD6145 /* EventStore+Extensions.swift */; };
 		4924A26C21A874AF00671450 /* OpenWeatherMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4924A26B21A874AF00671450 /* OpenWeatherMap.swift */; };
+		4924A26F21A8793B00671450 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4924A26E21A8793B00671450 /* WeatherService.swift */; };
+		4924A27121A8795C00671450 /* WeatherServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4924A27021A8795C00671450 /* WeatherServiceType.swift */; };
 		4982E48221A5B730003AC90D /* TravelPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4982E48121A5B730003AC90D /* TravelPageViewModel.swift */; };
 		4982E48421A5B7C5003AC90D /* MorningRoutinePageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4982E48321A5B7C5003AC90D /* MorningRoutinePageViewModel.swift */; };
 		4982E48621A5B877003AC90D /* DonePageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4982E48521A5B877003AC90D /* DonePageViewModel.swift */; };
@@ -85,6 +87,8 @@
 		4921B8CF21A1A41700BD6145 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		4921B8D121A1A69000BD6145 /* EventStore+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventStore+Extensions.swift"; sourceTree = "<group>"; };
 		4924A26B21A874AF00671450 /* OpenWeatherMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenWeatherMap.swift; sourceTree = "<group>"; };
+		4924A26E21A8793B00671450 /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
+		4924A27021A8795C00671450 /* WeatherServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherServiceType.swift; sourceTree = "<group>"; };
 		4982E48121A5B730003AC90D /* TravelPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelPageViewModel.swift; sourceTree = "<group>"; };
 		4982E48321A5B7C5003AC90D /* MorningRoutinePageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MorningRoutinePageViewModel.swift; sourceTree = "<group>"; };
 		4982E48521A5B877003AC90D /* DonePageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonePageViewModel.swift; sourceTree = "<group>"; };
@@ -189,6 +193,7 @@
 				22C8D182218B28800029C1EA /* Scenes */,
 				22C8D18B218B2AFC0029C1EA /* ViewController */,
 				22C8D18C218B2B0C0029C1EA /* ViewModel */,
+				4924A26D21A8792900671450 /* Services */,
 				4924A26A21A8747200671450 /* Networking */,
 				22BE369D2193482900B56BF9 /* Utility */,
 				22BCC845218B1BF000C77CB1 /* Info.plist */,
@@ -262,6 +267,15 @@
 				4924A26B21A874AF00671450 /* OpenWeatherMap.swift */,
 			);
 			path = Networking;
+			sourceTree = "<group>";
+		};
+		4924A26D21A8792900671450 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				4924A27021A8795C00671450 /* WeatherServiceType.swift */,
+				4924A26E21A8793B00671450 /* WeatherService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		49DB25DA218DDA6A0037CFBB /* Walkthrough */ = {
@@ -469,6 +483,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4924A26F21A8793B00671450 /* WeatherService.swift in Sources */,
 				49FAADD121A075070019D5FA /* NotificationPageViewModel.swift in Sources */,
 				22C8D192218B2DEB0029C1EA /* SceneCoordinator.swift in Sources */,
 				22C51527219EFB2D003783A7 /* WalkthroughPageViewController.swift in Sources */,
@@ -501,6 +516,7 @@
 				221202852197121C00474B5D /* UILabel+Extensions.swift in Sources */,
 				4921B8D221A1A69000BD6145 /* EventStore+Extensions.swift in Sources */,
 				49FAADCD21A06B560019D5FA /* CalendarPageViewModel.swift in Sources */,
+				4924A27121A8795C00671450 /* WeatherServiceType.swift in Sources */,
 				22BE36A02193484500B56BF9 /* BindableType.swift in Sources */,
 				22C8D184218B28A50029C1EA /* Scene.swift in Sources */,
 				22C8D18A218B2AC90029C1EA /* SceneTransitionType.swift in Sources */,
