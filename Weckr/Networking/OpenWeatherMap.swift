@@ -17,7 +17,7 @@ public enum OpenWeatherMap {
 
 extension OpenWeatherMap: TargetType {
     public var baseURL: URL {
-        return URL(string: "api.openweathermap.org/data/2.5")!
+        return URL(string: "https://api.openweathermap.org/data/2.5")!
     }
     
     public var path: String {
@@ -41,7 +41,7 @@ extension OpenWeatherMap: TargetType {
         case let .fiveDayForecast(value):
             return .requestParameters(parameters:[
                 "lat": value.lat,
-                "long": value.long,
+                "lon": value.long,
                 "units": "metric",
                 "APPID": OpenWeatherMap.appId
                 ], encoding: URLEncoding.default)

@@ -11,7 +11,7 @@ import Realm
 import RealmSwift
 
 @objcMembers class Weather: Object, Decodable {
-    dynamic var date: String!
+    dynamic var date: Int = 0
     dynamic var temperature: Double = 0.0
     dynamic var humidity: Double = 0.0
     dynamic var rainAmount: Double = 0.0
@@ -34,12 +34,12 @@ import RealmSwift
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let mainContainer = try container.nestedContainer(keyedBy: MainCodingKeys.self, forKey: .main)
-        let rainContainer = try container.nestedContainer(keyedBy: RainCodingKeys.self, forKey: .rain)
+        let rainContainer = try? container.nestedContainer(keyedBy: RainCodingKeys.self, forKey: .rain)
         
-        date = try container.decode(String.self, forKey: .date)
+        date = try container.decode(Int.self, forKey: .date)
         temperature = try mainContainer.decode(Double.self, forKey: .temperature)
         humidity = try mainContainer.decode(Double.self, forKey: .humidity)
-        rainAmount = try rainContainer.decode(Double.self, forKey: .rainAmount)
+        rainAmount = try rainContainer?.decodeIfPresent(Double.self, forKey: .rainAmount) ?? 0.0
         
         super.init()
     }

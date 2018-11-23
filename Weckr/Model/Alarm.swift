@@ -26,7 +26,7 @@ class Alarm: Object {
     convenience init(date: Date,
                      selectedEvent: CalendarEntry,
                      route: Route,
-                     weather: Weather,
+                     weather: WeatherForecast,
                      location: GeoCoordinate) {
         self.init()
         self.date = date
