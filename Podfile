@@ -17,4 +17,5 @@ target 'Weckr' do
   pod 'RxRealm'
   pod 'Action'
   pod 'RxViewController'
+  pod 'Moya/RxSwift', '~> 12.0'
 end
