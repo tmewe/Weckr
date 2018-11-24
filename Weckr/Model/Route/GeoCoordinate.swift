@@ -7,15 +7,36 @@
 //
 
 import Foundation
+import Realm
 import RealmSwift
 
-class GeoCoordinate: Object {
-    @objc dynamic var latitude: Double = 0.0
-    @objc dynamic var longitude: Double = 0.0
+@objcMembers class GeoCoordinate: Object, Decodable {
+    dynamic var latitude: Double = 0.0
+    dynamic var longitude: Double = 0.0
     
-    convenience init(lat: Double, long: Double) {
-        self.init()
-        latitude = lat
-        longitude = long
+    enum CodingKeys: String, CodingKey {
+        case latitude = "latitude"
+        case longitude = "longitude"
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        latitude = try container.decode(Double.self, forKey: .latitude)
+        longitude = try container.decode(Double.self, forKey: .longitude)
+        
+        super.init()
+    }
+    
+    required init() {
+        super.init()
+    }
+    
+    required init(value: Any, schema: RLMSchema) {
+        super.init(value: value, schema: schema)
+    }
+    
+    required init(realm: RLMRealm, schema: RLMObjectSchema) {
+        super.init(realm: realm, schema: schema)
     }
 }

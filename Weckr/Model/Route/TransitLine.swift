@@ -7,13 +7,45 @@
 //
 
 import Foundation
+import Realm
 import RealmSwift
 
-class TransitLine: Object {
-    @objc dynamic var name: String!
-    @objc dynamic var shortName: String!
-    @objc dynamic var foregroundColor: String!
-    @objc dynamic var backgroundColor: String!
-    @objc dynamic var destination: String!
-    @objc dynamic var type: String!
+@objcMembers class TransitLine: Object, Decodable {
+    dynamic var name: String!
+    dynamic var foregroundColor: String!
+    dynamic var backgroundColor: String!
+    dynamic var destination: String!
+    dynamic var type: String!
+    
+    enum CodingKeys: String, CodingKey {
+        case name = "lineName"
+        case foregroundColor = "lineForeground"
+        case backgroundColor = "lineBackground"
+        case destination = "destination"
+        case type = "type"
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        name = try container.decode(String.self, forKey: .name)
+        foregroundColor = try container.decode(String.self, forKey: .foregroundColor)
+        backgroundColor = try container.decode(String.self, forKey: .backgroundColor)
+        destination = try container.decode(String.self, forKey: .destination)
+        type = try container.decode(String.self, forKey: .type)
+        
+        super.init()
+    }
+    
+    required init() {
+        super.init()
+    }
+    
+    required init(value: Any, schema: RLMSchema) {
+        super.init(value: value, schema: schema)
+    }
+    
+    required init(realm: RLMRealm, schema: RLMObjectSchema) {
+        super.init(realm: realm, schema: schema)
+    }
 }
