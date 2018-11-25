@@ -10,7 +10,7 @@ import Foundation
 import Realm
 import RealmSwift
 
-@objcMembers class GeoCoordinate: Object, Decodable {
+@objcMembers public class GeoCoordinate: Object, Decodable {
     dynamic var latitude: Double = 0.0
     dynamic var longitude: Double = 0.0
     
@@ -19,13 +19,23 @@ import RealmSwift
         case longitude = "longitude"
     }
     
-    required init(from decoder: Decoder) throws {
+    convenience init(lat: Double, long: Double) {
+        self.init()
+        latitude = lat
+        longitude = long
+    }
+    
+    required public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         latitude = try container.decode(Double.self, forKey: .latitude)
         longitude = try container.decode(Double.self, forKey: .longitude)
         
         super.init()
+    }
+    
+    func toString() -> String {
+        return "\(latitude), \(longitude)"
     }
     
     required init() {

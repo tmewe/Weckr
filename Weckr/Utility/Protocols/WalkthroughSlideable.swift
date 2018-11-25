@@ -12,7 +12,7 @@ import UIKit.UIColor
 import RxSwift
 import Action
 
-enum Vehicle: Int {
+public enum Vehicle: Int {
     case car
     case feet
     case transit

@@ -19,9 +19,9 @@ struct WeatherService: WeatherServiceType {
         self.openWeatherMap = openWeatherMap
     }
     
-    func forecast(for lat: Double, long: Double) -> Observable<WeatherForecast> {
+    func forecast(for position: GeoCoordinate) -> Observable<WeatherForecast> {
         return openWeatherMap.rx
-            .request(.fiveDayForecast(lat: lat, long: long))
+            .request(.fiveDayForecast(lat: position.latitude, long: position.longitude))
             .map(WeatherForecast.self)
             .asObservable()
     }
