@@ -35,7 +35,7 @@ import RealmSwift
     }
     
     func toString() -> String {
-        return "\(latitude), \(longitude)"
+        return "\(latitude),\(longitude)"
     }
     
     required init() {

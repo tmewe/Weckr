@@ -50,7 +50,6 @@ extension HereMaps: TargetType {
         case let .route(value):
             parameters["waypoint0"] = value.start.toString()
             parameters["waypoint1"] = value.end.toString()
-            parameters["arrival"] = value.arrival.xsDateTime
             
             switch value.mode {
             case .car:
@@ -60,6 +59,7 @@ extension HereMaps: TargetType {
             case .transit:
                 parameters["mode"] = "fastest;publicTransportTimeTable"
                 parameters["maneuverAttributes"] = "pt"
+                parameters["arrival"] = value.arrival.xsDateTime
             }
             
             return .requestParameters(parameters: parameters, encoding: URLEncoding.default)

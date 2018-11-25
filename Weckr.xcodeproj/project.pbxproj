@@ -333,6 +333,7 @@
 		49DD02F6219C378000C57041 /* Route */ = {
 			isa = PBXGroup;
 			children = (
+				4959992021A9FFFE00549D89 /* RouteWrapper.swift */,
 				84E7CDEC2195DD260088CF98 /* Route.swift */,
 				49DD02FD219C3A6600C57041 /* Leg.swift */,
 				49EF7ACF21A72B8C00FEDFEC /* RouteSummary.swift */,
@@ -340,7 +341,6 @@
 				49EF7AD321A72CE000FEDFEC /* GeoCoordinate.swift */,
 				49EF7AD521A72ECF00FEDFEC /* Maneuver.swift */,
 				49DD02F7219C379000C57041 /* TransitLine.swift */,
-				4959992021A9FFFE00549D89 /* RouteWrapper.swift */,
 			);
 			path = Route;
 			sourceTree = "<group>";
