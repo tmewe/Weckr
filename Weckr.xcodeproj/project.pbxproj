@@ -210,16 +210,15 @@
 		22BCC838218B1BEE00C77CB1 /* Weckr */ = {
 			isa = PBXGroup;
 			children = (
-				84E7CDE52195B6D40088CF98 /* Model */,
 				22BCC839218B1BEE00C77CB1 /* AppDelegate.swift */,
+				84E7CDE52195B6D40088CF98 /* Model */,
 				22C8D182218B28800029C1EA /* Scenes */,
 				22C8D18B218B2AFC0029C1EA /* ViewController */,
 				22C8D18C218B2B0C0029C1EA /* ViewModel */,
 				4924A26D21A8792900671450 /* Services */,
-				4924A26A21A8747200671450 /* Networking */,
 				22BE369D2193482900B56BF9 /* Utility */,
-				22BCC845218B1BF000C77CB1 /* Info.plist */,
 				220365AD2195BB48002BDE91 /* Resources */,
+				22BCC845218B1BF000C77CB1 /* Info.plist */,
 			);
 			path = Weckr;
 			sourceTree = "<group>";
@@ -227,6 +226,7 @@
 		22BE369D2193482900B56BF9 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				4924A26A21A8747200671450 /* Networking */,
 				499AF40221AEEC3500F4B4FF /* Errors */,
 				220365BA2195C33B002BDE91 /* Appearance */,
 				220365AA2195B709002BDE91 /* Extensions */,
@@ -296,11 +296,9 @@
 		4924A26D21A8792900671450 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				4924A27021A8795C00671450 /* WeatherServiceType.swift */,
+				499AF40521AEF73400F4B4FF /* Protocols */,
 				4924A26E21A8793B00671450 /* WeatherService.swift */,
-				4959992221AA01E800549D89 /* RoutingServiceType.swift */,
 				4959992421AA01F300549D89 /* RoutingService.swift */,
-				499AF3FE21AEE8FC00F4B4FF /* CalendarServiceType.swift */,
 				499AF40021AEE93C00F4B4FF /* CalendarService.swift */,
 			);
 			path = Services;
@@ -321,6 +319,16 @@
 				499AF40321AEEC5400F4B4FF /* AccessError.swift */,
 			);
 			path = Errors;
+			sourceTree = "<group>";
+		};
+		499AF40521AEF73400F4B4FF /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				4924A27021A8795C00671450 /* WeatherServiceType.swift */,
+				4959992221AA01E800549D89 /* RoutingServiceType.swift */,
+				499AF3FE21AEE8FC00F4B4FF /* CalendarServiceType.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		49DB25DA218DDA6A0037CFBB /* Walkthrough */ = {
