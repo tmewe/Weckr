@@ -43,6 +43,9 @@
 		4982E48221A5B730003AC90D /* TravelPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4982E48121A5B730003AC90D /* TravelPageViewModel.swift */; };
 		4982E48421A5B7C5003AC90D /* MorningRoutinePageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4982E48321A5B7C5003AC90D /* MorningRoutinePageViewModel.swift */; };
 		4982E48621A5B877003AC90D /* DonePageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4982E48521A5B877003AC90D /* DonePageViewModel.swift */; };
+		499AF3FF21AEE8FC00F4B4FF /* CalendarServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499AF3FE21AEE8FC00F4B4FF /* CalendarServiceType.swift */; };
+		499AF40121AEE93C00F4B4FF /* CalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499AF40021AEE93C00F4B4FF /* CalendarService.swift */; };
+		499AF40421AEEC5400F4B4FF /* AccessError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499AF40321AEEC5400F4B4FF /* AccessError.swift */; };
 		49DB25DD218DDACD0037CFBB /* WalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DB25DC218DDACD0037CFBB /* WalkthroughViewController.swift */; };
 		49DB25DF218DDAFB0037CFBB /* WalkthroughViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DB25DE218DDAFB0037CFBB /* WalkthroughViewModel.swift */; };
 		49DD02F3219C262C00C57041 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DD02F2219C262C00C57041 /* Weather.swift */; };
@@ -106,6 +109,9 @@
 		4982E48121A5B730003AC90D /* TravelPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelPageViewModel.swift; sourceTree = "<group>"; };
 		4982E48321A5B7C5003AC90D /* MorningRoutinePageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MorningRoutinePageViewModel.swift; sourceTree = "<group>"; };
 		4982E48521A5B877003AC90D /* DonePageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonePageViewModel.swift; sourceTree = "<group>"; };
+		499AF3FE21AEE8FC00F4B4FF /* CalendarServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarServiceType.swift; sourceTree = "<group>"; };
+		499AF40021AEE93C00F4B4FF /* CalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarService.swift; sourceTree = "<group>"; };
+		499AF40321AEEC5400F4B4FF /* AccessError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessError.swift; sourceTree = "<group>"; };
 		49DB25DC218DDACD0037CFBB /* WalkthroughViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughViewController.swift; sourceTree = "<group>"; };
 		49DB25DE218DDAFB0037CFBB /* WalkthroughViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughViewModel.swift; sourceTree = "<group>"; };
 		49DD02F2219C262C00C57041 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
@@ -221,6 +227,7 @@
 		22BE369D2193482900B56BF9 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				499AF40221AEEC3500F4B4FF /* Errors */,
 				220365BA2195C33B002BDE91 /* Appearance */,
 				220365AA2195B709002BDE91 /* Extensions */,
 				22BE369E2193483700B56BF9 /* Protocols */,
@@ -293,6 +300,8 @@
 				4924A26E21A8793B00671450 /* WeatherService.swift */,
 				4959992221AA01E800549D89 /* RoutingServiceType.swift */,
 				4959992421AA01F300549D89 /* RoutingService.swift */,
+				499AF3FE21AEE8FC00F4B4FF /* CalendarServiceType.swift */,
+				499AF40021AEE93C00F4B4FF /* CalendarService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -304,6 +313,14 @@
 				49DD02F2219C262C00C57041 /* Weather.swift */,
 			);
 			path = Weather;
+			sourceTree = "<group>";
+		};
+		499AF40221AEEC3500F4B4FF /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				499AF40321AEEC5400F4B4FF /* AccessError.swift */,
+			);
+			path = Errors;
 			sourceTree = "<group>";
 		};
 		49DB25DA218DDA6A0037CFBB /* Walkthrough */ = {
@@ -515,6 +532,7 @@
 				4924A26F21A8793B00671450 /* WeatherService.swift in Sources */,
 				49FAADD121A075070019D5FA /* NotificationPageViewModel.swift in Sources */,
 				22C8D192218B2DEB0029C1EA /* SceneCoordinator.swift in Sources */,
+				499AF40121AEE93C00F4B4FF /* CalendarService.swift in Sources */,
 				22C51527219EFB2D003783A7 /* WalkthroughPageViewController.swift in Sources */,
 				4982E48621A5B877003AC90D /* DonePageViewModel.swift in Sources */,
 				220365AC2195B741002BDE91 /* UIColor+Extensions.swift in Sources */,
@@ -535,6 +553,7 @@
 				49EF7ACE21A709E100FEDFEC /* UNUserNotificationCenter+Extensions.swift in Sources */,
 				220365BC2195C372002BDE91 /* Constraints.swift in Sources */,
 				49FAADCF21A073960019D5FA /* LocationPageViewModel.swift in Sources */,
+				499AF40421AEEC5400F4B4FF /* AccessError.swift in Sources */,
 				22C8D188218B2AAD0029C1EA /* SceneCoordinatorType.swift in Sources */,
 				4959992321AA01E800549D89 /* RoutingServiceType.swift in Sources */,
 				2245868221972D5200072C6C /* WalkthroughSlideable.swift in Sources */,
@@ -546,6 +565,7 @@
 				84E7CDEB2195DC930088CF98 /* CalendarEntry.swift in Sources */,
 				220365B32195BD2B002BDE91 /* String+Extenstions.swift in Sources */,
 				4982E48221A5B730003AC90D /* TravelPageViewModel.swift in Sources */,
+				499AF3FF21AEE8FC00F4B4FF /* CalendarServiceType.swift in Sources */,
 				49EF7AD221A72CB600FEDFEC /* Waypoint.swift in Sources */,
 				49EF7AD421A72CE000FEDFEC /* GeoCoordinate.swift in Sources */,
 				221202852197121C00474B5D /* UILabel+Extensions.swift in Sources */,
