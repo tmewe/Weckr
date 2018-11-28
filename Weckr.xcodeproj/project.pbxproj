@@ -46,6 +46,8 @@
 		499AF3FF21AEE8FC00F4B4FF /* CalendarServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499AF3FE21AEE8FC00F4B4FF /* CalendarServiceType.swift */; };
 		499AF40121AEE93C00F4B4FF /* CalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499AF40021AEE93C00F4B4FF /* CalendarService.swift */; };
 		499AF40421AEEC5400F4B4FF /* AccessError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499AF40321AEEC5400F4B4FF /* AccessError.swift */; };
+		49CE3D2B21AF227D00A05CD0 /* AlarmServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CE3D2A21AF227D00A05CD0 /* AlarmServiceType.swift */; };
+		49CE3D2D21AF235700A05CD0 /* AlarmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CE3D2C21AF235700A05CD0 /* AlarmService.swift */; };
 		49DB25DD218DDACD0037CFBB /* WalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DB25DC218DDACD0037CFBB /* WalkthroughViewController.swift */; };
 		49DB25DF218DDAFB0037CFBB /* WalkthroughViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DB25DE218DDAFB0037CFBB /* WalkthroughViewModel.swift */; };
 		49DD02F3219C262C00C57041 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DD02F2219C262C00C57041 /* Weather.swift */; };
@@ -112,6 +114,8 @@
 		499AF3FE21AEE8FC00F4B4FF /* CalendarServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarServiceType.swift; sourceTree = "<group>"; };
 		499AF40021AEE93C00F4B4FF /* CalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarService.swift; sourceTree = "<group>"; };
 		499AF40321AEEC5400F4B4FF /* AccessError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessError.swift; sourceTree = "<group>"; };
+		49CE3D2A21AF227D00A05CD0 /* AlarmServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmServiceType.swift; sourceTree = "<group>"; };
+		49CE3D2C21AF235700A05CD0 /* AlarmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmService.swift; sourceTree = "<group>"; };
 		49DB25DC218DDACD0037CFBB /* WalkthroughViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughViewController.swift; sourceTree = "<group>"; };
 		49DB25DE218DDAFB0037CFBB /* WalkthroughViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughViewModel.swift; sourceTree = "<group>"; };
 		49DD02F2219C262C00C57041 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
@@ -300,6 +304,7 @@
 				4924A26E21A8793B00671450 /* WeatherService.swift */,
 				4959992421AA01F300549D89 /* RoutingService.swift */,
 				499AF40021AEE93C00F4B4FF /* CalendarService.swift */,
+				49CE3D2C21AF235700A05CD0 /* AlarmService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -311,6 +316,20 @@
 				49DD02F2219C262C00C57041 /* Weather.swift */,
 			);
 			path = Weather;
+			sourceTree = "<group>";
+		};
+		4963CF2521AF0B9A00E3D2A5 /* Pages */ = {
+			isa = PBXGroup;
+			children = (
+				22C51524219EF6EB003783A7 /* LandingPageViewModel.swift */,
+				49FAADCC21A06B560019D5FA /* CalendarPageViewModel.swift */,
+				49FAADCE21A073960019D5FA /* LocationPageViewModel.swift */,
+				49FAADD021A075070019D5FA /* NotificationPageViewModel.swift */,
+				4982E48121A5B730003AC90D /* TravelPageViewModel.swift */,
+				4982E48321A5B7C5003AC90D /* MorningRoutinePageViewModel.swift */,
+				4982E48521A5B877003AC90D /* DonePageViewModel.swift */,
+			);
+			path = Pages;
 			sourceTree = "<group>";
 		};
 		499AF40221AEEC3500F4B4FF /* Errors */ = {
@@ -327,6 +346,7 @@
 				4924A27021A8795C00671450 /* WeatherServiceType.swift */,
 				4959992221AA01E800549D89 /* RoutingServiceType.swift */,
 				499AF3FE21AEE8FC00F4B4FF /* CalendarServiceType.swift */,
+				49CE3D2A21AF227D00A05CD0 /* AlarmServiceType.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -343,14 +363,8 @@
 		49DB25DB218DDA760037CFBB /* Walkthrough */ = {
 			isa = PBXGroup;
 			children = (
+				4963CF2521AF0B9A00E3D2A5 /* Pages */,
 				49DB25DE218DDAFB0037CFBB /* WalkthroughViewModel.swift */,
-				22C51524219EF6EB003783A7 /* LandingPageViewModel.swift */,
-				49FAADCC21A06B560019D5FA /* CalendarPageViewModel.swift */,
-				49FAADCE21A073960019D5FA /* LocationPageViewModel.swift */,
-				49FAADD021A075070019D5FA /* NotificationPageViewModel.swift */,
-				4982E48121A5B730003AC90D /* TravelPageViewModel.swift */,
-				4982E48321A5B7C5003AC90D /* MorningRoutinePageViewModel.swift */,
-				4982E48521A5B877003AC90D /* DonePageViewModel.swift */,
 			);
 			path = Walkthrough;
 			sourceTree = "<group>";
@@ -471,8 +485,8 @@
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
-				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxCoreLocation/RxCoreLocation.framework",
 				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
 				"${BUILT_PRODUCTS_DIR}/RxOptional/RxOptional.framework",
 				"${BUILT_PRODUCTS_DIR}/RxRealm/RxRealm.framework",
@@ -494,8 +508,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCoreLocation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxOptional.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRealm.framework",
@@ -538,6 +552,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4924A26F21A8793B00671450 /* WeatherService.swift in Sources */,
+				49CE3D2B21AF227D00A05CD0 /* AlarmServiceType.swift in Sources */,
 				49FAADD121A075070019D5FA /* NotificationPageViewModel.swift in Sources */,
 				22C8D192218B2DEB0029C1EA /* SceneCoordinator.swift in Sources */,
 				499AF40121AEE93C00F4B4FF /* CalendarService.swift in Sources */,
@@ -570,6 +585,7 @@
 				49DD02F8219C379000C57041 /* TransitLine.swift in Sources */,
 				4942435C21AA9D5400088AB6 /* Formatter+Extensions.swift in Sources */,
 				84E7CDED2195DD260088CF98 /* Route.swift in Sources */,
+				49CE3D2D21AF235700A05CD0 /* AlarmService.swift in Sources */,
 				84E7CDEB2195DC930088CF98 /* CalendarEntry.swift in Sources */,
 				220365B32195BD2B002BDE91 /* String+Extenstions.swift in Sources */,
 				4982E48221A5B730003AC90D /* TravelPageViewModel.swift in Sources */,

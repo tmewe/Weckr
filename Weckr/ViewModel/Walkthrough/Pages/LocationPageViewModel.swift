@@ -17,7 +17,8 @@ class LocationPageViewModel : WalkthroughSlideableType {
     var outputs: WalkthroughSlideableOutputsType { return self }
     var actions: WalkthroughSlideableActionsType { return self }
     
-    let locationManager = CLLocationManager()
+    //Setup
+    private let locationManager = CLLocationManager()
     
     //Inputs
     var vehicle: PublishSubject<Vehicle>?

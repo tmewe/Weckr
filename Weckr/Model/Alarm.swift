@@ -23,14 +23,12 @@ class Alarm: Object {
         return "id"
     }
     
-    convenience init(date: Date,
-                     selectedEvent: CalendarEntry,
+    convenience init(selectedEvent: CalendarEntry,
                      route: Route,
                      weather: WeatherForecast,
                      location: GeoCoordinate,
                      otherEvents: [CalendarEntry]) {
         self.init()
-        self.date = date
         self.selectedEvent = selectedEvent
         self.route = route
         self.weather = weather

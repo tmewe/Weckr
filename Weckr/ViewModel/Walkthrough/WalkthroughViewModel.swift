@@ -9,6 +9,8 @@
 import Foundation
 import RxSwift
 import RxOptional
+import RxCoreLocation
+import CoreLocation
 
 protocol WalkthroughViewModelInputsType {
     var nextPage: PublishSubject<Void> { get }
@@ -36,6 +38,10 @@ class WalkthroughViewModel: WalkthroughViewModelType {
     //Setup
     private var internalPageNumber = BehaviorSubject(value: 0)
     private var internalButtonColor = BehaviorSubject(value: UIColor.walkthroughPurpleAccent.cgColor)
+    private let weatherService: WeatherServiceType
+    private let routingService: RoutingServiceType
+    private let calendarService: CalendarServiceType
+    private let locationManager = CLLocationManager()
     private let disposeBag = DisposeBag()
     
     //Inputs
@@ -49,9 +55,15 @@ class WalkthroughViewModel: WalkthroughViewModelType {
     var buttonColor: Observable<CGColor>
     var buttonText: Observable<String>
     
-    init(pages: [WalkthroughPageViewController]) {
+    init(pages: [WalkthroughPageViewController],
+         weatherService: WeatherServiceType,
+         routingService: RoutingServiceType,
+         calendarService: CalendarServiceType) {
         
         //Setup
+        self.weatherService = weatherService
+        self.routingService = routingService
+        self.calendarService = calendarService
         
         //Inputs
         nextPage = PublishSubject()
@@ -114,6 +126,45 @@ class WalkthroughViewModel: WalkthroughViewModelType {
             .withLatestFrom(currentPageController)
             .subscribe(onNext: { $0.viewModel.actions.continueAction?.execute(Void()) })
             .disposed(by: disposeBag)
+        
+        let createTrigger = nextPage
+            .withLatestFrom(internalPageNumber)
+            .map { $0 + 1 }
+            .withLatestFrom(slides) {($0, $1)}
+            .filter { $0.0 == $0.1.count }
+        
+        //Alarm creation
+        
+        let events = calendarService.fetchEvents(at: Date(), calendars: nil)
+        let firstEvent = events
+            .map { $0.first }
+            .filterNil()
+        
+        let startLocation = locationManager.rx.location
+            .map { GeoCoordinate(lat: $0?.coordinate.latitude ?? 0, long: $0?.coordinate.longitude ?? 0) }
+        let endLocation = firstEvent
+            .map { $0.event.structuredLocation?.geoLocation?.coordinate }
+            .filterNil()
+            .map { ($0.latitude, $0.longitude) }
+            .map(GeoCoordinate.init)
+        let arrival = firstEvent.map { $0.event.startDate }.filterNil()
+        
+        let route = Observable.combineLatest(vehicle, startLocation, endLocation, arrival)
+            .map(routingService.route)
+            .flatMapLatest { $0 }
+        
+        let weatherForecast = startLocation
+            .map(weatherService.forecast)
+            .flatMapLatest { $0 }
+        
+        createTrigger
+            .do(onNext: { _ in self.locationManager.startUpdatingLocation() })
+            .withLatestFrom(firstEvent)
+            .withLatestFrom(route) { ($0, $1) }
+            .withLatestFrom(weatherForecast) { ($0.0, $0.1, $1) }
+            .withLatestFrom(startLocation) { ($0.0, $0.1, $0.2, $1) }
+            .withLatestFrom(events) { ($0.0, $0.1, $0.2, $0.3, $1) }
+            .map(Alarm.init)
     }
 }
 

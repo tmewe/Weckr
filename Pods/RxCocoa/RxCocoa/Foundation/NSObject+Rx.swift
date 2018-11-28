@@ -397,20 +397,6 @@ fileprivate final class KVOObservable<Element>
 
 }
 
-fileprivate extension KeyValueObservingOptions {
-    fileprivate var nsOptions: NSKeyValueObservingOptions {
-        var result: UInt = 0
-        if self.contains(.new) {
-            result |= NSKeyValueObservingOptions.new.rawValue
-        }
-        if self.contains(.initial) {
-            result |= NSKeyValueObservingOptions.initial.rawValue
-        }
-        
-        return NSKeyValueObservingOptions(rawValue: result)
-    }
-}
-
 #endif
 
 #if !DISABLE_SWIZZLING && !os(Linux)
@@ -452,6 +438,20 @@ fileprivate extension KeyValueObservingOptions {
         }
     }
 
+    fileprivate extension KeyValueObservingOptions {
+        fileprivate var nsOptions: NSKeyValueObservingOptions {
+            var result: UInt = 0
+            if self.contains(.new) {
+                result |= NSKeyValueObservingOptions.new.rawValue
+            }
+            if self.contains(.initial) {
+                result |= NSKeyValueObservingOptions.initial.rawValue
+            }
+
+            return NSKeyValueObservingOptions(rawValue: result)
+        }
+    }
+    
     fileprivate func observeWeaklyKeyPathFor(
         _ target: NSObject,
         keyPathSections: [String],
