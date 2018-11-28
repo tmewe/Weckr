@@ -45,5 +45,9 @@
 	<false/>
 	<key>NSCalendarsUsageDescription</key>
 	<string>Weckr needs calendar access to know when the first event of the day happens.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Weckr needs your location to determine how you can get to your events. This data won’t leave the app and is deleted at the end of the day!</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Weckr needs your location to determine how you can get to your events. This data won’t leave the app and is deleted at the end of the day!</string>
 </dict>
 </plist>

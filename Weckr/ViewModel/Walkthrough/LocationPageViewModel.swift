@@ -9,12 +9,15 @@
 import Foundation
 import RxSwift
 import Action
+import CoreLocation
 
 class LocationPageViewModel : WalkthroughSlideableType {
     
     var inputs: WalkthroughSlideableInputsType { return self }
     var outputs: WalkthroughSlideableOutputsType { return self }
     var actions: WalkthroughSlideableActionsType { return self }
+    
+    let locationManager = CLLocationManager()
     
     //Inputs
     var vehicle: PublishSubject<Vehicle>?
@@ -40,7 +43,12 @@ class LocationPageViewModel : WalkthroughSlideableType {
     }
     
     //Actions
-    lazy var continueAction: CocoaAction? = nil
+    lazy var continueAction: CocoaAction? = {
+        return CocoaAction {
+            self.locationManager.requestAlwaysAuthorization()
+            return Observable.empty()
+        }
+    }()
 }
 
 extension LocationPageViewModel : WalkthroughSlideableOutputsType, WalkthroughSlideableActionsType, WalkthroughSlideableInputsType {}
