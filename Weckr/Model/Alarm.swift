@@ -27,12 +27,14 @@ class Alarm: Object {
                      selectedEvent: CalendarEntry,
                      route: Route,
                      weather: WeatherForecast,
-                     location: GeoCoordinate) {
+                     location: GeoCoordinate,
+                     otherEvents: [CalendarEntry]) {
         self.init()
         self.date = date
         self.selectedEvent = selectedEvent
         self.route = route
         self.weather = weather
         self.location = location
+        self.otherEvents.append(objectsIn: otherEvents)
     }
 }
