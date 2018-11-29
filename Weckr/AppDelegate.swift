@@ -20,12 +20,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let weatherService = WeatherService()
         let calendarService = CalendarService()
         let routingService = RoutingService()
+        let alarmService = AlarmService()
         let pages = createPages()
         let coordinator = SceneCoordinator(window: window!)
         let walkthroughViewModel = WalkthroughViewModel(pages: pages,
                                                         weatherService: weatherService,
                                                         routingService: routingService,
-                                                        calendarService: calendarService)
+                                                        calendarService: calendarService,
+                                                        alarmService: alarmService,
+                                                        coordinator: coordinator)
         coordinator.transition(to: Scene.walkthrough(walkthroughViewModel), withType: .root)
         
         return true

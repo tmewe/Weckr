@@ -41,7 +41,9 @@ class WalkthroughViewModel: WalkthroughViewModelType {
     private let weatherService: WeatherServiceType
     private let routingService: RoutingServiceType
     private let calendarService: CalendarServiceType
+    private let alarmService: AlarmServiceType
     private let locationManager = CLLocationManager()
+    private var coordinator: SceneCoordinatorType!
     private let disposeBag = DisposeBag()
     
     //Inputs
@@ -58,12 +60,17 @@ class WalkthroughViewModel: WalkthroughViewModelType {
     init(pages: [WalkthroughPageViewController],
          weatherService: WeatherServiceType,
          routingService: RoutingServiceType,
-         calendarService: CalendarServiceType) {
+         calendarService: CalendarServiceType,
+         alarmService: AlarmServiceType,
+         coordinator: SceneCoordinatorType) {
         
         //Setup
+        locationManager.startUpdatingLocation()
         self.weatherService = weatherService
         self.routingService = routingService
         self.calendarService = calendarService
+        self.alarmService = alarmService
+        self.coordinator = coordinator
         
         //Inputs
         nextPage = PublishSubject()
@@ -132,39 +139,60 @@ class WalkthroughViewModel: WalkthroughViewModelType {
             .map { $0 + 1 }
             .withLatestFrom(slides) {($0, $1)}
             .filter { $0.0 == $0.1.count }
+            .take(1)
+            .share(replay: 1, scope: .forever)
         
         //Alarm creation
+        let now = Date()
+        let calendar = Calendar.current
+        var dateComponents = DateComponents.init()
+        dateComponents.day = 1
+        let futureDate = calendar.date(byAdding: dateComponents, to: now)! // 1
         
-        let events = calendarService.fetchEvents(at: Date(), calendars: nil)
-        let firstEvent = events
-            .map { $0.first }
-            .filterNil()
+        let events = createTrigger
+            .map { _ in calendarService.fetchEvents(at: futureDate, calendars: nil) }
+            .flatMapLatest { $0 }
+            .share(replay: 1, scope: .forever)
         
         let startLocation = locationManager.rx.location
-            .map { GeoCoordinate(lat: $0?.coordinate.latitude ?? 0, long: $0?.coordinate.longitude ?? 0) }
-        let endLocation = firstEvent
-            .map { $0.event.structuredLocation?.geoLocation?.coordinate }
             .filterNil()
-            .map { ($0.latitude, $0.longitude) }
+            .take(1)
+            .map { ($0.coordinate.latitude, $0.coordinate.longitude) }
             .map(GeoCoordinate.init)
-        let arrival = firstEvent.map { $0.event.startDate }.filterNil()
-        
-        let route = Observable.combineLatest(vehicle, startLocation, endLocation, arrival)
-            .map(routingService.route)
-            .flatMapLatest { $0 }
+            .share(replay: 1, scope: .forever)
         
         let weatherForecast = startLocation
             .map(weatherService.forecast)
             .flatMapLatest { $0 }
         
-        createTrigger
-            .do(onNext: { _ in self.locationManager.startUpdatingLocation() })
-            .withLatestFrom(firstEvent)
-            .withLatestFrom(route) { ($0, $1) }
-            .withLatestFrom(weatherForecast) { ($0.0, $0.1, $1) }
-            .withLatestFrom(startLocation) { ($0.0, $0.1, $0.2, $1) }
-            .withLatestFrom(events) { ($0.0, $0.1, $0.2, $0.3, $1) }
+        let firstEvent = events
+            .map { $0.first }
+            .filterNil()
+            .share(replay: 1, scope: .forever)
+        
+        let endLocation = firstEvent
+            .map { $0.location }
+            .filterNil()
+
+        let arrival = firstEvent.map { $0.startDate }.filterNil()
+        
+        let route = Observable.zip(vehicle, startLocation, endLocation, arrival)
+            .take(1)
+            .flatMapLatest(routingService.route)
+            .share(replay: 1, scope: .forever)
+        
+        Observable.zip(createTrigger,
+                       firstEvent,
+                       route,
+                       weatherForecast,
+                       startLocation,
+                       events) { ($1, $2, $3, $4, $5) }
+            .observeOn(ConcurrentDispatchQueueScheduler(qos: .background))
             .map(Alarm.init)
+            .map { alarmService.save(alarm: $0) }
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { coordinator.transition(to: Scene.main(MainViewModel()), withType: .modal) })
+            .disposed(by: disposeBag)
     }
 }
 

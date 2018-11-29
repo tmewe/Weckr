@@ -48,6 +48,7 @@
 		499AF40421AEEC5400F4B4FF /* AccessError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499AF40321AEEC5400F4B4FF /* AccessError.swift */; };
 		49CE3D2B21AF227D00A05CD0 /* AlarmServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CE3D2A21AF227D00A05CD0 /* AlarmServiceType.swift */; };
 		49CE3D2D21AF235700A05CD0 /* AlarmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CE3D2C21AF235700A05CD0 /* AlarmService.swift */; };
+		49CE3D2F21AF244C00A05CD0 /* AlarmServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CE3D2E21AF244C00A05CD0 /* AlarmServiceError.swift */; };
 		49DB25DD218DDACD0037CFBB /* WalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DB25DC218DDACD0037CFBB /* WalkthroughViewController.swift */; };
 		49DB25DF218DDAFB0037CFBB /* WalkthroughViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DB25DE218DDAFB0037CFBB /* WalkthroughViewModel.swift */; };
 		49DD02F3219C262C00C57041 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DD02F2219C262C00C57041 /* Weather.swift */; };
@@ -116,6 +117,7 @@
 		499AF40321AEEC5400F4B4FF /* AccessError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessError.swift; sourceTree = "<group>"; };
 		49CE3D2A21AF227D00A05CD0 /* AlarmServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmServiceType.swift; sourceTree = "<group>"; };
 		49CE3D2C21AF235700A05CD0 /* AlarmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmService.swift; sourceTree = "<group>"; };
+		49CE3D2E21AF244C00A05CD0 /* AlarmServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmServiceError.swift; sourceTree = "<group>"; };
 		49DB25DC218DDACD0037CFBB /* WalkthroughViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughViewController.swift; sourceTree = "<group>"; };
 		49DB25DE218DDAFB0037CFBB /* WalkthroughViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughViewModel.swift; sourceTree = "<group>"; };
 		49DD02F2219C262C00C57041 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
@@ -336,6 +338,7 @@
 			isa = PBXGroup;
 			children = (
 				499AF40321AEEC5400F4B4FF /* AccessError.swift */,
+				49CE3D2E21AF244C00A05CD0 /* AlarmServiceError.swift */,
 			);
 			path = Errors;
 			sourceTree = "<group>";
@@ -591,6 +594,7 @@
 				4982E48221A5B730003AC90D /* TravelPageViewModel.swift in Sources */,
 				499AF3FF21AEE8FC00F4B4FF /* CalendarServiceType.swift in Sources */,
 				49EF7AD221A72CB600FEDFEC /* Waypoint.swift in Sources */,
+				49CE3D2F21AF244C00A05CD0 /* AlarmServiceError.swift in Sources */,
 				49EF7AD421A72CE000FEDFEC /* GeoCoordinate.swift in Sources */,
 				221202852197121C00474B5D /* UILabel+Extensions.swift in Sources */,
 				4921B8D221A1A69000BD6145 /* EventStore+Extensions.swift in Sources */,

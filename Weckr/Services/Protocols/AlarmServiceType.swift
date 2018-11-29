@@ -16,10 +16,10 @@ protocol AlarmServiceType {
     
 //    @discardableResult
 //    func delete(alarm: Alarm) -> Observable<Void>
-//    
+//
 //    @discardableResult
 //    func allAlarms() -> Observable<Results<Alarm>>
-//    
+//
 //    @discardableResult
 //    func nextAlarm() -> Observable<Alarm>
 }

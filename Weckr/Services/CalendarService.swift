@@ -17,9 +17,12 @@ struct CalendarService: CalendarServiceType {
         switch status {
         case .authorized:
             let store = EKEventStore()
-            let predicate = store.predicateForEvents(withStart: date, end: date, calendars: calendars)
+            let predicate = store.predicateForEvents(withStart: Date(), end: date, calendars: calendars)
+                        
             let events = store.events(matching: predicate)
                 .sorted { $0.startDate < $1.startDate }
+                .filter { $0.structuredLocation?.geoLocation != nil }
+                .map { ($0.title!, $0.startDate!, $0.endDate!, GeoCoordinate(location: $0.structuredLocation!.geoLocation!)) }
                 .map(CalendarEntry.init)
             return Observable.of(events)
         default:

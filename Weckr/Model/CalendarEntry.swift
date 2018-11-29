@@ -11,10 +11,16 @@ import RealmSwift
 import EventKit
 
 class CalendarEntry: Object {
-    @objc dynamic var event: EKEvent!
+    @objc dynamic var title: String!
+    @objc dynamic var startDate: Date!
+    @objc dynamic var endDate: Date!
+    @objc dynamic var location: GeoCoordinate!
     
-    convenience init(event: EKEvent) {
+    convenience init(title: String, startDate: Date, endDate: Date, location: GeoCoordinate) {
         self.init()
-        self.event = event
+        self.title = title
+        self.startDate = startDate
+        self.endDate = endDate
+        self.location = location
     }
 }

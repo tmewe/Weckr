@@ -9,6 +9,7 @@
 import Foundation
 import Realm
 import RealmSwift
+import CoreLocation
 
 @objcMembers public class GeoCoordinate: Object, Decodable {
     dynamic var latitude: Double = 0.0
@@ -23,6 +24,12 @@ import RealmSwift
         self.init()
         latitude = lat
         longitude = long
+    }
+    
+    convenience init(location: CLLocation) {
+        self.init()
+        latitude = location.coordinate.latitude
+        longitude = location.coordinate.longitude
     }
     
     required public init(from decoder: Decoder) throws {
