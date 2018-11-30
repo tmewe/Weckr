@@ -117,7 +117,7 @@ class WalkthroughViewModel: WalkthroughViewModelType {
             .withLatestFrom(internalPageNumber)
             .map { $0 + 1 }
             .withLatestFrom(slides) {($0, $1)}
-            .filter { $0.0 < $0.1.count }
+            .filter { $0.0 <= $0.1.count }
             .map { $0.0 }
             .bind(to: internalPageNumber)
             .disposed(by: disposeBag)
@@ -136,7 +136,8 @@ class WalkthroughViewModel: WalkthroughViewModelType {
         
         let createTrigger = nextPage
             .withLatestFrom(internalPageNumber)
-            .map { $0 + 1 }
+            .debug("page", trimOutput: true)
+//            .map { $0 + 1 }
             .withLatestFrom(slides) {($0, $1)}
             .filter { $0.0 == $0.1.count }
             .take(1)
@@ -179,6 +180,7 @@ class WalkthroughViewModel: WalkthroughViewModelType {
         let route = Observable.zip(vehicle, startLocation, endLocation, arrival)
             .take(1)
             .flatMapLatest(routingService.route)
+            .debug()
             .share(replay: 1, scope: .forever)
         
         Observable.zip(createTrigger,
@@ -186,7 +188,8 @@ class WalkthroughViewModel: WalkthroughViewModelType {
                        route,
                        weatherForecast,
                        startLocation,
-                       events) { ($1, $2, $3, $4, $5) }
+                       morningRoutineTime,
+                       events) { ($1, $2, $3, $4, $5, $6) }
             .observeOn(ConcurrentDispatchQueueScheduler(qos: .background))
             .map(Alarm.init)
             .map { alarmService.save(alarm: $0) }

@@ -10,13 +10,14 @@ import Foundation
 import EventKit
 import RealmSwift
 
-class Alarm: Object {
-    @objc dynamic var id: Int = 0
-    @objc dynamic var date: Date!
-    @objc dynamic var selectedEvent: CalendarEntry!
-    @objc dynamic var route: Route!
-    @objc dynamic var weather: WeatherForecast!
-    @objc dynamic var location: GeoCoordinate!
+@objcMembers class Alarm: Object {
+    dynamic var id: Int = 0
+    dynamic var date: Date!
+    dynamic var selectedEvent: CalendarEntry!
+    dynamic var route: Route!
+    dynamic var weather: WeatherForecast!
+    dynamic var location: GeoCoordinate!
+    dynamic var morningRoutine: TimeInterval = 0.0
     let otherEvents = List<CalendarEntry>()
     
     override public class func primaryKey() -> String? {
@@ -27,12 +28,14 @@ class Alarm: Object {
                      route: Route,
                      weather: WeatherForecast,
                      location: GeoCoordinate,
+                     morningRoutine: TimeInterval,
                      otherEvents: [CalendarEntry]) {
         self.init()
         self.selectedEvent = selectedEvent
         self.route = route
         self.weather = weather
         self.location = location
+        self.morningRoutine = morningRoutine
         self.otherEvents.append(objectsIn: otherEvents)
     }
 }
