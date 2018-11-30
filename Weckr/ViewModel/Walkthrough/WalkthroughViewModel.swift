@@ -137,7 +137,6 @@ class WalkthroughViewModel: WalkthroughViewModelType {
         let createTrigger = nextPage
             .withLatestFrom(internalPageNumber)
             .debug("page", trimOutput: true)
-//            .map { $0 + 1 }
             .withLatestFrom(slides) {($0, $1)}
             .filter { $0.0 == $0.1.count }
             .take(1)
