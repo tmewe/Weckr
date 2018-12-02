@@ -176,7 +176,8 @@ class WalkthroughViewModel: WalkthroughViewModelType {
 
         let arrival = firstEvent.map { $0.startDate }.filterNil()
         
-        guard let vehicle = pages[4].viewModel.inputs.vehicle else {
+        let vehiclePage = pages.filter { $0.viewModel is TravelPageViewModel }.first
+        guard let vehicle = vehiclePage?.viewModel.inputs.vehicle else {
             return
         }
         
@@ -185,7 +186,8 @@ class WalkthroughViewModel: WalkthroughViewModelType {
             .flatMapLatest(routingService.route)
             .share(replay: 1, scope: .forever)
         
-        guard let morningRoutineTime = pages[5].viewModel.inputs.morningRoutineTime else {
+        let morningRoutinePage = pages.filter { $0.viewModel is MorningRoutinePageViewModel }.first
+        guard let morningRoutineTime = morningRoutinePage?.viewModel.inputs.morningRoutineTime else {
             return
         }
         
@@ -194,6 +196,7 @@ class WalkthroughViewModel: WalkthroughViewModelType {
             .withLatestFrom(morningRoutineTime) { ($0.0, $0.1, $0.2, $1) }
             .withLatestFrom(firstEvent) { ($0.0, $0.1, $0.2, $0.3, $1) }
             .withLatestFrom(events) { ($0.0, $0.1, $0.2, $0.3, $0.4, $1) }
+            .take(1)
             .observeOn(ConcurrentDispatchQueueScheduler(qos: .background))
             .map(Alarm.init)
             .flatMap(alarmService.calculateDate)
