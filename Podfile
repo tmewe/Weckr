@@ -19,4 +19,5 @@ target 'Weckr' do
   pod 'RxViewController'
   pod 'Moya/RxSwift', '~> 12.0'
   pod 'RxCoreLocation', '~> 1.3.1'
+  pod 'SwiftDate', '~> 5.0'
 end

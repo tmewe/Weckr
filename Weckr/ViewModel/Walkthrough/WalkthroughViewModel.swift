@@ -89,21 +89,22 @@ class WalkthroughViewModel: WalkthroughViewModelType {
             .filterNil()
             .share()
         
-        let vehicle = currentPageController
-            .filter { $0.viewModel is TravelPageViewModel }
-            .map { $0.viewModel.inputs.vehicle }
-            .filterNil()
-            .flatMap { $0 }
-            .startWith(.car)
+//        let vehicle = currentPageController
+//            .filter { $0.viewModel is TravelPageViewModel }
+//            .map { $0.viewModel.inputs.vehicle }
+//            .filterNil()
+//            .flatMap { $0 }
+//            .startWith(.car)
         
         //Time in seconds
-        let morningRoutineTime = currentPageController
-            .filter { $0.viewModel is MorningRoutinePageViewModel }
-            .map { $0.viewModel.inputs.morningRoutineTime }
-            .filterNil()
-            .flatMap { $0 }
-            .startWith(1)
-        
+//        let morningRoutineTime = nextPage
+//            .withLatestFrom(currentPageController)
+//            .filter { $0.viewModel is MorningRoutinePageViewModel }
+//            .map { $0.viewModel.inputs.morningRoutineTime }
+//            .filterNil()
+//            .debug()
+//            .flatMap { $0 }
+
         buttonColor = currentPageController
             .map { $0.viewModel.outputs.accentColor }
             .flatMap { $0 }
@@ -136,7 +137,6 @@ class WalkthroughViewModel: WalkthroughViewModelType {
         
         let createTrigger = nextPage
             .withLatestFrom(internalPageNumber)
-            .debug("page", trimOutput: true)
             .withLatestFrom(slides) {($0, $1)}
             .filter { $0.0 == $0.1.count }
             .take(1)
@@ -176,21 +176,27 @@ class WalkthroughViewModel: WalkthroughViewModelType {
 
         let arrival = firstEvent.map { $0.startDate }.filterNil()
         
-        let route = Observable.zip(vehicle, startLocation, endLocation, arrival)
+        guard let vehicle = pages[4].viewModel.inputs.vehicle else {
+            return
+        }
+        
+        let route = Observable.combineLatest(vehicle, startLocation, endLocation, arrival)
             .take(1)
             .flatMapLatest(routingService.route)
-            .debug()
             .share(replay: 1, scope: .forever)
         
-        Observable.zip(createTrigger,
-                       firstEvent,
-                       route,
-                       weatherForecast,
-                       startLocation,
-                       morningRoutineTime,
-                       events) { ($1, $2, $3, $4, $5, $6) }
+        guard let morningRoutineTime = pages[5].viewModel.inputs.morningRoutineTime else {
+            return
+        }
+        
+        Observable.zip(createTrigger, route, weatherForecast) { ($1, $2) }
+            .withLatestFrom(startLocation) { ($0.0, $0.1, $1) }
+            .withLatestFrom(morningRoutineTime) { ($0.0, $0.1, $0.2, $1) }
+            .withLatestFrom(firstEvent) { ($0.0, $0.1, $0.2, $0.3, $1) }
+            .withLatestFrom(events) { ($0.0, $0.1, $0.2, $0.3, $0.4, $1) }
             .observeOn(ConcurrentDispatchQueueScheduler(qos: .background))
             .map(Alarm.init)
+            .flatMap(alarmService.calculateDate)
             .map { alarmService.save(alarm: $0) }
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { coordinator.transition(to: Scene.main(MainViewModel()), withType: .modal) })

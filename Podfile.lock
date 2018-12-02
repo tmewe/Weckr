@@ -43,6 +43,7 @@ PODS:
   - RxViewController (0.4.0):
     - RxCocoa (>= 4.0.0)
     - RxSwift (>= 4.0.0)
+  - SwiftDate (5.0.13)
   - XCGLogger (6.1.0):
     - XCGLogger/Core (= 6.1.0)
   - XCGLogger/Core (6.1.0):
@@ -61,6 +62,7 @@ DEPENDENCIES:
   - RxRealm
   - RxSwift
   - RxViewController
+  - SwiftDate (~> 5.0)
   - XCGLogger
 
 SPEC REPOS:
@@ -82,6 +84,7 @@ SPEC REPOS:
     - RxRealm
     - RxSwift
     - RxViewController
+    - SwiftDate
     - XCGLogger
 
 SPEC CHECKSUMS:
@@ -102,8 +105,9 @@ SPEC CHECKSUMS:
   RxRealm: 5379eddd74f8d617ca7681d1f8d144af25b432b0
   RxSwift: fe0fd770a43acdb7d0a53da411c9b892e69bb6e4
   RxViewController: 359bbc2fda373a78605b2735afb0f9f4f3f6c3e4
+  SwiftDate: f4aea5fa9dee812485f34041121a4cbde01b0dee
   XCGLogger: 7f7f43f15dfe3a305fa1342b7dc29af656289abd
 
-PODFILE CHECKSUM: 23e745830ea8c613298dabfbc48a94c41267a9af
+PODFILE CHECKSUM: a990347a9037f88ea7764d098f9b7c1b2cdeb7b5
 
 COCOAPODS: 1.5.3

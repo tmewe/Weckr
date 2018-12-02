@@ -14,6 +14,8 @@ protocol AlarmServiceType {
     @discardableResult
     func save(alarm: Alarm) -> Observable<Alarm>
     
+    func calculateDate(for alarm: Alarm) -> Observable<Alarm>
+    
 //    @discardableResult
 //    func delete(alarm: Alarm) -> Observable<Void>
 //

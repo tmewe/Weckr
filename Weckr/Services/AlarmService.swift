@@ -10,6 +10,7 @@ import Foundation
 import RealmSwift
 import RxSwift
 import RxRealm
+import SwiftDate
 
 struct AlarmService: AlarmServiceType {
     
@@ -34,5 +35,16 @@ struct AlarmService: AlarmServiceType {
             return .just(alarm)
         }
         return result ?? .error(AlarmServiceError.creationFailed)
+    }
+    
+    func calculateDate(for alarm: Alarm) -> Observable<Alarm> {
+        guard let eventStartDate = alarm.selectedEvent.startDate else {
+            return Observable.just(alarm)
+        }
+        let alarmDate = eventStartDate
+            - Int(alarm.morningRoutine).seconds
+            - Int(alarm.route.summary.travelTime).seconds
+        alarm.date = alarmDate
+        return Observable.just(alarm)
     }
 }

@@ -115,7 +115,11 @@ class WalkthroughPageViewController: UIViewController {
     
     let datePicker: UIDatePicker = {
        let picker = UIDatePicker.newAutoLayout()
-        picker.datePickerMode = .countDownTimer
+        //Without this the datepicker skips the first pick
+        DispatchQueue.main.async {
+            picker.datePickerMode = .countDownTimer
+            picker.countDownDuration = 1
+        }
         picker.setValue(UIColor.textColor, forKeyPath: "textColor")
         return picker
     }()

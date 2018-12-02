@@ -24,11 +24,11 @@ import RealmSwift
         return "id"
     }
     
-    convenience init(selectedEvent: CalendarEntry,
-                     route: Route,
+    convenience init(route: Route,
                      weather: WeatherForecast,
                      location: GeoCoordinate,
                      morningRoutine: TimeInterval,
+                     selectedEvent: CalendarEntry,
                      otherEvents: [CalendarEntry]) {
         self.init()
         self.selectedEvent = selectedEvent
