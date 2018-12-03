@@ -21,7 +21,7 @@ protocol AlarmServiceType {
 //
 //    @discardableResult
 //    func allAlarms() -> Observable<Results<Alarm>>
-//
-//    @discardableResult
-//    func nextAlarm() -> Observable<Alarm>
+
+    @discardableResult
+    func nextAlarm() -> Observable<Alarm>
 }

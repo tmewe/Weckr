@@ -37,6 +37,17 @@ struct AlarmService: AlarmServiceType {
         return result ?? .error(AlarmServiceError.creationFailed)
     }
     
+    @discardableResult
+    func nextAlarm() -> Observable<Alarm> {
+        let result = withRealm("getting alarms") { realm -> Observable<Alarm> in
+            let alarms = realm.objects(Alarm.self)
+            return Observable.array(from: alarms)
+                .map { alarms in alarms.sorted { $0.date > $1.date }.first }
+                .filterNil()
+        }
+        return result ?? .empty()
+    }
+    
     func calculateDate(for alarm: Alarm) -> Observable<Alarm> {
         guard let eventStartDate = alarm.selectedEvent.startDate else {
             return Observable.just(alarm)
