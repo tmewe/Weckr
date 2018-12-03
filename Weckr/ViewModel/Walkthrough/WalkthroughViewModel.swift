@@ -89,22 +89,6 @@ class WalkthroughViewModel: WalkthroughViewModelType {
             .filterNil()
             .share()
         
-//        let vehicle = currentPageController
-//            .filter { $0.viewModel is TravelPageViewModel }
-//            .map { $0.viewModel.inputs.vehicle }
-//            .filterNil()
-//            .flatMap { $0 }
-//            .startWith(.car)
-        
-        //Time in seconds
-//        let morningRoutineTime = nextPage
-//            .withLatestFrom(currentPageController)
-//            .filter { $0.viewModel is MorningRoutinePageViewModel }
-//            .map { $0.viewModel.inputs.morningRoutineTime }
-//            .filterNil()
-//            .debug()
-//            .flatMap { $0 }
-
         buttonColor = currentPageController
             .map { $0.viewModel.outputs.accentColor }
             .flatMap { $0 }
@@ -208,5 +192,3 @@ class WalkthroughViewModel: WalkthroughViewModelType {
 }
 
 extension WalkthroughViewModel: WalkthroughViewModelInputsType, WalkthroughViewModelOutputsType {}
-
-
