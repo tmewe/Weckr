@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import SwiftDate
 
 class AlarmTableViewCell: UITableViewCell, Reusable {
     
     let dateLabel: UILabel = {
        let label = UILabel.newAutoLayout()
-        label.text = "07:59"
+        label.textColor = .white
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 48, weight: .semibold)
         return label
     }()
     
@@ -27,6 +30,11 @@ class AlarmTableViewCell: UITableViewCell, Reusable {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+    
+    func configure(with date:Date) {
+        let regionalDate = DateInRegion(date, region: Region.current)
+        dateLabel.text = regionalDate.toFormat("HH:mm")
     }
     
     private func addSubviews() {

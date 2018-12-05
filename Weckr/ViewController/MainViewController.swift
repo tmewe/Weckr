@@ -45,8 +45,9 @@ class MainViewController: UITableViewController {
         let dataSource = RxTableViewSectionedAnimatedDataSource<AlarmSectionModel>(
             configureCell: { dataSource, tableView, indexPath, item in
                 switch dataSource[indexPath] {
-                case let SectionItem.alarmSectionItem(identity, date):
+                case let .alarmSectionItem(_, date):
                     let cell: AlarmTableViewCell = tableView.dequeueReusableCell(indexPath: indexPath)
+                    cell.configure(with: date)
                     return cell
                 default:
                     let cell: AlarmTableViewCell = tableView.dequeueReusableCell(indexPath: indexPath)
