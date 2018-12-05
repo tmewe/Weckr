@@ -18,9 +18,10 @@ struct CalendarService: CalendarServiceType {
         case .authorized:
             let store = EKEventStore()
             let predicate = store.predicateForEvents(withStart: Date(), end: date, calendars: calendars)
-                        
+            
             let events = store.events(matching: predicate)
                 .sorted { $0.startDate < $1.startDate }
+                //FIXME: Handle events without geolocation, don't just filter them out
                 .filter { $0.structuredLocation?.geoLocation != nil }
                 .map { ($0.title!, $0.startDate!, $0.endDate!, GeoCoordinate(location: $0.structuredLocation!.geoLocation!)) }
                 .map(CalendarEntry.init)

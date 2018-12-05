@@ -42,7 +42,7 @@ struct AlarmService: AlarmServiceType {
         let result = withRealm("getting alarms") { realm -> Observable<Alarm> in
             let alarms = realm.objects(Alarm.self)
             return Observable.array(from: alarms)
-                .map { alarms in alarms.sorted { $0.date > $1.date }.first }
+                .map { alarms in alarms.sorted { $0.date < $1.date }.first(where: { $0.date > Date() }) }
                 .filterNil()
         }
         return result ?? .empty()
