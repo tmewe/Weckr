@@ -186,7 +186,10 @@ class WalkthroughViewModel: WalkthroughViewModelType {
             .flatMap(alarmService.calculateDate)
             .map { alarmService.save(alarm: $0) }
             .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { coordinator.transition(to: Scene.main(MainViewModel()), withType: .modal) })
+            .subscribe(onNext: {
+                coordinator.transition(to: Scene.main(MainViewModel(alarmService: alarmService)),
+                                       withType: .modal)
+            })
             .disposed(by: disposeBag)
     }
 }

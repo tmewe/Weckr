@@ -18,7 +18,7 @@ struct CalendarService: CalendarServiceType {
         case .authorized:
             let store = EKEventStore()
             let predicate = store.predicateForEvents(withStart: Date(), end: date, calendars: calendars)
-                        
+            
             let events = store.events(matching: predicate)
                 .sorted { $0.startDate < $1.startDate }
                 .filter { $0.structuredLocation?.geoLocation != nil }
