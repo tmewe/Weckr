@@ -9,6 +9,7 @@
 import Foundation
 import RxSwift
 import RealmSwift
+import CoreLocation
 
 protocol AlarmServiceType {
     @discardableResult
@@ -24,4 +25,6 @@ protocol AlarmServiceType {
 
     @discardableResult
     func nextAlarm() -> Observable<Alarm>
+    
+    func createAlarm(startLocation: GeoCoordinate, vehicle: Vehicle, morningRoutineTime: TimeInterval, calendarService: CalendarServiceType, weatherService: WeatherServiceType, routingService: RoutingServiceType) -> Observable<Alarm>
 }
