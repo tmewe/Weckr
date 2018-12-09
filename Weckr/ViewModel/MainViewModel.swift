@@ -53,7 +53,6 @@ class MainViewModel: MainViewModelType {
             .map { SectionItem.alarmSectionItem(identity: "\($0.id)", date: $0.date) }
             .map { AlarmSectionModel.alarm(title: $0.identity, items: [$0]) }
             .map { [$0] }
-        
     }
 }
 
