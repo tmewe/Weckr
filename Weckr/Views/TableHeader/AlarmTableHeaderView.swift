@@ -8,8 +8,11 @@
 
 import Foundation
 import UIKit
+import RxSwift
 
 class AlarmTableHeaderView: UIView {
+    
+    let disposeBag = DisposeBag()
     private var safeArea = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     
     override init(frame: CGRect) {
@@ -49,7 +52,6 @@ class AlarmTableHeaderView: UIView {
         let label = UILabel.newAutoLayout()
         label.font = UIFont.systemFont(ofSize: 13.0, weight: .medium)
         label.textColor = .darkGray
-        label.text = "TUESDAY, JUNE 6"
         return label
     }()
     
@@ -57,7 +59,7 @@ class AlarmTableHeaderView: UIView {
         let label = UILabel.newAutoLayout()
         label.font = UIFont.systemFont(ofSize: 34.0, weight: .bold)
         label.textColor = .white
-        label.text = "Tomorrow"
+        label.text = "main.header.tomorrow".localized()
         return label
     }()
 }

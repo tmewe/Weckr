@@ -53,3 +53,6 @@
 "walkthrough.done.title2.coloredPart" = "Alarm!";
 "walkthrough.done.buttonTitle" = "Gooo!";
 
+//Main
+"main.header.tomorrow" = "Tomorrow";
+

@@ -9,6 +9,7 @@
 import Foundation
 import RxSwift
 import RxDataSources
+import SwiftDate
 
 protocol MainViewModelInputsType {
     
@@ -16,6 +17,7 @@ protocol MainViewModelInputsType {
 
 protocol MainViewModelOutputsType {
     var sections: Observable<[AlarmSectionModel]> { get }
+    var dateString: Observable<String> { get }
 }
 
 protocol MainViewModelActionsType {
@@ -36,6 +38,7 @@ class MainViewModel: MainViewModelType {
     
     //Outpus
     var sections: Observable<[AlarmSectionModel]>
+    var dateString: Observable<String>
     
     //Setup
     private let alarmService: AlarmServiceType
@@ -44,7 +47,7 @@ class MainViewModel: MainViewModelType {
         
         //Setup
         self.alarmService = alarmService
-        let nextAlarm = alarmService.nextAlarm()
+        let nextAlarm = alarmService.nextAlarm().share(replay: 1, scope: .forever)
         
         //Inputs
         
@@ -53,6 +56,11 @@ class MainViewModel: MainViewModelType {
             .map { SectionItem.alarmSectionItem(identity: "\($0.id)", date: $0.date) }
             .map { AlarmSectionModel.alarm(title: $0.identity, items: [$0]) }
             .map { [$0] }
+        
+        dateString = nextAlarm
+            .map { $0.date }
+            .map { $0.toFormat("EEEE, MMMM dd") }
+        .debug()
     }
 }
 

@@ -39,6 +39,11 @@ class MainViewController: UITableViewController {
             .asDriver(onErrorJustReturn: [])
             .drive(tableView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
+        
+        viewModel.outputs.dateString
+            .asDriver(onErrorJustReturn: "")
+            .drive(headerView.dateLabel.rx.text)
+            .disposed(by: headerView.disposeBag)
     }
     
     private func configureDataSource() -> RxTableViewSectionedAnimatedDataSource<AlarmSectionModel> {
