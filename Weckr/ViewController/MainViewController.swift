@@ -56,6 +56,11 @@ class MainViewController: UITableViewController {
         })
         return dataSource
     }
+    
+    var headerView: AlarmTableHeaderView = {
+        let view = AlarmTableHeaderView.newAutoLayout()
+        return view
+    }()
 }
 
 // MARK: UI Elements
@@ -73,5 +78,6 @@ extension MainViewController {
         tableView.delegate = nil
         tableView.dataSource = nil
         tableView.showsVerticalScrollIndicator = false
+        tableView.tableHeaderView = headerView
     }
 }

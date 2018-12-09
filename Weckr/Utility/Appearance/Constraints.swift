@@ -32,4 +32,12 @@ struct Constraints {
             static let bottomOffset: CGFloat = 15
         }
     }
+    
+    struct Main {
+        struct Insets {
+            static let medium: CGFloat = 13
+            static let regular: CGFloat = 22
+            static let large: CGFloat = 30
+        }
+    }
 }

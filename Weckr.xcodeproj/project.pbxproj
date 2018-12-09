@@ -63,6 +63,7 @@
 		49EF7AD221A72CB600FEDFEC /* Waypoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EF7AD121A72CB600FEDFEC /* Waypoint.swift */; };
 		49EF7AD421A72CE000FEDFEC /* GeoCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EF7AD321A72CE000FEDFEC /* GeoCoordinate.swift */; };
 		49EF7AD621A72ECF00FEDFEC /* Maneuver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EF7AD521A72ECF00FEDFEC /* Maneuver.swift */; };
+		49F149CB21BD74B1008EFCAA /* AlarmTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F149CA21BD74B1008EFCAA /* AlarmTableHeaderView.swift */; };
 		49FAADCD21A06B560019D5FA /* CalendarPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FAADCC21A06B560019D5FA /* CalendarPageViewModel.swift */; };
 		49FAADCF21A073960019D5FA /* LocationPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FAADCE21A073960019D5FA /* LocationPageViewModel.swift */; };
 		49FAADD121A075070019D5FA /* NotificationPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FAADD021A075070019D5FA /* NotificationPageViewModel.swift */; };
@@ -136,6 +137,7 @@
 		49EF7AD121A72CB600FEDFEC /* Waypoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Waypoint.swift; sourceTree = "<group>"; };
 		49EF7AD321A72CE000FEDFEC /* GeoCoordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoCoordinate.swift; sourceTree = "<group>"; };
 		49EF7AD521A72ECF00FEDFEC /* Maneuver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Maneuver.swift; sourceTree = "<group>"; };
+		49F149CA21BD74B1008EFCAA /* AlarmTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTableHeaderView.swift; sourceTree = "<group>"; };
 		49FAADCC21A06B560019D5FA /* CalendarPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPageViewModel.swift; sourceTree = "<group>"; };
 		49FAADCE21A073960019D5FA /* LocationPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPageViewModel.swift; sourceTree = "<group>"; };
 		49FAADD021A075070019D5FA /* NotificationPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPageViewModel.swift; sourceTree = "<group>"; };
@@ -368,6 +370,7 @@
 		49BE427E21B839A9003EC071 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				49F149C921BD747E008EFCAA /* TableHeader */,
 				49BE427F21B839B0003EC071 /* Cells */,
 			);
 			path = Views;
@@ -412,6 +415,14 @@
 				49DD02F7219C379000C57041 /* TransitLine.swift */,
 			);
 			path = Route;
+			sourceTree = "<group>";
+		};
+		49F149C921BD747E008EFCAA /* TableHeader */ = {
+			isa = PBXGroup;
+			children = (
+				49F149CA21BD74B1008EFCAA /* AlarmTableHeaderView.swift */,
+			);
+			path = TableHeader;
 			sourceTree = "<group>";
 		};
 		84E7CDE52195B6D40088CF98 /* Model */ = {
@@ -620,6 +631,7 @@
 				4924A26C21A874AF00671450 /* OpenWeatherMap.swift in Sources */,
 				49DD02F8219C379000C57041 /* TransitLine.swift in Sources */,
 				4942435C21AA9D5400088AB6 /* Formatter+Extensions.swift in Sources */,
+				49F149CB21BD74B1008EFCAA /* AlarmTableHeaderView.swift in Sources */,
 				84E7CDED2195DD260088CF98 /* Route.swift in Sources */,
 				49CE3D2D21AF235700A05CD0 /* AlarmService.swift in Sources */,
 				84E7CDEB2195DC930088CF98 /* CalendarEntry.swift in Sources */,
