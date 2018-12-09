@@ -14,6 +14,7 @@ class AlarmTableHeaderView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        addSubview(dateLabel)
         addSubview(titleLabel)
         setupConstraints()
     }
@@ -31,11 +32,26 @@ class AlarmTableHeaderView: UIView {
     }
     
     private func setupConstraints() {
-        titleLabel.autoPinEdge(.right, to: .right, of: self)
-        titleLabel.autoPinEdge(toSuperviewSafeArea: .top, withInset: Constraints.Main.Insets.regular)
-        titleLabel.autoPinEdge(.bottom, to: .bottom, of: self, withOffset: -Constraints.Main.Insets.medium)
-        titleLabel.autoPinEdge(.left, to: .left, of: self, withOffset: 15)
+        let insets = Constraints.Main.Header.self
+        dateLabel.autoPinEdge(toSuperviewSafeArea: .top, withInset: insets.top)
+        dateLabel.autoPinEdge(.left, to: .left, of: self, withOffset: insets.left)
+        dateLabel.autoPinEdge(.right, to: .right, of: self)
+
+        titleLabel.autoPinEdge(.top, to: .bottom, of: dateLabel, withOffset: insets.spacing)
+        titleLabel.autoPinEdgesToSuperviewEdges(with: UIEdgeInsets(top: 0,
+                                                                   left: insets.left,
+                                                                   bottom: insets.bottom,
+                                                                   right: 0),
+                                                excludingEdge: .top)
     }
+    
+    let dateLabel: UILabel = {
+        let label = UILabel.newAutoLayout()
+        label.font = UIFont.systemFont(ofSize: 13.0, weight: .medium)
+        label.textColor = .darkGray
+        label.text = "TUESDAY, JUNE 6"
+        return label
+    }()
     
     let titleLabel: UILabel = {
         let label = UILabel.newAutoLayout()

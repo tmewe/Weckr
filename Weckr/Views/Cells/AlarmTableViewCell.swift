@@ -49,11 +49,18 @@ class AlarmTableViewCell: UITableViewCell, Reusable {
     }
     
     private func setupConstraints() {
-        dateLabel.autoPinEdgesToSuperviewEdges(with: UIEdgeInsets(top: 40, left: 40, bottom: 40, right: 40), excludingEdge: .bottom)
+        let insets = Constraints.Main.Alarm.self
+        dateLabel.autoPinEdgesToSuperviewEdges(with: UIEdgeInsets(top: insets.top,
+                                                                  left: 0,
+                                                                  bottom: 0,
+                                                                  right: 0),
+                                               excludingEdge: .bottom)
         
         arrow.autoAlignAxis(.vertical, toSameAxisOf: contentView)
-        arrow.autoPinEdge(.top, to: .bottom, of: dateLabel, withOffset: 40)
-        arrow.autoPinEdge(.bottom, to: .bottom, of: contentView, withOffset: -40)
+        arrow.autoPinEdge(.top, to: .bottom, of: dateLabel,
+                          withOffset: Constraints.Main.Alarm.spacing)
+        arrow.autoPinEdge(.bottom, to: .bottom, of: contentView,
+                          withOffset: -insets.bottom)
     }
 
 }

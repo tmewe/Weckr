@@ -89,21 +89,23 @@ class WalkthroughViewController: UIViewController, BindableType {
     }
     
     private func setupConstraints() {
-        
+        let insets = Constraints.Walkthrough.self
+        let nextButtonInsets = insets.NextButton.self
+        let previousButtonInsets = insets.PreviousButton.self
         let edgeInsets = UIEdgeInsets(top: 0,
                                      left: 0,
-                                     bottom: Constraints.Walkthrough.PreviousButton.bottomOffset,
+                                     bottom: previousButtonInsets.bottomOffset,
                                      right: 0)
         
         previousButton.autoPinEdgesToSuperviewSafeArea(with: edgeInsets,
                                                        excludingEdge: .top)
         
         continueButton.autoSetDimensions(to: CGSize(
-            width: Constraints.Walkthrough.NextButton.width,
-            height: Constraints.Walkthrough.NextButton.height))
+            width: nextButtonInsets.width,
+            height: nextButtonInsets.height))
         continueButton.autoAlignAxis(.vertical, toSameAxisOf: view)
         continueButton.autoPinEdge(.bottom, to: .top, of: previousButton,
-                                   withOffset: -Constraints.Walkthrough.NextButton.bottomOffset)
+                                   withOffset: -nextButtonInsets.bottomOffset)
         
         pagingView.autoPinEdgesToSuperviewSafeArea(with: UIEdgeInsets.zero, excludingEdge: .bottom)
         pagingView.autoPinEdge(.bottom, to: .top, of: continueButton)
@@ -128,7 +130,10 @@ class WalkthroughViewController: UIViewController, BindableType {
     }
     
     private func scrollToPage(page: Int) {
-        let rect = CGRect(x: CGFloat(page)*pagingView.frame.width, y: 0, width: pagingView.frame.width, height: pagingView.frame.height)
+        let rect = CGRect(x: CGFloat(page)*pagingView.frame.width,
+                          y: 0,
+                          width: pagingView.frame.width,
+                          height: pagingView.frame.height)
         pagingView.scrollRectToVisible(rect, animated: true)
     }
     

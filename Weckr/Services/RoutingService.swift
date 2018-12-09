@@ -19,7 +19,10 @@ struct RoutingService: RoutingServiceType {
         self.hereMaps = hereMaps
     }
     
-    func route(with type: Vehicle, start: GeoCoordinate, end: GeoCoordinate, arrival: Date) -> Observable<Route> {
+    func route(with type: Vehicle,
+               start: GeoCoordinate,
+               end: GeoCoordinate,
+               arrival: Date) -> Observable<Route> {
         return hereMaps.rx
             .request(.route(mode: type, start: start, end: end, arrival: arrival))
             .map(RouteWrapper.self)

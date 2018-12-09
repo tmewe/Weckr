@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 
 struct Constraints {
-    
     struct Walkthrough {
         struct Title {
             static let horizontalSides: CGFloat = 50
@@ -34,10 +33,17 @@ struct Constraints {
     }
     
     struct Main {
-        struct Insets {
-            static let medium: CGFloat = 13
-            static let regular: CGFloat = 22
-            static let large: CGFloat = 30
+        struct Header {
+            static let top: CGFloat = 15
+            static let bottom: CGFloat = 15
+            static let left: CGFloat = 20
+            static let spacing: CGFloat = 3
+        }
+        
+        struct Alarm {
+            static let top: CGFloat = 50
+            static let spacing: CGFloat = 40
+            static let bottom: CGFloat = 10
         }
     }
 }

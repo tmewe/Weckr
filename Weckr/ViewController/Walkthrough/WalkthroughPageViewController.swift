@@ -45,28 +45,39 @@ class WalkthroughPageViewController: UIViewController {
     }
     
     private func setupConstraints() {
-        topLabel.autoPinEdge(.top, to: .top, of: view, withOffset: Constraints.Walkthrough.Title.title1Top)
-        topLabel.autoPinEdge(.left, to: .left, of: view, withOffset: Constraints.Walkthrough.Title.horizontalSides)
-        topLabel.autoSetDimension(.width, toSize: Constraints.Walkthrough.Title.width)
+        let insets = Constraints.Walkthrough.Title.self
         
-        bottomLabel.autoPinEdge(.bottom, to: .bottom, of: view, withOffset: -Constraints.Walkthrough.Title.title2Bottom)
-        bottomLabel.autoPinEdge(.right, to: .right, of: view, withOffset: -Constraints.Walkthrough.Title.horizontalSides)
-        bottomLabel.autoSetDimension(.width, toSize: Constraints.Walkthrough.Title.width)
+        topLabel.autoPinEdge(.top, to: .top, of: view, withOffset: insets.title1Top)
+        topLabel.autoPinEdge(.left, to: .left, of: view, withOffset: insets.horizontalSides)
+        topLabel.autoSetDimension(.width, toSize: insets.width)
+        
+        bottomLabel.autoPinEdge(.bottom, to: .bottom, of: view, withOffset: -insets.title2Bottom)
+        bottomLabel.autoPinEdge(.right, to: .right, of: view, withOffset: -insets.horizontalSides)
+        bottomLabel.autoSetDimension(.width, toSize: insets.width)
     }
     
     private func bindViewModel() {
-        
-        Observable.combineLatest(viewModel.outputs.topLabelText, viewModel.outputs.topLabelColoredText, viewModel.outputs.accentColor)
+        Observable.combineLatest(viewModel.outputs.topLabelText,
+                                 viewModel.outputs.topLabelColoredText,
+                                 viewModel.outputs.accentColor)
             .asDriver(onErrorJustReturn: ("", "", UIColor.white.cgColor))
             .drive(onNext: { [weak self] (t,c,a) in
-                self?.topLabel.setTextWithColoredPart(text: t, coloredText: c, textColor: .white, coloredColor: UIColor(cgColor: a))
+                self?.topLabel.setTextWithColoredPart(text: t,
+                                                      coloredText: c,
+                                                      textColor: .white,
+                                                      coloredColor: UIColor(cgColor: a))
             })
             .disposed(by: disposeBag)
         
-        Observable.combineLatest(viewModel.outputs.bottomLabelText, viewModel.outputs.bottomLabelColoredText, viewModel.outputs.accentColor)
+        Observable.combineLatest(viewModel.outputs.bottomLabelText,
+                                 viewModel.outputs.bottomLabelColoredText,
+                                 viewModel.outputs.accentColor)
             .asDriver(onErrorJustReturn: ("", "", UIColor.white.cgColor))
             .drive(onNext: { [weak self] (t,c,a) in
-                self?.bottomLabel.setTextWithColoredPart(text: t, coloredText: c, textColor: .white, coloredColor: UIColor(cgColor: a))
+                self?.bottomLabel.setTextWithColoredPart(text: t,
+                                                         coloredText: c,
+                                                         textColor: .white,
+                                                         coloredColor: UIColor(cgColor: a))
             })
             .disposed(by: disposeBag)
     }
