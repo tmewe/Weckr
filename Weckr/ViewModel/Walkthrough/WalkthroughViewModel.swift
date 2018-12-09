@@ -149,8 +149,7 @@ class WalkthroughViewModel: WalkthroughViewModelType {
             .withLatestFrom(vehicle) {              ($0, $1) }
             .withLatestFrom(morningRoutineTime) {   ($0.0, $0.1, $1) }
             .flatMap { alarmService.createAlarm(startLocation: $0.0, vehicle: $0.1, morningRoutineTime: $0.2, calendarService: self.calendarService, weatherService: self.weatherService, routingService: self.routingService) }
-            .subscribe(onNext: {_ in
-                coordinator.transition(to: Scene.main(MainViewModel()), withType: .modal) })
+            .subscribe(onNext: { _ in coordinator.transition(to: Scene.main(MainViewModel(alarmService: alarmService)), withType: .modal) })
             .disposed(by: disposeBag)
         
     }

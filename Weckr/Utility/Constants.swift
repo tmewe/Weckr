@@ -12,5 +12,6 @@ struct Constants {
     struct UserDefaults {
         static let CalendarAccess = "CalendarAccess"
         static let NotificationAuthorization = "NotificationAuthorization"
+        static let AppHasBeenStarted = "AppHasBeenStarted"
     }
 }
