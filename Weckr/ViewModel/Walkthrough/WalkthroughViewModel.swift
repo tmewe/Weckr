@@ -148,7 +148,7 @@ class WalkthroughViewModel: WalkthroughViewModelType {
             .withLatestFrom(startLocation)
             .withLatestFrom(vehicle) {              ($0, $1) }
             .withLatestFrom(morningRoutineTime) {   ($0.0, $0.1, $1) }
-            .flatMap {
+            .flatMapLatest {
                 alarmService.createAlarm(startLocation: $0.0,
                                          vehicle: $0.1,
                                          morningRoutineTime: $0.2,

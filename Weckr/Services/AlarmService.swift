@@ -106,8 +106,8 @@ struct AlarmService: AlarmServiceType {
             .take(1)
             .observeOn(ConcurrentDispatchQueueScheduler(qos: .background))
             .map(Alarm.init)
-            .flatMap(calculateDate)
-            .flatMap (self.save)
+            .flatMapLatest(calculateDate)
+            .flatMapLatest (self.save)
             .observeOn(MainScheduler.instance)
         
         return alarm

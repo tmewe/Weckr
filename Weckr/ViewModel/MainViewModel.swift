@@ -60,7 +60,6 @@ class MainViewModel: MainViewModelType {
         dateString = nextAlarm
             .map { $0.date }
             .map { $0.toFormat("EEEE, MMMM dd") }
-        .debug()
     }
 }
 
