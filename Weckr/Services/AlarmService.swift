@@ -43,7 +43,8 @@ struct AlarmService: AlarmServiceType {
         let result = withRealm("getting alarms") { realm -> Observable<Alarm> in
             let alarms = realm.objects(Alarm.self)
             return Observable.array(from: alarms)
-                .map { alarms in alarms.sorted { $0.date < $1.date }.first(where: { $0.date > Date() }) }
+                .map { alarms in
+                    alarms.sorted { $0.date < $1.date }.first(where: { $0.date > Date() }) }
                 .filterNil()
         }
         return result ?? .empty()
@@ -61,7 +62,12 @@ struct AlarmService: AlarmServiceType {
         return Observable.just(alarm)
     }
     
-    func createAlarm(startLocation: GeoCoordinate, vehicle: Vehicle, morningRoutineTime: TimeInterval, calendarService: CalendarServiceType, weatherService: WeatherServiceType, routingService: RoutingServiceType) -> Observable<Alarm> {
+    func createAlarm(startLocation: GeoCoordinate,
+                     vehicle: Vehicle,
+                     morningRoutineTime: TimeInterval,
+                     calendarService: CalendarServiceType,
+                     weatherService: WeatherServiceType,
+                     routingService: RoutingServiceType) -> Observable<Alarm> {
         
         let vehicleObservable = Observable.just(vehicle)
         let startLocationObservable = Observable.just(startLocation)
@@ -80,7 +86,8 @@ struct AlarmService: AlarmServiceType {
             .map { $0.location }
             .filterNil()
         
-        let route = Observable.combineLatest(vehicleObservable, startLocationObservable, endLocation, arrival)
+        let route = Observable
+            .combineLatest(vehicleObservable, startLocationObservable, endLocation, arrival)
             .take(1)
             .flatMapLatest(routingService.route)
             .debug("route", trimOutput: true)
@@ -92,8 +99,6 @@ struct AlarmService: AlarmServiceType {
             .flatMapLatest { $0 }
         
         let alarm = Observable.zip(route, weatherForecast) { ($0, $1) }
-//            .debug("alarm", trimOutput: true)
-
             .withLatestFrom(startLocationObservable) {  ($0.0, $0.1, $1) }
             .withLatestFrom(morningRoutineObservable) { ($0.0, $0.1, $0.2, $1) }
             .withLatestFrom(firstEvent) {               ($0.0, $0.1, $0.2, $0.3, $1) }

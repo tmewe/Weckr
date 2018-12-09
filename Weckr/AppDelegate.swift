@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
-        let appHasBeenStarted = true//UserDefaults.standard.bool(forKey: Constants.UserDefaults.AppHasBeenStarted)
+        let appHasBeenStarted = UserDefaults.standard.bool(forKey: Constants.UserDefaults.AppHasBeenStarted)
         
         let alarmService = AlarmService()
         let coordinator = SceneCoordinator(window: window!)
