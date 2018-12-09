@@ -19,6 +19,12 @@ class AlarmTableViewCell: UITableViewCell, Reusable {
         return label
     }()
     
+    let arrow: UIImageView = {
+        let iv = UIImageView.newAutoLayout()
+        iv.image = UIImage(named: "arrow_down")
+        return iv
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -39,10 +45,15 @@ class AlarmTableViewCell: UITableViewCell, Reusable {
     
     private func addSubviews() {
         contentView.addSubview(dateLabel)
+        contentView.addSubview(arrow)
     }
     
     private func setupConstraints() {
-        dateLabel.autoPinEdgesToSuperviewEdges(with: UIEdgeInsets(top: 40, left: 40, bottom: 40, right: 40))
+        dateLabel.autoPinEdgesToSuperviewEdges(with: UIEdgeInsets(top: 40, left: 40, bottom: 40, right: 40), excludingEdge: .bottom)
+        
+        arrow.autoAlignAxis(.vertical, toSameAxisOf: contentView)
+        arrow.autoPinEdge(.top, to: .bottom, of: dateLabel, withOffset: 40)
+        arrow.autoPinEdge(.bottom, to: .bottom, of: contentView, withOffset: -40)
     }
 
 }
