@@ -11,6 +11,7 @@ import RxSwift
 import RxOptional
 import RxCoreLocation
 import CoreLocation
+import SwiftDate
 
 protocol WalkthroughViewModelInputsType {
     var nextPage: PublishSubject<Void> { get }
@@ -126,18 +127,6 @@ class WalkthroughViewModel: WalkthroughViewModelType {
             .take(1)
             .share(replay: 1, scope: .forever)
         
-        //Alarm creation
-        let now = Date()
-        let calendar = Calendar.current
-        var dateComponents = DateComponents.init()
-        dateComponents.day = 1
-        let futureDate = calendar.date(byAdding: dateComponents, to: now)! // 1
-        
-        let events = createTrigger
-            .map { _ in calendarService.fetchEvents(at: futureDate, calendars: nil) }
-            .flatMapLatest { $0 }
-            .share(replay: 1, scope: .forever)
-        
         let startLocation = locationManager.rx.location
             .filterNil()
             .take(1)
@@ -145,52 +134,24 @@ class WalkthroughViewModel: WalkthroughViewModelType {
             .map(GeoCoordinate.init)
             .share(replay: 1, scope: .forever)
         
-        let weatherForecast = startLocation
-            .map(weatherService.forecast)
-            .flatMapLatest { $0 }
-        
-        let firstEvent = events
-            .map { $0.first }
-            .filterNil()
-            .share(replay: 1, scope: .forever)
-        
-        let endLocation = firstEvent
-            .map { $0.location }
-            .filterNil()
-
-        let arrival = firstEvent.map { $0.startDate }.filterNil()
-        
         let vehiclePage = pages.filter { $0.viewModel is TravelPageViewModel }.first
         guard let vehicle = vehiclePage?.viewModel.inputs.vehicle else {
             return
         }
-        
-        let route = Observable.combineLatest(vehicle, startLocation, endLocation, arrival)
-            .take(1)
-            .flatMapLatest(routingService.route)
-            .share(replay: 1, scope: .forever)
         
         let morningRoutinePage = pages.filter { $0.viewModel is MorningRoutinePageViewModel }.first
         guard let morningRoutineTime = morningRoutinePage?.viewModel.inputs.morningRoutineTime else {
             return
         }
         
-        Observable.zip(createTrigger, route, weatherForecast) { ($1, $2) }
-            .withLatestFrom(startLocation) { ($0.0, $0.1, $1) }
-            .withLatestFrom(morningRoutineTime) { ($0.0, $0.1, $0.2, $1) }
-            .withLatestFrom(firstEvent) { ($0.0, $0.1, $0.2, $0.3, $1) }
-            .withLatestFrom(events) { ($0.0, $0.1, $0.2, $0.3, $0.4, $1) }
-            .take(1)
-            .observeOn(ConcurrentDispatchQueueScheduler(qos: .background))
-            .map(Alarm.init)
-            .flatMap(alarmService.calculateDate)
-            .map { alarmService.save(alarm: $0) }
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext: {
-                coordinator.transition(to: Scene.main(MainViewModel(alarmService: alarmService)),
-                                       withType: .modal)
-            })
+        createTrigger
+            .withLatestFrom(startLocation)
+            .withLatestFrom(vehicle) {              ($0, $1) }
+            .withLatestFrom(morningRoutineTime) {   ($0.0, $0.1, $1) }
+            .flatMap { alarmService.createAlarm(startLocation: $0.0, vehicle: $0.1, morningRoutineTime: $0.2, calendarService: self.calendarService, weatherService: self.weatherService, routingService: self.routingService) }
+            .subscribe(onNext: { _ in coordinator.transition(to: Scene.main(MainViewModel(alarmService: alarmService)), withType: .modal) })
             .disposed(by: disposeBag)
+        
     }
 }
 

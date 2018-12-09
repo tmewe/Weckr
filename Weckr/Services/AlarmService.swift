@@ -11,6 +11,7 @@ import RealmSwift
 import RxSwift
 import RxRealm
 import SwiftDate
+import CoreLocation
 
 struct AlarmService: AlarmServiceType {
     
@@ -24,7 +25,7 @@ struct AlarmService: AlarmServiceType {
             return nil
         }
     }
-
+    
     @discardableResult
     func save(alarm: Alarm) -> Observable<Alarm> {
         let result = withRealm("creating") { realm -> Observable<Alarm> in
@@ -55,7 +56,59 @@ struct AlarmService: AlarmServiceType {
         let alarmDate = eventStartDate
             - Int(alarm.morningRoutine).seconds
             - Int(alarm.route.summary.travelTime).seconds
+        
         alarm.date = alarmDate
         return Observable.just(alarm)
     }
+    
+    func createAlarm(startLocation: GeoCoordinate, vehicle: Vehicle, morningRoutineTime: TimeInterval, calendarService: CalendarServiceType, weatherService: WeatherServiceType, routingService: RoutingServiceType) -> Observable<Alarm> {
+        
+        let vehicleObservable = Observable.just(vehicle)
+        let startLocationObservable = Observable.just(startLocation)
+        let futureDate = Date() + 1.days
+        let events = calendarService.fetchEvents(at: futureDate, calendars: nil)
+        let firstEvent = events
+            .map { $0.first }
+            .filterNil()
+            .share(replay: 1, scope: .forever)
+        
+        let morningRoutineObservable = Observable.just(morningRoutineTime)
+        
+        let arrival = firstEvent.map { $0.startDate }.filterNil()
+        
+        let endLocation = firstEvent
+            .map { $0.location }
+            .filterNil()
+        
+        let route = Observable.combineLatest(vehicleObservable, startLocationObservable, endLocation, arrival)
+            .take(1)
+            .flatMapLatest(routingService.route)
+            .debug("route", trimOutput: true)
+            .share(replay: 1, scope: .forever)
+        
+        let weatherForecast = startLocationObservable
+            .map(weatherService.forecast)
+            .debug("weather", trimOutput: true)
+            .flatMapLatest { $0 }
+        
+        let alarm = Observable.zip(route, weatherForecast) { ($0, $1) }
+//            .debug("alarm", trimOutput: true)
+
+            .withLatestFrom(startLocationObservable) {  ($0.0, $0.1, $1) }
+            .withLatestFrom(morningRoutineObservable) { ($0.0, $0.1, $0.2, $1) }
+            .withLatestFrom(firstEvent) {               ($0.0, $0.1, $0.2, $0.3, $1) }
+            .withLatestFrom(events) {                   ($0.0, $0.1, $0.2, $0.3, $0.4, $1) }
+            .take(1)
+            .observeOn(ConcurrentDispatchQueueScheduler(qos: .background))
+            .map(Alarm.init)
+            .flatMap(calculateDate)
+            .flatMap (self.save)
+            .observeOn(MainScheduler.instance)
+        
+        return alarm
+
+
+        
+    }
+    
 }

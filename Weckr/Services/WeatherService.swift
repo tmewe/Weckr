@@ -15,7 +15,7 @@ struct WeatherService: WeatherServiceType {
     private var openWeatherMap: MoyaProvider<OpenWeatherMap>
     
     init(openWeatherMap: MoyaProvider<OpenWeatherMap>
-        = MoyaProvider<OpenWeatherMap>(plugins: [NetworkLoggerPlugin(verbose: true)])) {
+        = MoyaProvider<OpenWeatherMap>(plugins: [NetworkLoggerPlugin(verbose: false)])) {
         self.openWeatherMap = openWeatherMap
     }
     
