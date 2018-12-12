@@ -53,7 +53,7 @@ class WalkthroughViewController: UIViewController, BindableType {
             .map { $0.1 }
             .asDriver(onErrorJustReturn: UIColor.walkthroughPurpleAccent.cgColor)
             .map {[$0, UIColor.backGroundColorTransparent.cgColor]}
-            .drive(continueButton.rx.gradientColor)
+            .drive(continueButton.rx.gradientColorButton)
             .disposed(by: disposeBag)
         
         viewModel.outputs.buttonText

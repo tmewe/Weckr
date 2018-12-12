@@ -117,4 +117,12 @@ extension UIColor {
     class var shadow: UIColor {
         return #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
     }
+    
+    class var morningRoutineLeft: UIColor {
+        return #colorLiteral(red: 0.5764705882, green: 0.1176470588, blue: 0.1411764706, alpha: 1)
+    }
+    
+    class var morningRoutineRight: UIColor {
+        return #colorLiteral(red: 0.7764705882, green: 0.2588235294, blue: 0, alpha: 1)
+    }
 }

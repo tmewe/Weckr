@@ -13,7 +13,6 @@ class TileView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .white
         layer.cornerRadius = 14
         
         layer.shadowColor = UIColor.shadow.cgColor

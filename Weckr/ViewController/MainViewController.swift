@@ -44,6 +44,20 @@ class MainViewController: UITableViewController {
             .asDriver(onErrorJustReturn: "")
             .drive(headerView.dateLabel.rx.text)
             .disposed(by: headerView.disposeBag)
+        
+        tableView.rx.willDisplayCell
+            .subscribe(onNext: { cell, indexPath in
+                let frame = CGRect(x: 0, y: 0, width: cell.frame.width-26, height: cell.frame.height-10)
+                switch indexPath.section {
+                case 1:
+                    let row = cell as! MorningRoutineTableViewCell
+                    row.tileView.frame = frame
+                    row.tileView.setGradientForCell(colors: row.gradientColor)
+                default:
+                    break
+                }
+            })
+            .disposed(by: disposeBag)
     }
     
     private func configureDataSource() -> RxTableViewSectionedAnimatedDataSource<AlarmSectionModel> {

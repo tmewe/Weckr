@@ -8,13 +8,15 @@
 
 import Foundation
 import UIKit
+import RxSwift
+import RxCocoa
 
 class MorningRoutineTableViewCell: TileTableViewCell {
     
+    var gradientColor = (UIColor.morningRoutineLeft.cgColor, UIColor.morningRoutineRight.cgColor)
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        tileView.backgroundColor = .red
         
         addSubviews()
         setupConstraints()
@@ -28,6 +30,10 @@ class MorningRoutineTableViewCell: TileTableViewCell {
         timeLabel.text = Date(timeIntervalSinceReferenceDate: time).toFormat("HH:mm") + " min"
     }
     
+    override func awakeAfter(using aDecoder: NSCoder) -> Any? {
+        return super.awakeAfter(using: aDecoder)
+    }
+    
     private func addSubviews() {
         tileView.addSubview(titleLabel)
         tileView.addSubview(timeLabel)
@@ -38,6 +44,9 @@ class MorningRoutineTableViewCell: TileTableViewCell {
         timeLabel.autoPinEdge(.top, to: .bottom, of: titleLabel, withOffset: 10)
         timeLabel.autoPinEdgesToSuperviewEdges(with: UIEdgeInsets(top: 0, left: 15, bottom: 1, right: 15), excludingEdge: .top)
         tileView.autoPinEdge(.bottom, to: .bottom, of: timeLabel, withOffset: 10)
+        
+        tileView.setGradientForCell(colors: (UIColor.morningRoutineLeft.cgColor,
+                                             UIColor.morningRoutineRight.cgColor))
     }
     
     let titleLabel: UILabel = {
