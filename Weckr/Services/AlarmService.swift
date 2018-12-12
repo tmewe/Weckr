@@ -90,12 +90,10 @@ struct AlarmService: AlarmServiceType {
             .combineLatest(vehicleObservable, startLocationObservable, endLocation, arrival)
             .take(1)
             .flatMapLatest(routingService.route)
-            .debug("route", trimOutput: true)
             .share(replay: 1, scope: .forever)
         
         let weatherForecast = startLocationObservable
             .map(weatherService.forecast)
-            .debug("weather", trimOutput: true)
             .flatMapLatest { $0 }
         
         let alarm = Observable.zip(route, weatherForecast) { ($0, $1) }

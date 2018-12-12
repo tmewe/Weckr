@@ -43,6 +43,7 @@
 		4982E48221A5B730003AC90D /* TravelPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4982E48121A5B730003AC90D /* TravelPageViewModel.swift */; };
 		4982E48421A5B7C5003AC90D /* MorningRoutinePageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4982E48321A5B7C5003AC90D /* MorningRoutinePageViewModel.swift */; };
 		4982E48621A5B877003AC90D /* DonePageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4982E48521A5B877003AC90D /* DonePageViewModel.swift */; };
+		498DBC7F21C1B3DB000D40D8 /* TitleTimeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498DBC7E21C1B3DB000D40D8 /* TitleTimeTableViewCell.swift */; };
 		498ED01A21C13A1F003FFF5B /* TileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498ED01921C13A1F003FFF5B /* TileView.swift */; };
 		498ED01C21C13A39003FFF5B /* MorningRoutineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498ED01B21C13A39003FFF5B /* MorningRoutineTableViewCell.swift */; };
 		498ED01E21C13A57003FFF5B /* TileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498ED01D21C13A57003FFF5B /* TileTableViewCell.swift */; };
@@ -121,6 +122,7 @@
 		4982E48121A5B730003AC90D /* TravelPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelPageViewModel.swift; sourceTree = "<group>"; };
 		4982E48321A5B7C5003AC90D /* MorningRoutinePageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MorningRoutinePageViewModel.swift; sourceTree = "<group>"; };
 		4982E48521A5B877003AC90D /* DonePageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonePageViewModel.swift; sourceTree = "<group>"; };
+		498DBC7E21C1B3DB000D40D8 /* TitleTimeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleTimeTableViewCell.swift; sourceTree = "<group>"; };
 		498ED01921C13A1F003FFF5B /* TileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileView.swift; sourceTree = "<group>"; };
 		498ED01B21C13A39003FFF5B /* MorningRoutineTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MorningRoutineTableViewCell.swift; sourceTree = "<group>"; };
 		498ED01D21C13A57003FFF5B /* TileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileTableViewCell.swift; sourceTree = "<group>"; };
@@ -390,6 +392,7 @@
 			children = (
 				498ED01921C13A1F003FFF5B /* TileView.swift */,
 				498ED01D21C13A57003FFF5B /* TileTableViewCell.swift */,
+				498DBC7E21C1B3DB000D40D8 /* TitleTimeTableViewCell.swift */,
 				49BE428221B83A17003EC071 /* AlarmTableViewCell.swift */,
 				498ED01B21C13A39003FFF5B /* MorningRoutineTableViewCell.swift */,
 			);
@@ -618,6 +621,7 @@
 				4959992121A9FFFE00549D89 /* RouteWrapper.swift in Sources */,
 				22458680219722EF00072C6C /* UIView+Extensions.swift in Sources */,
 				49DB25DF218DDAFB0037CFBB /* WalkthroughViewModel.swift in Sources */,
+				498DBC7F21C1B3DB000D40D8 /* TitleTimeTableViewCell.swift in Sources */,
 				84E7CDE72195B73F0088CF98 /* Alarm.swift in Sources */,
 				22C8D18E218B2BF70029C1EA /* MainViewController.swift in Sources */,
 				49DD02F3219C262C00C57041 /* Weather.swift in Sources */,

@@ -11,7 +11,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class MorningRoutineTableViewCell: TileTableViewCell {
+class MorningRoutineTableViewCell: TitleTimeTableViewCell {
     
     var gradientColor = (UIColor.morningRoutineLeft.cgColor, UIColor.morningRoutineRight.cgColor)
     
@@ -27,7 +27,9 @@ class MorningRoutineTableViewCell: TileTableViewCell {
     }
     
     func configure(with time: TimeInterval) {
-        timeLabel.text = Date(timeIntervalSinceReferenceDate: time).toFormat("HH:mm") + " min"
+        let formattedTime = Date(timeIntervalSinceReferenceDate: time).toFormat("HH:mm")
+        timeLabel.text = formattedTime + " min"
+        countLabel.text = formattedTime + " min left"
     }
     
     override func awakeAfter(using aDecoder: NSCoder) -> Any? {
@@ -35,29 +37,16 @@ class MorningRoutineTableViewCell: TileTableViewCell {
     }
     
     private func addSubviews() {
-        tileView.addSubview(titleLabel)
-        tileView.addSubview(timeLabel)
+        tileView.addSubview(countLabel)
     }
     
     private func setupConstraints() {
-        titleLabel.autoPinEdgesToSuperviewEdges(with: UIEdgeInsets(top: 15, left: 15, bottom: 0, right: 15), excludingEdge: .bottom)
-        timeLabel.autoPinEdge(.top, to: .bottom, of: titleLabel, withOffset: 10)
-        timeLabel.autoPinEdgesToSuperviewEdges(with: UIEdgeInsets(top: 0, left: 15, bottom: 1, right: 15), excludingEdge: .top)
-        tileView.autoPinEdge(.bottom, to: .bottom, of: timeLabel, withOffset: 10)
-        
-        tileView.setGradientForCell(colors: (UIColor.morningRoutineLeft.cgColor,
-                                             UIColor.morningRoutineRight.cgColor))
+        countLabel.autoPinEdge(.top, to: .bottom, of: stackView, withOffset: 10)
+        countLabel.autoPinEdgesToSuperviewEdges(with: UIEdgeInsets(top: 0, left: 15, bottom: 1, right: 15), excludingEdge: .top)
+        tileView.autoPinEdge(.bottom, to: .bottom, of: countLabel, withOffset: 10)
     }
     
-    let titleLabel: UILabel = {
-        let label = UILabel.newAutoLayout()
-        label.font = UIFont.systemFont(ofSize: 13.0, weight: .medium)
-        label.textColor = .white
-        label.text = "MORNING ROUTINE"
-        return label
-    }()
-    
-    let timeLabel: UILabel = {
+    let countLabel: UILabel = {
         let label = UILabel.newAutoLayout()
         label.font = UIFont.systemFont(ofSize: 28.0, weight: .bold)
         label.textColor = .white
