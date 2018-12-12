@@ -43,6 +43,9 @@
 		4982E48221A5B730003AC90D /* TravelPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4982E48121A5B730003AC90D /* TravelPageViewModel.swift */; };
 		4982E48421A5B7C5003AC90D /* MorningRoutinePageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4982E48321A5B7C5003AC90D /* MorningRoutinePageViewModel.swift */; };
 		4982E48621A5B877003AC90D /* DonePageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4982E48521A5B877003AC90D /* DonePageViewModel.swift */; };
+		498ED01A21C13A1F003FFF5B /* TileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498ED01921C13A1F003FFF5B /* TileView.swift */; };
+		498ED01C21C13A39003FFF5B /* MorningRoutineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498ED01B21C13A39003FFF5B /* MorningRoutineTableViewCell.swift */; };
+		498ED01E21C13A57003FFF5B /* TileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498ED01D21C13A57003FFF5B /* TileTableViewCell.swift */; };
 		498F2D3621B5BC070048A756 /* AlarmSectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498F2D3521B5BC070048A756 /* AlarmSectionModel.swift */; };
 		499AF3FF21AEE8FC00F4B4FF /* CalendarServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499AF3FE21AEE8FC00F4B4FF /* CalendarServiceType.swift */; };
 		499AF40121AEE93C00F4B4FF /* CalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499AF40021AEE93C00F4B4FF /* CalendarService.swift */; };
@@ -117,6 +120,9 @@
 		4982E48121A5B730003AC90D /* TravelPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelPageViewModel.swift; sourceTree = "<group>"; };
 		4982E48321A5B7C5003AC90D /* MorningRoutinePageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MorningRoutinePageViewModel.swift; sourceTree = "<group>"; };
 		4982E48521A5B877003AC90D /* DonePageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonePageViewModel.swift; sourceTree = "<group>"; };
+		498ED01921C13A1F003FFF5B /* TileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileView.swift; sourceTree = "<group>"; };
+		498ED01B21C13A39003FFF5B /* MorningRoutineTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MorningRoutineTableViewCell.swift; sourceTree = "<group>"; };
+		498ED01D21C13A57003FFF5B /* TileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileTableViewCell.swift; sourceTree = "<group>"; };
 		498F2D3521B5BC070048A756 /* AlarmSectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSectionModel.swift; sourceTree = "<group>"; };
 		499AF3FE21AEE8FC00F4B4FF /* CalendarServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarServiceType.swift; sourceTree = "<group>"; };
 		499AF40021AEE93C00F4B4FF /* CalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarService.swift; sourceTree = "<group>"; };
@@ -379,7 +385,10 @@
 		49BE427F21B839B0003EC071 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				498ED01921C13A1F003FFF5B /* TileView.swift */,
+				498ED01D21C13A57003FFF5B /* TileTableViewCell.swift */,
 				49BE428221B83A17003EC071 /* AlarmTableViewCell.swift */,
+				498ED01B21C13A39003FFF5B /* MorningRoutineTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -619,6 +628,7 @@
 				49EF7AD621A72ECF00FEDFEC /* Maneuver.swift in Sources */,
 				4924A27521A8822200671450 /* WeatherForecast.swift in Sources */,
 				49EF7AD021A72B8D00FEDFEC /* RouteSummary.swift in Sources */,
+				498ED01C21C13A39003FFF5B /* MorningRoutineTableViewCell.swift in Sources */,
 				49EF7ACE21A709E100FEDFEC /* UNUserNotificationCenter+Extensions.swift in Sources */,
 				220365BC2195C372002BDE91 /* Constraints.swift in Sources */,
 				49BE428321B83A17003EC071 /* AlarmTableViewCell.swift in Sources */,
@@ -633,6 +643,7 @@
 				4942435C21AA9D5400088AB6 /* Formatter+Extensions.swift in Sources */,
 				49F149CB21BD74B1008EFCAA /* AlarmTableHeaderView.swift in Sources */,
 				84E7CDED2195DD260088CF98 /* Route.swift in Sources */,
+				498ED01E21C13A57003FFF5B /* TileTableViewCell.swift in Sources */,
 				49CE3D2D21AF235700A05CD0 /* AlarmService.swift in Sources */,
 				84E7CDEB2195DC930088CF98 /* CalendarEntry.swift in Sources */,
 				220365B32195BD2B002BDE91 /* String+Extenstions.swift in Sources */,
@@ -653,6 +664,7 @@
 				22C8D190218B2C060029C1EA /* MainViewModel.swift in Sources */,
 				4982E48421A5B7C5003AC90D /* MorningRoutinePageViewModel.swift in Sources */,
 				49DB25DD218DDACD0037CFBB /* WalkthroughViewController.swift in Sources */,
+				498ED01A21C13A1F003FFF5B /* TileView.swift in Sources */,
 				22C51525219EF6EB003783A7 /* LandingPageViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

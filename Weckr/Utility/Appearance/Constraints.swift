@@ -40,6 +40,13 @@ struct Constraints {
             static let spacing: CGFloat = 3
         }
         
+        struct Tile {
+            static let top: CGFloat = 5
+            static let bottom: CGFloat = 5
+            static let left: CGFloat = 13
+            static let right: CGFloat = 13
+        }
+        
         struct Alarm {
             static let top: CGFloat = 50
             static let spacing: CGFloat = 40

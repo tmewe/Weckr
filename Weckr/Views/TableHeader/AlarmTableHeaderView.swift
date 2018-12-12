@@ -13,8 +13,7 @@ import RxSwift
 class AlarmTableHeaderView: UIView {
     
     let disposeBag = DisposeBag()
-    private var safeArea = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(dateLabel)
@@ -29,7 +28,6 @@ class AlarmTableHeaderView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         if #available(iOS 11.0, *) {
-            safeArea = safeAreaInsets
             setupConstraints()
         }
     }
