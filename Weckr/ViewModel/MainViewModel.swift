@@ -53,9 +53,16 @@ class MainViewModel: MainViewModelType {
         
         //Outputs
         sections = nextAlarm
-            .map { SectionItem.alarmSectionItem(identity: "\($0.id)", date: $0.date) }
-            .map { AlarmSectionModel.alarm(title: $0.identity, items: [$0]) }
-            .map { [$0] }
+            .debug()
+            .map { (
+                SectionItem.alarmSectionItem(identity: "\($0.id)", date: $0.date),
+                SectionItem.morningRoutineSectionItem(identity: "\($0.morningRoutine)", time: $0.morningRoutine))
+            }
+            .map { [
+                AlarmSectionModel.alarm(title: $0.0.identity, items: [$0.0]),
+                AlarmSectionModel.morningRoutine(title: $0.1.identity, items: [$0.1])]
+            }
+            .map { $0 }
         
         dateString = nextAlarm
             .map { $0.date }

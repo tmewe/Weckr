@@ -54,6 +54,10 @@ class MainViewController: UITableViewController {
                     let cell: AlarmTableViewCell = tableView.dequeueReusableCell(indexPath: indexPath)
                     cell.configure(with: date)
                     return cell
+                case let .morningRoutineSectionItem(_, time):
+                    let cell: MorningRoutineTableViewCell = tableView.dequeueReusableCell(indexPath: indexPath)
+                    cell.configure(with: time)
+                    return cell
                 default:
                     let cell: AlarmTableViewCell = tableView.dequeueReusableCell(indexPath: indexPath)
                     return cell
@@ -72,6 +76,7 @@ class MainViewController: UITableViewController {
 extension MainViewController {
     fileprivate func setupViews() {
         tableView.registerReusableCell(AlarmTableViewCell.self)
+        tableView.registerReusableCell(MorningRoutineTableViewCell.self)
         tableView.separatorStyle = .none
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableView.automaticDimension
