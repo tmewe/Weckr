@@ -324,6 +324,15 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		4924610221C2A7F6001C0D37 /* Cell Views */ = {
+			isa = PBXGroup;
+			children = (
+				498ED01921C13A1F003FFF5B /* TileView.swift */,
+				4924610021C29EC2001C0D37 /* BasicInfoView.swift */,
+			);
+			path = "Cell Views";
+			sourceTree = "<group>";
+		};
 		4924A26A21A8747200671450 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
@@ -392,6 +401,7 @@
 			isa = PBXGroup;
 			children = (
 				49F149C921BD747E008EFCAA /* TableHeader */,
+				4924610221C2A7F6001C0D37 /* Cell Views */,
 				49BE427F21B839B0003EC071 /* Cells */,
 			);
 			path = Views;
@@ -400,8 +410,6 @@
 		49BE427F21B839B0003EC071 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				498ED01921C13A1F003FFF5B /* TileView.swift */,
-				4924610021C29EC2001C0D37 /* BasicInfoView.swift */,
 				498ED01D21C13A57003FFF5B /* TileTableViewCell.swift */,
 				498DBC7E21C1B3DB000D40D8 /* TitleTimeTableViewCell.swift */,
 				49BE428221B83A17003EC071 /* AlarmTableViewCell.swift */,

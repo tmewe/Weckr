@@ -26,7 +26,12 @@ struct CalendarService: CalendarServiceType {
                 //FIXME: Handle events without geolocation, don't just filter them out
                 .filter { $0.structuredLocation?.geoLocation != nil }
                 .filter { !$0.isAllDay }
-                .map { ($0.title!, $0.startDate!, $0.endDate!, GeoCoordinate(location: $0.structuredLocation!.geoLocation!)) }
+                .map { ($0.title!,
+                        $0.startDate!,
+                        $0.endDate!,
+                        $0.title!,
+                        GeoCoordinate(location: $0.structuredLocation!.geoLocation!))
+                }
                 .map(CalendarEntry.init)
             return Observable.of(events)
         default:

@@ -25,9 +25,24 @@ class EventTableViewCell: TileTableViewCell {
     }
     
     func configure(with title: String, event: CalendarEntry) {
+        //Info
         infoView.titleLabel.text = title
         infoView.timeLabel.text =  "1 H 15 MIN"
         infoView.infoLabel.text = event.title
+        
+        //Timespan
+        let start = event.startDate.toFormat("HH:mm")
+        let end = event.endDate.toFormat("HH:mm")
+        timespanLabel.text = start + " - " + end
+        
+        //Duration
+        let seconds: TimeInterval = TimeInterval(event.startDate.getInterval(toDate: event.endDate, component: .second))
+        let hours = Date(timeIntervalSinceReferenceDate: seconds).toFormat("HH")
+        let minutes = Date(timeIntervalSinceReferenceDate: seconds).toFormat("mm")
+        infoView.timeLabel.text = hours + " H " + minutes + " MIN"
+        
+        //Location
+        locationLabel.text = event.adress
     }
     
     override func awakeAfter(using aDecoder: NSCoder) -> Any? {
