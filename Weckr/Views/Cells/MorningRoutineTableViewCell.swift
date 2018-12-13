@@ -42,7 +42,8 @@ class MorningRoutineTableViewCell: TitleTimeTableViewCell {
     
     private func setupConstraints() {
         countLabel.autoPinEdge(.top, to: .bottom, of: stackView, withOffset: 10)
-        countLabel.autoPinEdgesToSuperviewEdges(with: UIEdgeInsets(top: 0, left: 15, bottom: 1, right: 15), excludingEdge: .top)
+        countLabel.autoPinEdge(.left, to: .left, of: tileView, withOffset: 15)
+        countLabel.autoPinEdge(.right, to: .right, of: tileView, withOffset: 15)
         tileView.autoPinEdge(.bottom, to: .bottom, of: countLabel, withOffset: 10)
     }
     
