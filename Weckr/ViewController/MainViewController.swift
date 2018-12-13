@@ -72,11 +72,11 @@ class MainViewController: UITableViewController {
         let dataSource = RxTableViewSectionedReloadDataSource<AlarmSection>(
             configureCell: { dataSource, tableView, indexPath, item in
                 switch dataSource[indexPath] {
-                case let .alarmSectionItem(_, date):
+                case let .alarmItem(date):
                     let cell: AlarmTableViewCell = tableView.dequeueReusableCell(indexPath: indexPath)
                     cell.configure(with: date)
                     return cell
-                case let .morningRoutineSectionItem(_, time):
+                case let .morningRoutineItem(time):
                     let cell: MorningRoutineTableViewCell = tableView.dequeueReusableCell(indexPath: indexPath)
                     cell.configure(with: time)
                     return cell

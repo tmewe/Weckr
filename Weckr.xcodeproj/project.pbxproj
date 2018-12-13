@@ -50,7 +50,7 @@
 		498ED01C21C13A39003FFF5B /* MorningRoutineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498ED01B21C13A39003FFF5B /* MorningRoutineTableViewCell.swift */; };
 		498ED01E21C13A57003FFF5B /* TileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498ED01D21C13A57003FFF5B /* TileTableViewCell.swift */; };
 		498ED02021C14A29003FFF5B /* TimeIntervall+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498ED01F21C14A29003FFF5B /* TimeIntervall+Extensions.swift */; };
-		498F2D3621B5BC070048A756 /* AlarmSectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498F2D3521B5BC070048A756 /* AlarmSectionModel.swift */; };
+		498F2D3621B5BC070048A756 /* AlarmSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498F2D3521B5BC070048A756 /* AlarmSection.swift */; };
 		499AF3FF21AEE8FC00F4B4FF /* CalendarServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499AF3FE21AEE8FC00F4B4FF /* CalendarServiceType.swift */; };
 		499AF40121AEE93C00F4B4FF /* CalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499AF40021AEE93C00F4B4FF /* CalendarService.swift */; };
 		499AF40421AEEC5400F4B4FF /* AccessError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499AF40321AEEC5400F4B4FF /* AccessError.swift */; };
@@ -131,7 +131,7 @@
 		498ED01B21C13A39003FFF5B /* MorningRoutineTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MorningRoutineTableViewCell.swift; sourceTree = "<group>"; };
 		498ED01D21C13A57003FFF5B /* TileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileTableViewCell.swift; sourceTree = "<group>"; };
 		498ED01F21C14A29003FFF5B /* TimeIntervall+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeIntervall+Extensions.swift"; sourceTree = "<group>"; };
-		498F2D3521B5BC070048A756 /* AlarmSectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSectionModel.swift; sourceTree = "<group>"; };
+		498F2D3521B5BC070048A756 /* AlarmSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSection.swift; sourceTree = "<group>"; };
 		499AF3FE21AEE8FC00F4B4FF /* CalendarServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarServiceType.swift; sourceTree = "<group>"; };
 		499AF40021AEE93C00F4B4FF /* CalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarService.swift; sourceTree = "<group>"; };
 		499AF40321AEEC5400F4B4FF /* AccessError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessError.swift; sourceTree = "<group>"; };
@@ -453,7 +453,7 @@
 				49DD02F6219C378000C57041 /* Route */,
 				84E7CDE62195B73F0088CF98 /* Alarm.swift */,
 				84E7CDEA2195DC930088CF98 /* CalendarEntry.swift */,
-				498F2D3521B5BC070048A756 /* AlarmSectionModel.swift */,
+				498F2D3521B5BC070048A756 /* AlarmSection.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -635,7 +635,7 @@
 				4959992721AA029300549D89 /* HereMaps.swift in Sources */,
 				22C8D186218B29AF0029C1EA /* Scene+ViewController.swift in Sources */,
 				49DD02FE219C3A6600C57041 /* Leg.swift in Sources */,
-				498F2D3621B5BC070048A756 /* AlarmSectionModel.swift in Sources */,
+				498F2D3621B5BC070048A756 /* AlarmSection.swift in Sources */,
 				4921B8D021A1A41700BD6145 /* Constants.swift in Sources */,
 				4959992521AA01F300549D89 /* RoutingService.swift in Sources */,
 				49BE428121B839ED003EC071 /* Reusable.swift in Sources */,
