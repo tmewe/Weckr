@@ -4,6 +4,7 @@ PODS:
     - RxSwift (~> 4.3)
   - Alamofire (4.8.0)
   - Differentiator (3.1.0)
+  - FoldingCell (4.0.2)
   - Moya/Core (12.0.1):
     - Alamofire (~> 4.1)
     - Result (~> 4.0)
@@ -51,6 +52,7 @@ PODS:
 
 DEPENDENCIES:
   - Action
+  - FoldingCell (~> 4.0.2)
   - Moya/RxSwift (~> 12.0)
   - "NSObject+Rx"
   - PureLayout
@@ -70,6 +72,7 @@ SPEC REPOS:
     - Action
     - Alamofire
     - Differentiator
+    - FoldingCell
     - Moya
     - "NSObject+Rx"
     - ObjcExceptionBridging
@@ -91,6 +94,7 @@ SPEC CHECKSUMS:
   Action: 2f461c203c480b17aa99b3bb166e4329ecff6908
   Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
   Differentiator: be49ca3408f0ecfc761e4c7763d20c62be01b9ad
+  FoldingCell: 352f0211a53f957b885a1b37d5ffa875da90bca5
   Moya: cf730b3cd9e005401ef37a85143aa141a12fd38f
   "NSObject+Rx": 9884a92f19b610795c431e10b4e601913b59c9e9
   ObjcExceptionBridging: c30e00eb3700467e695faeea30e26e18bd445001
@@ -108,6 +112,6 @@ SPEC CHECKSUMS:
   SwiftDate: f4aea5fa9dee812485f34041121a4cbde01b0dee
   XCGLogger: 7f7f43f15dfe3a305fa1342b7dc29af656289abd
 
-PODFILE CHECKSUM: a990347a9037f88ea7764d098f9b7c1b2cdeb7b5
+PODFILE CHECKSUM: 8ae41b797eb91bdd19e133d33bcde5fb9366f1d1
 
 COCOAPODS: 1.5.3

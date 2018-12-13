@@ -56,6 +56,7 @@ class MainViewModel: MainViewModelType {
             .map { [
                 SectionItem.alarmItem(date: $0.date),
                 SectionItem.morningRoutineItem(time: $0.morningRoutine),
+                SectionItem.routeItem(route: $0.route),
                 SectionItem.eventItem(title: "FIRST EVENT", selectedEvent: $0.selectedEvent)
                 ]
             }
@@ -64,6 +65,7 @@ class MainViewModel: MainViewModelType {
         dateString = nextAlarm
             .map { $0.date }
             .map { $0.toFormat("EEEE, MMMM dd") }
+            .map { $0.uppercased() }
     }
 }
 

@@ -39,8 +39,8 @@ class TileTableViewCell: UITableViewCell, Reusable {
     }
     
     let tileView: UIView = {
-        let view = TileView(frame: CGRect.zero)
-        view.clipsToBounds = false
+        let view = TileView.newAutoLayout()
+        view.clipsToBounds = true
         return view
     }()
 }

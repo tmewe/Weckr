@@ -88,6 +88,10 @@ class MainViewController: UITableViewController {
                     let cell: EventTableViewCell = tableView.dequeueReusableCell(indexPath: indexPath)
                     cell.configure(with: title, event: event)
                     return cell
+                case let .routeItem(route):
+                    let cell: RouteTableViewCell = tableView.dequeueReusableCell(indexPath: indexPath)
+                    cell.configure(with: route)
+                    return cell
                 }
         })
         return dataSource
@@ -105,6 +109,7 @@ extension MainViewController {
         tableView.registerReusableCell(AlarmTableViewCell.self)
         tableView.registerReusableCell(MorningRoutineTableViewCell.self)
         tableView.registerReusableCell(EventTableViewCell.self)
+        tableView.registerReusableCell(RouteTableViewCell.self)
         tableView.separatorStyle = .none
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableView.automaticDimension

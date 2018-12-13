@@ -20,4 +20,5 @@ target 'Weckr' do
   pod 'Moya/RxSwift', '~> 12.0'
   pod 'RxCoreLocation', '~> 1.3.1'
   pod 'SwiftDate', '~> 5.0'
+  pod 'FoldingCell', '~> 4.0.2'
 end

@@ -26,5 +26,6 @@ extension AlarmSection: SectionModelType {
 enum SectionItem {
     case alarmItem(date: Date)
     case morningRoutineItem(time: TimeInterval)
+    case routeItem(route: Route)
     case eventItem(title: String, selectedEvent: CalendarEntry)
 }
