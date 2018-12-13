@@ -47,7 +47,11 @@ class MainViewController: UITableViewController {
         
         tableView.rx.willDisplayCell
             .subscribe(onNext: { cell, indexPath in
-                let frame = CGRect(x: 0, y: 0, width: cell.frame.width-26, height: cell.frame.height-10)
+                let insets = Constraints.Main.Tile.self
+                let frame = CGRect(x: 0, y: 0,
+                                   width: cell.frame.width-insets.left-insets.right,
+                                   height: cell.frame.height-insets.top-insets.bottom)
+                
                 guard let tileCell = cell as? TileTableViewCell else { return }
                 guard let gradient = tileCell.gradient else { return }
                 tileCell.tileView.frame = frame

@@ -41,10 +41,10 @@ struct Constraints {
         }
         
         struct Tile {
-            static let top: CGFloat = 5
-            static let bottom: CGFloat = 5
-            static let left: CGFloat = 13
-            static let right: CGFloat = 13
+            static let top: CGFloat = 10
+            static let bottom: CGFloat = 10
+            static let left: CGFloat = 20
+            static let right: CGFloat = 20
         }
         
         struct Text {
@@ -59,7 +59,7 @@ struct Constraints {
         struct Alarm {
             static let top: CGFloat = 50
             static let spacing: CGFloat = 40
-            static let bottom: CGFloat = 10
+            static let bottom: CGFloat = 20
         }
     }
 }
