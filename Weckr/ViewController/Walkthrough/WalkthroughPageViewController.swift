@@ -103,7 +103,7 @@ class WalkthroughPageViewController: UIViewController {
         var label = UILabel.newAutoLayout()
         label.textColor = .white
         label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 34, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: Font.Size.Walkthorugh.title, weight: .bold)
         label.numberOfLines = 0
         return label
     }()
@@ -112,7 +112,7 @@ class WalkthroughPageViewController: UIViewController {
         var label = UILabel.newAutoLayout()
         label.textColor = .white
         label.textAlignment = .right
-        label.font = UIFont.systemFont(ofSize: 34, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: Font.Size.Walkthorugh.subTitle, weight: .bold)
         label.numberOfLines = 0
         return label
     }()

@@ -55,7 +55,8 @@ class MainViewModel: MainViewModelType {
         sections = nextAlarm
             .map { [
                 SectionItem.alarmItem(date: $0.date),
-                SectionItem.morningRoutineItem(time: $0.morningRoutine)
+                SectionItem.morningRoutineItem(time: $0.morningRoutine),
+                SectionItem.eventItem(title: "FIRST EVENT", selectedEvent: $0.selectedEvent)
                 ]
             }
             .map { [AlarmSection(header: "", items: $0)] }

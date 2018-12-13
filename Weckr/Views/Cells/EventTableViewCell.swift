@@ -9,12 +9,13 @@
 import Foundation
 import UIKit
 
-class EventTableViewCell: TitleTimeTableViewCell {
-    var gradientColor = (UIColor.morningRoutineLeft.cgColor, UIColor.morningRoutineRight.cgColor)
+class EventTableViewCell: TileTableViewCell {
+    var gradientColor = (UIColor.morningRoutineCellLeft.cgColor, UIColor.morningRoutineCellRight.cgColor)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+        gradient = (UIColor.eventCellLeft.cgColor, UIColor.eventCellRight.cgColor)
+
         addSubviews()
         setupConstraints()
     }
@@ -23,10 +24,10 @@ class EventTableViewCell: TitleTimeTableViewCell {
         super.init(coder: aDecoder)
     }
     
-    func configure(with event: CalendarEntry) {
-        titleLabel.text = "FIRST EVENT"
-        timeLabel.text =  "1 H 15 MIN"
-        countLabel.text = "Meeting with colleagues"
+    func configure(with title: String, event: CalendarEntry) {
+        infoView.titleLabel.text = title
+        infoView.timeLabel.text =  "1 H 15 MIN"
+        infoView.infoLabel.text = event.title
     }
     
     override func awakeAfter(using aDecoder: NSCoder) -> Any? {
@@ -34,21 +35,36 @@ class EventTableViewCell: TitleTimeTableViewCell {
     }
     
     private func addSubviews() {
-        tileView.addSubview(countLabel)
+        tileView.addSubview(infoView)
+        tileView.addSubview(locationLabel)
     }
     
     private func setupConstraints() {
-        countLabel.autoPinEdge(.top, to: .bottom, of: stackView, withOffset: 10)
-        countLabel.autoPinEdgesToSuperviewEdges(with: UIEdgeInsets(top: 0, left: 15, bottom: 1, right: 15), excludingEdge: .top)
-        tileView.autoPinEdge(.bottom, to: .bottom, of: countLabel, withOffset: 10)
+        let insets = Constraints.Main.Text.self
+        infoView.autoPinEdgesToSuperviewEdges(with: UIEdgeInsets(top: insets.top,
+                                                                 left: insets.left,
+                                                                 bottom: insets.bottom,
+                                                                 right: insets.right),
+                                              excludingEdge: .bottom)
+        
+        locationLabel.autoPinEdge(.top, to: .bottom, of: infoView, withOffset: insets.smallSpacing)
+        locationLabel.autoPinEdge(.left, to: .left, of: tileView, withOffset: insets.left)
+        locationLabel.autoPinEdge(.right, to: .right, of: tileView, withOffset: insets.right)
+        
+        tileView.autoPinEdge(.bottom, to: .bottom, of: locationLabel, withOffset: insets.largeSpacing)
     }
     
-    let countLabel: UILabel = {
+    let locationLabel: UILabel = {
         let label = UILabel.newAutoLayout()
-        label.font = UIFont.systemFont(ofSize: 28.0, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: Font.Size.TileCell.subTitle, weight: .semibold)
         label.textColor = .white
-        label.numberOfLines = 0
-        label.text = "30 min"
+        label.alpha = 0.7
+        label.text = "Geschw.-Scholl-Platz 1"
         return label
+    }()
+    
+    let infoView: BasicInfoView = {
+        let view = BasicInfoView.newAutoLayout()
+        return view
     }()
 }

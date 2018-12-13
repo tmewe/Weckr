@@ -47,6 +47,15 @@ struct Constraints {
             static let right: CGFloat = 13
         }
         
+        struct Text {
+            static let top: CGFloat = 20
+            static let bottom: CGFloat = 20
+            static let left: CGFloat = 20
+            static let right: CGFloat = 20
+            static let largeSpacing: CGFloat = 10
+            static let smallSpacing: CGFloat = 7
+        }
+        
         struct Alarm {
             static let top: CGFloat = 50
             static let spacing: CGFloat = 40

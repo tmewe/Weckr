@@ -11,11 +11,11 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class MorningRoutineTableViewCell: TitleTimeTableViewCell {
+class MorningRoutineTableViewCell: TileTableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        gradient = (UIColor.morningRoutineLeft.cgColor, UIColor.morningRoutineRight.cgColor)
+        gradient = (UIColor.morningRoutineCellLeft.cgColor, UIColor.morningRoutineCellRight.cgColor)
         
         addSubviews()
         setupConstraints()
@@ -27,9 +27,9 @@ class MorningRoutineTableViewCell: TitleTimeTableViewCell {
     
     func configure(with time: TimeInterval) {
         let formattedTime = Date(timeIntervalSinceReferenceDate: time).toFormat("HH:mm")
-        titleLabel.text = "MORNING ROUTINE"
-        timeLabel.text = formattedTime + " MIN"
-        countLabel.text = formattedTime + " min left"
+        infoView.titleLabel.text = "MORNING ROUTINE"
+        infoView.timeLabel.text = formattedTime + " MIN"
+        infoView.infoLabel.text = formattedTime + " min left"
     }
     
     override func awakeAfter(using aDecoder: NSCoder) -> Any? {
@@ -37,21 +37,21 @@ class MorningRoutineTableViewCell: TitleTimeTableViewCell {
     }
     
     private func addSubviews() {
-        tileView.addSubview(countLabel)
+        tileView.addSubview(infoView)
     }
     
     private func setupConstraints() {
-        countLabel.autoPinEdge(.top, to: .bottom, of: stackView, withOffset: 10)
-        countLabel.autoPinEdge(.left, to: .left, of: tileView, withOffset: 15)
-        countLabel.autoPinEdge(.right, to: .right, of: tileView, withOffset: 15)
-        tileView.autoPinEdge(.bottom, to: .bottom, of: countLabel, withOffset: 10)
+        let insets = Constraints.Main.Text.self
+        infoView.autoPinEdgesToSuperviewEdges(with: UIEdgeInsets(top: insets.top,
+                                                                 left: insets.left,
+                                                                 bottom: insets.bottom,
+                                                                 right: insets.right),
+                                              excludingEdge: .bottom)
+        tileView.autoPinEdge(.bottom, to: .bottom, of: infoView, withOffset: insets.bottom)
     }
     
-    let countLabel: UILabel = {
-        let label = UILabel.newAutoLayout()
-        label.font = UIFont.systemFont(ofSize: 28.0, weight: .bold)
-        label.textColor = .white
-        label.text = "30 min"
-        return label
+    let infoView: BasicInfoView = {
+        let view = BasicInfoView.newAutoLayout()
+        return view
     }()
 }

@@ -48,14 +48,14 @@ class AlarmTableHeaderView: UIView {
     
     let dateLabel: UILabel = {
         let label = UILabel.newAutoLayout()
-        label.font = UIFont.systemFont(ofSize: 13.0, weight: .medium)
+        label.font = UIFont.systemFont(ofSize: Font.Size.TableHeader.date, weight: .medium)
         label.textColor = .darkGray
         return label
     }()
     
     let titleLabel: UILabel = {
         let label = UILabel.newAutoLayout()
-        label.font = UIFont.systemFont(ofSize: 34.0, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: Font.Size.TableHeader.title, weight: .bold)
         label.textColor = .white
         label.text = "main.header.tomorrow".localized()
         return label

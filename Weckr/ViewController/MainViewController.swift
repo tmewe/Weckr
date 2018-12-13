@@ -80,8 +80,9 @@ class MainViewController: UITableViewController {
                     let cell: MorningRoutineTableViewCell = tableView.dequeueReusableCell(indexPath: indexPath)
                     cell.configure(with: time)
                     return cell
-                default:
-                    let cell: AlarmTableViewCell = tableView.dequeueReusableCell(indexPath: indexPath)
+                case let .eventItem(title, event):
+                    let cell: EventTableViewCell = tableView.dequeueReusableCell(indexPath: indexPath)
+                    cell.configure(with: title, event: event)
                     return cell
                 }
         })
@@ -99,6 +100,7 @@ extension MainViewController {
     fileprivate func setupViews() {
         tableView.registerReusableCell(AlarmTableViewCell.self)
         tableView.registerReusableCell(MorningRoutineTableViewCell.self)
+        tableView.registerReusableCell(EventTableViewCell.self)
         tableView.separatorStyle = .none
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableView.automaticDimension

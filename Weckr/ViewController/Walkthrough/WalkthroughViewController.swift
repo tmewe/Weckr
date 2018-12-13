@@ -140,7 +140,8 @@ class WalkthroughViewController: UIViewController, BindableType {
     let continueButton: UIButton = {
         let button = UIButton.newAutoLayout()
         button.setTitle("How?", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.bold)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: Font.Size.Walkthorugh.nextButton,
+                                                    weight: UIFont.Weight.bold)
         button.layer.cornerRadius = button.layer.frame.height / 2
         button.layer.masksToBounds = true
         return button

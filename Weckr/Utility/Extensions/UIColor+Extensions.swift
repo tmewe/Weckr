@@ -118,11 +118,19 @@ extension UIColor {
         return #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
     }
     
-    class var morningRoutineLeft: UIColor {
+    class var morningRoutineCellLeft: UIColor {
         return #colorLiteral(red: 0.5764705882, green: 0.1176470588, blue: 0.1411764706, alpha: 1)
     }
     
-    class var morningRoutineRight: UIColor {
+    class var morningRoutineCellRight: UIColor {
         return #colorLiteral(red: 0.7764705882, green: 0.2588235294, blue: 0, alpha: 1)
+    }
+    
+    class var eventCellLeft: UIColor {
+        return #colorLiteral(red: 0.2431372549, green: 0.6823529412, blue: 0.368627451, alpha: 1)
+    }
+    
+    class var eventCellRight: UIColor {
+        return #colorLiteral(red: 0.2705882353, green: 0.4078431373, blue: 0.4588235294, alpha: 1)
     }
 }

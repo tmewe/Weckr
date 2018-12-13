@@ -35,7 +35,7 @@ class TitleTimeTableViewCell: TileTableViewCell {
     
     let titleLabel: UILabel = {
         let label = UILabel.newAutoLayout()
-        label.font = UIFont.systemFont(ofSize: 13.0, weight: .medium)
+        label.font = UIFont.systemFont(ofSize: Font.Size.TileCell.title, weight: .medium)
         label.textColor = .white
         label.textAlignment = .left
         label.text = "MORNING ROUTINE"
@@ -44,7 +44,7 @@ class TitleTimeTableViewCell: TileTableViewCell {
     
     let timeLabel: UILabel = {
         let label = UILabel.newAutoLayout()
-        label.font = UIFont.systemFont(ofSize: 13.0, weight: .medium)
+        label.font = UIFont.systemFont(ofSize: Font.Size.TileCell.time, weight: .medium)
         label.textColor = .white
         label.textAlignment = .right
         label.text = "30 MIN"
