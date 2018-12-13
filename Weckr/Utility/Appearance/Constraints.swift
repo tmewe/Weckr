@@ -53,7 +53,7 @@ struct Constraints {
             static let left: CGFloat = 20
             static let right: CGFloat = 20
             static let largeSpacing: CGFloat = 10
-            static let smallSpacing: CGFloat = 7
+            static let smallSpacing: CGFloat = 6
         }
         
         struct Alarm {
