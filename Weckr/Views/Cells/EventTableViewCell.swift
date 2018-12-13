@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SwiftDate
 
 class EventTableViewCell: TileTableViewCell {
     var gradientColor = (UIColor.morningRoutineCellLeft.cgColor, UIColor.morningRoutineCellRight.cgColor)
@@ -31,8 +32,8 @@ class EventTableViewCell: TileTableViewCell {
         infoView.infoLabel.text = event.title
         
         //Timespan
-        let start = event.startDate.toFormat("HH:mm")
-        let end = event.endDate.toFormat("HH:mm")
+        let start = DateInRegion(event.startDate, region: Region.current).toFormat("HH:mm")
+        let end = DateInRegion(event.endDate, region: Region.current).toFormat("HH:mm")
         timespanLabel.text = start + " - " + end
         
         //Duration

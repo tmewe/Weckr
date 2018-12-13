@@ -29,7 +29,7 @@ struct CalendarService: CalendarServiceType {
                 .map { ($0.title!,
                         $0.startDate!,
                         $0.endDate!,
-                        $0.title!,
+                        $0.location!,
                         GeoCoordinate(location: $0.structuredLocation!.geoLocation!))
                 }
                 .map(CalendarEntry.init)
