@@ -16,7 +16,7 @@ protocol MainViewModelInputsType {
 }
 
 protocol MainViewModelOutputsType {
-    var sections: Observable<[AlarmSectionModel]> { get }
+    var sections: Observable<[AlarmSection]> { get }
     var dateString: Observable<String> { get }
 }
 
@@ -37,7 +37,7 @@ class MainViewModel: MainViewModelType {
     var actions : MainViewModelActionsType { return self }
     
     //Outpus
-    var sections: Observable<[AlarmSectionModel]>
+    var sections: Observable<[AlarmSection]>
     var dateString: Observable<String>
     
     //Setup
@@ -53,15 +53,12 @@ class MainViewModel: MainViewModelType {
         
         //Outputs
         sections = nextAlarm
-            .map { (
-                SectionItem.alarmSectionItem(identity: "\($0.id)", date: $0.date),
-                SectionItem.morningRoutineSectionItem(identity: "\($0.morningRoutine)", time: $0.morningRoutine))
-            }
             .map { [
-                AlarmSectionModel.alarm(title: $0.0.identity, items: [$0.0]),
-                AlarmSectionModel.morningRoutine(title: $0.1.identity, items: [$0.1])]
+                SectionItem.alarmSectionItem(identity: "\($0.id)", date: $0.date),
+                SectionItem.morningRoutineSectionItem(identity: "\($0.morningRoutine)", time: $0.morningRoutine)
+                ]
             }
-            .map { $0 }
+            .map { [AlarmSection(header: "", items: $0)] }
         
         dateString = nextAlarm
             .map { $0.date }

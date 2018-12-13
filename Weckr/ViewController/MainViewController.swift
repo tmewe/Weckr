@@ -14,7 +14,7 @@ import RxDataSources
 class MainViewController: UITableViewController {
     
     private var viewModel: MainViewModelType!
-    private var dataSource: RxTableViewSectionedAnimatedDataSource<AlarmSectionModel>!
+    private var dataSource: RxTableViewSectionedReloadDataSource<AlarmSection>!
     private let disposeBag = DisposeBag()
     
     init(viewModel: MainViewModelType) {
@@ -48,20 +48,28 @@ class MainViewController: UITableViewController {
         tableView.rx.willDisplayCell
             .subscribe(onNext: { cell, indexPath in
                 let frame = CGRect(x: 0, y: 0, width: cell.frame.width-26, height: cell.frame.height-10)
-                switch indexPath.section {
-                case 1:
-                    let row = cell as! MorningRoutineTableViewCell
-                    row.tileView.frame = frame
-                    row.tileView.setGradientForCell(colors: row.gradientColor)
-                default:
-                    break
-                }
+                guard let tileCell = cell as? TileTableViewCell else { return }
+                guard let gradient = tileCell.gradient else { return }
+                tileCell.tileView.frame = frame
+                tileCell.tileView.setGradientForCell(colors: gradient)
             })
             .disposed(by: disposeBag)
+        
+//        tableView.rx.itemSelected
+//            .subscribe(onNext: { indexPath in
+//                guard let cell = self.tableView.cellForRow(at: indexPath) as? TileTableViewCell else {
+//                    return
+//                }
+//                guard let editCell = cell as? EditableCell else {
+//                    return
+//                }
+//                editCell.showEditIcon()
+//            })
+//            .disposed(by: disposeBag)
     }
     
-    private func configureDataSource() -> RxTableViewSectionedAnimatedDataSource<AlarmSectionModel> {
-        let dataSource = RxTableViewSectionedAnimatedDataSource<AlarmSectionModel>(
+    private func configureDataSource() -> RxTableViewSectionedReloadDataSource<AlarmSection> {
+        let dataSource = RxTableViewSectionedReloadDataSource<AlarmSection>(
             configureCell: { dataSource, tableView, indexPath, item in
                 switch dataSource[indexPath] {
                 case let .alarmSectionItem(_, date):

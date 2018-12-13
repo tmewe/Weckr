@@ -1,21 +1,19 @@
 //
-//  MorningRoutineTableViewCell.swift
+//  EventTableViewCell.swift
 //  Weckr
 //
-//  Created by Tim Mewe on 12.12.18.
+//  Created by Tim Mewe on 13.12.18.
 //  Copyright © 2018 Tim Lehmann. All rights reserved.
 //
 
 import Foundation
 import UIKit
-import RxSwift
-import RxCocoa
 
-class MorningRoutineTableViewCell: TitleTimeTableViewCell {
+class EventTableViewCell: TitleTimeTableViewCell {
+    var gradientColor = (UIColor.morningRoutineLeft.cgColor, UIColor.morningRoutineRight.cgColor)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        gradient = (UIColor.morningRoutineLeft.cgColor, UIColor.morningRoutineRight.cgColor)
         
         addSubviews()
         setupConstraints()
@@ -25,11 +23,10 @@ class MorningRoutineTableViewCell: TitleTimeTableViewCell {
         super.init(coder: aDecoder)
     }
     
-    func configure(with time: TimeInterval) {
-        let formattedTime = Date(timeIntervalSinceReferenceDate: time).toFormat("HH:mm")
-        titleLabel.text = "MORNING ROUTINE"
-        timeLabel.text = formattedTime + " MIN"
-        countLabel.text = formattedTime + " min left"
+    func configure(with event: CalendarEntry) {
+        titleLabel.text = "FIRST EVENT"
+        timeLabel.text =  "1 H 15 MIN"
+        countLabel.text = "Meeting with colleagues"
     }
     
     override func awakeAfter(using aDecoder: NSCoder) -> Any? {
@@ -50,6 +47,7 @@ class MorningRoutineTableViewCell: TitleTimeTableViewCell {
         let label = UILabel.newAutoLayout()
         label.font = UIFont.systemFont(ofSize: 28.0, weight: .bold)
         label.textColor = .white
+        label.numberOfLines = 0
         label.text = "30 min"
         return label
     }()

@@ -10,11 +10,8 @@ import Foundation
 import UIKit
 
 class TileTableViewCell: UITableViewCell, Reusable {
-    let tileView: UIView = {
-        let view = TileView(frame: CGRect.zero)
-        view.clipsToBounds = false
-        return view
-    }()
+    
+    public var gradient:(CGColor, CGColor)?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -40,4 +37,10 @@ class TileTableViewCell: UITableViewCell, Reusable {
                                                           bottom: insets.bottom,
                                                           right: insets.right))
     }
+    
+    let tileView: UIView = {
+        let view = TileView(frame: CGRect.zero)
+        view.clipsToBounds = false
+        return view
+    }()
 }

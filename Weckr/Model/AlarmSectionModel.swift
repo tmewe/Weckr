@@ -9,6 +9,20 @@
 import Foundation
 import RxDataSources
 
+struct AlarmSection {
+    var header: String
+    var items: [SectionItem]
+}
+
+extension AlarmSection: SectionModelType {    
+    typealias Item = SectionItem
+    
+    init(original: AlarmSection, items: [Item]) {
+        self = original
+        self.items = items
+    }
+}
+
 enum AlarmSectionModel {
     case alarm(title: String, items: [SectionItem])
     case morningRoutine(title: String, items: [SectionItem])
