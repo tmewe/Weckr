@@ -67,6 +67,7 @@ class MainViewController: UITableViewController {
         
         tableView.rx.itemSelected
             .filter { self.tableView.cellForRow(at: $0) is FoldingCell }
+            .throttle(duration, scheduler: MainScheduler.instance)
             .subscribe(onNext: { indexPath in
                 let cell = self.tableView.cellForRow(at: indexPath) as! FoldingCell
                 
