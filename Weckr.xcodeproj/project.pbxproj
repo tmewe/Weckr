@@ -77,6 +77,9 @@
 		49FAADCF21A073960019D5FA /* LocationPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FAADCE21A073960019D5FA /* LocationPageViewModel.swift */; };
 		49FAADD121A075070019D5FA /* NotificationPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FAADD021A075070019D5FA /* NotificationPageViewModel.swift */; };
 		829E084E26D392D5A7965F6D /* Pods_Weckr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D8F1BEF8290C85232F136C5 /* Pods_Weckr.framework */; };
+		8415D34C21CA98C200F28E13 /* VehicleSegmentedControl+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415D34B21CA98C200F28E13 /* VehicleSegmentedControl+Extension.swift */; };
+		8415D34E21CA9D1500F28E13 /* UIControl+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415D34D21CA9D1500F28E13 /* UIControl+Extensions.swift */; };
+		84A6F89721C6B7FA00D55A31 /* VehicleSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A6F89621C6B7FA00D55A31 /* VehicleSegmentedControl.swift */; };
 		84E7CDE72195B73F0088CF98 /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E7CDE62195B73F0088CF98 /* Alarm.swift */; };
 		84E7CDE92195D4210088CF98 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84E7CDE82195D4210088CF98 /* EventKit.framework */; };
 		84E7CDEB2195DC930088CF98 /* CalendarEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E7CDEA2195DC930088CF98 /* CalendarEntry.swift */; };
@@ -159,6 +162,9 @@
 		49FAADCC21A06B560019D5FA /* CalendarPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPageViewModel.swift; sourceTree = "<group>"; };
 		49FAADCE21A073960019D5FA /* LocationPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPageViewModel.swift; sourceTree = "<group>"; };
 		49FAADD021A075070019D5FA /* NotificationPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPageViewModel.swift; sourceTree = "<group>"; };
+		8415D34B21CA98C200F28E13 /* VehicleSegmentedControl+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VehicleSegmentedControl+Extension.swift"; sourceTree = "<group>"; };
+		8415D34D21CA9D1500F28E13 /* UIControl+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+Extensions.swift"; sourceTree = "<group>"; };
+		84A6F89621C6B7FA00D55A31 /* VehicleSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleSegmentedControl.swift; sourceTree = "<group>"; };
 		84E7CDE62195B73F0088CF98 /* Alarm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; };
 		84E7CDE82195D4210088CF98 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		84E7CDEA2195DC930088CF98 /* CalendarEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEntry.swift; sourceTree = "<group>"; };
@@ -202,6 +208,8 @@
 				4942435D21AA9D7E00088AB6 /* Date+Extensions.swift */,
 				49BE428421B83B72003EC071 /* UITableView+Extensions.swift */,
 				498ED01F21C14A29003FFF5B /* TimeIntervall+Extensions.swift */,
+				8415D34B21CA98C200F28E13 /* VehicleSegmentedControl+Extension.swift */,
+				8415D34D21CA9D1500F28E13 /* UIControl+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -424,6 +432,7 @@
 			children = (
 				49DB25DC218DDACD0037CFBB /* WalkthroughViewController.swift */,
 				22C51526219EFB2D003783A7 /* WalkthroughPageViewController.swift */,
+				84A6F89621C6B7FA00D55A31 /* VehicleSegmentedControl.swift */,
 			);
 			path = Walkthrough;
 			sourceTree = "<group>";
@@ -675,13 +684,16 @@
 				49DD02F8219C379000C57041 /* TransitLine.swift in Sources */,
 				4942435C21AA9D5400088AB6 /* Formatter+Extensions.swift in Sources */,
 				49F149CB21BD74B1008EFCAA /* AlarmTableHeaderView.swift in Sources */,
+				84A6F89721C6B7FA00D55A31 /* VehicleSegmentedControl.swift in Sources */,
 				84E7CDED2195DD260088CF98 /* Route.swift in Sources */,
 				498ED01E21C13A57003FFF5B /* TileTableViewCell.swift in Sources */,
 				49CE3D2D21AF235700A05CD0 /* AlarmService.swift in Sources */,
 				84E7CDEB2195DC930088CF98 /* CalendarEntry.swift in Sources */,
 				220365B32195BD2B002BDE91 /* String+Extenstions.swift in Sources */,
 				4982E48221A5B730003AC90D /* TravelPageViewModel.swift in Sources */,
+				8415D34E21CA9D1500F28E13 /* UIControl+Extensions.swift in Sources */,
 				499AF3FF21AEE8FC00F4B4FF /* CalendarServiceType.swift in Sources */,
+				8415D34C21CA98C200F28E13 /* VehicleSegmentedControl+Extension.swift in Sources */,
 				49EF7AD221A72CB600FEDFEC /* Waypoint.swift in Sources */,
 				49CE3D2F21AF244C00A05CD0 /* AlarmServiceError.swift in Sources */,
 				49EF7AD421A72CE000FEDFEC /* GeoCoordinate.swift in Sources */,
