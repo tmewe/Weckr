@@ -10,6 +10,10 @@ import Foundation
 import RxSwift
 import Moya
 
+protocol WeatherServiceType {
+    func forecast(for position: GeoCoordinate) -> Observable<WeatherForecast>
+}
+
 struct WeatherService: WeatherServiceType {
     
     private var openWeatherMap: MoyaProvider<OpenWeatherMap>

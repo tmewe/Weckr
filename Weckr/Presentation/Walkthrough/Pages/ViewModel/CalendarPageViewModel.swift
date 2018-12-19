@@ -47,7 +47,7 @@ class CalendarPageViewModel : WalkthroughSlideableType {
     lazy var continueAction: CocoaAction? = {
         return CocoaAction {
             let defaults = UserDefaults.standard
-            let calendarAccess = defaults.bool(forKey: Constants.UserDefaults.CalendarAccess)
+            let calendarAccess = defaults.bool(forKey: SettingsKeys.CalendarAccess)
             guard calendarAccess == false else {
                 return Observable.empty()
             }
@@ -59,7 +59,7 @@ class CalendarPageViewModel : WalkthroughSlideableType {
                     .map { $0.0 }
                     .filter { $0 }
                     .subscribe(onNext: { granted in
-                        defaults.set(granted, forKey: Constants.UserDefaults.CalendarAccess)
+                        defaults.set(granted, forKey: SettingsKeys.CalendarAccess)
                     })
                     .disposed(by: self.disposeBag)
             case .authorized:

@@ -10,6 +10,10 @@ import Foundation
 import EventKit
 import RxSwift
 
+protocol CalendarServiceType {
+    func fetchEvents(at date: Date, calendars: [EKCalendar]?) -> Observable<[CalendarEntry]>
+}
+
 struct CalendarService: CalendarServiceType {
     
     func fetchEvents(at date: Date, calendars: [EKCalendar]?) -> Observable<[CalendarEntry]> {

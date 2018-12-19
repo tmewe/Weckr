@@ -14,7 +14,7 @@ import RxCocoa
 class SceneCoordinator: SceneCoordinatorType {
     
     fileprivate var window: UIWindow
-    fileprivate var currentViewController: UIViewController
+    fileprivate var currentViewController: UIViewController!
     
     required init(window: UIWindow) {
         self.window = window
@@ -37,6 +37,7 @@ class SceneCoordinator: SceneCoordinatorType {
         switch type {
         case .root:
             window.rootViewController = viewController
+            window.makeKeyAndVisible()
             subject.onCompleted()
         case .push:
             guard let navigationController = currentViewController.navigationController else {

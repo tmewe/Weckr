@@ -41,12 +41,14 @@ class MainViewModel: MainViewModelType {
     var dateString: Observable<String>
     
     //Setup
-    private let alarmService: AlarmServiceType
+    private let serviceFactory: ServiceFactoryProtocol
 
-    init(alarmService: AlarmServiceType) {
+    init(serviceFactory: ServiceFactoryProtocol) {
         
         //Setup
-        self.alarmService = alarmService
+        self.serviceFactory = serviceFactory
+        
+        let alarmService = serviceFactory.createAlarm()
         let nextAlarm = alarmService.nextAlarm().share(replay: 1, scope: .forever)
         
         //Inputs

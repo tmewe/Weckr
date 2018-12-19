@@ -10,6 +10,10 @@ import Foundation
 import Moya
 import RxSwift
 
+protocol RoutingServiceType {
+    func route(with type: Vehicle, start: GeoCoordinate, end: GeoCoordinate, arrival: Date) -> Observable<Route>
+}
+
 struct RoutingService: RoutingServiceType {
     
     private var hereMaps: MoyaProvider<HereMaps>

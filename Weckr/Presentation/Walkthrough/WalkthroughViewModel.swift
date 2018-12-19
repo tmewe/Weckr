@@ -40,10 +40,8 @@ class WalkthroughViewModel: WalkthroughViewModelType {
     //Setup
     private var internalPageNumber = BehaviorSubject(value: 0)
     private var internalButtonColor = BehaviorSubject(value: UIColor.walkthroughPurpleAccent.cgColor)
-    private let weatherService: WeatherServiceType
-    private let routingService: RoutingServiceType
-    private let calendarService: CalendarServiceType
-    private let alarmService: AlarmServiceType
+    private let serviceFactory: ServiceFactoryProtocol
+    private let viewModelFactory: ViewModelFactoryProtocol
     private let locationManager = CLLocationManager()
     private var coordinator: SceneCoordinatorType!
     private let disposeBag = DisposeBag()
@@ -61,19 +59,21 @@ class WalkthroughViewModel: WalkthroughViewModelType {
     var createTrigger: Observable<Void>
     
     init(pages: [WalkthroughPageViewController],
-         weatherService: WeatherServiceType,
-         routingService: RoutingServiceType,
-         calendarService: CalendarServiceType,
-         alarmService: AlarmServiceType,
+         viewModelFactory: ViewModelFactoryProtocol,
+         serviceFactory: ServiceFactoryProtocol,
          coordinator: SceneCoordinatorType) {
         
         //Setup
-        locationManager.startUpdatingLocation()
-        self.weatherService = weatherService
-        self.routingService = routingService
-        self.calendarService = calendarService
-        self.alarmService = alarmService
         self.coordinator = coordinator
+        self.viewModelFactory = viewModelFactory
+        self.serviceFactory = serviceFactory
+        
+        let weatherService = serviceFactory.createWeather()
+        let routingService = serviceFactory.createRouting()
+        let calendarService = serviceFactory.createCalendar()
+        let alarmService = serviceFactory.createAlarm()
+        
+        locationManager.startUpdatingLocation()
         
         //Inputs
         nextPage = PublishSubject()
@@ -155,13 +155,13 @@ class WalkthroughViewModel: WalkthroughViewModelType {
                 alarmService.createAlarm(startLocation: $0.0,
                                          vehicle: $0.1,
                                          morningRoutineTime: $0.2,
-                                         calendarService: self.calendarService,
-                                         weatherService: self.weatherService,
-                                         routingService: self.routingService) }
+                                         calendarService: calendarService,
+                                         weatherService: weatherService,
+                                         routingService: routingService) }
             .subscribe(onNext: { _ in
-                coordinator.transition(to: Scene.main(MainViewModel(alarmService: alarmService)),
+                coordinator.transition(to: Scene.main(viewModelFactory.createMain()),
                                        withType: .modal)
-                UserDefaults.standard.set(true, forKey: Constants.UserDefaults.AppHasBeenStarted)
+                UserDefaults.standard.set(true, forKey: SettingsKeys.AppHasBeenStarted)
             })
             .disposed(by: disposeBag)
         
