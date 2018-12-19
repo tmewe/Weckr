@@ -25,6 +25,11 @@ class EventTableViewCell: TileTableViewCell {
         super.init(coder: aDecoder)
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        setupConstraints()
+    }
+    
     func configure(with title: String, event: CalendarEntry) {
         //Info
         infoView.titleLabel.text = title

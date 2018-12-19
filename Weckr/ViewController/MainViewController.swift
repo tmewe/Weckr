@@ -19,9 +19,6 @@ class MainViewController: UITableViewController {
     private let disposeBag = DisposeBag()
     
     private let duration = 0.9
-    private let cellOpen = 360
-    private let cellClose = 120
-    private var routeCellHeight = 120
     
     init(viewModel: MainViewModelType) {
         super.init(nibName: nil, bundle: nil)
@@ -66,16 +63,17 @@ class MainViewController: UITableViewController {
             .disposed(by: disposeBag)
         
         tableView.rx.itemSelected
-            .filter { self.tableView.cellForRow(at: $0) is FoldingCell }
+            .filter { self.tableView.cellForRow(at: $0) is RouteTableViewCell }
             .throttle(duration, scheduler: MainScheduler.instance)
             .subscribe(onNext: { indexPath in
-                let cell = self.tableView.cellForRow(at: indexPath) as! FoldingCell
+                let cell = self.tableView.cellForRow(at: indexPath) as! RouteTableViewCell
+                let collapsedHeight = Constraints.Main.Tile.heightWithSpacing
                 
-                if self.routeCellHeight == self.cellClose {
-                    self.routeCellHeight = self.cellOpen
+                if collapsedHeight == cell.currentHeight {
+                    cell.currentHeight = cell.expandedHeight
                     cell.unfold(true, animated: true, completion: nil)
                 } else {
-                    self.routeCellHeight = self.cellClose
+                    cell.currentHeight = cell.collapsedHeight
                     cell.unfold(false, animated: true, completion: nil)
                 }
                 
@@ -146,8 +144,10 @@ extension MainViewController {
 
 extension MainViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let cell = tableView.cellForRow(at: indexPath)
-        guard cell is FoldingCell else { return UITableView.automaticDimension }
-        return CGFloat(routeCellHeight)
+//        let cell = tableView.cellForRow(at: indexPath)
+        guard let cell = tableView.cellForRow(at: indexPath) as? RouteTableViewCell else {
+            return UITableView.automaticDimension
+        }
+        return cell.currentHeight
     }
 }

@@ -26,6 +26,11 @@ class TileTableViewCell: UITableViewCell, Reusable {
         super.init(coder: aDecoder)
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        setupConstraints()
+    }
+    
     private func addSubviews() {
         contentView.addSubview(tileView)
     }

@@ -12,6 +12,10 @@ import UIKit
 
 class RouteTableViewCell: FoldingCell, Reusable {
     
+    let collapsedHeight: CGFloat = Constraints.Main.Tile.heightWithSpacing
+    var expandedHeight: CGFloat = 0.0
+    var currentHeight: CGFloat = Constraints.Main.Tile.heightWithSpacing
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 //        gradient = (UIColor.morningRoutineCellLeft.cgColor, UIColor.morningRoutineCellRight.cgColor)
@@ -61,9 +65,8 @@ class RouteTableViewCell: FoldingCell, Reusable {
         return durations[itemIndex]
     }
     
-    let rowHeight = 100
-    
     private func createContainerView(maneuvers: [Maneuver]) -> UIView {
+        let rowHeight = Constraints.Main.Tile.defaultHeight
         let count = maneuvers.count
         itemCount = count
         
@@ -73,22 +76,27 @@ class RouteTableViewCell: FoldingCell, Reusable {
         for i in 0...count-1 {
             let view = TileView.newAutoLayout()
             content.addSubview(view)
-
-//            let offset = i == 0 ? 10 : (i * (rowHeight + 20) + 10
-
+            
             view.backgroundColor = .red
-            view.autoSetDimension(.height, toSize: CGFloat(rowHeight))
+            view.autoSetDimension(.height, toSize: rowHeight)
             view.autoPinEdge(.left, to: .left, of: content)
             view.autoPinEdge(.right, to: .right, of: content)
-            view.autoPinEdge(.top, to: .top, of: content, withOffset: CGFloat((i * (rowHeight + 20))))
+            view.autoPinEdge(.top, to: .top, of: content, withOffset: CGFloat(i) * (rowHeight + 20))
             
             if (i == count - 1) {
                 content.autoPinEdge(.bottom, to: .bottom, of: view, withOffset: 10)
             }
         }
         
+        expandedHeight = CGFloat(count) * rowHeight + CGFloat(count) * Constraints.Main.Tile.top * 2
+        
         return content
     }
+    
+//    override func unfold(_ value: Bool, animated: Bool, completion: (() -> Void)?) {
+//        currentHeight = value ? expandedHeight : collapsedHeight
+//        super.unfold(value, animated: animated, completion: completion)
+//    }
     
     let foreground: RotatedView = {
         let rotated = RotatedView.newAutoLayout()

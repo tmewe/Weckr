@@ -41,6 +41,8 @@ struct Constraints {
         }
         
         struct Tile {
+            static let heightWithSpacing: CGFloat = 120
+            static let defaultHeight: CGFloat = 100
             static let top: CGFloat = 10
             static let bottom: CGFloat = 10
             static let left: CGFloat = 20
