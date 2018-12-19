@@ -24,10 +24,12 @@ class VehicleSegmentedControl:UIControl {
         }
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(items: [String]) {
+        super.init(frame: CGRect.zero)
+        self.items = items
         setupView()
     }
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupView()

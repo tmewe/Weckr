@@ -17,7 +17,7 @@ extension Reactive where Base: VehicleSegmentedControl {
         return value
     }
     
-    /// Reactive wrapper for `selectedSegmentIndex` property.
+    /// Reactive wrapper for `selectedIndex` property.
     var value: ControlProperty<Int> {
         return base.rx.controlPropertyWithDefaultEvents(
             getter: { segmentedControl in

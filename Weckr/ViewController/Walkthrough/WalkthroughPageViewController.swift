@@ -88,9 +88,7 @@ class WalkthroughPageViewController: UIViewController {
         segmentedControl.autoSetDimensions(to: CGSize(width: 300, height: 50))
         segmentedControl.autoCenterInSuperview()
         segmentedControl.rx.selectedSegmentIndex
-            .debug()
             .map { Vehicle(rawValue: $0) ?? Vehicle.car }
-            .debug()
             .bind(to: viewModel.inputs.vehicle!)
             .disposed(by: disposeBag)
     }
@@ -125,8 +123,7 @@ class WalkthroughPageViewController: UIViewController {
     let segmentedControl: VehicleSegmentedControl = {
         let items = ["Car", "Feet", "Transit"]
         //let rechteck = CGRect(x: 0, y: 0, width: 100, height: 100)
-        let control = VehicleSegmentedControl.newAutoLayout()
-        control.items = items
+        let control = VehicleSegmentedControl(items: items)
         //control.selectedSegmentIndex = 0
         return control
     }()
