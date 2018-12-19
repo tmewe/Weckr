@@ -56,6 +56,8 @@
 		499AF3FF21AEE8FC00F4B4FF /* CalendarServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499AF3FE21AEE8FC00F4B4FF /* CalendarServiceType.swift */; };
 		499AF40121AEE93C00F4B4FF /* CalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499AF40021AEE93C00F4B4FF /* CalendarService.swift */; };
 		499AF40421AEEC5400F4B4FF /* AccessError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499AF40321AEEC5400F4B4FF /* AccessError.swift */; };
+		49B4663121CADBB500BE810C /* LoadingDisplayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B4663021CADBB500BE810C /* LoadingDisplayable.swift */; };
+		49B4663521CADE7F00BE810C /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B4663421CADE7F00BE810C /* LoadingView.swift */; };
 		49BE428121B839ED003EC071 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BE428021B839ED003EC071 /* Reusable.swift */; };
 		49BE428321B83A17003EC071 /* AlarmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BE428221B83A17003EC071 /* AlarmTableViewCell.swift */; };
 		49BE428521B83B72003EC071 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BE428421B83B72003EC071 /* UITableView+Extensions.swift */; };
@@ -142,6 +144,8 @@
 		499AF3FE21AEE8FC00F4B4FF /* CalendarServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarServiceType.swift; sourceTree = "<group>"; };
 		499AF40021AEE93C00F4B4FF /* CalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarService.swift; sourceTree = "<group>"; };
 		499AF40321AEEC5400F4B4FF /* AccessError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessError.swift; sourceTree = "<group>"; };
+		49B4663021CADBB500BE810C /* LoadingDisplayable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingDisplayable.swift; sourceTree = "<group>"; };
+		49B4663421CADE7F00BE810C /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		49BE428021B839ED003EC071 /* Reusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		49BE428221B83A17003EC071 /* AlarmTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTableViewCell.swift; sourceTree = "<group>"; };
 		49BE428421B83B72003EC071 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
@@ -289,6 +293,7 @@
 				22BE369F2193484500B56BF9 /* BindableType.swift */,
 				49BE428021B839ED003EC071 /* Reusable.swift */,
 				498DBC8021C1B76A000D40D8 /* EditableCell.swift */,
+				49B4663021CADBB500BE810C /* LoadingDisplayable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -405,9 +410,18 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		49B4663321CADE7600BE810C /* Overlays */ = {
+			isa = PBXGroup;
+			children = (
+				49B4663421CADE7F00BE810C /* LoadingView.swift */,
+			);
+			path = Overlays;
+			sourceTree = "<group>";
+		};
 		49BE427E21B839A9003EC071 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				49B4663321CADE7600BE810C /* Overlays */,
 				49F149C921BD747E008EFCAA /* TableHeader */,
 				4924610221C2A7F6001C0D37 /* Cell Views */,
 				49BE427F21B839B0003EC071 /* Cells */,
@@ -647,6 +661,7 @@
 				49FAADD121A075070019D5FA /* NotificationPageViewModel.swift in Sources */,
 				22C8D192218B2DEB0029C1EA /* SceneCoordinator.swift in Sources */,
 				499AF40121AEE93C00F4B4FF /* CalendarService.swift in Sources */,
+				49B4663121CADBB500BE810C /* LoadingDisplayable.swift in Sources */,
 				22C51527219EFB2D003783A7 /* WalkthroughPageViewController.swift in Sources */,
 				4982E48621A5B877003AC90D /* DonePageViewModel.swift in Sources */,
 				220365AC2195B741002BDE91 /* UIColor+Extensions.swift in Sources */,
@@ -704,6 +719,7 @@
 				49BE428521B83B72003EC071 /* UITableView+Extensions.swift in Sources */,
 				498ED02021C14A29003FFF5B /* TimeIntervall+Extensions.swift in Sources */,
 				22BE36A02193484500B56BF9 /* BindableType.swift in Sources */,
+				49B4663521CADE7F00BE810C /* LoadingView.swift in Sources */,
 				4942435E21AA9D7E00088AB6 /* Date+Extensions.swift in Sources */,
 				22C8D184218B28A50029C1EA /* Scene.swift in Sources */,
 				22C8D18A218B2AC90029C1EA /* SceneTransitionType.swift in Sources */,

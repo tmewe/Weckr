@@ -24,6 +24,7 @@ protocol WalkthroughViewModelOutputsType {
     var slides : Observable<[WalkthroughPageViewController]> { get }
     var buttonColor: Observable<CGColor> { get }
     var buttonText: Observable<String> { get }
+    var createTrigger: Observable<Void> { get }
 }
 
 protocol WalkthroughViewModelType {
@@ -57,6 +58,7 @@ class WalkthroughViewModel: WalkthroughViewModelType {
     var slides: Observable<[WalkthroughPageViewController]>
     var buttonColor: Observable<CGColor>
     var buttonText: Observable<String>
+    var createTrigger: Observable<Void>
     
     init(pages: [WalkthroughPageViewController],
          weatherService: WeatherServiceType,
@@ -120,10 +122,11 @@ class WalkthroughViewModel: WalkthroughViewModelType {
             .subscribe(onNext: { $0.viewModel.actions.continueAction?.execute(Void()) })
             .disposed(by: disposeBag)
         
-        let createTrigger = nextPage
+        createTrigger = nextPage
             .withLatestFrom(internalPageNumber)
             .withLatestFrom(slides) {($0, $1)}
             .filter { $0.0 == $0.1.count }
+            .map { _ in }
             .take(1)
             .share(replay: 1, scope: .forever)
         

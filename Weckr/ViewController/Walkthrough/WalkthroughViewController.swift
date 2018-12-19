@@ -12,9 +12,10 @@ import PureLayout
 import RxSwift
 import RxViewController
 
-class WalkthroughViewController: UIViewController, BindableType {
+class WalkthroughViewController: UIViewController, BindableType, LoadingDisplayable {
     
     var viewModel: WalkthroughViewModelType!
+    var loadingView: LoadingViewProtocol = LoadingView.newAutoLayout()
     private var disposeBag = DisposeBag()
     
     init(viewModel: WalkthroughViewModelType) {
@@ -29,7 +30,7 @@ class WalkthroughViewController: UIViewController, BindableType {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .backgroundColor
-        
+                
         addSubview()
         setupConstraints()
     }
@@ -65,6 +66,12 @@ class WalkthroughViewController: UIViewController, BindableType {
             .map { ($0 == 0) }
             .asDriver(onErrorJustReturn: true)
             .drive (previousButton.rx.isHidden)
+            .disposed(by: disposeBag)
+        
+        viewModel.outputs.createTrigger
+            .subscribe({ _ in
+                self.showLoading()
+            })
             .disposed(by: disposeBag)
         
         continueButton.rx.tap
@@ -109,6 +116,8 @@ class WalkthroughViewController: UIViewController, BindableType {
         
         pagingView.autoPinEdgesToSuperviewSafeArea(with: UIEdgeInsets.zero, excludingEdge: .bottom)
         pagingView.autoPinEdge(.bottom, to: .top, of: continueButton)
+        
+        loadingView.autoSetDimensions(to: view.frame.size)
     }
     
     
