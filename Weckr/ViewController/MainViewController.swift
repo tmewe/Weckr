@@ -10,12 +10,18 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RxDataSources
+import FoldingCell
 
 class MainViewController: UITableViewController {
     
     private var viewModel: MainViewModelType!
     private var dataSource: RxTableViewSectionedReloadDataSource<AlarmSection>!
     private let disposeBag = DisposeBag()
+    
+    private let duration = 0.9
+    private let cellOpen = 360
+    private let cellClose = 120
+    private var routeCellHeight = 120
     
     init(viewModel: MainViewModelType) {
         super.init(nibName: nil, bundle: nil)
@@ -59,17 +65,28 @@ class MainViewController: UITableViewController {
             })
             .disposed(by: disposeBag)
         
-//        tableView.rx.itemSelected
-//            .subscribe(onNext: { indexPath in
-//                guard let cell = self.tableView.cellForRow(at: indexPath) as? TileTableViewCell else {
-//                    return
-//                }
-//                guard let editCell = cell as? EditableCell else {
-//                    return
-//                }
-//                editCell.showEditIcon()
-//            })
-//            .disposed(by: disposeBag)
+        tableView.rx.itemSelected
+            .filter { self.tableView.cellForRow(at: $0) is FoldingCell }
+            .subscribe(onNext: { indexPath in
+                let cell = self.tableView.cellForRow(at: indexPath) as! FoldingCell
+                
+                if self.routeCellHeight == self.cellClose {
+                    self.routeCellHeight = self.cellOpen
+                    cell.unfold(true, animated: true, completion: nil)
+                } else {
+                    self.routeCellHeight = self.cellClose
+                    cell.unfold(false, animated: true, completion: nil)
+                }
+                
+                UIView.animate(withDuration: self.duration,
+                               delay: 0,
+                               options: .curveEaseOut,
+                               animations: {
+                    self.tableView.beginUpdates()
+                    self.tableView.endUpdates()
+                }, completion: nil)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func configureDataSource() -> RxTableViewSectionedReloadDataSource<AlarmSection> {
@@ -88,6 +105,10 @@ class MainViewController: UITableViewController {
                     let cell: EventTableViewCell = tableView.dequeueReusableCell(indexPath: indexPath)
                     cell.configure(with: title, event: event)
                     return cell
+                case let .routeItem(route):
+                    let cell: RouteTableViewCell = tableView.dequeueReusableCell(indexPath: indexPath)
+                    cell.configure(with: route)
+                    return cell
                 }
         })
         return dataSource
@@ -105,17 +126,27 @@ extension MainViewController {
         tableView.registerReusableCell(AlarmTableViewCell.self)
         tableView.registerReusableCell(MorningRoutineTableViewCell.self)
         tableView.registerReusableCell(EventTableViewCell.self)
+        tableView.registerReusableCell(RouteTableViewCell.self)
         tableView.separatorStyle = .none
-        tableView.estimatedRowHeight = 100
-        tableView.rowHeight = UITableView.automaticDimension
+//        tableView.estimatedRowHeight = CGFloat(routeCellHeight)
+//        tableView.rowHeight = UITableView.automaticDimension
         tableView.backgroundColor = .backgroundColor
+        tableView.delegate = self
         setupTableView()
     }
     
     fileprivate func setupTableView() {
-        tableView.delegate = nil
+//        tableView.delegate = nil
         tableView.dataSource = nil
         tableView.showsVerticalScrollIndicator = false
         tableView.tableHeaderView = headerView
+    }
+}
+
+extension MainViewController {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let cell = tableView.cellForRow(at: indexPath)
+        guard cell is FoldingCell else { return UITableView.automaticDimension }
+        return CGFloat(routeCellHeight)
     }
 }

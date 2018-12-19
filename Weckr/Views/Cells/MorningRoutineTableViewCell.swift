@@ -32,10 +32,6 @@ class MorningRoutineTableViewCell: TileTableViewCell {
         infoView.infoLabel.text = formattedTime + " min left"
     }
     
-    override func awakeAfter(using aDecoder: NSCoder) -> Any? {
-        return super.awakeAfter(using: aDecoder)
-    }
-    
     private func addSubviews() {
         tileView.addSubview(infoView)
     }
