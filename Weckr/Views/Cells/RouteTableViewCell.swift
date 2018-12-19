@@ -18,7 +18,6 @@ class RouteTableViewCell: FoldingCell, Reusable {
         backgroundColor = .clear
         
         backViewColor = .red
-        itemCount = 4
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -58,14 +57,15 @@ class RouteTableViewCell: FoldingCell, Reusable {
     }
     
     override func animationDuration(_ itemIndex:NSInteger, type:AnimationType) -> TimeInterval {
-        let durations = [0.3, 0.3, 0.3] // timing animation for each view
+        let durations = (1...itemCount).map { _ in 0.3 } // timing animation for each view
         return durations[itemIndex]
     }
     
     let rowHeight = 100
     
     private func createContainerView(maneuvers: [Maneuver]) -> UIView {
-        let count = 3
+        let count = maneuvers.count
+        itemCount = count
         
         let content = UIView.newAutoLayout()
         content.backgroundColor = .clear
