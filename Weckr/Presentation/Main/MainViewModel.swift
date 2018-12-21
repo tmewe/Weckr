@@ -55,11 +55,11 @@ class MainViewModel: MainViewModelType {
         let alarmService = serviceFactory.createAlarm()
         let nextAlarm = alarmService.nextAlarm().share(replay: 1, scope: .forever)
         
-        let alarmItem = nextAlarm.map { [SectionItem.alarm(identity: "1", date: $0.date)] }
+        let alarmItem = nextAlarm.map { [SectionItem.alarm(identity: "alarm", date: $0.date)] }
         let morningRoutineItem = nextAlarm
-            .map { [SectionItem.morningRoutine(identity: "2", time: $0.morningRoutine)] }
+            .map { [SectionItem.morningRoutine(identity: "morningroutine", time: $0.morningRoutine)] }
         let eventItem = nextAlarm
-            .map { [SectionItem.event(identity: "7",
+            .map { [SectionItem.event(identity: "event",
                                           title: "FIRST EVENT",
                                           selectedEvent: $0.selectedEvent)] }
         
