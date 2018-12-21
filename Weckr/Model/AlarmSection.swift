@@ -14,8 +14,13 @@ struct AlarmSection {
     var items: [SectionItem]
 }
 
-extension AlarmSection: SectionModelType {
+extension AlarmSection: AnimatableSectionModelType {
     typealias Item = SectionItem
+    typealias Identity = String
+    
+    var identity: String {
+        return ""
+    }
     
     init(original: AlarmSection, items: [Item]) {
         self = original
@@ -24,8 +29,16 @@ extension AlarmSection: SectionModelType {
 }
 
 enum SectionItem {
-    case alarmItem(date: Date)
-    case morningRoutineItem(time: TimeInterval)
-    case routeItem(route: Route)
-    case eventItem(title: String, selectedEvent: CalendarEntry)
+    case alarmItem(identity: String, date: Date)
+    case morningRoutineItem(identity: String, time: TimeInterval)
+    case routeItem(identity: String, route: Route)
+    case eventItem(identity: String, title: String, selectedEvent: CalendarEntry)
+}
+
+extension SectionItem: IdentifiableType, Equatable {
+    typealias Identity = String
+    
+    var identity: String {
+        return ""
+    }
 }
