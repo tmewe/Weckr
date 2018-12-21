@@ -19,7 +19,7 @@ extension AlarmSection: AnimatableSectionModelType {
     typealias Identity = String
     
     var identity: String {
-        return ""
+        return "AlarmSection"
     }
     
     init(original: AlarmSection, items: [Item]) {
@@ -29,16 +29,31 @@ extension AlarmSection: AnimatableSectionModelType {
 }
 
 enum SectionItem {
-    case alarmItem(identity: String, date: Date)
-    case morningRoutineItem(identity: String, time: TimeInterval)
-    case routeItem(identity: String, route: Route)
-    case eventItem(identity: String, title: String, selectedEvent: CalendarEntry)
+    case alarm(identity: String, date: Date)
+    case morningRoutine(identity: String, time: TimeInterval)
+    
+    case routeOverview(identity: String, route: Route)
+    case routeCar(identity: String, route: Route)
+    case routeTransit(identity: String, maneuver: Maneuver, transitLines: [TransitLine])
+    case routeFeet(identity: String, maneuver: Maneuver)
+    
+    case event(identity: String, title: String, selectedEvent: CalendarEntry)
 }
 
 extension SectionItem: IdentifiableType, Equatable {
     typealias Identity = String
     
     var identity: String {
-        return ""
+        switch self {
+        case let .alarm(identity, _),
+             let .morningRoutine(identity, _),
+             let .routeOverview(identity, _),
+             let .routeCar(identity, _),
+             let .routeTransit(identity, _, _),
+             let .routeFeet(identity, _),
+             let .event(identity, _, _):
+            return identity
+
+        }
     }
 }

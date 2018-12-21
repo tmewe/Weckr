@@ -15,10 +15,8 @@ import FoldingCell
 class MainViewController: UITableViewController {
     
     private var viewModel: MainViewModelType!
-    private var dataSource: RxTableViewSectionedReloadDataSource<AlarmSection>!
+    private var dataSource: RxTableViewSectionedAnimatedDataSource<AlarmSection>!
     private let disposeBag = DisposeBag()
-    
-    private let duration = 0.9
     
     init(viewModel: MainViewModelType) {
         super.init(nibName: nil, bundle: nil)
@@ -51,7 +49,7 @@ class MainViewController: UITableViewController {
         tableView.rx.willDisplayCell
             .subscribe(onNext: { cell, indexPath in
                 let insets = Constraints.Main.Tile.self
-                let frame = CGRect(x: 0, y: 0,
+                let frame = CGRect(x: insets.left, y: insets.top,
                                    width: cell.frame.width-insets.left-insets.right,
                                    height: cell.frame.height-insets.top-insets.bottom)
                 
@@ -64,52 +62,41 @@ class MainViewController: UITableViewController {
         
         tableView.rx.itemSelected
             .filter { self.tableView.cellForRow(at: $0) is RouteTableViewCell }
-            .throttle(duration, scheduler: MainScheduler.instance)
-            .subscribe(onNext: { indexPath in
-                let cell = self.tableView.cellForRow(at: indexPath) as! RouteTableViewCell
-                let collapsedHeight = Constraints.Main.Tile.heightWithSpacing
-                
-                if collapsedHeight == cell.currentHeight {
-                    cell.currentHeight = cell.expandedHeight
-                    cell.unfold(true, animated: true, completion: nil)
-                } else {
-                    cell.currentHeight = cell.collapsedHeight
-                    cell.unfold(false, animated: true, completion: nil)
-                }
-                
-                UIView.animate(withDuration: self.duration,
-                               delay: 0,
-                               options: .curveEaseOut,
-                               animations: {
-                    self.tableView.beginUpdates()
-                    self.tableView.endUpdates()
-                }, completion: nil)
-            })
+            .map { _ in Void() }
+            .bind(to: viewModel.inputs.toggleRouteVisibility)
             .disposed(by: disposeBag)
     }
     
-    private func configureDataSource() -> RxTableViewSectionedReloadDataSource<AlarmSection> {
-        let dataSource = RxTableViewSectionedReloadDataSource<AlarmSection>(
+    private func configureDataSource() -> RxTableViewSectionedAnimatedDataSource<AlarmSection> {
+        let dataSource = RxTableViewSectionedAnimatedDataSource<AlarmSection>(
             configureCell: { dataSource, tableView, indexPath, item in
                 switch dataSource[indexPath] {
-                case let .alarmItem(_, date):
+                case let .alarm(_, date):
                     let cell: AlarmTableViewCell = tableView.dequeueReusableCell(indexPath: indexPath)
                     cell.configure(with: date)
                     return cell
-                case let .morningRoutineItem(_, time):
+                case let .morningRoutine(_, time):
                     let cell: MorningRoutineTableViewCell = tableView.dequeueReusableCell(indexPath: indexPath)
                     cell.configure(with: time)
                     return cell
-                case let .eventItem(_, title, event):
+                case let .event(_, title, event):
                     let cell: EventTableViewCell = tableView.dequeueReusableCell(indexPath: indexPath)
                     cell.configure(with: title, event: event)
                     return cell
-                case let .routeItem(_, route):
+                case let .routeOverview(_, route):
                     let cell: RouteTableViewCell = tableView.dequeueReusableCell(indexPath: indexPath)
                     cell.configure(with: route)
                     return cell
+                default:
+                    let cell: RouteTableViewCell = tableView.dequeueReusableCell(indexPath: indexPath)
+                    return cell
                 }
         })
+        
+        dataSource.animationConfiguration = AnimationConfiguration(insertAnimation: .fade,
+                                                                   reloadAnimation: .fade,
+                                                                   deleteAnimation: .fade)
+        
         return dataSource
     }
     
@@ -127,27 +114,17 @@ extension MainViewController {
         tableView.registerReusableCell(EventTableViewCell.self)
         tableView.registerReusableCell(RouteTableViewCell.self)
         tableView.separatorStyle = .none
-//        tableView.estimatedRowHeight = CGFloat(routeCellHeight)
-//        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.backgroundColor = .backgroundColor
         tableView.delegate = self
         setupTableView()
     }
     
     fileprivate func setupTableView() {
-//        tableView.delegate = nil
+        tableView.delegate = nil
         tableView.dataSource = nil
         tableView.showsVerticalScrollIndicator = false
         tableView.tableHeaderView = headerView
-    }
-}
-
-extension MainViewController {
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        let cell = tableView.cellForRow(at: indexPath)
-        guard let cell = tableView.cellForRow(at: indexPath) as? RouteTableViewCell else {
-            return UITableView.automaticDimension
-        }
-        return cell.currentHeight
     }
 }
