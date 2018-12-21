@@ -12,7 +12,7 @@ import RxDataSources
 import SwiftDate
 
 protocol MainViewModelInputsType {
-    
+    var routeExpanded: PublishSubject<Bool> { get }
 }
 
 protocol MainViewModelOutputsType {
@@ -36,6 +36,9 @@ class MainViewModel: MainViewModelType {
     var outputs : MainViewModelOutputsType { return self }
     var actions : MainViewModelActionsType { return self }
     
+    //Inputs
+    var routeExpanded: PublishSubject<Bool>
+    
     //Outpus
     var sections: Observable<[AlarmSection]>
     var dateString: Observable<String>
@@ -52,6 +55,7 @@ class MainViewModel: MainViewModelType {
         let nextAlarm = alarmService.nextAlarm().share(replay: 1, scope: .forever)
         
         //Inputs
+        routeExpanded = PublishSubject()
         
         //Outputs
         sections = nextAlarm
