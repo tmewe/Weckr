@@ -1,16 +1,15 @@
 //
-//  RouteCell.swift
+//  RouteTransitTableViewCell.swift
 //  Weckr
 //
-//  Created by Tim Mewe on 13.12.18.
+//  Created by Tim Mewe on 22.12.18.
 //  Copyright © 2018 Tim Lehmann. All rights reserved.
 //
 
 import Foundation
-import FoldingCell
 import UIKit
 
-class RouteOverviewTableViewCell: TileTableViewCell {
+class RouteTransitTableViewCell: TileTableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -24,35 +23,28 @@ class RouteOverviewTableViewCell: TileTableViewCell {
         super.init(coder: aDecoder)
     }
     
-    func configure(with route: Route) {
-//        let formattedTime = Date(timeIntervalSinceReferenceDate: time).toFormat("HH:mm")
+    func configure(with getOn: Maneuver, getOff: Maneuver, lines: [TransitLine]) {
+        guard let firstStop = getOn.stopName,
+            let lastStop = getOff.stopName,
+            let lineId = getOn.lineId else { return }
         
-        var duration = Int(route.summary.trafficTime/60)
-        if duration == 0 {
-            duration = Int(route.summary.travelTime/60)
-        }
-                
-        infoView.headerInfo.leftLabel.text = "TRAVEL"
-        infoView.headerInfo.rightLabel.text = "\(Int(route.summary.travelTime/60)) min".uppercased()
-        infoView.infoLabel.text = "Leave at 08:01"
+        headerInfo.leftLabel.text = firstStop.uppercased()
+        headerInfo.rightLabel.text = "\(Int(getOn.travelTime/60)) min".uppercased()
     }
     
     private func addSubviews() {
-        tileView.addSubview(infoView)
+        tileView.addSubview(headerInfo)
     }
     
     private func setupConstraints() {
         let insets = Constraints.Main.Text.self
-        infoView.autoPinEdgesToSuperviewEdges(with: UIEdgeInsets(top: insets.top,
+        headerInfo.autoPinEdgesToSuperviewEdges(with: UIEdgeInsets(top: insets.top,
                                                                  left: insets.left,
                                                                  bottom: insets.bottom,
                                                                  right: insets.right),
                                               excludingEdge: .bottom)
-        tileView.autoPinEdge(.bottom, to: .bottom, of: infoView, withOffset: insets.bottom)
+        tileView.autoPinEdge(.bottom, to: .bottom, of: headerInfo, withOffset: insets.bottom)
     }
     
-    let infoView: BasicInfoView = {
-        let view = BasicInfoView.newAutoLayout()
-        return view
-    }()
+    let headerInfo = BasicHeaderInfoView.newAutoLayout()
 }

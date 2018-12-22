@@ -35,9 +35,12 @@ class RoutePedestrianTableViewCell: TileTableViewCell {
         let direction = DirectionInstruction(rawValue: directionText)
         
         let destination = words.dropFirst(3).prefix(1)
+        
+        let duration = Int(maneuver.travelTime/60)
+        let durationText = duration > 0 ? "\(duration) MIN" : ""
 
-        infoView.titleLabel.text = direction?.localized.uppercased()
-        infoView.timeLabel.text = String(format: "%.01f", maneuver.travelTime/60) + " MIN"
+        infoView.headerInfo.leftLabel.text = direction?.localized.uppercased()
+        infoView.headerInfo.rightLabel.text = durationText
         infoView.infoLabel.text = destination.joined().replacingOccurrences(of: ".", with: "")
         distanceLabel.text = "\(Int(maneuver.length)) meters"
     }

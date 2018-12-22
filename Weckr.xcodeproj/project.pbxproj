@@ -42,6 +42,8 @@
 		493FA95221CE656B00C2FFA1 /* Sequence+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493FA95121CE656B00C2FFA1 /* Sequence+Extensions.swift */; };
 		493FA95521CE6C2A00C2FFA1 /* SmallLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493FA95421CE6C2A00C2FFA1 /* SmallLabel.swift */; };
 		493FA95721CE6CC900C2FFA1 /* LargeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493FA95621CE6CC900C2FFA1 /* LargeLabel.swift */; };
+		493FA95921CE6FD700C2FFA1 /* RouteTransitTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493FA95821CE6FD700C2FFA1 /* RouteTransitTableViewCell.swift */; };
+		493FA95B21CE704600C2FFA1 /* BasicHeaderInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493FA95A21CE704600C2FFA1 /* BasicHeaderInfoView.swift */; };
 		4942435C21AA9D5400088AB6 /* Formatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4942435B21AA9D5400088AB6 /* Formatter+Extensions.swift */; };
 		4942435E21AA9D7E00088AB6 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4942435D21AA9D7E00088AB6 /* Date+Extensions.swift */; };
 		4959992121A9FFFE00549D89 /* RouteWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4959992021A9FFFE00549D89 /* RouteWrapper.swift */; };
@@ -135,6 +137,8 @@
 		493FA95121CE656B00C2FFA1 /* Sequence+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+Extensions.swift"; sourceTree = "<group>"; };
 		493FA95421CE6C2A00C2FFA1 /* SmallLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallLabel.swift; sourceTree = "<group>"; };
 		493FA95621CE6CC900C2FFA1 /* LargeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeLabel.swift; sourceTree = "<group>"; };
+		493FA95821CE6FD700C2FFA1 /* RouteTransitTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteTransitTableViewCell.swift; sourceTree = "<group>"; };
+		493FA95A21CE704600C2FFA1 /* BasicHeaderInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicHeaderInfoView.swift; sourceTree = "<group>"; };
 		4942435B21AA9D5400088AB6 /* Formatter+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Formatter+Extensions.swift"; sourceTree = "<group>"; };
 		4942435D21AA9D7E00088AB6 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		4959992021A9FFFE00549D89 /* RouteWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteWrapper.swift; sourceTree = "<group>"; };
@@ -296,6 +300,7 @@
 			isa = PBXGroup;
 			children = (
 				498ED01921C13A1F003FFF5B /* TileView.swift */,
+				493FA95A21CE704600C2FFA1 /* BasicHeaderInfoView.swift */,
 				4924610021C29EC2001C0D37 /* BasicInfoView.swift */,
 			);
 			path = CellViews;
@@ -336,6 +341,7 @@
 			children = (
 				4924610321C2BC0E001C0D37 /* RouteOverviewTableViewCell.swift */,
 				493FA94C21CE4B3C00C2FFA1 /* RoutePedestrianTableViewCell.swift */,
+				493FA95821CE6FD700C2FFA1 /* RouteTransitTableViewCell.swift */,
 			);
 			path = Route;
 			sourceTree = "<group>";
@@ -754,6 +760,7 @@
 				2245868221972D5200072C6C /* WalkthroughSlideable.swift in Sources */,
 				22BCC83A218B1BEE00C77CB1 /* AppDelegate.swift in Sources */,
 				49F6210521CD5471006D99A0 /* TransportMode.swift in Sources */,
+				493FA95B21CE704600C2FFA1 /* BasicHeaderInfoView.swift in Sources */,
 				498DBC8121C1B76A000D40D8 /* EditableCell.swift in Sources */,
 				4924A26C21A874AF00671450 /* OpenWeatherMap.swift in Sources */,
 				49DD02F8219C379000C57041 /* TransitLine.swift in Sources */,
@@ -761,6 +768,7 @@
 				493FA95021CE537600C2FFA1 /* DirectionInstruction.swift in Sources */,
 				49F149CB21BD74B1008EFCAA /* AlarmTableHeaderView.swift in Sources */,
 				84A6F89721C6B7FA00D55A31 /* VehicleSegmentedControl.swift in Sources */,
+				493FA95921CE6FD700C2FFA1 /* RouteTransitTableViewCell.swift in Sources */,
 				84E7CDED2195DD260088CF98 /* Route.swift in Sources */,
 				498ED01E21C13A57003FFF5B /* TileTableViewCell.swift in Sources */,
 				49CE3D2D21AF235700A05CD0 /* AlarmService.swift in Sources */,

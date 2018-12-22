@@ -80,22 +80,39 @@ class MainViewModel: MainViewModelType {
         let routeItemsExpanded = nextAlarm
             .map { $0.route! }
             .map { route -> [SectionItem] in
+                
                 var items = [SectionItem.routeOverview(identity: "3", route: route)]
+                
                 switch route.transportMode {
                 case .car:
                     items.append(SectionItem.routeCar(identity: "4", route: route))
+                    
                 case .pedestrian, .transit:
-                    for maneuver in route.legs.first!.maneuvers.dropLast() {
+                    
+                    var skipNext = false
+                    let maneuvers = route.legs.first!.maneuvers.dropLast()
+                    for (index, maneuver) in maneuvers.enumerated() {
+                        
+                        guard !skipNext else {
+                            skipNext = false
+                            continue
+                        }
+                        
                         switch maneuver.transportType {
+                            
                         case .privateTransport:
                             items.append(SectionItem.routePedestrian(
                                 identity: maneuver.id,
                                 maneuver: maneuver))
+                            
                         case .publicTransport:
-                            items.append(SectionItem.routeTransit(
-                                identity: maneuver.id,
-                                maneuver: maneuver,
-                                transitLines: route.transitLines.toArray()))
+                            skipNext = true
+                            let getOn = maneuver
+                            let getOff = maneuvers[index + 1]
+                            items.append(SectionItem.routeTransit(identity: maneuver.id,
+                                                                  getOn: getOn,
+                                                                  getOff: getOff,
+                                                                  transitLines: route.transitLines.toArray()))
                         }
                     }
                 }

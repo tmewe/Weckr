@@ -16,6 +16,7 @@ import RealmSwift
     dynamic var travelTime: Double = 0.0 //seconds
     dynamic var length: Double = 0.0 //meters
     dynamic var lineId: String?
+    dynamic var stopName: String?
     dynamic var rawTransportType: String!
     
     var transportType: ManeuverTransportType {
@@ -32,6 +33,7 @@ import RealmSwift
         case travelTime = "travelTime"
         case length = "length"
         case lineId = "line"
+        case stopName = "stopName"
         case rawTransportType = "_type"
     }
     
@@ -43,6 +45,7 @@ import RealmSwift
         travelTime = try container.decode(Double.self, forKey: .travelTime)
         length = try container.decode(Double.self, forKey: .length)
         lineId = try container.decodeIfPresent(String.self, forKey: .lineId)
+        stopName = try container.decodeIfPresent(String.self, forKey: .stopName)
         rawTransportType = try container.decode(String.self, forKey: .rawTransportType)
         
         super.init()

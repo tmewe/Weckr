@@ -22,28 +22,17 @@ class BasicInfoView: UIView {
     }
     
     private func setupViews() {
-        stackView.addArrangedSubview(titleLabel)
-        stackView.addArrangedSubview(timeLabel)
-        addSubview(stackView)
+        addSubview(headerInfo)
         addSubview(infoLabel)
     }
     
     private func setupConstraints() {
-        stackView.autoPinEdgesToSuperviewEdges(with: UIEdgeInsets.zero, excludingEdge: .bottom)
+        headerInfo.autoPinEdgesToSuperviewEdges(with: UIEdgeInsets.zero, excludingEdge: .bottom)
         infoLabel.autoPinEdgesToSuperviewEdges(with: UIEdgeInsets.zero, excludingEdge: .top)
-        infoLabel.autoPinEdge(.top, to: .bottom, of: stackView,
+        infoLabel.autoPinEdge(.top, to: .bottom, of: headerInfo,
                               withOffset: Constraints.Main.Text.largeSpacing)
     }
     
-    let titleLabel = SmallLabel.newAutoLayout()
-    let timeLabel = SmallLabel.newAutoLayout()
+    let headerInfo = BasicHeaderInfoView.newAutoLayout()
     let infoLabel = LargeLabel.newAutoLayout()
-    let stackView: UIStackView = {
-        let stack = UIStackView.newAutoLayout()
-        stack.axis = .horizontal
-        stack.spacing = 10
-        stack.alignment = .center
-        return stack
-    }()
-    
 }
