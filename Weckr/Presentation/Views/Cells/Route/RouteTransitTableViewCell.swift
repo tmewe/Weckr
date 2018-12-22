@@ -28,20 +28,27 @@ class RouteTransitTableViewCell: TileTableViewCell {
             let finalStop = getOff.stopName,
             let lineId = getOn.lineId else { return }
         
-        headerInfo.leftLabel.text = firstStop.uppercased()
+        var optLine: TransitLine?
+        for l in lines {
+            if l.id == lineId {
+                optLine = l
+            }
+        }
+        
+        guard let line = optLine else { return }
+        
+        headerInfo.leftLabel.text = line.name.uppercased() + " " + line.destination.uppercased()
         headerInfo.rightLabel.text = "\(Int(getOn.travelTime/60)) min".uppercased()
         
         departureTimeLabel.text = "08:27"
         arrivalTimeLabel.text = "08:27"
-        lineNameLabel.text = "U2"
-        destinationLabel.text = "Feldmoching"
+        firstStopLabel.text = firstStop
         finalStopLabel.text = finalStop
     }
     
     private func addSubviews() {
         topStackView.addArrangedSubview(departureTimeLabel)
-        topStackView.addArrangedSubview(lineNameLabel)
-        topStackView.addArrangedSubview(destinationLabel)
+        topStackView.addArrangedSubview(firstStopLabel)
         bottomStackView.addArrangedSubview(arrivalTimeLabel)
         bottomStackView.addArrangedSubview(finalStopLabel)
         tileView.addSubview(headerInfo)
@@ -51,6 +58,10 @@ class RouteTransitTableViewCell: TileTableViewCell {
     
     private func setupConstraints() {
         let insets = Constraints.Main.Text.self
+        
+        departureTimeLabel.autoSetDimension(.width, toSize: 90)
+        arrivalTimeLabel.autoSetDimension(.width, toSize: 90)
+        
         headerInfo.autoPinEdgesToSuperviewEdges(with: UIEdgeInsets(top: insets.top,
                                                                  left: insets.left,
                                                                  bottom: insets.bottom,
@@ -70,9 +81,8 @@ class RouteTransitTableViewCell: TileTableViewCell {
     let headerInfo = BasicHeaderInfoView.newAutoLayout()
     let departureTimeLabel = LargeLabel.newAutoLayout()
     let arrivalTimeLabel = LargeLabel.newAutoLayout()
-    let lineNameLabel = LargeLabel.newAutoLayout()
     
-    let destinationLabel: LargeLabel = {
+    let firstStopLabel: LargeLabel = {
         let label = LargeLabel.newAutoLayout()
         label.font = UIFont.systemFont(ofSize: Font.Size.TileCell.info, weight: .regular)
         return label
@@ -87,7 +97,8 @@ class RouteTransitTableViewCell: TileTableViewCell {
     private let topStackView: UIStackView = {
         let stack = UIStackView.newAutoLayout()
         stack.axis = .horizontal
-        stack.spacing = 10
+        stack.spacing = 5
+        stack.alignment = .top
         stack.distribution = .fillProportionally
         return stack
     }()
@@ -95,7 +106,8 @@ class RouteTransitTableViewCell: TileTableViewCell {
     private let bottomStackView: UIStackView = {
         let stack = UIStackView.newAutoLayout()
         stack.axis = .horizontal
-        stack.spacing = 10
+        stack.spacing = 5
+        stack.alignment = .top
         stack.distribution = .fillProportionally
         return stack
     }()

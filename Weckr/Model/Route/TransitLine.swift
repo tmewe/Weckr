@@ -16,6 +16,7 @@ import RealmSwift
     dynamic var backgroundColor: String!
     dynamic var destination: String!
     dynamic var type: String!
+    dynamic var id: String!
     
     enum CodingKeys: String, CodingKey {
         case name = "lineName"
@@ -23,6 +24,7 @@ import RealmSwift
         case backgroundColor = "lineBackground"
         case destination = "destination"
         case type = "type"
+        case id = "id"
     }
     
     required init(from decoder: Decoder) throws {
@@ -33,6 +35,7 @@ import RealmSwift
         backgroundColor = try container.decode(String.self, forKey: .backgroundColor)
         destination = try container.decode(String.self, forKey: .destination)
         type = try container.decode(String.self, forKey: .type)
+        id = try container.decode(String.self, forKey: .id)
         
         super.init()
     }

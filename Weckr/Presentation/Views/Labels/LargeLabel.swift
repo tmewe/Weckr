@@ -13,6 +13,7 @@ class LargeLabel: UILabel {
     override init(frame: CGRect) {
         super.init(frame: frame)
         font = UIFont.systemFont(ofSize: Font.Size.TileCell.info, weight: .bold)
+        numberOfLines = 0
         textColor = .white
         textAlignment = .left
     }

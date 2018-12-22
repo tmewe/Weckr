@@ -58,7 +58,11 @@
 
 //Directions
 "direction.north" = "Head north";
+"direction.northWest" = "Head northwest";
+"direction.northEast" = "Head northeast";
 "direction.south" = "Head south";
+"direction.southWest" = "Head southwest";
+"direction.southEast" = "Head southeast";
 "direction.east" = "Head east";
 "direction.west" = "Head west";
 "direction.left" = "Turn left";
