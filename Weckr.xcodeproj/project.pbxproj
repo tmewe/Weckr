@@ -39,6 +39,7 @@
 		493FA94A21CE443000C2FFA1 /* ManeuverTransportType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493FA94921CE443000C2FFA1 /* ManeuverTransportType.swift */; };
 		493FA94D21CE4B3C00C2FFA1 /* RoutePedestrianTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493FA94C21CE4B3C00C2FFA1 /* RoutePedestrianTableViewCell.swift */; };
 		493FA95021CE537600C2FFA1 /* DirectionInstruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493FA94F21CE537600C2FFA1 /* DirectionInstruction.swift */; };
+		493FA95221CE656B00C2FFA1 /* Sequence+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493FA95121CE656B00C2FFA1 /* Sequence+Extensions.swift */; };
 		4942435C21AA9D5400088AB6 /* Formatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4942435B21AA9D5400088AB6 /* Formatter+Extensions.swift */; };
 		4942435E21AA9D7E00088AB6 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4942435D21AA9D7E00088AB6 /* Date+Extensions.swift */; };
 		4959992121A9FFFE00549D89 /* RouteWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4959992021A9FFFE00549D89 /* RouteWrapper.swift */; };
@@ -129,6 +130,7 @@
 		493FA94921CE443000C2FFA1 /* ManeuverTransportType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManeuverTransportType.swift; sourceTree = "<group>"; };
 		493FA94C21CE4B3C00C2FFA1 /* RoutePedestrianTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePedestrianTableViewCell.swift; sourceTree = "<group>"; };
 		493FA94F21CE537600C2FFA1 /* DirectionInstruction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionInstruction.swift; sourceTree = "<group>"; };
+		493FA95121CE656B00C2FFA1 /* Sequence+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+Extensions.swift"; sourceTree = "<group>"; };
 		4942435B21AA9D5400088AB6 /* Formatter+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Formatter+Extensions.swift"; sourceTree = "<group>"; };
 		4942435D21AA9D7E00088AB6 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		4959992021A9FFFE00549D89 /* RouteWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteWrapper.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 				4942435D21AA9D7E00088AB6 /* Date+Extensions.swift */,
 				498ED01F21C14A29003FFF5B /* TimeIntervall+Extensions.swift */,
 				8415D34B21CA98C200F28E13 /* VehicleSegmentedControl+Extension.swift */,
+				493FA95121CE656B00C2FFA1 /* Sequence+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -698,6 +701,7 @@
 				4924A26F21A8793B00671450 /* WeatherService.swift in Sources */,
 				49CE3D2B21AF227D00A05CD0 /* AlarmServiceType.swift in Sources */,
 				4924610421C2BC0E001C0D37 /* RouteOverviewTableViewCell.swift in Sources */,
+				493FA95221CE656B00C2FFA1 /* Sequence+Extensions.swift in Sources */,
 				49FAADD121A075070019D5FA /* NotificationPageViewModel.swift in Sources */,
 				22C8D192218B2DEB0029C1EA /* SceneCoordinator.swift in Sources */,
 				499AF40121AEE93C00F4B4FF /* CalendarService.swift in Sources */,
