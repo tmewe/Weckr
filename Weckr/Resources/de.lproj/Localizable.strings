@@ -25,3 +25,11 @@
 
 //Main
 "main.header.tomorrow" = "Morgen";
+
+//Directions
+"direction.north" = "Head north";
+"direction.south" = "Head south";
+"direction.east" = "Head east";
+"direction.west" = "Head west";
+"direction.left" = "Turn left";
+"direction.right" = "Turn right";

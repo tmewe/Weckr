@@ -77,17 +77,34 @@ class MainViewModel: MainViewModelType {
         
         let routeItemsCar: BehaviorSubject<[SectionItem]> = BehaviorSubject(value: [])
         
-        let routeItemsCarExpanded = nextAlarm
-            .filter { $0.route.transportMode == .car }
-            .map { [
-                SectionItem.routeOverview(identity: "4", route: $0.route),
-                SectionItem.routeCar(identity: "5", route: $0.route),
-                ]}
-            .startWith([])
+        let routeItemsExpanded = nextAlarm
+            .map { $0.route! }
+            .map { route -> [SectionItem] in
+                var items = [SectionItem.routeOverview(identity: "3", route: route)]
+                switch route.transportMode {
+                case .car:
+                    items.append(SectionItem.routeCar(identity: "4", route: route))
+                case .pedestrian, .transit:
+                    for maneuver in route.legs.first!.maneuvers.dropLast() {
+                        switch maneuver.transportType {
+                        case .privateTransport:
+                            items.append(SectionItem.routePedestrian(
+                                identity: maneuver.id,
+                                maneuver: maneuver))
+                        case .publicTransport:
+                            items.append(SectionItem.routeTransit(
+                                identity: maneuver.id,
+                                maneuver: maneuver,
+                                transitLines: route.transitLines.toArray()))
+                        }
+                    }
+                }
+                return items
+            }
         
         routeVisiblity
             .filter { $0 }
-            .withLatestFrom(routeItemsCarExpanded)
+            .withLatestFrom(routeItemsExpanded)
             .bind(to: routeItemsCar)
             .disposed(by: disposeBag)
         
@@ -96,30 +113,6 @@ class MainViewModel: MainViewModelType {
             .withLatestFrom(routeOverviewItem)
             .bind(to: routeItemsCar)
             .disposed(by: disposeBag)
-        
-        
-        let routeItemsExpanded = nextAlarm
-            .map { [
-                SectionItem.routeOverview(identity: "4", route: $0.route),
-                SectionItem.routeOverview(identity: "5", route: $0.route),
-                SectionItem.routeOverview(identity: "6", route: $0.route)
-                ] }
-        
-        // Visibility
-        
-//        let routeItems: BehaviorSubject<[SectionItem]> = BehaviorSubject(value: [])
-//
-//        routeVisiblity
-//            .filter { $0 }
-//            .withLatestFrom(routeItemsExpanded)
-//            .bind(to: routeItems)
-//            .disposed(by: disposeBag)
-//
-//        routeVisiblity
-//            .filter { !$0 }
-//            .withLatestFrom(routeOverviewItem)
-//            .bind(to: routeItems)
-//            .disposed(by: disposeBag)
         
         //Outputs
         sections = Observable.combineLatest(alarmItem,

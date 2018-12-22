@@ -44,6 +44,7 @@ extension HereMaps: TargetType {
         var parameters:[String: Any] = [
             "app_id": HereMaps.appId,
             "app_code": HereMaps.appCode,
+            "instructionFormat" : "text"
             ]
         
         switch self {

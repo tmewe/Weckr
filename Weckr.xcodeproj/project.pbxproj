@@ -32,10 +32,13 @@
 		492460FC21C28EEE001C0D37 /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492460FB21C28EEE001C0D37 /* EventTableViewCell.swift */; };
 		492460FF21C29C3C001C0D37 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492460FE21C29C3C001C0D37 /* Font.swift */; };
 		4924610121C29EC2001C0D37 /* BasicInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4924610021C29EC2001C0D37 /* BasicInfoView.swift */; };
-		4924610421C2BC0E001C0D37 /* RouteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4924610321C2BC0E001C0D37 /* RouteTableViewCell.swift */; };
+		4924610421C2BC0E001C0D37 /* RouteOverviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4924610321C2BC0E001C0D37 /* RouteOverviewTableViewCell.swift */; };
 		4924A26C21A874AF00671450 /* OpenWeatherMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4924A26B21A874AF00671450 /* OpenWeatherMap.swift */; };
 		4924A26F21A8793B00671450 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4924A26E21A8793B00671450 /* WeatherService.swift */; };
 		4924A27521A8822200671450 /* WeatherForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4924A27421A8822200671450 /* WeatherForecast.swift */; };
+		493FA94A21CE443000C2FFA1 /* ManeuverTransportType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493FA94921CE443000C2FFA1 /* ManeuverTransportType.swift */; };
+		493FA94D21CE4B3C00C2FFA1 /* RoutePedestrianTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493FA94C21CE4B3C00C2FFA1 /* RoutePedestrianTableViewCell.swift */; };
+		493FA95021CE537600C2FFA1 /* DirectionInstruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493FA94F21CE537600C2FFA1 /* DirectionInstruction.swift */; };
 		4942435C21AA9D5400088AB6 /* Formatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4942435B21AA9D5400088AB6 /* Formatter+Extensions.swift */; };
 		4942435E21AA9D7E00088AB6 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4942435D21AA9D7E00088AB6 /* Date+Extensions.swift */; };
 		4959992121A9FFFE00549D89 /* RouteWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4959992021A9FFFE00549D89 /* RouteWrapper.swift */; };
@@ -119,10 +122,13 @@
 		492460FB21C28EEE001C0D37 /* EventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
 		492460FE21C29C3C001C0D37 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		4924610021C29EC2001C0D37 /* BasicInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicInfoView.swift; sourceTree = "<group>"; };
-		4924610321C2BC0E001C0D37 /* RouteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteTableViewCell.swift; sourceTree = "<group>"; };
+		4924610321C2BC0E001C0D37 /* RouteOverviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteOverviewTableViewCell.swift; sourceTree = "<group>"; };
 		4924A26B21A874AF00671450 /* OpenWeatherMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenWeatherMap.swift; sourceTree = "<group>"; };
 		4924A26E21A8793B00671450 /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
 		4924A27421A8822200671450 /* WeatherForecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherForecast.swift; sourceTree = "<group>"; };
+		493FA94921CE443000C2FFA1 /* ManeuverTransportType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManeuverTransportType.swift; sourceTree = "<group>"; };
+		493FA94C21CE4B3C00C2FFA1 /* RoutePedestrianTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePedestrianTableViewCell.swift; sourceTree = "<group>"; };
+		493FA94F21CE537600C2FFA1 /* DirectionInstruction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionInstruction.swift; sourceTree = "<group>"; };
 		4942435B21AA9D5400088AB6 /* Formatter+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Formatter+Extensions.swift"; sourceTree = "<group>"; };
 		4942435D21AA9D7E00088AB6 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		4959992021A9FFFE00549D89 /* RouteWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteWrapper.swift; sourceTree = "<group>"; };
@@ -318,6 +324,25 @@
 			path = Weather;
 			sourceTree = "<group>";
 		};
+		493FA94B21CE4B1F00C2FFA1 /* Route */ = {
+			isa = PBXGroup;
+			children = (
+				4924610321C2BC0E001C0D37 /* RouteOverviewTableViewCell.swift */,
+				493FA94C21CE4B3C00C2FFA1 /* RoutePedestrianTableViewCell.swift */,
+			);
+			path = Route;
+			sourceTree = "<group>";
+		};
+		493FA94E21CE52F100C2FFA1 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				49F6210421CD5471006D99A0 /* TransportMode.swift */,
+				493FA94921CE443000C2FFA1 /* ManeuverTransportType.swift */,
+				493FA94F21CE537600C2FFA1 /* DirectionInstruction.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
 		499AF40221AEEC3500F4B4FF /* Errors */ = {
 			isa = PBXGroup;
 			children = (
@@ -468,7 +493,7 @@
 				498ED01D21C13A57003FFF5B /* TileTableViewCell.swift */,
 				49BE428221B83A17003EC071 /* AlarmTableViewCell.swift */,
 				498ED01B21C13A39003FFF5B /* MorningRoutineTableViewCell.swift */,
-				4924610321C2BC0E001C0D37 /* RouteTableViewCell.swift */,
+				493FA94B21CE4B1F00C2FFA1 /* Route */,
 				492460FB21C28EEE001C0D37 /* EventTableViewCell.swift */,
 			);
 			path = Cells;
@@ -477,6 +502,7 @@
 		49DD02F6219C378000C57041 /* Route */ = {
 			isa = PBXGroup;
 			children = (
+				493FA94E21CE52F100C2FFA1 /* Enums */,
 				4959992021A9FFFE00549D89 /* RouteWrapper.swift */,
 				84E7CDEC2195DD260088CF98 /* Route.swift */,
 				49DD02FD219C3A6600C57041 /* Leg.swift */,
@@ -485,7 +511,6 @@
 				49EF7AD321A72CE000FEDFEC /* GeoCoordinate.swift */,
 				49EF7AD521A72ECF00FEDFEC /* Maneuver.swift */,
 				49DD02F7219C379000C57041 /* TransitLine.swift */,
-				49F6210421CD5471006D99A0 /* TransportMode.swift */,
 			);
 			path = Route;
 			sourceTree = "<group>";
@@ -672,7 +697,7 @@
 			files = (
 				4924A26F21A8793B00671450 /* WeatherService.swift in Sources */,
 				49CE3D2B21AF227D00A05CD0 /* AlarmServiceType.swift in Sources */,
-				4924610421C2BC0E001C0D37 /* RouteTableViewCell.swift in Sources */,
+				4924610421C2BC0E001C0D37 /* RouteOverviewTableViewCell.swift in Sources */,
 				49FAADD121A075070019D5FA /* NotificationPageViewModel.swift in Sources */,
 				22C8D192218B2DEB0029C1EA /* SceneCoordinator.swift in Sources */,
 				499AF40121AEE93C00F4B4FF /* CalendarService.swift in Sources */,
@@ -702,6 +727,7 @@
 				498ED01C21C13A39003FFF5B /* MorningRoutineTableViewCell.swift in Sources */,
 				49EF7ACE21A709E100FEDFEC /* UNUserNotificationCenter+Extensions.swift in Sources */,
 				220365BC2195C372002BDE91 /* Constraints.swift in Sources */,
+				493FA94A21CE443000C2FFA1 /* ManeuverTransportType.swift in Sources */,
 				49BE428321B83A17003EC071 /* AlarmTableViewCell.swift in Sources */,
 				49FAADCF21A073960019D5FA /* LocationPageViewModel.swift in Sources */,
 				499AF40421AEEC5400F4B4FF /* AccessError.swift in Sources */,
@@ -713,12 +739,14 @@
 				4924A26C21A874AF00671450 /* OpenWeatherMap.swift in Sources */,
 				49DD02F8219C379000C57041 /* TransitLine.swift in Sources */,
 				4942435C21AA9D5400088AB6 /* Formatter+Extensions.swift in Sources */,
+				493FA95021CE537600C2FFA1 /* DirectionInstruction.swift in Sources */,
 				49F149CB21BD74B1008EFCAA /* AlarmTableHeaderView.swift in Sources */,
 				84A6F89721C6B7FA00D55A31 /* VehicleSegmentedControl.swift in Sources */,
 				84E7CDED2195DD260088CF98 /* Route.swift in Sources */,
 				498ED01E21C13A57003FFF5B /* TileTableViewCell.swift in Sources */,
 				49CE3D2D21AF235700A05CD0 /* AlarmService.swift in Sources */,
 				84E7CDEB2195DC930088CF98 /* CalendarEntry.swift in Sources */,
+				493FA94D21CE4B3C00C2FFA1 /* RoutePedestrianTableViewCell.swift in Sources */,
 				220365B32195BD2B002BDE91 /* String+Extenstions.swift in Sources */,
 				49B4663721CAEE0000BE810C /* DependencyContainer.swift in Sources */,
 				4982E48221A5B730003AC90D /* TravelPageViewModel.swift in Sources */,

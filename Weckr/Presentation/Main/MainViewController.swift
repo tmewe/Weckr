@@ -61,7 +61,7 @@ class MainViewController: UITableViewController {
             .disposed(by: disposeBag)
         
         tableView.rx.itemSelected
-            .filter { self.tableView.cellForRow(at: $0) is RouteTableViewCell }
+            .filter { self.tableView.cellForRow(at: $0) is RouteOverviewTableViewCell }
             .map { _ in Void() }
             .bind(to: viewModel.inputs.toggleRouteVisibility)
             .disposed(by: disposeBag)
@@ -84,11 +84,15 @@ class MainViewController: UITableViewController {
                     cell.configure(with: title, event: event)
                     return cell
                 case let .routeOverview(_, route):
-                    let cell: RouteTableViewCell = tableView.dequeueReusableCell(indexPath: indexPath)
+                    let cell: RouteOverviewTableViewCell = tableView.dequeueReusableCell(indexPath: indexPath)
                     cell.configure(with: route)
                     return cell
+                case let .routePedestrian(_, maneuver):
+                    let cell: RoutePedestrianTableViewCell = tableView.dequeueReusableCell(indexPath: indexPath)
+                    cell.configure(with: maneuver)
+                    return cell
                 default:
-                    let cell: RouteTableViewCell = tableView.dequeueReusableCell(indexPath: indexPath)
+                    let cell: RouteOverviewTableViewCell = tableView.dequeueReusableCell(indexPath: indexPath)
                     return cell
                 }
         })
@@ -112,7 +116,8 @@ extension MainViewController {
         tableView.registerReusableCell(AlarmTableViewCell.self)
         tableView.registerReusableCell(MorningRoutineTableViewCell.self)
         tableView.registerReusableCell(EventTableViewCell.self)
-        tableView.registerReusableCell(RouteTableViewCell.self)
+        tableView.registerReusableCell(RouteOverviewTableViewCell.self)
+        tableView.registerReusableCell(RoutePedestrianTableViewCell.self)
         tableView.separatorStyle = .none
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableView.automaticDimension

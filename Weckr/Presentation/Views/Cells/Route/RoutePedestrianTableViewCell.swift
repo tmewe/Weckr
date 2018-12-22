@@ -1,16 +1,15 @@
 //
-//  RouteCell.swift
+//  RoutePedestrianTableViewCell.swift
 //  Weckr
 //
-//  Created by Tim Mewe on 13.12.18.
+//  Created by Tim Mewe on 22.12.18.
 //  Copyright © 2018 Tim Lehmann. All rights reserved.
 //
 
 import Foundation
-import FoldingCell
 import UIKit
 
-class RouteTableViewCell: TileTableViewCell {
+class RoutePedestrianTableViewCell: TileTableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -24,11 +23,22 @@ class RouteTableViewCell: TileTableViewCell {
         super.init(coder: aDecoder)
     }
     
-    func configure(with route: Route) {
-//        let formattedTime = Date(timeIntervalSinceReferenceDate: time).toFormat("HH:mm")
-        infoView.titleLabel.text = "TRAVEL"
-        infoView.timeLabel.text = "24 MIN"
-        infoView.infoLabel.text = "Leave at 08:01"
+    func configure(with maneuver: Maneuver) {
+        
+        let text = maneuver.instruction.replacingOccurrences(of: "<[^>]+>",
+                                                             with: "",
+                                                             options: .regularExpression,
+                                                             range: nil)
+        let words = text.components(separatedBy: " ")
+        
+        let directionText = words.prefix(2).joined(separator: " ")
+        let direction = DirectionInstruction(rawValue: directionText)
+        
+        let destination = words.dropFirst(3).prefix(1)
+
+        infoView.titleLabel.text = direction?.localized.uppercased()
+        infoView.timeLabel.text = "\(maneuver.length/60) MIN"
+        infoView.infoLabel.text = destination.joined().replacingOccurrences(of: ".", with: "")
     }
     
     private func addSubviews() {
