@@ -73,28 +73,59 @@ class MainViewModel: MainViewModelType {
         let routeOverviewItem = nextAlarm
             .map { [SectionItem.routeOverview(identity: "3", route: $0.route)] }
         
+        //Car route
+        
+        let routeItemsCar: BehaviorSubject<[SectionItem]> = BehaviorSubject(value: [])
+        
+        let routeItemsCarExpanded = nextAlarm
+            .filter { $0.route.transportMode == .car }
+            .map { [
+                SectionItem.routeOverview(identity: "4", route: $0.route),
+                SectionItem.routeCar(identity: "5", route: $0.route),
+                ]}
+            .startWith([])
+        
+        routeVisiblity
+            .filter { $0 }
+            .withLatestFrom(routeItemsCarExpanded)
+            .bind(to: routeItemsCar)
+            .disposed(by: disposeBag)
+        
+        routeVisiblity
+            .filter { !$0 }
+            .withLatestFrom(routeOverviewItem)
+            .bind(to: routeItemsCar)
+            .disposed(by: disposeBag)
+        
+        
         let routeItemsExpanded = nextAlarm
             .map { [
                 SectionItem.routeOverview(identity: "4", route: $0.route),
                 SectionItem.routeOverview(identity: "5", route: $0.route),
                 SectionItem.routeOverview(identity: "6", route: $0.route)
                 ] }
-        let routeItems: BehaviorSubject<[SectionItem]> = BehaviorSubject(value: [])
         
-        routeVisiblity
-            .filter { $0 }
-            .withLatestFrom(routeItemsExpanded)
-            .bind(to: routeItems)
-            .disposed(by: disposeBag)
+        // Visibility
         
-        routeVisiblity
-            .filter { !$0 }
-            .withLatestFrom(routeOverviewItem)
-            .bind(to: routeItems)
-            .disposed(by: disposeBag)
+//        let routeItems: BehaviorSubject<[SectionItem]> = BehaviorSubject(value: [])
+//
+//        routeVisiblity
+//            .filter { $0 }
+//            .withLatestFrom(routeItemsExpanded)
+//            .bind(to: routeItems)
+//            .disposed(by: disposeBag)
+//
+//        routeVisiblity
+//            .filter { !$0 }
+//            .withLatestFrom(routeOverviewItem)
+//            .bind(to: routeItems)
+//            .disposed(by: disposeBag)
         
         //Outputs
-        sections = Observable.combineLatest(alarmItem.debug(), morningRoutineItem.debug(), routeItems.debug(), eventItem.debug())
+        sections = Observable.combineLatest(alarmItem,
+                                            morningRoutineItem,
+                                            routeItemsCar,
+                                            eventItem)
             .map { $0.0 + $0.1 + $0.2 + $0.3 }
             .map { [AlarmSection(header: "", items: $0)] }
             .startWith([])
