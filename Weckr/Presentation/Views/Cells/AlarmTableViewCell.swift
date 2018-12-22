@@ -11,20 +11,6 @@ import SwiftDate
 
 class AlarmTableViewCell: UITableViewCell, Reusable {
     
-    let dateLabel: UILabel = {
-       let label = UILabel.newAutoLayout()
-        label.textColor = .white
-        label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 48, weight: .semibold)
-        return label
-    }()
-    
-    let arrow: UIImageView = {
-        let iv = UIImageView.newAutoLayout()
-        iv.image = UIImage(named: "arrow_down")
-        return iv
-    }()
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -63,4 +49,17 @@ class AlarmTableViewCell: UITableViewCell, Reusable {
                           withOffset: -insets.bottom)
     }
 
+    let dateLabel: UILabel = {
+        let label = UILabel.newAutoLayout()
+        label.textColor = .white
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 48, weight: .semibold)
+        return label
+    }()
+    
+    let arrow: UIImageView = {
+        let iv = UIImageView.newAutoLayout()
+        iv.image = UIImage(named: "arrow_down")
+        return iv
+    }()
 }

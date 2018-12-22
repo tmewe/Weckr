@@ -40,6 +40,8 @@
 		493FA94D21CE4B3C00C2FFA1 /* RoutePedestrianTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493FA94C21CE4B3C00C2FFA1 /* RoutePedestrianTableViewCell.swift */; };
 		493FA95021CE537600C2FFA1 /* DirectionInstruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493FA94F21CE537600C2FFA1 /* DirectionInstruction.swift */; };
 		493FA95221CE656B00C2FFA1 /* Sequence+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493FA95121CE656B00C2FFA1 /* Sequence+Extensions.swift */; };
+		493FA95521CE6C2A00C2FFA1 /* SmallLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493FA95421CE6C2A00C2FFA1 /* SmallLabel.swift */; };
+		493FA95721CE6CC900C2FFA1 /* LargeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493FA95621CE6CC900C2FFA1 /* LargeLabel.swift */; };
 		4942435C21AA9D5400088AB6 /* Formatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4942435B21AA9D5400088AB6 /* Formatter+Extensions.swift */; };
 		4942435E21AA9D7E00088AB6 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4942435D21AA9D7E00088AB6 /* Date+Extensions.swift */; };
 		4959992121A9FFFE00549D89 /* RouteWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4959992021A9FFFE00549D89 /* RouteWrapper.swift */; };
@@ -131,6 +133,8 @@
 		493FA94C21CE4B3C00C2FFA1 /* RoutePedestrianTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePedestrianTableViewCell.swift; sourceTree = "<group>"; };
 		493FA94F21CE537600C2FFA1 /* DirectionInstruction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionInstruction.swift; sourceTree = "<group>"; };
 		493FA95121CE656B00C2FFA1 /* Sequence+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+Extensions.swift"; sourceTree = "<group>"; };
+		493FA95421CE6C2A00C2FFA1 /* SmallLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallLabel.swift; sourceTree = "<group>"; };
+		493FA95621CE6CC900C2FFA1 /* LargeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeLabel.swift; sourceTree = "<group>"; };
 		4942435B21AA9D5400088AB6 /* Formatter+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Formatter+Extensions.swift"; sourceTree = "<group>"; };
 		4942435D21AA9D7E00088AB6 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		4959992021A9FFFE00549D89 /* RouteWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteWrapper.swift; sourceTree = "<group>"; };
@@ -346,6 +350,15 @@
 			path = Enums;
 			sourceTree = "<group>";
 		};
+		493FA95321CE6BC600C2FFA1 /* Labels */ = {
+			isa = PBXGroup;
+			children = (
+				493FA95421CE6C2A00C2FFA1 /* SmallLabel.swift */,
+				493FA95621CE6CC900C2FFA1 /* LargeLabel.swift */,
+			);
+			path = Labels;
+			sourceTree = "<group>";
+		};
 		499AF40221AEEC3500F4B4FF /* Errors */ = {
 			isa = PBXGroup;
 			children = (
@@ -484,6 +497,7 @@
 				49B4664421CAFA5200BE810C /* ControlViews */,
 				49B4663321CADE7600BE810C /* OverlayViews */,
 				49F149C921BD747E008EFCAA /* TableHeaderViews */,
+				493FA95321CE6BC600C2FFA1 /* Labels */,
 				49BE427F21B839B0003EC071 /* Cells */,
 			);
 			path = Views;
@@ -732,6 +746,7 @@
 				49EF7ACE21A709E100FEDFEC /* UNUserNotificationCenter+Extensions.swift in Sources */,
 				220365BC2195C372002BDE91 /* Constraints.swift in Sources */,
 				493FA94A21CE443000C2FFA1 /* ManeuverTransportType.swift in Sources */,
+				493FA95721CE6CC900C2FFA1 /* LargeLabel.swift in Sources */,
 				49BE428321B83A17003EC071 /* AlarmTableViewCell.swift in Sources */,
 				49FAADCF21A073960019D5FA /* LocationPageViewModel.swift in Sources */,
 				499AF40421AEEC5400F4B4FF /* AccessError.swift in Sources */,
@@ -762,6 +777,7 @@
 				49EF7AD421A72CE000FEDFEC /* GeoCoordinate.swift in Sources */,
 				221202852197121C00474B5D /* UILabel+Extensions.swift in Sources */,
 				4921B8D221A1A69000BD6145 /* EventStore+Extensions.swift in Sources */,
+				493FA95521CE6C2A00C2FFA1 /* SmallLabel.swift in Sources */,
 				49FAADCD21A06B560019D5FA /* CalendarPageViewModel.swift in Sources */,
 				49BE428521B83B72003EC071 /* UITableView+Extensions.swift in Sources */,
 				498ED02021C14A29003FFF5B /* TimeIntervall+Extensions.swift in Sources */,

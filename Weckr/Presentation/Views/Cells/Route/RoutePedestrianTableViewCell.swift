@@ -65,13 +65,5 @@ class RoutePedestrianTableViewCell: TileTableViewCell {
         return view
     }()
     
-    let distanceLabel: UILabel = {
-        let label = UILabel.newAutoLayout()
-        label.font = UIFont.systemFont(ofSize: Font.Size.TileCell.title, weight: .semibold)
-        label.textColor = .white
-        label.textAlignment = .left
-        label.alpha = 0.7
-        label.text = "14 meters"
-        return label
-    }()
+    let distanceLabel = SmallLabel.newAutoLayout()
 }

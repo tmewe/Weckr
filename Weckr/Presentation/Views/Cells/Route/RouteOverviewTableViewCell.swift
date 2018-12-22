@@ -26,8 +26,14 @@ class RouteOverviewTableViewCell: TileTableViewCell {
     
     func configure(with route: Route) {
 //        let formattedTime = Date(timeIntervalSinceReferenceDate: time).toFormat("HH:mm")
+        
+        var duration = Int(route.summary.trafficTime/60)
+        if duration == 0 {
+            duration = Int(route.summary.travelTime/60)
+        }
+                
         infoView.titleLabel.text = "TRAVEL"
-        infoView.timeLabel.text = "24 MIN"
+        infoView.timeLabel.text = "\(Int(route.summary.travelTime/60)) min".uppercased()
         infoView.infoLabel.text = "Leave at 08:01"
     }
     

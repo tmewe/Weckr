@@ -35,26 +35,9 @@ class BasicInfoView: UIView {
                               withOffset: Constraints.Main.Text.largeSpacing)
     }
     
-    let titleLabel: UILabel = {
-        let label = UILabel.newAutoLayout()
-        label.font = UIFont.systemFont(ofSize: Font.Size.TileCell.title, weight: .semibold)
-        label.textColor = .white
-        label.textAlignment = .left
-        label.alpha = 0.7
-        label.text = "MORNING ROUTINE"
-        return label
-    }()
-    
-    let timeLabel: UILabel = {
-        let label = UILabel.newAutoLayout()
-        label.font = UIFont.systemFont(ofSize: Font.Size.TileCell.time, weight: .semibold)
-        label.textColor = .white
-        label.textAlignment = .right
-        label.alpha = 0.7
-        label.text = "30 MIN"
-        return label
-    }()
-    
+    let titleLabel = SmallLabel.newAutoLayout()
+    let timeLabel = SmallLabel.newAutoLayout()
+    let infoLabel = LargeLabel.newAutoLayout()
     let stackView: UIStackView = {
         let stack = UIStackView.newAutoLayout()
         stack.axis = .horizontal
@@ -63,11 +46,4 @@ class BasicInfoView: UIView {
         return stack
     }()
     
-    let infoLabel: UILabel = {
-        let label = UILabel.newAutoLayout()
-        label.font = UIFont.systemFont(ofSize: Font.Size.TileCell.info, weight: .bold)
-        label.textColor = .white
-        label.text = "30 min"
-        return label
-    }()
 }
