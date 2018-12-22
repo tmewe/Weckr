@@ -32,12 +32,18 @@ class BasicHeaderInfoView: UIView {
     }
     
     let leftLabel = SmallLabel.newAutoLayout()
-    let rightLabel = SmallLabel.newAutoLayout()
+    let rightLabel: SmallLabel = {
+        let label = SmallLabel.newAutoLayout()
+        label.textAlignment = .right
+        return label
+    }()
+    
     private let stackView: UIStackView = {
         let stack = UIStackView.newAutoLayout()
         stack.axis = .horizontal
         stack.spacing = 10
         stack.alignment = .center
+        stack.distribution = .fillProportionally
         return stack
     }()
 }
