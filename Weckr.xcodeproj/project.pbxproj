@@ -68,6 +68,11 @@
 		49BD677E21CF98C200A240E6 /* RouteCarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BD677D21CF98C200A240E6 /* RouteCarTableViewCell.swift */; };
 		49BD678021CF991200A240E6 /* BasicInfoDisplayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BD677F21CF991200A240E6 /* BasicInfoDisplayable.swift */; };
 		49BD678521CFA17700A240E6 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BD678421CFA17700A240E6 /* Strings.swift */; };
+		49BD678821CFE74100A240E6 /* MorningRoutineEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BD678721CFE74100A240E6 /* MorningRoutineEditViewController.swift */; };
+		49BD678A21CFE74C00A240E6 /* MorningRoutineEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BD678921CFE74C00A240E6 /* MorningRoutineEditViewModel.swift */; };
+		49BD678D21CFE7BF00A240E6 /* MorningRoutineEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BD678C21CFE7BF00A240E6 /* MorningRoutineEditView.swift */; };
+		49BD678F21CFE84E00A240E6 /* EditViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BD678E21CFE84E00A240E6 /* EditViewProtocol.swift */; };
+		49BD679221CFE89C00A240E6 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BD679121CFE89C00A240E6 /* RoundedButton.swift */; };
 		49BE428121B839ED003EC071 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BE428021B839ED003EC071 /* Reusable.swift */; };
 		49BE428321B83A17003EC071 /* AlarmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BE428221B83A17003EC071 /* AlarmTableViewCell.swift */; };
 		49BE428521B83B72003EC071 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BE428421B83B72003EC071 /* UITableView+Extensions.swift */; };
@@ -166,6 +171,11 @@
 		49BD677D21CF98C200A240E6 /* RouteCarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteCarTableViewCell.swift; sourceTree = "<group>"; };
 		49BD677F21CF991200A240E6 /* BasicInfoDisplayable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicInfoDisplayable.swift; sourceTree = "<group>"; };
 		49BD678421CFA17700A240E6 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
+		49BD678721CFE74100A240E6 /* MorningRoutineEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MorningRoutineEditViewController.swift; sourceTree = "<group>"; };
+		49BD678921CFE74C00A240E6 /* MorningRoutineEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MorningRoutineEditViewModel.swift; sourceTree = "<group>"; };
+		49BD678C21CFE7BF00A240E6 /* MorningRoutineEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MorningRoutineEditView.swift; sourceTree = "<group>"; };
+		49BD678E21CFE84E00A240E6 /* EditViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewProtocol.swift; sourceTree = "<group>"; };
+		49BD679121CFE89C00A240E6 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		49BE428021B839ED003EC071 /* Reusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		49BE428221B83A17003EC071 /* AlarmTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTableViewCell.swift; sourceTree = "<group>"; };
 		49BE428421B83B72003EC071 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
@@ -416,6 +426,7 @@
 				49BE427E21B839A9003EC071 /* Views */,
 				49B4664021CAF8F100BE810C /* Walkthrough */,
 				49B4663F21CAF8EB00BE810C /* Main */,
+				49BD678621CFE71F00A240E6 /* Morning Routine Edit */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -501,6 +512,7 @@
 				22BE369F2193484500B56BF9 /* BindableType.swift */,
 				49BE428021B839ED003EC071 /* Reusable.swift */,
 				49BD677F21CF991200A240E6 /* BasicInfoDisplayable.swift */,
+				49BD678E21CFE84E00A240E6 /* EditViewProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -514,9 +526,36 @@
 			path = Localization;
 			sourceTree = "<group>";
 		};
+		49BD678621CFE71F00A240E6 /* Morning Routine Edit */ = {
+			isa = PBXGroup;
+			children = (
+				49BD678721CFE74100A240E6 /* MorningRoutineEditViewController.swift */,
+				49BD678921CFE74C00A240E6 /* MorningRoutineEditViewModel.swift */,
+			);
+			path = "Morning Routine Edit";
+			sourceTree = "<group>";
+		};
+		49BD678B21CFE7AC00A240E6 /* SettingsViews */ = {
+			isa = PBXGroup;
+			children = (
+				49BD678C21CFE7BF00A240E6 /* MorningRoutineEditView.swift */,
+			);
+			path = SettingsViews;
+			sourceTree = "<group>";
+		};
+		49BD679021CFE89100A240E6 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				49BD679121CFE89C00A240E6 /* RoundedButton.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
 		49BE427E21B839A9003EC071 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				49BD679021CFE89100A240E6 /* Buttons */,
+				49BD678B21CFE7AC00A240E6 /* SettingsViews */,
 				49B4664421CAFA5200BE810C /* ControlViews */,
 				49B4663321CADE7600BE810C /* OverlayViews */,
 				49F149C921BD747E008EFCAA /* TableHeaderViews */,
@@ -739,6 +778,7 @@
 				49CE3D2B21AF227D00A05CD0 /* AlarmServiceType.swift in Sources */,
 				4924610421C2BC0E001C0D37 /* RouteOverviewTableViewCell.swift in Sources */,
 				493FA95221CE656B00C2FFA1 /* Sequence+Extensions.swift in Sources */,
+				49BD678F21CFE84E00A240E6 /* EditViewProtocol.swift in Sources */,
 				49FAADD121A075070019D5FA /* NotificationPageViewModel.swift in Sources */,
 				22C8D192218B2DEB0029C1EA /* SceneCoordinator.swift in Sources */,
 				499AF40121AEE93C00F4B4FF /* CalendarService.swift in Sources */,
@@ -757,6 +797,7 @@
 				22C8D186218B29AF0029C1EA /* Scene+ViewController.swift in Sources */,
 				49DD02FE219C3A6600C57041 /* Leg.swift in Sources */,
 				4924610121C29EC2001C0D37 /* BasicInfoView.swift in Sources */,
+				49BD678A21CFE74C00A240E6 /* MorningRoutineEditViewModel.swift in Sources */,
 				498F2D3621B5BC070048A756 /* AlarmSection.swift in Sources */,
 				492460FF21C29C3C001C0D37 /* Font.swift in Sources */,
 				4921B8D021A1A41700BD6145 /* SettingsKeys.swift in Sources */,
@@ -799,8 +840,11 @@
 				4982E48221A5B730003AC90D /* TravelPageViewModel.swift in Sources */,
 				8415D34E21CA9D1500F28E13 /* UIControl+Extensions.swift in Sources */,
 				49B4663921CAEEB400BE810C /* MainApplication.swift in Sources */,
+				49BD678D21CFE7BF00A240E6 /* MorningRoutineEditView.swift in Sources */,
+				49BD678821CFE74100A240E6 /* MorningRoutineEditViewController.swift in Sources */,
 				8415D34C21CA98C200F28E13 /* VehicleSegmentedControl+Extension.swift in Sources */,
 				49EF7AD221A72CB600FEDFEC /* Waypoint.swift in Sources */,
+				49BD679221CFE89C00A240E6 /* RoundedButton.swift in Sources */,
 				49CE3D2F21AF244C00A05CD0 /* AlarmServiceError.swift in Sources */,
 				49EF7AD421A72CE000FEDFEC /* GeoCoordinate.swift in Sources */,
 				221202852197121C00474B5D /* UILabel+Extensions.swift in Sources */,

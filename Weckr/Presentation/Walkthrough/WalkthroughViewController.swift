@@ -146,15 +146,7 @@ class WalkthroughViewController: UIViewController, BindableType, LoadingDisplaya
         pagingView.scrollRectToVisible(rect, animated: true)
     }
     
-    let continueButton: UIButton = {
-        let button = UIButton.newAutoLayout()
-        button.setTitle("How?", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: Font.Size.Walkthorugh.nextButton,
-                                                    weight: UIFont.Weight.bold)
-        button.layer.cornerRadius = button.layer.frame.height / 2
-        button.layer.masksToBounds = true
-        return button
-    }()
+    let continueButton = RoundedButton(text: "How?", color: .clear)
     
     let previousButton: UIButton = {
         let button = UIButton.newAutoLayout()
