@@ -30,16 +30,19 @@ class MorningRoutinePageViewModel : WalkthroughSlideableType {
     
     init() {
         
+        //Setup
+        let strings = Strings.Walkthrough.MorningRoutine.self
+        
         //Inputs
         morningRoutineTime = PublishSubject()
         
         //Outputs
         accentColor = Observable.just(UIColor.walkthroughRedAccent.cgColor)
-        buttonText = Observable.just("walkthrough.morningroutine.buttonTitle".localized())
-        topLabelText = Observable.just("walkthrough.morningroutine.title".localized())
-        topLabelColoredText = Observable.just("walkthrough.morningroutine.title.coloredPart".localized())
-        bottomLabelText = Observable.just("walkthrough.morningroutine.title2".localized())
-        bottomLabelColoredText = Observable.just("walkthrough.morningroutine.title2.coloredPart".localized())
+        buttonText = Observable.just(strings.buttonTitle)
+        topLabelText = Observable.just(strings.title)
+        topLabelColoredText = Observable.just(strings.titleColored)
+        bottomLabelText = Observable.just(strings.subtitle)
+        bottomLabelColoredText = Observable.just(strings.subtitleColored)
     }
     
     //Actions

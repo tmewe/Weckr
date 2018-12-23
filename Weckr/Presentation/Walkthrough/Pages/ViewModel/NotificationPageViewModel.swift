@@ -34,13 +34,16 @@ class NotificationPageViewModel : WalkthroughSlideableType {
     
     init() {
         
+        //Setup
+        let strings = Strings.Walkthrough.Notification.self
+        
         //Outputs
         accentColor = Observable.just(UIColor.walkthroughBlueAccent.cgColor)
-        buttonText = Observable.just("walkthrough.notification.buttonTitle".localized())
-        topLabelText = Observable.just("walkthrough.notification.title".localized())
-        topLabelColoredText = Observable.just("walkthrough.notification.title.coloredPart".localized())
-        bottomLabelText = Observable.just("walkthrough.notification.title2".localized())
-        bottomLabelColoredText = Observable.just("walkthrough.notification.title2.coloredPart".localized())
+        buttonText = Observable.just(strings.buttonTitle)
+        topLabelText = Observable.just(strings.title)
+        topLabelColoredText = Observable.just(strings.titleColored)
+        bottomLabelText = Observable.just(strings.subtitle)
+        bottomLabelColoredText = Observable.just(strings.subtitleColored)
     }
     
     //Actions

@@ -23,31 +23,32 @@ enum DirectionInstruction: String {
     case roundabout = "Walk right" //around the roundabout
     
     var localized: String {
+        let strings = Strings.Directions.self
         switch self {
         case .headNorth:
-            return "direction.north".localized()
+            return strings.north
         case .headNorthEast:
-            return "direction.northEast".localized()
+            return strings.northEast
         case .headNorthWest:
-            return "direction.northWest".localized()
+            return strings.northWest
         case .headSouth:
-            return "direction.south".localized()
+            return strings.south
         case .headSouthEast:
-            return "direction.southEast".localized()
+            return strings.southEast
         case .headSouthWest:
-            return "direction.southWest".localized()
+            return strings.southWest
         case .headEast:
-            return "direction.east".localized()
+            return strings.east
         case .headWest:
-            return "direction.west".localized()
+            return strings.west
         case .turnLeft:
-            return "direction.left".localized()
+            return strings.left
         case .turnRight:
-            return "direction.right".localized()
+            return strings.right
         case .continueStraight:
-            return "direction.continueStraight".localized()
+            return strings.straight
         case .roundabout:
-            return "direction.roundabout".localized()
+            return strings.roundabout
         }
     }
 }

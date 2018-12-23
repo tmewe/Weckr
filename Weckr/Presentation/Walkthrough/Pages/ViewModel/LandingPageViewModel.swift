@@ -32,9 +32,9 @@ class LandingPageViewModel : WalkthroughSlideableType {
         
         //Outputs
         accentColor = Observable.just(UIColor.walkthroughPurpleAccent.cgColor)
-        buttonText = Observable.just("walkthrough.landing.buttonTitle".localized())
-        topLabelText = Observable.just("walkthrough.landing.title".localized())
-        topLabelColoredText = Observable.just("walkthrough.landing.title.coloredPart".localized())
+        buttonText = Observable.just(Strings.Walkthrough.Landing.buttonTitle)
+        topLabelText = Observable.just(Strings.Walkthrough.Landing.title)
+        topLabelColoredText = Observable.just(Strings.Walkthrough.Landing.titleColored)
         bottomLabelText = Observable.empty()
         bottomLabelColoredText = Observable.empty()
     }

@@ -30,13 +30,16 @@ class DonePageViewModel : WalkthroughSlideableType {
     
     init() {
 
+        //Setup
+        let strings = Strings.Walkthrough.Done.self
+        
         //Outputs
         accentColor = Observable.just(UIColor.walkthroughTealAccent.cgColor)
-        buttonText = Observable.just("walkthrough.done.buttonTitle".localized())
-        topLabelText = Observable.just("walkthrough.done.title".localized())
-        topLabelColoredText = Observable.just("walkthrough.done.title.coloredPart".localized())
-        bottomLabelText = Observable.just("walkthrough.done.title2".localized())
-        bottomLabelColoredText = Observable.just("walkthrough.done.title2.coloredPart".localized())
+        buttonText = Observable.just(strings.buttonTitle)
+        topLabelText = Observable.just(strings.title)
+        topLabelColoredText = Observable.just(strings.titleColored)
+        bottomLabelText = Observable.just(strings.subtitle)
+        bottomLabelColoredText = Observable.just(strings.subtitleColored)
     }
     
     //Actions

@@ -30,7 +30,7 @@ struct Strings {
             static let titleColored = "walkthrough.location.title.coloredPart".localized
             static let subtitle = "walkthrough.location.title2".localized
             static let subtitleColored = "walkthrough.location.title2.coloredPart".localized
-            static let buttonTitle = "walkthrough.calendar.buttonTitle".localized
+            static let buttonTitle = "walkthrough.location.buttonTitle".localized
         }
         
         struct Notification {
@@ -67,7 +67,9 @@ struct Strings {
     }
     
     struct Main {
-        
+        static let today = "main.header.today".localized
+        static let tomorrow = "main.header.tomorrow".localized
+        static let dayAfterTomorrow = "main.header.dayaftertomorrow".localized
     }
     
     struct Directions {

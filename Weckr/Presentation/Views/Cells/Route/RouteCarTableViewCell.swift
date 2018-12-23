@@ -28,7 +28,7 @@ class RouteCarTableViewCell: TileTableViewCell, BasicInfoSubtitleDisplayable {
     func configure(with configuration: Route) {
         let distance = configuration.summary!.distance/1000
         
-        infoView.headerInfoView.leftLabel.text = "direction.drive".localized().uppercased()
+        infoView.headerInfoView.leftLabel.text = Strings.Directions.drive.uppercased()
         infoView.infoLabel.text = configuration.legs.last!.end.label
         distanceLabel.text = "\(distance) kilometers".lowercased()
     }

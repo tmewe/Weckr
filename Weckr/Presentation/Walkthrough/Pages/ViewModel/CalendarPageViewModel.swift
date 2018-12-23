@@ -34,13 +34,16 @@ class CalendarPageViewModel : WalkthroughSlideableType {
     
     init() {
         
+        //Setup
+        let strings = Strings.Walkthrough.Calendar.self
+        
         //Outputs
         accentColor = Observable.just(UIColor.walkthroughGreenAccent.cgColor)
-        buttonText = Observable.just("walkthrough.calendar.buttonTitle".localized())
-        topLabelText = Observable.just("walkthrough.calendar.title".localized())
-        topLabelColoredText = Observable.just("walkthrough.calendar.title.coloredPart".localized())
-        bottomLabelText = Observable.just("walkthrough.calendar.title2".localized())
-        bottomLabelColoredText = Observable.just("walkthrough.calendar.title2.coloredPart".localized())
+        buttonText = Observable.just(strings.buttonTitle)
+        topLabelText = Observable.just(strings.title)
+        topLabelColoredText = Observable.just(strings.titleColored)
+        bottomLabelText = Observable.just(strings.subtitle)
+        bottomLabelColoredText = Observable.just(strings.subtitleColored)
     }
     
     //Actions

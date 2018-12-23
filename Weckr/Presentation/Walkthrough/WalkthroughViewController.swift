@@ -58,7 +58,7 @@ class WalkthroughViewController: UIViewController, BindableType, LoadingDisplaya
             .disposed(by: disposeBag)
         
         viewModel.outputs.buttonText
-            .asDriver(onErrorJustReturn: "walkthrough.landing.buttonTitle".localized())
+            .asDriver(onErrorJustReturn: Strings.Walkthrough.Landing.buttonTitle)
             .drive(continueButton.rx.title())
             .disposed(by: disposeBag)
         

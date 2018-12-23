@@ -34,13 +34,16 @@ class LocationPageViewModel : WalkthroughSlideableType {
     
     init() {
         
+        //Setup
+        let strings = Strings.Walkthrough.Location.self
+        
         //Outputs
         accentColor = Observable.just(UIColor.walkthroughOrangeAccent.cgColor)
-        buttonText = Observable.just("walkthrough.location.buttonTitle".localized())
-        topLabelText = Observable.just("walkthrough.location.title".localized())
-        topLabelColoredText = Observable.just("walkthrough.location.title.coloredPart".localized())
-        bottomLabelText = Observable.just("walkthrough.location.title2".localized())
-        bottomLabelColoredText = Observable.just("walkthrough.location.title2.coloredPart".localized())
+        buttonText = Observable.just(strings.buttonTitle)
+        topLabelText = Observable.just(strings.title)
+        topLabelColoredText = Observable.just(strings.titleColored)
+        bottomLabelText = Observable.just(strings.subtitle)
+        bottomLabelColoredText = Observable.just(strings.subtitleColored)
     }
     
     //Actions

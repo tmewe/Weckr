@@ -28,7 +28,7 @@
 //Notification
 "walkthrough.notification.title" = "Don’t worry about oversleeping!";
 "walkthrough.notification.title.coloredPart" = "";
-"walkthrough.notification.title2" = "Weckr notices irregularities and warns you the in the evening!";
+"walkthrough.notification.title2" = "Weckr notices irregularities and warns you in the evening!";
 "walkthrough.notification.title2.coloredPart" = "irregularities";
 "walkthrough.notification.buttonTitle" = "Neat!";
 
