@@ -26,7 +26,17 @@ class RouteCarTableViewCell: TileTableViewCell, BasicInfoSubtitleDisplayable {
     }
     
     func configure(with configuration: Route) {
+        let summary = configuration.summary!
+        let distance = summary.distance/1000
+        var time = Int(summary.trafficTime/60)
+        if time < 1 {
+            time = Int(summary.travelTime/60)
+        }
         
+        infoView.headerInfoView.leftLabel.text = "direction.drive".localized().uppercased()
+//        infoView.headerInfoView.rightLabel.text = "\(time) min".uppercased()
+        infoView.infoLabel.text = configuration.legs.last!.end.label
+        distanceLabel.text = "\(distance) kilometers".lowercased()
     }
     
     var infoView: BasicInfoView = {

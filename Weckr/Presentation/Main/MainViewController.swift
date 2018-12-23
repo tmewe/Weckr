@@ -95,6 +95,10 @@ class MainViewController: UITableViewController {
                     let cell: RouteTransitTableViewCell = tableView.dequeueReusableCell(indexPath: indexPath)
                     cell.configure(with: getOn, getOff: getOff, lines: transitLines)
                     return cell
+                case let .routeCar(_, route):
+                    let cell: RouteCarTableViewCell = tableView.dequeueReusableCell(indexPath: indexPath)
+                    cell.configure(with: route)
+                    return cell
                 default:
                     let cell: RouteOverviewTableViewCell = tableView.dequeueReusableCell(indexPath: indexPath)
                     return cell
@@ -123,6 +127,7 @@ extension MainViewController {
         tableView.registerReusableCell(RouteOverviewTableViewCell.self)
         tableView.registerReusableCell(RoutePedestrianTableViewCell.self)
         tableView.registerReusableCell(RouteTransitTableViewCell.self)
+        tableView.registerReusableCell(RouteCarTableViewCell.self)
         tableView.separatorStyle = .none
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableView.automaticDimension
