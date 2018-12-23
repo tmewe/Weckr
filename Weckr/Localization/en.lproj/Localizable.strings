@@ -54,7 +54,9 @@
 "walkthrough.done.buttonTitle" = "Gooo!";
 
 //Main
+"main.header.today" = "Today";
 "main.header.tomorrow" = "Tomorrow";
+"main.header.dayaftertomorrow" = "The day after tomorrow";
 
 //Directions
 "direction.north" = "Head north";
@@ -67,7 +69,7 @@
 "direction.west" = "Head west";
 "direction.left" = "Turn left";
 "direction.right" = "Turn right";
-"direction.continueStraight" = "Continue straight";
+"direction.straight" = "Continue straight";
 "direction.roundabout" = "Roundabout";
 "direction.drive" = "Drive towards";
 
