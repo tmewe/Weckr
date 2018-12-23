@@ -69,4 +69,5 @@
 "direction.right" = "Turn right";
 "direction.continueStraight" = "Continue straight";
 "direction.roundabout" = "Roundabout";
+"direction.drive" = "Drive towards";
 

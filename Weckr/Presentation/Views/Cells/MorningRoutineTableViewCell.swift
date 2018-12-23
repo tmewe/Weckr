@@ -27,8 +27,8 @@ class MorningRoutineTableViewCell: TileTableViewCell {
     
     func configure(with time: TimeInterval) {
         let formattedTime = Date(timeIntervalSinceReferenceDate: time).toFormat("HH:mm")
-        infoView.headerInfo.leftLabel.text = "MORNING ROUTINE"
-        infoView.headerInfo.rightLabel.text = formattedTime + " MIN"
+        infoView.headerInfoView.leftLabel.text = "MORNING ROUTINE"
+        infoView.headerInfoView.rightLabel.text = formattedTime + " MIN"
         infoView.infoLabel.text = formattedTime + " min left"
     }
     

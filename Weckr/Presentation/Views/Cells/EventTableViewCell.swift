@@ -32,8 +32,8 @@ class EventTableViewCell: TileTableViewCell {
     
     func configure(with title: String, event: CalendarEntry) {
         //Info
-        infoView.headerInfo.leftLabel.text = title
-        infoView.headerInfo.rightLabel.text =  "1 H 15 MIN"
+        infoView.headerInfoView.leftLabel.text = title
+        infoView.headerInfoView.rightLabel.text =  "1 H 15 MIN"
         infoView.infoLabel.text = event.title
         
         //Timespan
@@ -45,7 +45,7 @@ class EventTableViewCell: TileTableViewCell {
         let seconds: TimeInterval = TimeInterval(event.startDate.getInterval(toDate: event.endDate, component: .second))
         let hours = Date(timeIntervalSinceReferenceDate: seconds).toFormat("HH")
         let minutes = Date(timeIntervalSinceReferenceDate: seconds).toFormat("mm")
-        infoView.headerInfo.rightLabel.text = hours + " H " + minutes + " MIN"
+        infoView.headerInfoView.rightLabel.text = hours + " H " + minutes + " MIN"
         
         //Location
         locationLabel.text = event.adress

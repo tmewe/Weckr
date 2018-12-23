@@ -65,6 +65,8 @@
 		49B4663721CAEE0000BE810C /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B4663621CAEE0000BE810C /* DependencyContainer.swift */; };
 		49B4663921CAEEB400BE810C /* MainApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B4663821CAEEB400BE810C /* MainApplication.swift */; };
 		49B4663C21CAF80600BE810C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49B4663A21CAF80500BE810C /* Main.storyboard */; };
+		49BD677E21CF98C200A240E6 /* RouteCarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BD677D21CF98C200A240E6 /* RouteCarTableViewCell.swift */; };
+		49BD678021CF991200A240E6 /* BasicInfoDisplayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BD677F21CF991200A240E6 /* BasicInfoDisplayable.swift */; };
 		49BE428121B839ED003EC071 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BE428021B839ED003EC071 /* Reusable.swift */; };
 		49BE428321B83A17003EC071 /* AlarmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BE428221B83A17003EC071 /* AlarmTableViewCell.swift */; };
 		49BE428521B83B72003EC071 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BE428421B83B72003EC071 /* UITableView+Extensions.swift */; };
@@ -160,6 +162,8 @@
 		49B4663621CAEE0000BE810C /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
 		49B4663821CAEEB400BE810C /* MainApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainApplication.swift; sourceTree = "<group>"; };
 		49B4663B21CAF80500BE810C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		49BD677D21CF98C200A240E6 /* RouteCarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteCarTableViewCell.swift; sourceTree = "<group>"; };
+		49BD677F21CF991200A240E6 /* BasicInfoDisplayable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicInfoDisplayable.swift; sourceTree = "<group>"; };
 		49BE428021B839ED003EC071 /* Reusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		49BE428221B83A17003EC071 /* AlarmTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTableViewCell.swift; sourceTree = "<group>"; };
 		49BE428421B83B72003EC071 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
@@ -342,6 +346,7 @@
 				4924610321C2BC0E001C0D37 /* RouteOverviewTableViewCell.swift */,
 				493FA94C21CE4B3C00C2FFA1 /* RoutePedestrianTableViewCell.swift */,
 				493FA95821CE6FD700C2FFA1 /* RouteTransitTableViewCell.swift */,
+				49BD677D21CF98C200A240E6 /* RouteCarTableViewCell.swift */,
 			);
 			path = Route;
 			sourceTree = "<group>";
@@ -493,6 +498,7 @@
 				49B4663021CADBB500BE810C /* LoadingDisplayable.swift */,
 				22BE369F2193484500B56BF9 /* BindableType.swift */,
 				49BE428021B839ED003EC071 /* Reusable.swift */,
+				49BD677F21CF991200A240E6 /* BasicInfoDisplayable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -760,6 +766,7 @@
 				2245868221972D5200072C6C /* WalkthroughSlideable.swift in Sources */,
 				22BCC83A218B1BEE00C77CB1 /* AppDelegate.swift in Sources */,
 				49F6210521CD5471006D99A0 /* TransportMode.swift in Sources */,
+				49BD678021CF991200A240E6 /* BasicInfoDisplayable.swift in Sources */,
 				493FA95B21CE704600C2FFA1 /* BasicHeaderInfoView.swift in Sources */,
 				498DBC8121C1B76A000D40D8 /* EditableCell.swift in Sources */,
 				4924A26C21A874AF00671450 /* OpenWeatherMap.swift in Sources */,
@@ -774,6 +781,7 @@
 				49CE3D2D21AF235700A05CD0 /* AlarmService.swift in Sources */,
 				84E7CDEB2195DC930088CF98 /* CalendarEntry.swift in Sources */,
 				493FA94D21CE4B3C00C2FFA1 /* RoutePedestrianTableViewCell.swift in Sources */,
+				49BD677E21CF98C200A240E6 /* RouteCarTableViewCell.swift in Sources */,
 				220365B32195BD2B002BDE91 /* String+Extenstions.swift in Sources */,
 				49B4663721CAEE0000BE810C /* DependencyContainer.swift in Sources */,
 				4982E48221A5B730003AC90D /* TravelPageViewModel.swift in Sources */,

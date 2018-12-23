@@ -9,11 +9,11 @@
 import Foundation
 import UIKit
 
-class BasicInfoView: UIView {
+class BasicInfoView: UIView, BasicHeaderInfoDisplayable {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupViews()
+        addSubviews()
         setupConstraints()
     }
     
@@ -21,18 +21,18 @@ class BasicInfoView: UIView {
         super.init(coder: aDecoder)
     }
     
-    private func setupViews() {
-        addSubview(headerInfo)
+    private func addSubviews() {
+        addSubview(headerInfoView)
         addSubview(infoLabel)
     }
     
     private func setupConstraints() {
-        headerInfo.autoPinEdgesToSuperviewEdges(with: UIEdgeInsets.zero, excludingEdge: .bottom)
+        headerInfoView.autoPinEdgesToSuperviewEdges(with: UIEdgeInsets.zero, excludingEdge: .bottom)
         infoLabel.autoPinEdgesToSuperviewEdges(with: UIEdgeInsets.zero, excludingEdge: .top)
-        infoLabel.autoPinEdge(.top, to: .bottom, of: headerInfo,
+        infoLabel.autoPinEdge(.top, to: .bottom, of: headerInfoView,
                               withOffset: Constraints.Main.Text.largeSpacing)
     }
     
-    let headerInfo = BasicHeaderInfoView.newAutoLayout()
+    var headerInfoView = BasicHeaderInfoView.newAutoLayout()
     let infoLabel = LargeLabel.newAutoLayout()
 }

@@ -85,7 +85,7 @@ class MainViewController: UITableViewController {
                     return cell
                 case let .routeOverview(_, route, date):
                     let cell: RouteOverviewTableViewCell = tableView.dequeueReusableCell(indexPath: indexPath)
-                    cell.configure(with: route, leaveDate: date)
+                    cell.configure(with: (route, date))
                     return cell
                 case let .routePedestrian(_, maneuver):
                     let cell: RoutePedestrianTableViewCell = tableView.dequeueReusableCell(indexPath: indexPath)
