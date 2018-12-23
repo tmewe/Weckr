@@ -8,6 +8,10 @@
 
 import Foundation
 
-class MorningRoutineEditViewModel {
+protocol MorningRoutineEditViewModelProtocol {
+    
+}
+
+class MorningRoutineEditViewModel: MorningRoutineEditViewModelProtocol {
     
 }

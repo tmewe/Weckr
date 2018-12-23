@@ -39,7 +39,8 @@ final class MainApplication: MainApplicationProtocol {
         
         switch appHasBeenStarted {
         case true:
-            coordinator.transition(to: Scene.main(viewModelFactory.createMain()), withType: .root)
+            coordinator.transition(to: Scene.main(viewModelFactory.createMain(coordinator: coordinator)),
+                                   withType: .root)
             
         case false:
             let pages = createPages()

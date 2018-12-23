@@ -53,7 +53,8 @@ class WalkthroughViewController: UIViewController, BindableType, LoadingDisplaya
         Observable.combineLatest(rx.viewDidLayoutSubviews, viewModel.outputs.buttonColor)
             .map { $0.1 }
             .asDriver(onErrorJustReturn: UIColor.walkthroughPurpleAccent.cgColor)
-            .map {[$0, UIColor.backGroundColorTransparent.cgColor]}
+            .map { ($0, UIColor.backGroundColorTransparent.cgColor) }
+            .map(Gradient.init)
             .drive(continueButton.rx.gradientColorButton)
             .disposed(by: disposeBag)
         
@@ -146,7 +147,7 @@ class WalkthroughViewController: UIViewController, BindableType, LoadingDisplaya
         pagingView.scrollRectToVisible(rect, animated: true)
     }
     
-    let continueButton = RoundedButton(text: "How?", color: .clear)
+    let continueButton = RoundedButton(text: "How?", gradient: nil)
     
     let previousButton: UIButton = {
         let button = UIButton.newAutoLayout()

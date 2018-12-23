@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import RxDataSources
 import SwiftDate
+import Action
 
 protocol MainViewModelInputsType {
     var toggleRouteVisibility: PublishSubject<Void> { get }
@@ -21,7 +22,7 @@ protocol MainViewModelOutputsType {
 }
 
 protocol MainViewModelActionsType {
-    
+    var presentMorningRoutineEdit: CocoaAction { get }
 }
 
 protocol MainViewModelType {
@@ -44,13 +45,15 @@ class MainViewModel: MainViewModelType {
     var dateString: Observable<String>
     
     //Setup
+    private let coordinator: SceneCoordinatorType
     private let serviceFactory: ServiceFactoryProtocol
     private let disposeBag = DisposeBag()
 
-    init(serviceFactory: ServiceFactoryProtocol) {
+    init(serviceFactory: ServiceFactoryProtocol, coordinator: SceneCoordinatorType) {
         
         //Setup
         self.serviceFactory = serviceFactory
+        self.coordinator = coordinator
         
         let alarmService = serviceFactory.createAlarm()
         let nextAlarm = alarmService.nextAlarm().share(replay: 1, scope: .forever)
@@ -151,6 +154,14 @@ class MainViewModel: MainViewModelType {
             .map { $0.toFormat("EEEE, MMMM dd") }
             .map { $0.uppercased() }
     }
+    
+    //Actions
+    
+    lazy var presentMorningRoutineEdit: CocoaAction = {
+        return CocoaAction {
+            return self.coordinator.transition(to: Scene.morningRoutingEdit(), withType: .modal)
+        }
+    }()
 }
 
 extension MainViewModel: MainViewModelInputsType, MainViewModelOutputsType, MainViewModelActionsType {}

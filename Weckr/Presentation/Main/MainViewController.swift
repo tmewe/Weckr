@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 import FoldingCell
+import Action
 
 class MainViewController: UITableViewController {
     
@@ -56,10 +57,19 @@ class MainViewController: UITableViewController {
                 guard let tileCell = cell as? TileTableViewCell else { return }
                 guard let gradient = tileCell.gradient else { return }
                 tileCell.tileView.frame = frame
-                tileCell.tileView.setGradientForCell(colors: gradient)
+                tileCell.tileView.setGradientForCell(gradient)
             })
             .disposed(by: disposeBag)
         
+        
+        //Morning routine selected
+        tableView.rx.itemSelected
+            .filter { self.tableView.cellForRow(at: $0) is MorningRoutineTableViewCell }
+            .map { _ in Void() }
+            .bind(to: viewModel.actions.presentMorningRoutineEdit.inputs)
+            .disposed(by: disposeBag)
+        
+        //Route selected
         tableView.rx.itemSelected
             .filter { self.tableView.cellForRow(at: $0) is RouteOverviewTableViewCell }
             .map { _ in Void() }

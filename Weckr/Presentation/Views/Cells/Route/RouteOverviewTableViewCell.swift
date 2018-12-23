@@ -17,7 +17,8 @@ class RouteOverviewTableViewCell: TileTableViewCell, BasicInfoDisplayable {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        gradient = (UIColor.routeCellLeft.cgColor, UIColor.routeCellRight.cgColor)
+        gradient = Gradient(left: UIColor.routeCellLeft.cgColor,
+                            right:UIColor.routeCellRight.cgColor)
         
         addSubviews()
         setupConstraints()

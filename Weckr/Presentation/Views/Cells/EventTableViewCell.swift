@@ -15,7 +15,8 @@ class EventTableViewCell: TileTableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        gradient = (UIColor.eventCellLeft.cgColor, UIColor.eventCellRight.cgColor)
+        gradient = Gradient(left: UIColor.eventCellLeft.cgColor,
+                            right:UIColor.eventCellRight.cgColor)
 
         addSubviews()
         setupConstraints()

@@ -10,15 +10,23 @@ import Foundation
 import UIKit
 
 class RoundedButton: UIButton {
-    init(text: String, color: UIColor) {
+    init(text: String, gradient: Gradient?) {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         setTitle(text, for: .normal)
-        backgroundColor = color
         titleLabel?.font = UIFont.systemFont(ofSize: Font.Size.Walkthorugh.nextButton,
                                              weight: UIFont.Weight.bold)
         layer.cornerRadius = layer.frame.height / 2
         layer.masksToBounds = true
+        backgroundColor = .clear
+
+        guard gradient != nil else {
+            return
+        }
+        
+        let insets = Constraints.Walkthrough.NextButton.self
+        autoSetDimensions(to: CGSize(width: insets.width, height: insets.height))
+        setGradientForButton(gradient!)
     }
     
     required init?(coder aDecoder: NSCoder) {

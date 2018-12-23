@@ -38,7 +38,8 @@ class RouteTransitTableViewCell: TileTableViewCell {
         
         let leftColor = UIColor(hexString: line.foregroundColor)
         let rightColor = leftColor.darker()!
-        gradient = (leftColor.cgColor, rightColor.cgColor)
+        gradient = Gradient(left: leftColor.cgColor,
+                            right: rightColor.cgColor)
 
         let words = getOn.instruction.components(separatedBy: " ")
         let stationsCount = words.suffix(2).naturalJoined().noDots

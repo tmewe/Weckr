@@ -14,20 +14,20 @@ import CoreGraphics
 
 
 extension UIView {
-    public func setGradientForButton(colors: (first: CGColor, second: CGColor)) {
+    public func setGradientForButton(_ gradient: Gradient) {
         let cornerRadius: CGFloat = frame.height / 2
-        setGradient(colors: colors, radius: cornerRadius)
+        setGradient(gradient, radius: cornerRadius)
     }
     
-    public func setGradientForCell(colors: (first: CGColor, second: CGColor)) {
+    public func setGradientForCell(_ gradient: Gradient) {
         let cornerRadius: CGFloat = 14
-        setGradient(colors: colors, radius: cornerRadius)
+        setGradient(gradient, radius: cornerRadius)
     }
     
-    public func setGradient(colors: (first: CGColor, second: CGColor), radius: CGFloat) {
+    public func setGradient(_ gradient: Gradient, radius: CGFloat) {
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = bounds
-        gradientLayer.colors = [colors.first, colors.second]
+        gradientLayer.colors = [gradient.left, gradient.right]
         gradientLayer.locations = [0.0, 1.0]
         gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
         gradientLayer.endPoint = CGPoint(x: 1.5, y: 1.5)
@@ -44,11 +44,9 @@ extension UIView {
 
 extension Reactive where Base: UIView {
     
-    public var gradientColorButton: Binder<[CGColor]> {
-        return Binder(self.base) { view, colors in
-            guard let first = colors.first, let second = colors.last else { return }
-            let tupel = (first, second)
-            view.setGradientForButton(colors: tupel)
+    public var gradientColorButton: Binder<Gradient> {
+        return Binder(self.base) { view, gradient in
+            view.setGradientForButton(gradient)
         }
     }
 }

@@ -11,7 +11,7 @@ import UIKit
 
 class TileTableViewCell: UITableViewCell, Reusable {
     
-    public var gradient:(CGColor, CGColor)?
+    public var gradient: Gradient?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

@@ -15,7 +15,8 @@ class MorningRoutineTableViewCell: TileTableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        gradient = (UIColor.morningRoutineCellLeft.cgColor, UIColor.morningRoutineCellRight.cgColor)
+        gradient = Gradient(left: UIColor.morningRoutineCellLeft.cgColor,
+                            right: UIColor.morningRoutineCellRight.cgColor)
         
         addSubviews()
         setupConstraints()

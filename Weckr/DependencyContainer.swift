@@ -9,7 +9,7 @@
 import Foundation
 
 protocol ViewModelFactoryProtocol {
-    func createMain() -> MainViewModelType
+    func createMain(coordinator: SceneCoordinatorType) -> MainViewModelType
     func createWalkthrough(with pages: [WalkthroughPageViewController],
                            coordinator: SceneCoordinatorType) -> WalkthroughViewModelType
 }
@@ -34,8 +34,8 @@ extension DependencyContainer {
 }
 
 extension DependencyContainer: ViewModelFactoryProtocol {
-    func createMain() -> MainViewModelType {
-        return MainViewModel(serviceFactory: self)
+    func createMain(coordinator: SceneCoordinatorType) -> MainViewModelType {
+        return MainViewModel(serviceFactory: self, coordinator: coordinator)
     }
     
     func createWalkthrough(with pages: [WalkthroughPageViewController],

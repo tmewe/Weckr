@@ -9,14 +9,18 @@
 import Foundation
 import UIKit
 
-class MorningRoutineEditView: UIView {
+class MorningRoutineEditView: BaseEditView, MorningRoutineEditViewProtocol {
     
-    override init(frame: CGRect) {
-        super.init(frame: .zero)
-        translatesAutoresizingMaskIntoConstraints = false
+    override init() {
+        super.init()
+        addSubviews()
+        addSubview(picker)
+        picker.autoCenterInSuperview()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    
+    var picker = TimePicker()
 }

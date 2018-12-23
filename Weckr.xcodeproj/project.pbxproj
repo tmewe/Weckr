@@ -75,6 +75,9 @@
 		49BD679221CFE89C00A240E6 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BD679121CFE89C00A240E6 /* RoundedButton.swift */; };
 		49BD679521CFEACF00A240E6 /* WalkthroughTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BD679421CFEACF00A240E6 /* WalkthroughTitleLabel.swift */; };
 		49BD679721CFEC8500A240E6 /* TimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BD679621CFEC8500A240E6 /* TimePicker.swift */; };
+		49BD679921CFF09900A240E6 /* BaseEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BD679821CFF09900A240E6 /* BaseEditView.swift */; };
+		49BD679B21CFF10F00A240E6 /* TravelEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BD679A21CFF10F00A240E6 /* TravelEditView.swift */; };
+		49BD679D21CFF9F000A240E6 /* Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BD679C21CFF9F000A240E6 /* Gradient.swift */; };
 		49BE428121B839ED003EC071 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BE428021B839ED003EC071 /* Reusable.swift */; };
 		49BE428321B83A17003EC071 /* AlarmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BE428221B83A17003EC071 /* AlarmTableViewCell.swift */; };
 		49BE428521B83B72003EC071 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BE428421B83B72003EC071 /* UITableView+Extensions.swift */; };
@@ -180,6 +183,9 @@
 		49BD679121CFE89C00A240E6 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		49BD679421CFEACF00A240E6 /* WalkthroughTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughTitleLabel.swift; sourceTree = "<group>"; };
 		49BD679621CFEC8500A240E6 /* TimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePicker.swift; sourceTree = "<group>"; };
+		49BD679821CFF09900A240E6 /* BaseEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseEditView.swift; sourceTree = "<group>"; };
+		49BD679A21CFF10F00A240E6 /* TravelEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelEditView.swift; sourceTree = "<group>"; };
+		49BD679C21CFF9F000A240E6 /* Gradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gradient.swift; sourceTree = "<group>"; };
 		49BE428021B839ED003EC071 /* Reusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		49BE428221B83A17003EC071 /* AlarmTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTableViewCell.swift; sourceTree = "<group>"; };
 		49BE428421B83B72003EC071 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
@@ -544,7 +550,9 @@
 		49BD678B21CFE7AC00A240E6 /* SettingsViews */ = {
 			isa = PBXGroup;
 			children = (
+				49BD679821CFF09900A240E6 /* BaseEditView.swift */,
 				49BD678C21CFE7BF00A240E6 /* MorningRoutineEditView.swift */,
+				49BD679A21CFF10F00A240E6 /* TravelEditView.swift */,
 			);
 			path = SettingsViews;
 			sourceTree = "<group>";
@@ -616,6 +624,7 @@
 				84E7CDE62195B73F0088CF98 /* Alarm.swift */,
 				84E7CDEA2195DC930088CF98 /* CalendarEntry.swift */,
 				498F2D3521B5BC070048A756 /* AlarmSection.swift */,
+				49BD679C21CFF9F000A240E6 /* Gradient.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -855,6 +864,7 @@
 				49BD679221CFE89C00A240E6 /* RoundedButton.swift in Sources */,
 				49CE3D2F21AF244C00A05CD0 /* AlarmServiceError.swift in Sources */,
 				49EF7AD421A72CE000FEDFEC /* GeoCoordinate.swift in Sources */,
+				49BD679D21CFF9F000A240E6 /* Gradient.swift in Sources */,
 				221202852197121C00474B5D /* UILabel+Extensions.swift in Sources */,
 				4921B8D221A1A69000BD6145 /* EventStore+Extensions.swift in Sources */,
 				493FA95521CE6C2A00C2FFA1 /* SmallLabel.swift in Sources */,
@@ -865,10 +875,12 @@
 				49B4663521CADE7F00BE810C /* LoadingView.swift in Sources */,
 				4942435E21AA9D7E00088AB6 /* Date+Extensions.swift in Sources */,
 				22C8D184218B28A50029C1EA /* Scene.swift in Sources */,
+				49BD679921CFF09900A240E6 /* BaseEditView.swift in Sources */,
 				22C8D18A218B2AC90029C1EA /* SceneTransitionType.swift in Sources */,
 				22C8D190218B2C060029C1EA /* MainViewModel.swift in Sources */,
 				4982E48421A5B7C5003AC90D /* MorningRoutinePageViewModel.swift in Sources */,
 				49DB25DD218DDACD0037CFBB /* WalkthroughViewController.swift in Sources */,
+				49BD679B21CFF10F00A240E6 /* TravelEditView.swift in Sources */,
 				498ED01A21C13A1F003FFF5B /* TileView.swift in Sources */,
 				22C51525219EF6EB003783A7 /* LandingPageViewModel.swift in Sources */,
 			);

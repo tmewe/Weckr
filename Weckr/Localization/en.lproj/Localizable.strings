@@ -58,6 +58,11 @@
 "main.header.tomorrow" = "Tomorrow";
 "main.header.dayaftertomorrow" = "The day after tomorrow";
 
+//Edit
+"edit.morningRoutine" = "How long is your morning routine?";
+"edit.travel" = "How do you travel?";
+"edit.done" = "Done";
+
 //Directions
 "direction.north" = "Head north";
 "direction.northWest" = "Head northwest";

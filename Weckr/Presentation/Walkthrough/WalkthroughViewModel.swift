@@ -159,7 +159,8 @@ class WalkthroughViewModel: WalkthroughViewModelType {
                                          weatherService: weatherService,
                                          routingService: routingService) }
             .subscribe(onNext: { _ in
-                coordinator.transition(to: Scene.main(viewModelFactory.createMain()),
+                coordinator.transition(to: Scene.main(viewModelFactory
+                    .createMain(coordinator: coordinator)),
                                        withType: .modal)
                 UserDefaults.standard.set(true, forKey: SettingsKeys.AppHasBeenStarted)
             })
