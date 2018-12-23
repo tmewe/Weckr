@@ -32,7 +32,7 @@ class RoutePedestrianTableViewCell: TileTableViewCell, BasicInfoSubtitleDisplaya
         let words = sentences.first!.components(separatedBy: " ")
         // Turn left onto Danziger Straße.
         
-        let directionText = words.prefix(2).naturalJoined().removeDots()
+        let directionText = words.prefix(2).naturalJoined().noDots
         // Turn left
         
         let direction = DirectionInstruction(rawValue: directionText)
@@ -53,7 +53,7 @@ class RoutePedestrianTableViewCell: TileTableViewCell, BasicInfoSubtitleDisplaya
         
         infoView.headerInfoView.leftLabel.text = direction?.localized.uppercased()
         infoView.headerInfoView.rightLabel.text = durationText
-        infoView.infoLabel.text = destination.removeDots()
+        infoView.infoLabel.text = destination.noDots
         distanceLabel.text = "\(Int(configuration.length)) meters"
     }
     

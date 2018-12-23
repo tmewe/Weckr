@@ -41,7 +41,7 @@ class RouteTransitTableViewCell: TileTableViewCell {
         gradient = (leftColor.cgColor, rightColor.cgColor)
 
         let words = getOn.instruction.components(separatedBy: " ")
-        let stationsCount = words.suffix(2).naturalJoined().removeDots()
+        let stationsCount = words.suffix(2).naturalJoined().noDots
         
         headerInfo.leftLabel.text = line.name.uppercased() + " " + line.destination.uppercased()
         headerInfo.rightLabel.text = "\(Int(getOn.travelTime/60)) min".uppercased()

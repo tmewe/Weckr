@@ -9,6 +9,11 @@
 import Foundation
 
 extension String {
+    
+    var localized: String {
+        return NSLocalizedString(self, comment: "")
+    }
+    
     func localized(bundle: Bundle = .main, tableName: String = "Localizable") -> String {
         return NSLocalizedString(self, tableName: tableName, value: "\(self)", comment: "")
     }
@@ -17,7 +22,7 @@ extension String {
         return Formatter.Date.xsDateTime.date(from: self)   // "Mar 22, 2017, 10:22 AM"
     }
 
-    func removeDots() -> String {
+    var noDots: String {
         return self.replacingOccurrences(of: ".", with: "")
     }
 }

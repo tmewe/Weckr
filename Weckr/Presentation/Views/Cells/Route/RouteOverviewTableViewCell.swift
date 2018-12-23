@@ -33,7 +33,7 @@ class RouteOverviewTableViewCell: TileTableViewCell, BasicInfoDisplayable {
         let leaveDate = configuration.1
         
         var duration = Int(route.summary.trafficTime/60)
-        if duration == 0 {
+        if duration < 1 {
             duration = Int(route.summary.travelTime/60)
         }
         
