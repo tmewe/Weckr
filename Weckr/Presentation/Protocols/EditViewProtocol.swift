@@ -30,17 +30,17 @@ extension EditViewProtocol where Self: UIView {
     }
     
     func setupConstraints() {
-        let insets = Constraints.Walkthrough.Title.self
+        let insets = Constraints.Main.Edit.self
         
-        topLabel.autoPinEdge(.top, to: .top, of: self, withOffset: insets.title1Top)
-        topLabel.autoPinEdge(.left, to: .left, of: self, withOffset: insets.horizontalSides)
-        topLabel.autoSetDimension(.width, toSize: insets.width)
+        topLabel.autoPinEdge(toSuperviewSafeArea: .top, withInset: insets.titleTop)
+        topLabel.autoPinEdge(.left, to: .left, of: self, withOffset: insets.titleLeft)
+        topLabel.autoSetDimension(.width, toSize: insets.titleWidth)
         
         button.autoSetDimensions(to: CGSize(
-            width: Constraints.Walkthrough.NextButton.width,
-            height: Constraints.Walkthrough.NextButton.height))
+            width: Constraints.Buttons.RoundedButton.width,
+            height: Constraints.Buttons.RoundedButton.height))
         button.autoAlignAxis(.vertical, toSameAxisOf: self)
         button.autoPinEdge(toSuperviewSafeArea: .bottom,
-                           withInset: Constraints.Walkthrough.NextButton.bottomOffset)
+                           withInset: insets.buttonBottom)
     }
 }

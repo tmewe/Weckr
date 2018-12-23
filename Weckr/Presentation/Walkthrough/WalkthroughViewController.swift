@@ -97,9 +97,8 @@ class WalkthroughViewController: UIViewController, BindableType, LoadingDisplaya
     }
     
     private func setupConstraints() {
-        let insets = Constraints.Walkthrough.self
-        let nextButtonInsets = insets.NextButton.self
-        let previousButtonInsets = insets.PreviousButton.self
+        let nextButtonInsets = Constraints.Buttons.RoundedButton.self
+        let previousButtonInsets = Constraints.Buttons.PreviousButton.self
         let edgeInsets = UIEdgeInsets(top: 0,
                                      left: 0,
                                      bottom: previousButtonInsets.bottomOffset,

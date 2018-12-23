@@ -9,10 +9,11 @@
 import Foundation
 import UIKit
 
-class BaseEditView: UIView, EditViewProtocol {
+class BaseEditView: UIView, EditViewProtocol, BlurBackgroundDisplayable {
     init() {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
+        setupBlur(on: blurEffectView, withStyle: .dark)
         addSubviews()
         setupConstraints()
     }
@@ -24,4 +25,5 @@ class BaseEditView: UIView, EditViewProtocol {
     var topLabel = WalkthroughTitleLabel(title: Strings.Main.Edit.morningRoutineTitle,
                                          alignment: .left)
     var button = RoundedButton(text: Strings.Main.Edit.done, gradient: nil)
+    var blurEffectView = UIVisualEffectView.newAutoLayout()
 }

@@ -10,16 +10,9 @@ import Foundation
 import UIKit
 
 struct Constraints {
-    struct Walkthrough {
-        struct Title {
-            static let horizontalSides: CGFloat = 50
-            static let title1Top: CGFloat = 80
-            static let title2Bottom: CGFloat = 40
-            static let title2Offset: CGFloat = 200
-            static let width: CGFloat = 272
-        }
     
-        struct NextButton {
+    struct Buttons {
+        struct RoundedButton {
             static let width: CGFloat = 200
             static let height: CGFloat = 60
             static let bottomOffset: CGFloat = 15
@@ -29,6 +22,16 @@ struct Constraints {
             static let width: CGFloat = 200
             static let height: CGFloat = 60
             static let bottomOffset: CGFloat = 15
+        }
+    }
+    
+    struct Walkthrough {
+        struct Title {
+            static let horizontalSides: CGFloat = 50
+            static let title1Top: CGFloat = 80
+            static let title2Bottom: CGFloat = 40
+            static let title2Offset: CGFloat = 200
+            static let width: CGFloat = 272
         }
     }
     
@@ -62,6 +65,13 @@ struct Constraints {
             static let top: CGFloat = 50
             static let spacing: CGFloat = 40
             static let bottom: CGFloat = 20
+        }
+        
+        struct Edit {
+            static let titleTop: CGFloat = 50
+            static let titleLeft: CGFloat = 50
+            static let titleWidth: CGFloat = 272
+            static let buttonBottom: CGFloat = 50
         }
     }
 }

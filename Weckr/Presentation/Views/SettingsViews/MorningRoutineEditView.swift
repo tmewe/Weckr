@@ -11,12 +11,14 @@ import UIKit
 
 class MorningRoutineEditView: BaseEditView, MorningRoutineEditViewProtocol {
     
+    private let gradient = Gradient(left: UIColor.walkthroughRedAccent.cgColor,
+                                    right: UIColor.backGroundColorTransparent.cgColor)
     override init() {
         super.init()
-        backgroundColor = .clear
         addSubviews()
         addSubview(picker)
         picker.autoCenterInSuperview()
+        button.setGradientForButton(gradient)
     }
     
     required init?(coder aDecoder: NSCoder) {

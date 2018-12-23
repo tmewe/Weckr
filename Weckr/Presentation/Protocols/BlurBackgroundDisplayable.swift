@@ -14,7 +14,10 @@ protocol BlurBackgroundDisplayable {
 }
 
 extension BlurBackgroundDisplayable where Self: UIView {
-    var blurEffectView: UIVisualEffectView {
-        return UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+    func setupBlur(on view: UIVisualEffectView, withStyle style: UIBlurEffect.Style) {
+        let blurEffect = UIBlurEffect(style: style)
+        view.effect = blurEffect
+        insertSubview(view, at: 0)
+        view.autoPinEdgesToSuperviewEdges()
     }
 }
