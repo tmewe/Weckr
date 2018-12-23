@@ -67,4 +67,6 @@
 "direction.west" = "Head west";
 "direction.left" = "Turn left";
 "direction.right" = "Turn right";
+"direction.continueStraight" = "Continue straight";
+"direction.roundabout" = "Roundabout";
 

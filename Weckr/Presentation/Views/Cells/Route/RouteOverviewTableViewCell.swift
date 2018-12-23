@@ -9,6 +9,7 @@
 import Foundation
 import FoldingCell
 import UIKit
+import SwiftDate
 
 class RouteOverviewTableViewCell: TileTableViewCell {
     
@@ -24,17 +25,20 @@ class RouteOverviewTableViewCell: TileTableViewCell {
         super.init(coder: aDecoder)
     }
     
-    func configure(with route: Route) {
+    func configure(with route: Route, leaveDate: Date) {
 //        let formattedTime = Date(timeIntervalSinceReferenceDate: time).toFormat("HH:mm")
         
         var duration = Int(route.summary.trafficTime/60)
         if duration == 0 {
             duration = Int(route.summary.travelTime/60)
         }
+        
+        let regionalDate = DateInRegion(leaveDate, region: Region.current)
+        let dateText = regionalDate.toFormat("HH:mm")
                 
         infoView.headerInfo.leftLabel.text = "TRAVEL"
         infoView.headerInfo.rightLabel.text = "\(Int(route.summary.travelTime/60)) min".uppercased()
-        infoView.infoLabel.text = "Leave at 08:01"
+        infoView.infoLabel.text = "Leave at " + dateText
     }
     
     private func addSubviews() {

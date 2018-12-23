@@ -71,17 +71,23 @@ class MainViewModel: MainViewModelType {
             .share(replay: 1, scope: .forever)
         
         let routeOverviewItem = nextAlarm
-            .map { [SectionItem.routeOverview(identity: "3", route: $0.route)] }
+            .map { alarm -> [SectionItem] in
+                let leaveDate = alarm.date.addingTimeInterval(alarm.morningRoutine)
+                return [SectionItem.routeOverview(identity: "3", route: alarm.route, leaveDate: leaveDate)]
+            }
         
         //Car route
         
         let routeItemsCar: BehaviorSubject<[SectionItem]> = BehaviorSubject(value: [])
         
         let routeItemsExpanded = nextAlarm
-            .map { $0.route! }
-            .map { route -> [SectionItem] in
+            .map { alarm -> [SectionItem] in
                 
-                var items = [SectionItem.routeOverview(identity: "3", route: route)]
+                let route = alarm.route!
+                let leaveDate = alarm.date.addingTimeInterval(alarm.morningRoutine)
+                var items = [SectionItem.routeOverview(identity: "3",
+                                                       route: route,
+                                                       leaveDate: leaveDate)]
                 
                 switch route.transportMode {
                 case .car:

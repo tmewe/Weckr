@@ -13,7 +13,6 @@ class RouteTransitTableViewCell: TileTableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        gradient = (UIColor.routeCellLeft.cgColor, UIColor.routeCellRight.cgColor)
         
         addSubviews()
         setupConstraints()
@@ -37,6 +36,13 @@ class RouteTransitTableViewCell: TileTableViewCell {
         
         guard let line = optLine else { return }
         
+        let leftColor = UIColor(hexString: line.foregroundColor)
+        let rightColor = leftColor.darker()!
+        gradient = (leftColor.cgColor, rightColor.cgColor)
+
+        let words = getOn.instruction.components(separatedBy: " ")
+        let stationsCount = words.suffix(2).naturalJoined().removeDots()
+        
         headerInfo.leftLabel.text = line.name.uppercased() + " " + line.destination.uppercased()
         headerInfo.rightLabel.text = "\(Int(getOn.travelTime/60)) min".uppercased()
         
@@ -44,43 +50,54 @@ class RouteTransitTableViewCell: TileTableViewCell {
         arrivalTimeLabel.text = "08:27"
         firstStopLabel.text = firstStop
         finalStopLabel.text = finalStop
+        stationsCountLabel.text = stationsCount
     }
     
     private func addSubviews() {
-        topStackView.addArrangedSubview(departureTimeLabel)
-        topStackView.addArrangedSubview(firstStopLabel)
-        bottomStackView.addArrangedSubview(arrivalTimeLabel)
-        bottomStackView.addArrangedSubview(finalStopLabel)
+        tileView.addSubview(departureTimeLabel)
+        tileView.addSubview(arrivalTimeLabel)
+        tileView.addSubview(firstStopLabel)
+        tileView.addSubview(finalStopLabel)
         tileView.addSubview(headerInfo)
-        tileView.addSubview(topStackView)
-        tileView.addSubview(bottomStackView)
+        tileView.addSubview(stationsCountLabel)
     }
     
     private func setupConstraints() {
         let insets = Constraints.Main.Text.self
-        
-        departureTimeLabel.autoSetDimension(.width, toSize: 90)
-        arrivalTimeLabel.autoSetDimension(.width, toSize: 90)
         
         headerInfo.autoPinEdgesToSuperviewEdges(with: UIEdgeInsets(top: insets.top,
                                                                  left: insets.left,
                                                                  bottom: insets.bottom,
                                                                  right: insets.right),
                                               excludingEdge: .bottom)
-        topStackView.autoPinEdge(.top, to: .bottom, of: headerInfo, withOffset: insets.largeSpacing)
-        topStackView.autoPinEdge(.left, to: .left, of: tileView, withOffset: insets.left)
-        topStackView.autoPinEdge(.right, to: .right, of: tileView, withOffset: -insets.right)
         
-        bottomStackView.autoPinEdge(.top, to: .bottom, of: topStackView, withOffset: insets.largeSpacing)
-        bottomStackView.autoPinEdge(.left, to: .left, of: tileView, withOffset: insets.left)
-        bottomStackView.autoPinEdge(.right, to: .right, of: tileView, withOffset: -insets.right)
+        departureTimeLabel.autoSetDimension(.width, toSize: 90)
+        departureTimeLabel.autoPinEdge(.top, to: .bottom, of: headerInfo, withOffset: insets.largeSpacing)
+        departureTimeLabel.autoPinEdge(.left, to: .left, of: tileView, withOffset: insets.left)
         
-        tileView.autoPinEdge(.bottom, to: .bottom, of: bottomStackView, withOffset: insets.bottom)
+        firstStopLabel.autoPinEdge(.top, to: .bottom, of: headerInfo, withOffset: insets.largeSpacing)
+        firstStopLabel.autoPinEdge(.left, to: .right, of: departureTimeLabel, withOffset: insets.smallSpacing)
+        firstStopLabel.autoPinEdge(.right, to: .right, of: tileView, withOffset: -insets.right)
+        
+        arrivalTimeLabel.autoSetDimension(.width, toSize: 90)
+        arrivalTimeLabel.autoPinEdge(.top, to: .bottom, of: departureTimeLabel, withOffset: insets.largeSpacing)
+        arrivalTimeLabel.autoPinEdge(.left, to: .left, of: tileView, withOffset: insets.left)
+        
+        finalStopLabel.autoPinEdge(.top, to: .bottom, of: departureTimeLabel, withOffset: insets.largeSpacing)
+        finalStopLabel.autoPinEdge(.left, to: .right, of: arrivalTimeLabel, withOffset: insets.smallSpacing)
+        finalStopLabel.autoPinEdge(.right, to: .right, of: tileView, withOffset: -insets.right)
+        
+        stationsCountLabel.autoPinEdge(.top, to: .bottom, of: finalStopLabel, withOffset: insets.largeSpacing)
+        stationsCountLabel.autoPinEdge(.left, to: .left, of: tileView, withOffset: insets.left)
+        stationsCountLabel.autoPinEdge(.right, to: .right, of: tileView, withOffset: -insets.right)
+        
+        tileView.autoPinEdge(.bottom, to: .bottom, of: stationsCountLabel, withOffset: insets.bottom)
     }
     
     let headerInfo = BasicHeaderInfoView.newAutoLayout()
     let departureTimeLabel = LargeLabel.newAutoLayout()
     let arrivalTimeLabel = LargeLabel.newAutoLayout()
+    let stationsCountLabel = SmallLabel.newAutoLayout()
     
     let firstStopLabel: LargeLabel = {
         let label = LargeLabel.newAutoLayout()
@@ -92,23 +109,5 @@ class RouteTransitTableViewCell: TileTableViewCell {
         let label = LargeLabel.newAutoLayout()
         label.font = UIFont.systemFont(ofSize: Font.Size.TileCell.info, weight: .regular)
         return label
-    }()
-    
-    private let topStackView: UIStackView = {
-        let stack = UIStackView.newAutoLayout()
-        stack.axis = .horizontal
-        stack.spacing = 5
-        stack.alignment = .top
-        stack.distribution = .fillProportionally
-        return stack
-    }()
-    
-    private let bottomStackView: UIStackView = {
-        let stack = UIStackView.newAutoLayout()
-        stack.axis = .horizontal
-        stack.spacing = 5
-        stack.alignment = .top
-        stack.distribution = .fillProportionally
-        return stack
     }()
 }

@@ -16,4 +16,8 @@ extension String {
     var xsDateTime: Date? {
         return Formatter.Date.xsDateTime.date(from: self)   // "Mar 22, 2017, 10:22 AM"
     }
+
+    func removeDots() -> String {
+        return self.replacingOccurrences(of: ".", with: "")
+    }
 }

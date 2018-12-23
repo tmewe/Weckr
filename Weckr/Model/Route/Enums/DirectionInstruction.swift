@@ -19,6 +19,8 @@ enum DirectionInstruction: String {
     case headWest = "Head west"
     case turnLeft = "Turn left"
     case turnRight = "Turn right"
+    case continueStraight = "Continue straight"
+    case roundabout = "Walk right" //around the roundabout
     
     var localized: String {
         switch self {
@@ -42,6 +44,10 @@ enum DirectionInstruction: String {
             return "direction.left".localized()
         case .turnRight:
             return "direction.right".localized()
+        case .continueStraight:
+            return "direction.continueStraight".localized()
+        case .roundabout:
+            return "direction.roundabout".localized()
         }
     }
 }

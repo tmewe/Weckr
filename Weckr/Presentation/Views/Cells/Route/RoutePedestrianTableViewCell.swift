@@ -25,23 +25,33 @@ class RoutePedestrianTableViewCell: TileTableViewCell {
     
     func configure(with maneuver: Maneuver) {
         
-        let text = maneuver.instruction.replacingOccurrences(of: "<[^>]+>",
-                                                             with: "",
-                                                             options: .regularExpression,
-                                                             range: nil)
-        let words = text.components(separatedBy: " ")
+        // Turn left onto Danziger Straße. Go for 64 m.
+        let sentences = maneuver.instruction.components(separatedBy: ".")
+        let words = sentences.first!.components(separatedBy: " ")
+        // Turn left onto Danziger Straße.
+
+        let directionText = words.prefix(2).naturalJoined().removeDots()
+        // Turn left
         
-        let directionText = words.prefix(2).naturalJoined().replacingOccurrences(of: ".", with: "")
         let direction = DirectionInstruction(rawValue: directionText)
         
-        let destination = words.dropFirst(3).prefix(1)
+        var destination = ""
+        if direction != nil {
+            switch direction! {
+            case .roundabout:
+                destination = words.dropFirst(9).naturalJoined()
+            default:
+                destination = words.dropFirst(3).naturalJoined()
+                // Danziger Straße
+            }
+        }
         
         let duration = Int(maneuver.travelTime/60)
         let durationText = duration > 0 ? "\(duration) MIN" : ""
 
         infoView.headerInfo.leftLabel.text = direction?.localized.uppercased()
         infoView.headerInfo.rightLabel.text = durationText
-        infoView.infoLabel.text = destination.joined().replacingOccurrences(of: ".", with: "")
+        infoView.infoLabel.text = destination.removeDots()
         distanceLabel.text = "\(Int(maneuver.length)) meters"
     }
     
@@ -57,9 +67,11 @@ class RoutePedestrianTableViewCell: TileTableViewCell {
                                                                  bottom: insets.bottom,
                                                                  right: insets.right),
                                               excludingEdge: .bottom)
+        
         distanceLabel.autoPinEdge(.top, to: .bottom, of: infoView, withOffset: insets.largeSpacing)
         distanceLabel.autoPinEdge(.left, to: .left, of: tileView, withOffset: insets.left)
         distanceLabel.autoPinEdge(.right, to: .right, of: tileView, withOffset: insets.right)
+        
         tileView.autoPinEdge(.bottom, to: .bottom, of: distanceLabel, withOffset: insets.bottom)
     }
     
