@@ -11,5 +11,6 @@ import UIKit
 
 protocol EditViewProtocol {
     var topLabel: UILabel { get set }
+    var bottomLabel: UILabel { get set }
     var button: RoundedButton { get set }
 }

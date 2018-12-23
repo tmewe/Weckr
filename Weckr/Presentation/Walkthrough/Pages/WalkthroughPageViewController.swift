@@ -101,42 +101,8 @@ class WalkthroughPageViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    let topLabel: UILabel = {
-        var label = UILabel.newAutoLayout()
-        label.textColor = .white
-        label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: Font.Size.Walkthorugh.title, weight: .bold)
-        label.numberOfLines = 0
-        return label
-    }()
-    
-    let bottomLabel: UILabel = {
-        var label = UILabel.newAutoLayout()
-        label.textColor = .white
-        label.textAlignment = .right
-        label.font = UIFont.systemFont(ofSize: Font.Size.Walkthorugh.subTitle, weight: .bold)
-        label.numberOfLines = 0
-        return label
-    }()
-    
-    
-    let segmentedControl: VehicleSegmentedControl = {
-        let items = ["Car", "Feet", "Transit"]
-        //let rechteck = CGRect(x: 0, y: 0, width: 100, height: 100)
-        let control = VehicleSegmentedControl(items: items)
-        //control.selectedSegmentIndex = 0
-        return control
-    }()
-
-    
-    let datePicker: UIDatePicker = {
-       let picker = UIDatePicker.newAutoLayout()
-        //Without this the datepicker skips the first pick
-        DispatchQueue.main.async {
-            picker.datePickerMode = .countDownTimer
-            picker.countDownDuration = 1
-        }
-        picker.setValue(UIColor.textColor, forKeyPath: "textColor")
-        return picker
-    }()
+    let topLabel = WalkthroughTitleLabel(title: "", alignment: .left)
+    let bottomLabel = WalkthroughTitleLabel(title: "", alignment: .right)
+    let segmentedControl = VehicleSegmentedControl(items: ["Car", "Pedestrian", "Transit"])
+    let datePicker = TimePicker()
 }

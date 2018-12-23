@@ -73,6 +73,8 @@
 		49BD678D21CFE7BF00A240E6 /* MorningRoutineEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BD678C21CFE7BF00A240E6 /* MorningRoutineEditView.swift */; };
 		49BD678F21CFE84E00A240E6 /* EditViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BD678E21CFE84E00A240E6 /* EditViewProtocol.swift */; };
 		49BD679221CFE89C00A240E6 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BD679121CFE89C00A240E6 /* RoundedButton.swift */; };
+		49BD679521CFEACF00A240E6 /* WalkthroughTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BD679421CFEACF00A240E6 /* WalkthroughTitleLabel.swift */; };
+		49BD679721CFEC8500A240E6 /* TimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BD679621CFEC8500A240E6 /* TimePicker.swift */; };
 		49BE428121B839ED003EC071 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BE428021B839ED003EC071 /* Reusable.swift */; };
 		49BE428321B83A17003EC071 /* AlarmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BE428221B83A17003EC071 /* AlarmTableViewCell.swift */; };
 		49BE428521B83B72003EC071 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BE428421B83B72003EC071 /* UITableView+Extensions.swift */; };
@@ -176,6 +178,8 @@
 		49BD678C21CFE7BF00A240E6 /* MorningRoutineEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MorningRoutineEditView.swift; sourceTree = "<group>"; };
 		49BD678E21CFE84E00A240E6 /* EditViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewProtocol.swift; sourceTree = "<group>"; };
 		49BD679121CFE89C00A240E6 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
+		49BD679421CFEACF00A240E6 /* WalkthroughTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughTitleLabel.swift; sourceTree = "<group>"; };
+		49BD679621CFEC8500A240E6 /* TimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePicker.swift; sourceTree = "<group>"; };
 		49BE428021B839ED003EC071 /* Reusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		49BE428221B83A17003EC071 /* AlarmTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTableViewCell.swift; sourceTree = "<group>"; };
 		49BE428421B83B72003EC071 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
@@ -378,6 +382,7 @@
 			children = (
 				493FA95421CE6C2A00C2FFA1 /* SmallLabel.swift */,
 				493FA95621CE6CC900C2FFA1 /* LargeLabel.swift */,
+				49BD679421CFEACF00A240E6 /* WalkthroughTitleLabel.swift */,
 			);
 			path = Labels;
 			sourceTree = "<group>";
@@ -489,6 +494,7 @@
 			isa = PBXGroup;
 			children = (
 				84A6F89621C6B7FA00D55A31 /* VehicleSegmentedControl.swift */,
+				49BD679621CFEC8500A240E6 /* TimePicker.swift */,
 			);
 			path = ControlViews;
 			sourceTree = "<group>";
@@ -792,10 +798,12 @@
 				492460FC21C28EEE001C0D37 /* EventTableViewCell.swift in Sources */,
 				84E7CDE72195B73F0088CF98 /* Alarm.swift in Sources */,
 				22C8D18E218B2BF70029C1EA /* MainViewController.swift in Sources */,
+				49BD679521CFEACF00A240E6 /* WalkthroughTitleLabel.swift in Sources */,
 				49DD02F3219C262C00C57041 /* Weather.swift in Sources */,
 				4959992721AA029300549D89 /* HereMaps.swift in Sources */,
 				22C8D186218B29AF0029C1EA /* Scene+ViewController.swift in Sources */,
 				49DD02FE219C3A6600C57041 /* Leg.swift in Sources */,
+				49BD679721CFEC8500A240E6 /* TimePicker.swift in Sources */,
 				4924610121C29EC2001C0D37 /* BasicInfoView.swift in Sources */,
 				49BD678A21CFE74C00A240E6 /* MorningRoutineEditViewModel.swift in Sources */,
 				498F2D3621B5BC070048A756 /* AlarmSection.swift in Sources */,
