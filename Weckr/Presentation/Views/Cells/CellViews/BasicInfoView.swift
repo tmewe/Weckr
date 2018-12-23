@@ -11,8 +11,9 @@ import UIKit
 
 class BasicInfoView: UIView, BasicHeaderInfoDisplayable {
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init() {
+        super.init(frame: .zero)
+        translatesAutoresizingMaskIntoConstraints = false
         addSubviews()
         setupConstraints()
     }

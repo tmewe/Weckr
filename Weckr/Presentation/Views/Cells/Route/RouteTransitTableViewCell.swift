@@ -95,10 +95,10 @@ class RouteTransitTableViewCell: TileTableViewCell {
         tileView.autoPinEdge(.bottom, to: .bottom, of: stationsCountLabel, withOffset: insets.bottom)
     }
     
-    let headerInfo = BasicHeaderInfoView.newAutoLayout()
-    let departureTimeLabel = LargeLabel.newAutoLayout()
-    let arrivalTimeLabel = LargeLabel.newAutoLayout()
-    let stationsCountLabel = SmallLabel.newAutoLayout()
+    let headerInfo = BasicHeaderInfoView()
+    let departureTimeLabel = LargeLabel()
+    let arrivalTimeLabel = LargeLabel()
+    let stationsCountLabel = SmallLabel()
     
     let firstStopLabel: LargeLabel = {
         let label = LargeLabel.newAutoLayout()

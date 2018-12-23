@@ -20,12 +20,13 @@ class RoundedButton: UIButton {
         layer.masksToBounds = true
         backgroundColor = .clear
 
+        let insets = Constraints.Walkthrough.NextButton.self
+        autoSetDimensions(to: CGSize(width: insets.width, height: insets.height))
+
         guard gradient != nil else {
             return
         }
         
-        let insets = Constraints.Walkthrough.NextButton.self
-        autoSetDimensions(to: CGSize(width: insets.width, height: insets.height))
         setGradientForButton(gradient!)
     }
     

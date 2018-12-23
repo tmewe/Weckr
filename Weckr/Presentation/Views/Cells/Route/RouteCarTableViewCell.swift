@@ -13,6 +13,9 @@ class RouteCarTableViewCell: TileTableViewCell, BasicInfoSubtitleDisplayable {
     
     typealias Configuration = Route
     
+    var infoView = BasicInfoView()
+    var distanceLabel = SmallLabel.newAutoLayout()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         gradient = Gradient(left: UIColor.routeCellLeft.cgColor,
@@ -33,11 +36,4 @@ class RouteCarTableViewCell: TileTableViewCell, BasicInfoSubtitleDisplayable {
         infoView.infoLabel.text = configuration.legs.last!.end.label
         distanceLabel.text = "\(distance) kilometers".lowercased()
     }
-    
-    var infoView: BasicInfoView = {
-        let view = BasicInfoView.newAutoLayout()
-        return view
-    }()
-    
-    var distanceLabel = SmallLabel.newAutoLayout()
 }

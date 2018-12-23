@@ -31,7 +31,7 @@ class WalkthroughViewController: UIViewController, BindableType, LoadingDisplaya
         super.viewDidLoad()
         view.backgroundColor = .backgroundColor
                 
-        addSubview()
+        addSubviews()
         setupConstraints()
     }
         
@@ -90,7 +90,7 @@ class WalkthroughViewController: UIViewController, BindableType, LoadingDisplaya
             .disposed(by: disposeBag)
     }
     
-    private func addSubview() {
+    private func addSubviews() {
         view.addSubview(continueButton)
         view.addSubview(previousButton)
         view.addSubview(pagingView)

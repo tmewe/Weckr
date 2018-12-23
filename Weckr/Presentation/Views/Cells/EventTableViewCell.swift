@@ -10,7 +10,10 @@ import Foundation
 import UIKit
 import SwiftDate
 
-class EventTableViewCell: TileTableViewCell {
+class EventTableViewCell: TileTableViewCell, BasicInfoDisplayable {
+    
+    typealias Configuration = (String, CalendarEntry)
+    
     var gradientColor = (UIColor.morningRoutineCellLeft.cgColor, UIColor.morningRoutineCellRight.cgColor)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -31,7 +34,11 @@ class EventTableViewCell: TileTableViewCell {
         setupConstraints()
     }
     
-    func configure(with title: String, event: CalendarEntry) {
+    func configure(with configuration: (String, CalendarEntry)) {
+        
+        let title = configuration.0
+        let event = configuration.1
+        
         //Info
         infoView.headerInfoView.leftLabel.text = title
         infoView.headerInfoView.rightLabel.text =  "1 H 15 MIN"
@@ -81,27 +88,12 @@ class EventTableViewCell: TileTableViewCell {
         tileView.autoPinEdge(.bottom, to: .bottom, of: timespanLabel, withOffset: insets.bottom)
     }
     
-    let locationLabel: UILabel = {
-        let label = UILabel.newAutoLayout()
-        label.font = UIFont.systemFont(ofSize: Font.Size.TileCell.subTitle, weight: .semibold)
-        label.textColor = .white
-        label.alpha = 0.7
-        label.text = "Geschw.-Scholl-Platz 1"
-        return label
-    }()
-    
-    let timespanLabel: UILabel = {
-        let label = UILabel.newAutoLayout()
-        label.font = UIFont.systemFont(ofSize: Font.Size.TileCell.timespan, weight: .semibold)
+    var infoView = BasicInfoView()
+    private let locationLabel = SmallLabel()
+    private let timespanLabel: SmallLabel = {
+       let label = SmallLabel()
         label.textAlignment = .right
-        label.textColor = .white
-        label.alpha = 0.7
-        label.text = "08:45 - 10:00"
+        label.font = UIFont.systemFont(ofSize: Font.Size.TileCell.timespan, weight: .semibold)
         return label
-    }()
-    
-    let infoView: BasicInfoView = {
-        let view = BasicInfoView.newAutoLayout()
-        return view
     }()
 }

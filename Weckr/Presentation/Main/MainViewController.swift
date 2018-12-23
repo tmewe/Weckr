@@ -91,7 +91,7 @@ class MainViewController: UITableViewController {
                     return cell
                 case let .event(_, title, event):
                     let cell: EventTableViewCell = tableView.dequeueReusableCell(indexPath: indexPath)
-                    cell.configure(with: title, event: event)
+                    cell.configure(with: (title, event))
                     return cell
                 case let .routeOverview(_, route, date):
                     let cell: RouteOverviewTableViewCell = tableView.dequeueReusableCell(indexPath: indexPath)
@@ -108,9 +108,6 @@ class MainViewController: UITableViewController {
                 case let .routeCar(_, route):
                     let cell: RouteCarTableViewCell = tableView.dequeueReusableCell(indexPath: indexPath)
                     cell.configure(with: route)
-                    return cell
-                default:
-                    let cell: RouteOverviewTableViewCell = tableView.dequeueReusableCell(indexPath: indexPath)
                     return cell
                 }
         })

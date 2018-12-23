@@ -55,6 +55,7 @@ class SceneCoordinator: SceneCoordinatorType {
             navigationController.pushViewController(viewController, animated: true)
             
         case .modal:
+            viewController.modalPresentationStyle = .overCurrentContext
             currentViewController.present(viewController, animated: true) {
                 subject.onCompleted()
             }

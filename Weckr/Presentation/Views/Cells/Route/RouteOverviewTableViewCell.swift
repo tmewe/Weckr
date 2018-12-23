@@ -15,6 +15,8 @@ class RouteOverviewTableViewCell: TileTableViewCell, BasicInfoDisplayable {
     
     typealias Configuration = (Route, Date)
     
+    var infoView = BasicInfoView()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         gradient = Gradient(left: UIColor.routeCellLeft.cgColor,
@@ -45,9 +47,4 @@ class RouteOverviewTableViewCell: TileTableViewCell, BasicInfoDisplayable {
         infoView.headerInfoView.rightLabel.text = "\(Int(route.summary.travelTime/60)) min".uppercased()
         infoView.infoLabel.text = "Leave at " + dateText
     }
-    
-    var infoView: BasicInfoView = {
-        let view = BasicInfoView.newAutoLayout()
-        return view
-    }()
 }

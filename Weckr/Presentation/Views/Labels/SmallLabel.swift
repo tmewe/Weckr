@@ -10,8 +10,10 @@ import Foundation
 import UIKit
 
 class SmallLabel: UILabel {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    
+    init() {
+        super.init(frame: .zero)
+        translatesAutoresizingMaskIntoConstraints = false
         font = UIFont.systemFont(ofSize: Font.Size.TileCell.title, weight: .semibold)
         textColor = .white
         textAlignment = .left

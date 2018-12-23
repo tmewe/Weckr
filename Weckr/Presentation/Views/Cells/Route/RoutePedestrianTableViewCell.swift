@@ -13,6 +13,9 @@ class RoutePedestrianTableViewCell: TileTableViewCell, BasicInfoSubtitleDisplaya
     
     typealias Configuration = Maneuver
     
+    var infoView = BasicInfoView()
+    var distanceLabel = SmallLabel()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         gradient = Gradient(left: UIColor.routeCellLeft.cgColor,
@@ -57,11 +60,4 @@ class RoutePedestrianTableViewCell: TileTableViewCell, BasicInfoSubtitleDisplaya
         infoView.infoLabel.text = destination.noDots
         distanceLabel.text = "\(Int(configuration.length)) meters"
     }
-    
-    var infoView: BasicInfoView = {
-        let view = BasicInfoView.newAutoLayout()
-        return view
-    }()
-    
-    var distanceLabel = SmallLabel.newAutoLayout()
 }

@@ -78,6 +78,7 @@
 		49BD679921CFF09900A240E6 /* BaseEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BD679821CFF09900A240E6 /* BaseEditView.swift */; };
 		49BD679B21CFF10F00A240E6 /* TravelEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BD679A21CFF10F00A240E6 /* TravelEditView.swift */; };
 		49BD679D21CFF9F000A240E6 /* Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BD679C21CFF9F000A240E6 /* Gradient.swift */; };
+		49BD679F21D02DC100A240E6 /* BlurBackgroundDisplayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BD679E21D02DC100A240E6 /* BlurBackgroundDisplayable.swift */; };
 		49BE428121B839ED003EC071 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BE428021B839ED003EC071 /* Reusable.swift */; };
 		49BE428321B83A17003EC071 /* AlarmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BE428221B83A17003EC071 /* AlarmTableViewCell.swift */; };
 		49BE428521B83B72003EC071 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BE428421B83B72003EC071 /* UITableView+Extensions.swift */; };
@@ -186,6 +187,7 @@
 		49BD679821CFF09900A240E6 /* BaseEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseEditView.swift; sourceTree = "<group>"; };
 		49BD679A21CFF10F00A240E6 /* TravelEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelEditView.swift; sourceTree = "<group>"; };
 		49BD679C21CFF9F000A240E6 /* Gradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gradient.swift; sourceTree = "<group>"; };
+		49BD679E21D02DC100A240E6 /* BlurBackgroundDisplayable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurBackgroundDisplayable.swift; sourceTree = "<group>"; };
 		49BE428021B839ED003EC071 /* Reusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		49BE428221B83A17003EC071 /* AlarmTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTableViewCell.swift; sourceTree = "<group>"; };
 		49BE428421B83B72003EC071 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
@@ -525,6 +527,7 @@
 				49BE428021B839ED003EC071 /* Reusable.swift */,
 				49BD677F21CF991200A240E6 /* BasicInfoDisplayable.swift */,
 				49BD678E21CFE84E00A240E6 /* EditViewProtocol.swift */,
+				49BD679E21D02DC100A240E6 /* BlurBackgroundDisplayable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -793,6 +796,7 @@
 				49CE3D2B21AF227D00A05CD0 /* AlarmServiceType.swift in Sources */,
 				4924610421C2BC0E001C0D37 /* RouteOverviewTableViewCell.swift in Sources */,
 				493FA95221CE656B00C2FFA1 /* Sequence+Extensions.swift in Sources */,
+				49BD679F21D02DC100A240E6 /* BlurBackgroundDisplayable.swift in Sources */,
 				49BD678F21CFE84E00A240E6 /* EditViewProtocol.swift in Sources */,
 				49FAADD121A075070019D5FA /* NotificationPageViewModel.swift in Sources */,
 				22C8D192218B2DEB0029C1EA /* SceneCoordinator.swift in Sources */,

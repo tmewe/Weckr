@@ -13,6 +13,7 @@ class MorningRoutineEditView: BaseEditView, MorningRoutineEditViewProtocol {
     
     override init() {
         super.init()
+        backgroundColor = .clear
         addSubviews()
         addSubview(picker)
         picker.autoCenterInSuperview()

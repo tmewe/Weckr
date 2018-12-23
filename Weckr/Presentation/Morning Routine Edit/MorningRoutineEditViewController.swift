@@ -11,7 +11,7 @@ import UIKit
 
 class MorningRoutineEditViewController: UIViewController {
     
-    private var editView: MorningRoutineEditView!
+    private var editView = MorningRoutineEditView()
     private let gradient = Gradient(left: UIColor.walkthroughRedAccent.cgColor,
                                           right: UIColor.backGroundColorTransparent.cgColor)
     
@@ -25,15 +25,20 @@ class MorningRoutineEditViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        editView = MorningRoutineEditView()
+        setupViews()
+    }
+    
+    private func setupViews() {
+        view.isOpaque = false
+        view.backgroundColor = .clear
         view.addSubview(editView)
         editView.autoPinEdgesToSuperviewEdges()
         editView.button.setGradientForButton(gradient)
         
         let strings = Strings.Walkthrough.MorningRoutine.self
         editView.topLabel.setTextWithColoredPart(text: strings.title,
-                                        coloredText: strings.titleColored,
-                                        textColor: .white,
-                                        coloredColor: UIColor.walkthroughRedAccent)
+                                                 coloredText: strings.titleColored,
+                                                 textColor: .white,
+                                                 coloredColor: UIColor.walkthroughRedAccent)
     }
 }
