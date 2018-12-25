@@ -17,8 +17,8 @@ class TravelEditView: BaseEditView, TravelEditViewProtocol {
     override init() {
         super.init()
         addSubviews()
-        addSubview(segmentedControl)
         setupViews()
+        setupConstraints()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -26,8 +26,12 @@ class TravelEditView: BaseEditView, TravelEditViewProtocol {
     }
     
     private func setupViews() {
-        segmentedControl.autoCenterInSuperview()
-        segmentedControl.autoSetDimensions(to: CGSize(width: 300, height: 50))
+        addSubview(segmentedControl)
+        addSubview(switchContainer)
+        addSubview(weatherSwitch)
+        addSubview(infoButton)
+        addSubview(infoLabel)
+        
         button.setGradientForButton(gradient)
         
         let strings = Strings.Walkthrough.Travel.self
@@ -37,5 +41,51 @@ class TravelEditView: BaseEditView, TravelEditViewProtocol {
                                         coloredColor: UIColor.walkthroughOrangeAccent)
     }
     
-    var segmentedControl = VehicleSegmentedControl(items: ["Car", "Pedestrian", "Transit"])
+    private func setupConstraints() {
+        let insets = Constraints.Main.Edit.self
+        segmentedControl.autoCenterInSuperview()
+        segmentedControl.autoSetDimensions(to: CGSize(width: 300, height: 50))
+        
+        switchContainer.autoPinEdge(.top, to: .bottom, of: segmentedControl)
+        switchContainer.autoPinEdge(.bottom, to: .top, of: button)
+        switchContainer.autoPinEdge(.left, to: .left, of: self)
+        switchContainer.autoPinEdge(.right, to: .right, of: self)
+        
+        weatherSwitch.autoAlignAxis(.horizontal,
+                                    toSameAxisOf: switchContainer,
+                                    withOffset: insets.switchOffset)
+        weatherSwitch.autoPinEdge(.right, to: .right, of: self, withOffset: -insets.switchRight)
+        
+//        infoButton.autoSetDimensions(to: CGSize(width: 20, height: 20))
+        infoButton.autoAlignAxis(.horizontal, toSameAxisOf: weatherSwitch)
+        infoButton.autoPinEdge(.right, to: .left, of: weatherSwitch, withOffset: -20)
+        
+        infoLabel.autoPinEdge(.left, to: .left, of: self, withOffset: insets.titleLeft)
+        infoLabel.autoPinEdge(.right, to: .left, of: infoButton, withOffset: -50)
+        infoLabel.autoAlignAxis(.horizontal, toSameAxisOf: weatherSwitch)
+        infoLabel.autoSetDimension(.height, toSize: 30)
+    }
+    
+    lazy var segmentedControl = VehicleSegmentedControl(items: ["Car", "Pedestrian", "Transit"])
+    lazy var switchContainer = UIView.newAutoLayout()
+    lazy var weatherSwitch: UISwitch = {
+        let sw = UISwitch.newAutoLayout()
+        sw.tintColor = .walkthroughOrangeAccent
+        sw.onTintColor = .walkthroughOrangeAccent
+        return sw
+    }()
+    lazy var infoButton: UIButton = {
+        let button = UIButton(type: .infoLight)
+        button.tintColor = .walkthroughOrangeAccent
+        return button
+    }()
+    lazy var infoLabel: UILabel = {
+        let label = UILabel.newAutoLayout()
+        label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        label.textColor = .white
+        label.textAlignment = .left
+        label.alpha = 0.7
+        label.text = "Adjust for weather"
+        return label
+    }()
 }

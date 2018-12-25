@@ -72,6 +72,8 @@ struct Constraints {
             static let titleLeft: CGFloat = 50
             static let titleWidth: CGFloat = 272
             static let buttonBottom: CGFloat = 50
+            static let switchOffset: CGFloat = 50
+            static let switchRight: CGFloat = 50
         }
     }
 }
