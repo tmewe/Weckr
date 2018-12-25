@@ -36,7 +36,7 @@ class WalkthroughPageViewController: UIViewController {
         view.addSubview(topLabel)
         view.addSubview(bottomLabel)
         
-        if viewModel.inputs.vehicle != nil {
+        if viewModel.inputs.transportMode != nil {
             setupSegmentedControl()
         }
         
@@ -88,8 +88,8 @@ class WalkthroughPageViewController: UIViewController {
         segmentedControl.autoSetDimensions(to: CGSize(width: 300, height: 50))
         segmentedControl.autoCenterInSuperview()
         segmentedControl.rx.selectedSegmentIndex
-            .map { Vehicle(rawValue: $0) ?? Vehicle.car }
-            .bind(to: viewModel.inputs.vehicle!)
+            .map { TransportMode(mode: $0) }
+            .bind(to: viewModel.inputs.transportMode!)
             .disposed(by: disposeBag)
     }
     

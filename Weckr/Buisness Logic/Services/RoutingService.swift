@@ -11,7 +11,7 @@ import Moya
 import RxSwift
 
 protocol RoutingServiceType {
-    func route(with type: Vehicle, start: GeoCoordinate, end: GeoCoordinate, arrival: Date) -> Observable<Route>
+    func route(with type: TransportMode, start: GeoCoordinate, end: GeoCoordinate, arrival: Date) -> Observable<Route>
 }
 
 struct RoutingService: RoutingServiceType {
@@ -23,7 +23,7 @@ struct RoutingService: RoutingServiceType {
         self.hereMaps = hereMaps
     }
     
-    func route(with type: Vehicle,
+    func route(with type: TransportMode,
                start: GeoCoordinate,
                end: GeoCoordinate,
                arrival: Date) -> Observable<Route> {

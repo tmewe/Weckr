@@ -135,7 +135,7 @@ class WalkthroughViewModel: WalkthroughViewModelType {
             .share(replay: 1, scope: .forever)
         
         let vehiclePage = pages.filter { $0.viewModel is TravelPageViewModel }.first
-        guard let vehicle = vehiclePage?.viewModel.inputs.vehicle else {
+        guard let vehicle = vehiclePage?.viewModel.inputs.transportMode else {
             return
         }
         

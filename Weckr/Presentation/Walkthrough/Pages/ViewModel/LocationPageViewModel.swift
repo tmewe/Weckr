@@ -21,7 +21,7 @@ class LocationPageViewModel : WalkthroughSlideableType {
     private let locationManager = CLLocationManager()
     
     //Inputs
-    var vehicle: PublishSubject<Vehicle>?
+    var transportMode: PublishSubject<TransportMode>?
     var morningRoutineTime: PublishSubject<TimeInterval>?
     
     //Outputs

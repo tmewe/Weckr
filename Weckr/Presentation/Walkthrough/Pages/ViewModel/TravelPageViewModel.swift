@@ -17,7 +17,7 @@ class TravelPageViewModel : WalkthroughSlideableType {
     var actions: WalkthroughSlideableActionsType { return self }
     
     //Inputs
-    var vehicle: PublishSubject<Vehicle>?
+    var transportMode: PublishSubject<TransportMode>?
     var morningRoutineTime: PublishSubject<TimeInterval>?
     
     //Outputs
@@ -34,7 +34,7 @@ class TravelPageViewModel : WalkthroughSlideableType {
         let strings = Strings.Walkthrough.Travel.self
         
         //Inputs
-        vehicle = PublishSubject()
+        transportMode = PublishSubject()
         
         //Outputs
         accentColor = Observable.just(UIColor.walkthroughOrangeAccent.cgColor)

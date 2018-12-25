@@ -76,7 +76,7 @@ struct AlarmService: AlarmServiceType {
         
         let routingService = serviceFactory.createRouting()
         routingService.route(
-            with: .transit,
+            with: alarm.route!.transportMode,
             start: alarm.route.legs.first!.start.position,
             end: selectedEvent.location,
             arrival: selectedEvent.startDate)
@@ -107,7 +107,7 @@ struct AlarmService: AlarmServiceType {
         return Observable.just(alarm)
     }
     
-    func createAlarm(vehicle: Vehicle,
+    func createAlarm(vehicle: TransportMode,
                      morningRoutineTime: TimeInterval,
                      startLocation: GeoCoordinate,
                      serviceFactory: ServiceFactoryProtocol) -> Observable<Alarm> {

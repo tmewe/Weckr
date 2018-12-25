@@ -17,7 +17,7 @@ class MorningRoutinePageViewModel : WalkthroughSlideableType {
     var actions: WalkthroughSlideableActionsType { return self }
     
     //Inputs
-    var vehicle: PublishSubject<Vehicle>?
+    var transportMode: PublishSubject<TransportMode>?
     var morningRoutineTime: PublishSubject<TimeInterval>?
     
     //Outputs

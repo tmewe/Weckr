@@ -13,7 +13,7 @@ public enum HereMaps {
     static private let appId = "Jt2vDqlL03Qkx7t960Le"
     static private let appCode = "89VbFnAeuM24uxNsDIhdDA"
     
-    case route(mode: Vehicle, start: GeoCoordinate, end: GeoCoordinate, arrival: Date)
+    case route(mode: TransportMode, start: GeoCoordinate, end: GeoCoordinate, arrival: Date)
 }
 
 extension HereMaps: TargetType {
@@ -55,7 +55,7 @@ extension HereMaps: TargetType {
             switch value.mode {
             case .car:
                 parameters["mode"] = "fastest;car;traffic:enabled"
-            case .feet:
+            case .pedestrian:
                 parameters["mode"] = "fastest;pedestrian"
             case .transit:
                 parameters["mode"] = "fastest;publicTransportTimeTable"

@@ -35,7 +35,7 @@ protocol AlarmServiceType {
                 serviceFactory: ServiceFactoryProtocol,
                 disposeBag: DisposeBag)
     
-    func createAlarm(vehicle: Vehicle,
+    func createAlarm(vehicle: TransportMode,
                      morningRoutineTime: TimeInterval,
                      startLocation: GeoCoordinate,
                      serviceFactory: ServiceFactoryProtocol) -> Observable<Alarm>

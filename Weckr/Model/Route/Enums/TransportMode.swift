@@ -8,8 +8,19 @@
 
 import Foundation
 
-enum TransportMode: String {
-    case pedestrian = "pedestrian"
+public enum TransportMode: String {
     case car = "car"
+    case pedestrian = "pedestrian"
     case transit = "publicTransportTimeTable"
+    
+    init(mode: Int) {
+        switch mode {
+        case 0:
+            self = .car
+        case 2:
+            self = .transit
+        default:
+            self = .pedestrian
+        }
+    }
 }

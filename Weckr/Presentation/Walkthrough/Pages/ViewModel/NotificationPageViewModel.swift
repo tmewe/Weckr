@@ -21,7 +21,7 @@ class NotificationPageViewModel : WalkthroughSlideableType {
     private let disposeBag = DisposeBag()
 
     //Inputs
-    var vehicle: PublishSubject<Vehicle>?
+    var transportMode: PublishSubject<TransportMode>?
     var morningRoutineTime: PublishSubject<TimeInterval>?
     
     //Outputs
