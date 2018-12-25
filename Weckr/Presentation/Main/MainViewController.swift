@@ -71,6 +71,13 @@ class MainViewController: UITableViewController, BindableType {
             .bind(to: viewModel.actions.presentMorningRoutineEdit.inputs)
             .disposed(by: disposeBag)
         
+        //Calendar selected
+        tableView.rx.itemSelected
+            .filter { self.tableView.cellForRow(at: $0) is EventTableViewCell }
+            .map { self.tableView.deselectRow(at: $0, animated: false) }
+            .bind(to: viewModel.actions.presentCalendarEdit.inputs)
+            .disposed(by: disposeBag)
+        
         //Route selected
         tableView.rx.itemSelected
             .filter { self.tableView.cellForRow(at: $0) is RouteOverviewTableViewCell }

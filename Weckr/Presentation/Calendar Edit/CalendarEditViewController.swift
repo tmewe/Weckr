@@ -37,7 +37,7 @@ class CalendarEditViewController: UIViewController, BindableType {
         view.isOpaque = false
         view.backgroundColor = .clear
         view.addSubview(editView)
-        editView.autoPinEdgesToSuperviewSafeArea()
+        editView.autoPinEdgesToSuperviewEdges()
     }
     
     func bindViewModel() {

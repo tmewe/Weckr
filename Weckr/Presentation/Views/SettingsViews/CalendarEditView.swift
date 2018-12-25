@@ -17,8 +17,9 @@ class CalendarEditView: UIView, CalendarEditViewProtocol, BlurBackgroundDisplaya
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         setupBlur(on: blurEffectView, withStyle: .dark)
+        tableView.backgroundColor = .clear
         addSubview(tableView)
-        tableView.autoPinEdgesToSuperviewEdges()
+        tableView.autoPinEdgesToSuperviewSafeArea()
     }
     
     required init?(coder aDecoder: NSCoder) {
