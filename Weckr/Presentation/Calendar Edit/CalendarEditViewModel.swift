@@ -92,6 +92,10 @@ class CalendarEditViewModel: CalendarEditViewModelType {
     //Actions
     lazy var dismiss: Action<EventEditWrapper, Void> = { [weak self] this in
         return Action { wrapper in
+            guard wrapper.event != this.alarm.selectedEvent else {
+                return this.coordinator.pop(animated: true)
+            }
+            
             this.alarmService.update(alarm: this.alarm,
                                 with: wrapper.event,
                                 serviceFactory: this.serviceFactory,
