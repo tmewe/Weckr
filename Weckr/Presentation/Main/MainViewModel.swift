@@ -65,7 +65,7 @@ class MainViewModel: MainViewModelType {
         self.coordinator = coordinator
         self.alarmService = serviceFactory.createAlarm()
         
-        let nextAlarm = alarmService.currentAlarmObservable().debug().share(replay: 1, scope: .forever)
+        let nextAlarm = alarmService.currentAlarmObservable().share(replay: 1, scope: .forever)
         
         let alarmItem = nextAlarm.map { [SectionItem.alarm(identity: "alarm", date: $0.date)] }
         let morningRoutineItem = nextAlarm

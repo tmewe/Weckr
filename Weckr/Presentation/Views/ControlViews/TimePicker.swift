@@ -10,14 +10,11 @@ import Foundation
 import UIKit
 
 class TimePicker: UIDatePicker {
+    //FIXME: - Weird behaviour at first pick
     init() {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
-//        DispatchQueue.main.async {
-//            self.datePickerMode = .countDownTimer
-//            self.countDownDuration = 1
-//        }
-        datePickerMode = .countDownTimer
+        self.datePickerMode = .countDownTimer
         setValue(UIColor.textColor, forKeyPath: "textColor")
     }
     
