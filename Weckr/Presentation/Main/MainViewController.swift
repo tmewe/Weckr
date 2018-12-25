@@ -67,14 +67,14 @@ class MainViewController: UITableViewController, BindableType {
         //Morning routine selected
         tableView.rx.itemSelected
             .filter { self.tableView.cellForRow(at: $0) is MorningRoutineTableViewCell }
-            .map { _ in Void() }
+            .map { self.tableView.deselectRow(at: $0, animated: false) }
             .bind(to: viewModel.actions.presentMorningRoutineEdit.inputs)
             .disposed(by: disposeBag)
         
         //Route selected
         tableView.rx.itemSelected
             .filter { self.tableView.cellForRow(at: $0) is RouteOverviewTableViewCell }
-            .map { _ in Void() }
+            .map { self.tableView.deselectRow(at: $0, animated: false) }
             .bind(to: viewModel.inputs.toggleRouteVisibility)
             .disposed(by: disposeBag)
     }
