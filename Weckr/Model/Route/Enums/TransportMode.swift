@@ -24,3 +24,16 @@ public enum TransportMode: String {
         }
     }
 }
+
+extension TransportMode {
+    var rawValueInt: Int {
+        switch self {
+        case .car:
+            return 0
+        case .pedestrian:
+            return 1
+        case .transit:
+            return 2
+        }
+    }
+}

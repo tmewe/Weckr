@@ -195,7 +195,7 @@ class MainViewModel: MainViewModelType {
         return CocoaAction {
             guard let alarm = self.alarmService.currentAlarm() else { return Observable.empty() }
             let viewModel = self.viewModelFactory
-                .createMorningRoutineEdit(alarm: alarm, coordinator: self.coordinator)
+                .createMorningRoutineEdit(time: alarm.morningRoutine, coordinator: self.coordinator)
             return self.coordinator.transition(to: Scene.morningRoutingEdit(viewModel), withType: .modal)
         }
     }()

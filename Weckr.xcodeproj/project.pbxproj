@@ -68,6 +68,8 @@
 		49BD3FD321D256B400939766 /* CalendarEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BD3FD221D256B400939766 /* CalendarEditViewController.swift */; };
 		49BD3FD521D256BD00939766 /* CalendarEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BD3FD421D256BD00939766 /* CalendarEditViewModel.swift */; };
 		49BD3FD721D2581000939766 /* CalendarEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BD3FD621D2581000939766 /* CalendarEditView.swift */; };
+		49BD3FDA21D28D1300939766 /* TravelEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BD3FD921D28D1300939766 /* TravelEditViewController.swift */; };
+		49BD3FDC21D28D1E00939766 /* TravelEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BD3FDB21D28D1E00939766 /* TravelEditViewModel.swift */; };
 		49BD677E21CF98C200A240E6 /* RouteCarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BD677D21CF98C200A240E6 /* RouteCarTableViewCell.swift */; };
 		49BD678021CF991200A240E6 /* BasicInfoDisplayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BD677F21CF991200A240E6 /* BasicInfoDisplayable.swift */; };
 		49BD678521CFA17700A240E6 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BD678421CFA17700A240E6 /* Strings.swift */; };
@@ -180,6 +182,8 @@
 		49BD3FD221D256B400939766 /* CalendarEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEditViewController.swift; sourceTree = "<group>"; };
 		49BD3FD421D256BD00939766 /* CalendarEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEditViewModel.swift; sourceTree = "<group>"; };
 		49BD3FD621D2581000939766 /* CalendarEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEditView.swift; sourceTree = "<group>"; };
+		49BD3FD921D28D1300939766 /* TravelEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelEditViewController.swift; sourceTree = "<group>"; };
+		49BD3FDB21D28D1E00939766 /* TravelEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelEditViewModel.swift; sourceTree = "<group>"; };
 		49BD677D21CF98C200A240E6 /* RouteCarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteCarTableViewCell.swift; sourceTree = "<group>"; };
 		49BD677F21CF991200A240E6 /* BasicInfoDisplayable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicInfoDisplayable.swift; sourceTree = "<group>"; };
 		49BD678421CFA17700A240E6 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
@@ -447,6 +451,7 @@
 				49B4663F21CAF8EB00BE810C /* Main */,
 				49BD678621CFE71F00A240E6 /* Morning Routine Edit */,
 				49BD3FD121D2569200939766 /* Calendar Edit */,
+				49BD3FD821D28CC900939766 /* Travel Edit */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -542,10 +547,21 @@
 		49BD3FD121D2569200939766 /* Calendar Edit */ = {
 			isa = PBXGroup;
 			children = (
+				49BD3FD621D2581000939766 /* CalendarEditView.swift */,
 				49BD3FD221D256B400939766 /* CalendarEditViewController.swift */,
 				49BD3FD421D256BD00939766 /* CalendarEditViewModel.swift */,
 			);
 			path = "Calendar Edit";
+			sourceTree = "<group>";
+		};
+		49BD3FD821D28CC900939766 /* Travel Edit */ = {
+			isa = PBXGroup;
+			children = (
+				49BD679A21CFF10F00A240E6 /* TravelEditView.swift */,
+				49BD3FD921D28D1300939766 /* TravelEditViewController.swift */,
+				49BD3FDB21D28D1E00939766 /* TravelEditViewModel.swift */,
+			);
+			path = "Travel Edit";
 			sourceTree = "<group>";
 		};
 		49BD678321CFA15D00A240E6 /* Localization */ = {
@@ -560,6 +576,7 @@
 		49BD678621CFE71F00A240E6 /* Morning Routine Edit */ = {
 			isa = PBXGroup;
 			children = (
+				49BD678C21CFE7BF00A240E6 /* MorningRoutineEditView.swift */,
 				49BD678721CFE74100A240E6 /* MorningRoutineEditViewController.swift */,
 				49BD678921CFE74C00A240E6 /* MorningRoutineEditViewModel.swift */,
 			);
@@ -570,9 +587,6 @@
 			isa = PBXGroup;
 			children = (
 				49BD679821CFF09900A240E6 /* BaseEditView.swift */,
-				49BD678C21CFE7BF00A240E6 /* MorningRoutineEditView.swift */,
-				49BD679A21CFF10F00A240E6 /* TravelEditView.swift */,
-				49BD3FD621D2581000939766 /* CalendarEditView.swift */,
 			);
 			path = SettingsViews;
 			sourceTree = "<group>";
@@ -881,6 +895,7 @@
 				8415D34E21CA9D1500F28E13 /* UIControl+Extensions.swift in Sources */,
 				49B4663921CAEEB400BE810C /* MainApplication.swift in Sources */,
 				49BD678D21CFE7BF00A240E6 /* MorningRoutineEditView.swift in Sources */,
+				49BD3FDC21D28D1E00939766 /* TravelEditViewModel.swift in Sources */,
 				49BD678821CFE74100A240E6 /* MorningRoutineEditViewController.swift in Sources */,
 				8415D34C21CA98C200F28E13 /* VehicleSegmentedControl+Extension.swift in Sources */,
 				49EF7AD221A72CB600FEDFEC /* Waypoint.swift in Sources */,
@@ -907,6 +922,7 @@
 				49BD679B21CFF10F00A240E6 /* TravelEditView.swift in Sources */,
 				498ED01A21C13A1F003FFF5B /* TileView.swift in Sources */,
 				22C51525219EF6EB003783A7 /* LandingPageViewModel.swift in Sources */,
+				49BD3FDA21D28D1300939766 /* TravelEditViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

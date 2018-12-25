@@ -40,26 +40,21 @@ class MorningRoutineEditViewModel: MorningRoutineEditViewModelType {
     var currentTime: Observable<TimeInterval>
     
     //Setup
-    private let alarm: Alarm
-    private let alarmService: AlarmServiceType
     private let coordinator: SceneCoordinatorType
     
-    init(alarm: Alarm, serviceFactory: ServiceFactoryProtocol, coordinator: SceneCoordinatorType) {
-        self.alarm = alarm
-        self.alarmService = serviceFactory.createAlarm()
+    init(morningRoutine: TimeInterval, coordinator: SceneCoordinatorType) {
         self.coordinator = coordinator
         
         //Inputs
         time = PublishSubject()
         
         //Outputs
-        currentTime = Observable.just(alarm.morningRoutine)
+        currentTime = Observable.just(morningRoutine)
     }
     
     //Actions
     lazy var dismiss: Action<TimeInterval, Void> = { [weak self] this in
         return Action { time in
-//            self?.alarmService
             let userDefaults = UserDefaults.standard
             userDefaults.set(time, forKey: SettingsKeys.morningRoutineTime)
             userDefaults.synchronize()
