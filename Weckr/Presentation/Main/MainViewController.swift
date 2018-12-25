@@ -78,11 +78,23 @@ class MainViewController: UITableViewController, BindableType {
             .bind(to: viewModel.actions.presentCalendarEdit.inputs)
             .disposed(by: disposeBag)
         
-        //Route selected
+        //Route overview selected
         tableView.rx.itemSelected
             .filter { self.tableView.cellForRow(at: $0) is RouteOverviewTableViewCell }
             .map { self.tableView.deselectRow(at: $0, animated: false) }
             .bind(to: viewModel.inputs.toggleRouteVisibility)
+            .disposed(by: disposeBag)
+        
+        //Route edit selected
+        tableView.rx.itemSelected
+            .filter {
+                let cell = self.tableView.cellForRow(at: $0)
+                return cell is RoutePedestrianTableViewCell
+                    || cell is RouteTransitTableViewCell
+                    || cell is RouteCarTableViewCell
+            }
+            .map { self.tableView.deselectRow(at: $0, animated: false) }
+            .bind(to: viewModel.actions.presentTravelEdit.inputs)
             .disposed(by: disposeBag)
     }
     

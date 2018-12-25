@@ -17,8 +17,6 @@ class MorningRoutineEditViewController: UIViewController, BindableType {
     
     private var editView = MorningRoutineEditView()
     private let disposeBag = DisposeBag()
-    private let gradient = Gradient(left: UIColor.walkthroughRedAccent.cgColor,
-                                          right: UIColor.backGroundColorTransparent.cgColor)
     var viewModel: ViewModelType!
     
     init(viewModel: ViewModelType) {
@@ -40,13 +38,6 @@ class MorningRoutineEditViewController: UIViewController, BindableType {
         view.backgroundColor = .clear
         view.addSubview(editView)
         editView.autoPinEdgesToSuperviewEdges()
-        editView.button.setGradientForButton(gradient)
-        
-        let strings = Strings.Walkthrough.MorningRoutine.self
-        editView.topLabel.setTextWithColoredPart(text: strings.title,
-                                                 coloredText: strings.titleColored,
-                                                 textColor: .white,
-                                                 coloredColor: UIColor.walkthroughRedAccent)
     }
     
     func bindViewModel() {

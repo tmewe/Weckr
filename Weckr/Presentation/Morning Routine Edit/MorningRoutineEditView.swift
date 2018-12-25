@@ -17,12 +17,23 @@ class MorningRoutineEditView: BaseEditView, MorningRoutineEditViewProtocol {
         super.init()
         addSubviews()
         addSubview(picker)
-        picker.autoCenterInSuperview()
-        button.setGradientForButton(gradient)
+        setupViews()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+    
+    private func setupViews() {
+        picker.autoCenterInSuperview()
+        button.setGradientForButton(gradient)
+        button.setGradientForButton(gradient)
+        
+        let strings = Strings.Walkthrough.MorningRoutine.self
+        topLabel.setTextWithColoredPart(text: strings.title,
+                                                 coloredText: strings.titleColored,
+                                                 textColor: .white,
+                                                 coloredColor: UIColor.walkthroughRedAccent)
     }
     
     var picker = TimePicker()
