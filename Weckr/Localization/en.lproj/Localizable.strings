@@ -62,6 +62,8 @@
 "edit.morningRoutine" = "How long is your morning routine?";
 "edit.travel" = "How do you travel?";
 "edit.done" = "Done";
+"edit.firstEvent" = "First event";
+"edit.alternativeEvent" = "Alternative";
 
 //Directions
 "direction.north" = "Head north";

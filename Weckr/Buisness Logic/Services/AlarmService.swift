@@ -61,15 +61,37 @@ struct AlarmService: AlarmServiceType {
         return result!
     }
     
-    @discardableResult
-    func update(alarm: Alarm, with morningRoutineTime: TimeInterval) -> Observable<Alarm> {
+    func update(alarm: Alarm, with morningRoutineTime: TimeInterval) {
         let realm = try! Realm()
         try! realm.write {
             alarm.morningRoutine = morningRoutineTime
         }
-        return calculateDate(for: alarm)
+        calculateDate(for: alarm)
     }
     
+    func update(alarm: Alarm,
+                with selectedEvent: CalendarEntry,
+                serviceFactory: ServiceFactoryProtocol,
+                disposeBag: DisposeBag) {
+        
+        let routingService = serviceFactory.createRouting()
+        routingService.route(
+            with: .transit,
+            start: alarm.route.legs.first!.start.position,
+            end: selectedEvent.location,
+            arrival: selectedEvent.startDate)
+            .subscribe(onNext: { route in
+                let realm = try! Realm()
+                try! realm.write {
+                    alarm.selectedEvent = selectedEvent
+                    alarm.route = route
+                }
+                self.calculateDate(for: alarm)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    @discardableResult
     func calculateDate(for alarm: Alarm) -> Observable<Alarm> {
         guard let eventStartDate = alarm.selectedEvent.startDate else {
             return Observable.just(alarm)

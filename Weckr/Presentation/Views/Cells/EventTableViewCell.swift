@@ -13,9 +13,7 @@ import SwiftDate
 class EventTableViewCell: TileTableViewCell, BasicInfoDisplayable {
     
     typealias Configuration = (String, CalendarEntry)
-    
-    var gradientColor = (UIColor.morningRoutineCellLeft.cgColor, UIColor.morningRoutineCellRight.cgColor)
-    
+        
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         gradient = Gradient(left: UIColor.eventCellLeft.cgColor,

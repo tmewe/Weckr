@@ -49,13 +49,22 @@ class CalendarEditViewController: UIViewController, BindableType {
             .asDriver(onErrorJustReturn: [])
             .drive(editView.tableView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
+        
+        editView.tableView.rx.itemSelected
+            .map { [weak self] indexPath in
+                self?.editView.tableView.deselectRow(at: indexPath, animated: false)
+                return try! self?.dataSource?.model(at: indexPath) as! EventEditWrapper
+            }
+            .bind(to: viewModel.actions.dismiss.inputs)
+            .disposed(by: disposeBag)
     }
     
     private func configureDataSource() -> RxTableViewSectionedReloadDataSource<EventsSection> {
         let dataSource = RxTableViewSectionedReloadDataSource<EventsSection>(
-            configureCell: { dataSource, tableView, indexPath, event in
+            configureCell: { dataSource, tableView, indexPath, item in
                 let cell = tableView.dequeueReusableCell(indexPath: indexPath) as EventTableViewCell
-                cell.configure(with: ("first event", event))
+                cell.configure(with: (item.description, item.event))
+                cell.gradient = item.gradient
                 return cell
         })
     

@@ -25,4 +25,9 @@ class CalendarEntry: Object {
         self.adress = adress
         self.location = location
     }
+    
+    override func isEqual(_ object: Any?) -> Bool {
+        guard let entry = object as? CalendarEntry else { return false }
+        return title == entry.title && startDate == entry.startDate && endDate == entry.endDate
+    }
 }

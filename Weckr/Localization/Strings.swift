@@ -75,6 +75,8 @@ struct Strings {
             static let morningRoutineTitle = "edit.morningRoutine".localized
             static let travelTitle = "edit.travel".localized
             static let done = "edit.done".localized
+            static let firstEvent = "edit.firstEvent".localized
+            static let alternativeEvent = "edit.alternativeEvent".localized
         }
     }
     

@@ -161,4 +161,12 @@ extension UIColor {
     class var routeCellRight: UIColor {
         return #colorLiteral(red: 0.2705882353, green: 0.4078431373, blue: 0.4588235294, alpha: 1)
     }
+    
+    class var eventEditCellLeft: UIColor {
+        return #colorLiteral(red: 0.1411764706, green: 0.1450980392, blue: 0.1490196078, alpha: 1)
+    }
+    
+    class var eventEditCellRight: UIColor {
+        return #colorLiteral(red: 0.1411764706, green: 0.2666666667, blue: 0.3098039216, alpha: 1)
+    }
 }
