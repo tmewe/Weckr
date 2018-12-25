@@ -44,12 +44,14 @@ class TravelEditViewController: UIViewController, BindableType {
         editView.button.rx.tap
             .withLatestFrom(editView.segmentedControl.rx.selectedSegmentIndex)
             .map { TransportMode(mode: $0) }
+            .debug()
             .bind(to: viewModel.actions.dismiss.inputs)
             .disposed(by: disposeBag)
         
         viewModel.outputs.currentMode
             .asDriver(onErrorJustReturn: .pedestrian)
             .map { $0.rawValueInt }
+            .delay(0.1)
             .drive(editView.segmentedControl.rx.selectedSegmentIndex)
             .disposed(by: disposeBag)
     }
