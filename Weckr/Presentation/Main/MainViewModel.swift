@@ -47,16 +47,21 @@ class MainViewModel: MainViewModelType {
     //Setup
     private let coordinator: SceneCoordinatorType
     private let serviceFactory: ServiceFactoryProtocol
+    private let viewModelFactory: ViewModelFactoryProtocol
+    private let alarmService: AlarmServiceType
     private let disposeBag = DisposeBag()
 
-    init(serviceFactory: ServiceFactoryProtocol, coordinator: SceneCoordinatorType) {
+    init(serviceFactory: ServiceFactoryProtocol,
+         viewModelFactory: ViewModelFactoryProtocol,
+         coordinator: SceneCoordinatorType) {
         
         //Setup
         self.serviceFactory = serviceFactory
+        self.viewModelFactory = viewModelFactory
         self.coordinator = coordinator
+        self.alarmService = serviceFactory.createAlarm()
         
-        let alarmService = serviceFactory.createAlarm()
-        let nextAlarm = alarmService.nextAlarm().share(replay: 1, scope: .forever)
+        let nextAlarm = alarmService.currentAlarmObservable().share(replay: 1, scope: .forever)
         
         let alarmItem = nextAlarm.map { [SectionItem.alarm(identity: "alarm", date: $0.date)] }
         let morningRoutineItem = nextAlarm
@@ -159,7 +164,10 @@ class MainViewModel: MainViewModelType {
     
     lazy var presentMorningRoutineEdit: CocoaAction = {
         return CocoaAction {
-            return self.coordinator.transition(to: Scene.morningRoutingEdit(), withType: .modal)
+            guard let alarm = self.alarmService.currentAlarm() else { return Observable.empty() }
+            let viewModel = self.viewModelFactory
+                .createMorningRoutineEdit(alarm: alarm, coordinator: self.coordinator)
+            return self.coordinator.transition(to: Scene.morningRoutingEdit(viewModel), withType: .modal)
         }
     }()
 }

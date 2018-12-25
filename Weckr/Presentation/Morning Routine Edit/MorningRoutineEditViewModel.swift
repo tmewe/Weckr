@@ -11,13 +11,15 @@ import RxSwift
 import Action
 
 protocol MorningRoutineEditViewModelInputsType {
-    var time: PublishSubject<TimeIntervall> { get }
+    var time: PublishSubject<TimeInterval> { get }
 }
 
-protocol MorningRoutineEditViewModelOutputsType {}
+protocol MorningRoutineEditViewModelOutputsType {
+    var currentTime: Observable<TimeInterval> { get }
+}
 
 protocol MorningRoutineEditViewModelActionsType {
-    var dismiss: CocoaAction { get }
+    var dismiss: Action<TimeInterval, Void> { get }
 }
 
 protocol MorningRoutineEditViewModelType {
@@ -32,22 +34,35 @@ class MorningRoutineEditViewModel: MorningRoutineEditViewModelType {
     var actions: MorningRoutineEditViewModelActionsType { return self }
     
     //Inputs
+    var time: PublishSubject<TimeInterval>
     
     //Outputs
+    var currentTime: Observable<TimeInterval>
     
     //Setup
+    private let alarm: Alarm
+    private let alarmService: AlarmServiceType
     private let coordinator: SceneCoordinatorType
     
-    init(coordinator: SceneCoordinatorType) {
+    init(alarm: Alarm, serviceFactory: ServiceFactoryProtocol, coordinator: SceneCoordinatorType) {
+        self.alarm = alarm
+        self.alarmService = serviceFactory.createAlarm()
         self.coordinator = coordinator
+        
+        //Inputs
+        time = PublishSubject()
+        
+        //Outputs
+        currentTime = Observable.just(alarm.morningRoutine)
     }
     
     //Actions
-    lazy var dismiss: CocoaAction = {
-        return CocoaAction {
+    lazy var dismiss: Action<TimeInterval, Void> = { [weak self] this in
+        return Action { time in
+            self?.alarmService
             return self.coordinator.pop(animated: true)
         }
-    }()
+    }(self)
 }
 
 extension MorningRoutineEditViewModel: MorningRoutineEditViewModelInputsType, MorningRoutineEditViewModelOutputsType, MorningRoutineEditViewModelActionsType {}

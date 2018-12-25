@@ -24,7 +24,13 @@ protocol AlarmServiceType {
 //    func allAlarms() -> Observable<Results<Alarm>>
 
     @discardableResult
-    func nextAlarm() -> Observable<Alarm>
+    func currentAlarmObservable() -> Observable<Alarm>
+    
+    @discardableResult
+    func currentAlarm() -> Alarm?
+    
+    func update(alarm: Alarm, with morningRoutineTime: TimeInterval)
+    
     
     func createAlarm(startLocation: GeoCoordinate, vehicle: Vehicle, morningRoutineTime: TimeInterval, calendarService: CalendarServiceType, weatherService: WeatherServiceType, routingService: RoutingServiceType) -> Observable<Alarm>
 }

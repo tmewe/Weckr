@@ -12,6 +12,8 @@ protocol ViewModelFactoryProtocol {
     func createMain(coordinator: SceneCoordinatorType) -> MainViewModelType
     func createWalkthrough(with pages: [WalkthroughPageViewController],
                            coordinator: SceneCoordinatorType) -> WalkthroughViewModelType
+    func createMorningRoutineEdit(alarm: Alarm, coordinator: SceneCoordinatorType)
+        -> MorningRoutineEditViewModelType
 }
 
 protocol ServiceFactoryProtocol {
@@ -35,7 +37,7 @@ extension DependencyContainer {
 
 extension DependencyContainer: ViewModelFactoryProtocol {
     func createMain(coordinator: SceneCoordinatorType) -> MainViewModelType {
-        return MainViewModel(serviceFactory: self, coordinator: coordinator)
+        return MainViewModel(serviceFactory: self, viewModelFactory: self, coordinator: coordinator)
     }
     
     func createWalkthrough(with pages: [WalkthroughPageViewController],
@@ -44,6 +46,13 @@ extension DependencyContainer: ViewModelFactoryProtocol {
                                     viewModelFactory: self,
                                     serviceFactory: self,
                                     coordinator: coordinator)
+    }
+    
+    func createMorningRoutineEdit(alarm: Alarm, coordinator: SceneCoordinatorType)
+        -> MorningRoutineEditViewModelType {
+        return MorningRoutineEditViewModel(alarm: alarm,
+                                           serviceFactory: self,
+                                           coordinator: coordinator)
     }
 }
 

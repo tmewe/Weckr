@@ -39,7 +39,7 @@ struct AlarmService: AlarmServiceType {
     }
     
     @discardableResult
-    func nextAlarm() -> Observable<Alarm> {
+    func currentAlarmObservable() -> Observable<Alarm> {
         let result = withRealm("getting alarms") { realm -> Observable<Alarm> in
             let alarms = realm.objects(Alarm.self)
             return Observable.array(from: alarms)
@@ -48,6 +48,24 @@ struct AlarmService: AlarmServiceType {
                 .filterNil()
         }
         return result ?? .empty()
+    }
+    
+    @discardableResult
+    func currentAlarm() -> Alarm? {
+        let result = withRealm("getting alarms") { realm -> Alarm? in
+            let alarms = realm.objects(Alarm.self)
+            return alarms
+                .sorted { $0.date < $1.date }
+                .first(where: { $0.date > Date() })
+        }
+        return result!
+    }
+    
+    func update(alarm: Alarm, with morningRoutineTime: TimeInterval) {
+        let realm = try! Realm()
+        try! realm.write {
+            alarm.morningRoutine = morningRoutineTime
+        }
     }
     
     func calculateDate(for alarm: Alarm) -> Observable<Alarm> {

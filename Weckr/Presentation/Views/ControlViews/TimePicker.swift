@@ -13,10 +13,11 @@ class TimePicker: UIDatePicker {
     init() {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
-        DispatchQueue.main.async {
-            self.datePickerMode = .countDownTimer
-            self.countDownDuration = 1
-        }
+//        DispatchQueue.main.async {
+//            self.datePickerMode = .countDownTimer
+//            self.countDownDuration = 1
+//        }
+        datePickerMode = .countDownTimer
         setValue(UIColor.textColor, forKeyPath: "textColor")
     }
     

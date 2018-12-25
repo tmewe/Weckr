@@ -19,8 +19,9 @@ extension Scene {
             let vc = WalkthroughViewController(viewModel: viewModel)
             vc.bindViewModel()
             return vc
-        case .morningRoutingEdit():
-            let vc = MorningRoutineEditViewController()
+        case .morningRoutingEdit(let viewModel):
+            let vc = MorningRoutineEditViewController(viewModel: viewModel)
+            vc.bindViewModel()
             return vc
         }
     }

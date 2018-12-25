@@ -8,14 +8,21 @@
 
 import Foundation
 import UIKit
+import RxSwift
+import RxCocoa
 
-class MorningRoutineEditViewController: UIViewController {
+class MorningRoutineEditViewController: UIViewController, BindableType {
+    
+    typealias ViewModelType = MorningRoutineEditViewModelType
     
     private var editView = MorningRoutineEditView()
+    private let disposeBag = DisposeBag()
     private let gradient = Gradient(left: UIColor.walkthroughRedAccent.cgColor,
                                           right: UIColor.backGroundColorTransparent.cgColor)
+    var viewModel: ViewModelType!
     
-    init() {
+    init(viewModel: ViewModelType) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -40,5 +47,17 @@ class MorningRoutineEditViewController: UIViewController {
                                                  coloredText: strings.titleColored,
                                                  textColor: .white,
                                                  coloredColor: UIColor.walkthroughRedAccent)
+    }
+    
+    func bindViewModel() {
+        editView.button.rx.tap
+            .withLatestFrom(editView.picker.rx.countDownDuration)
+            .bind(to: viewModel.actions.dismiss.inputs)
+            .disposed(by: disposeBag)
+        
+        viewModel.outputs.currentTime
+            .asDriver(onErrorJustReturn: 60)
+            .drive(editView.picker.rx.countDownDuration)
+            .disposed(by: disposeBag)
     }
 }

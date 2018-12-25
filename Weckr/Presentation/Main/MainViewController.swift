@@ -13,13 +13,15 @@ import RxDataSources
 import FoldingCell
 import Action
 
-class MainViewController: UITableViewController {
+class MainViewController: UITableViewController, BindableType {
     
-    private var viewModel: MainViewModelType!
+    typealias ViewModelType = MainViewModelType
+    
+    var viewModel: ViewModelType!
     private var dataSource: RxTableViewSectionedAnimatedDataSource<AlarmSection>!
     private let disposeBag = DisposeBag()
     
-    init(viewModel: MainViewModelType) {
+    init(viewModel: ViewModelType) {
         super.init(nibName: nil, bundle: nil)
         self.viewModel = viewModel
     }
@@ -36,7 +38,7 @@ class MainViewController: UITableViewController {
         bindViewModel()
     }
     
-    private func bindViewModel() {
+    func bindViewModel() {
         viewModel.outputs.sections
             .asDriver(onErrorJustReturn: [])
             .drive(tableView.rx.items(dataSource: dataSource))
