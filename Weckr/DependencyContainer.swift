@@ -14,6 +14,8 @@ protocol ViewModelFactoryProtocol {
                            coordinator: SceneCoordinatorType) -> WalkthroughViewModelType
     func createMorningRoutineEdit(alarm: Alarm, coordinator: SceneCoordinatorType)
         -> MorningRoutineEditViewModelType
+    func createCalendarEdit(alarm: Alarm, coordinator: SceneCoordinatorType)
+        -> CalendarEditViewModelType
 }
 
 protocol ServiceFactoryProtocol {
@@ -53,6 +55,11 @@ extension DependencyContainer: ViewModelFactoryProtocol {
         return MorningRoutineEditViewModel(alarm: alarm,
                                            serviceFactory: self,
                                            coordinator: coordinator)
+    }
+    
+    func createCalendarEdit(alarm: Alarm, coordinator: SceneCoordinatorType)
+        -> CalendarEditViewModelType {
+        return CalendarEditViewModel(alarm: alarm, serviceFactory: self, coordinator: coordinator)
     }
 }
 

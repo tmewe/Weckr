@@ -11,16 +11,20 @@ import UIKit
 import Action
 
 protocol EditViewProtocol {
-    var topLabel: WalkthroughTitleLabel { get set }
-    var button: RoundedButton { get set }
+    var topLabel: WalkthroughTitleLabel { get }
+    var button: RoundedButton { get }
 }
 
 protocol MorningRoutineEditViewProtocol: EditViewProtocol {
-    var picker: TimePicker { get set }
+    var picker: TimePicker { get }
 }
 
 protocol TravelEditViewProtocol: EditViewProtocol {
-    var segmentedControl: VehicleSegmentedControl { get set }
+    var segmentedControl: VehicleSegmentedControl { get }
+}
+
+protocol CalendarEditViewProtocol {
+    var tableView: UITableView { get }
 }
 
 extension EditViewProtocol where Self: UIView {

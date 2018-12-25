@@ -23,6 +23,10 @@ extension Scene {
             let vc = MorningRoutineEditViewController(viewModel: viewModel)
             vc.bindViewModel()
             return vc
+        case .calendarEdit(let viewModel):
+            let vc = CalendarEditViewController(viewModel: viewModel)
+            vc.bindViewModel()
+            return vc
         }
     }
 }
