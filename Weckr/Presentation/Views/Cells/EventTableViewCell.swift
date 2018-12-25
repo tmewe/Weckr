@@ -36,7 +36,7 @@ class EventTableViewCell: TileTableViewCell, BasicInfoDisplayable {
     
     func configure(with configuration: (String, CalendarEntry)) {
         
-        let title = configuration.0
+        let title = configuration.0.uppercased()
         let event = configuration.1
         
         //Info

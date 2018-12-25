@@ -17,12 +17,24 @@ class CalendarEditView: UIView, CalendarEditViewProtocol, BlurBackgroundDisplaya
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         setupBlur(on: blurEffectView, withStyle: .dark)
-        tableView.backgroundColor = .clear
         addSubview(tableView)
-        tableView.autoPinEdgesToSuperviewSafeArea()
+        setupTableView()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+    
+    private func setupTableView() {
+        tableView.autoPinEdgesToSuperviewSafeArea()
+        tableView.registerReusableCell(EventTableViewCell.self)
+
+        tableView.backgroundColor = .clear
+        tableView.separatorStyle = .none
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.delegate = nil
+        tableView.dataSource = nil
+        tableView.showsVerticalScrollIndicator = false
     }
 }

@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import RxDataSources
 import RxSwift
 import RxCocoa
 
@@ -17,6 +18,7 @@ class CalendarEditViewController: UIViewController, BindableType {
     
     private let editView = CalendarEditView()
     private let disposeBag = DisposeBag()
+    private var dataSource: RxTableViewSectionedReloadDataSource<EventsSection>!
     var viewModel: ViewModelType!
     
     init(viewModel: ViewModelType) {
@@ -30,7 +32,9 @@ class CalendarEditViewController: UIViewController, BindableType {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        dataSource = configureDataSource()
         setupViews()
+        bindViewModel()
     }
     
     private func setupViews() {
@@ -41,5 +45,20 @@ class CalendarEditViewController: UIViewController, BindableType {
     }
     
     func bindViewModel() {
+        viewModel.outputs.events
+            .asDriver(onErrorJustReturn: [])
+            .drive(editView.tableView.rx.items(dataSource: dataSource))
+            .disposed(by: disposeBag)
+    }
+    
+    private func configureDataSource() -> RxTableViewSectionedReloadDataSource<EventsSection> {
+        let dataSource = RxTableViewSectionedReloadDataSource<EventsSection>(
+            configureCell: { dataSource, tableView, indexPath, event in
+                let cell = tableView.dequeueReusableCell(indexPath: indexPath) as EventTableViewCell
+                cell.configure(with: ("first event", event))
+                return cell
+        })
+    
+        return dataSource
     }
 }

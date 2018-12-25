@@ -34,7 +34,7 @@ class MainViewController: UITableViewController, BindableType {
         super.viewDidLoad()
         view.backgroundColor = .orange
         dataSource = configureDataSource()
-        setupViews()
+        setupTableView()
         bindViewModel()
     }
     
@@ -136,7 +136,8 @@ class MainViewController: UITableViewController, BindableType {
 
 // MARK: UI Elements
 extension MainViewController {
-    fileprivate func setupViews() {
+    
+    fileprivate func setupTableView() {
         tableView.registerReusableCell(AlarmTableViewCell.self)
         tableView.registerReusableCell(MorningRoutineTableViewCell.self)
         tableView.registerReusableCell(EventTableViewCell.self)
@@ -148,11 +149,6 @@ extension MainViewController {
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableView.automaticDimension
         tableView.backgroundColor = .backgroundColor
-        tableView.delegate = self
-        setupTableView()
-    }
-    
-    fileprivate func setupTableView() {
         tableView.delegate = nil
         tableView.dataSource = nil
         tableView.showsVerticalScrollIndicator = false

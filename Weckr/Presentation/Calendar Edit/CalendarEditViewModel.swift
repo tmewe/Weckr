@@ -7,13 +7,17 @@
 //
 
 import Foundation
+import RxDataSources
 import RxSwift
 import Action
+
+typealias EventsSection = SectionModel<String, CalendarEntry>
 
 protocol CalendarEditViewModelInputsType {
 }
 
 protocol CalendarEditViewModelOutputsType {
+    var events: Observable<[EventsSection]> { get }
 }
 
 protocol CalendarEditViewModelActionsType {
@@ -34,6 +38,7 @@ class CalendarEditViewModel: CalendarEditViewModelType {
     //Inputs
     
     //Outputs
+    var events: Observable<[EventsSection]>
     
     //Setup
     private let alarm: Alarm
@@ -48,6 +53,8 @@ class CalendarEditViewModel: CalendarEditViewModelType {
         //Inputs
         
         //Outputs
+        events = Observable.just(alarm.otherEvents.toArray())
+            .map { [EventsSection(model: "Events", items: $0)] }
     }
     
     //Actions
