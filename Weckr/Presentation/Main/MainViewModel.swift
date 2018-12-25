@@ -138,13 +138,13 @@ class MainViewModel: MainViewModelType {
                 return items
             }
         
-        routeVisiblity
+        Observable.combineLatest(routeVisiblity, nextAlarm) { visbility, _ in visbility }
             .filter { $0 }
             .withLatestFrom(routeItemsExpanded)
             .bind(to: routeItemsCar)
             .disposed(by: disposeBag)
         
-        routeVisiblity
+        Observable.combineLatest(routeVisiblity, nextAlarm) { visbility, _ in visbility }
             .filter { !$0 }
             .withLatestFrom(routeOverviewItem)
             .bind(to: routeItemsCar)
