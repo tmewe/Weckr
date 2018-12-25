@@ -52,7 +52,7 @@ class CalendarPageViewModel : WalkthroughSlideableType {
             let status = EKEventStore.authorizationStatus(for: .event)
             switch (status) {
             case .notDetermined:
-                EKEventStore().rx.requestAccess(to: .event)
+                EKEventStore().requestAccess(to: .event, completion: {_,_ in })
             case .authorized:
                 return Observable.empty()
             case .restricted, .denied:

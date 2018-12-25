@@ -83,9 +83,11 @@ struct AlarmService: AlarmServiceType {
     func createAlarm(startLocation: GeoCoordinate,
                      vehicle: Vehicle,
                      morningRoutineTime: TimeInterval,
-                     calendarService: CalendarServiceType,
-                     weatherService: WeatherServiceType,
-                     routingService: RoutingServiceType) -> Observable<Alarm> {
+                     serviceFactory: ServiceFactoryProtocol) -> Observable<Alarm> {
+        
+        let calendarService = serviceFactory.createCalendar()
+        let weatherService = serviceFactory.createWeather()
+        let routingService = serviceFactory.createRouting()
         
         let vehicleObservable = Observable.just(vehicle)
         let startLocationObservable = Observable.just(startLocation)

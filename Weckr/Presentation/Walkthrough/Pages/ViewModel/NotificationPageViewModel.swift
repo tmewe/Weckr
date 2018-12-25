@@ -50,7 +50,8 @@ class NotificationPageViewModel : WalkthroughSlideableType {
     lazy var continueAction: CocoaAction? = {
         return CocoaAction {
             let center = UNUserNotificationCenter.current()
-            center.rx.requestAuthorization(options: [.badge, .alert, .sound])
+            center.requestAuthorization(options: [.badge, .alert, .sound],
+                                        completionHandler: {_,_ in })
             return Observable.empty()
         }
     }()

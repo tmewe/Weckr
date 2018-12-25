@@ -31,6 +31,8 @@ protocol AlarmServiceType {
     
     func update(alarm: Alarm, with morningRoutineTime: TimeInterval)
     
-    
-    func createAlarm(startLocation: GeoCoordinate, vehicle: Vehicle, morningRoutineTime: TimeInterval, calendarService: CalendarServiceType, weatherService: WeatherServiceType, routingService: RoutingServiceType) -> Observable<Alarm>
+    func createAlarm(startLocation: GeoCoordinate,
+                     vehicle: Vehicle,
+                     morningRoutineTime: TimeInterval,
+                     serviceFactory: ServiceFactoryProtocol) -> Observable<Alarm>
 }

@@ -155,9 +155,7 @@ class WalkthroughViewModel: WalkthroughViewModelType {
                 alarmService.createAlarm(startLocation: $0.0,
                                          vehicle: $0.1,
                                          morningRoutineTime: $0.2,
-                                         calendarService: calendarService,
-                                         weatherService: weatherService,
-                                         routingService: routingService) }
+                                         serviceFactory: serviceFactory) }
             .subscribe(onNext: { _ in
                 coordinator.transition(to: Scene.main(viewModelFactory
                     .createMain(coordinator: coordinator)),
