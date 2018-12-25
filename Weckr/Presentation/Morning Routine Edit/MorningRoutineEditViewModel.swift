@@ -59,8 +59,8 @@ class MorningRoutineEditViewModel: MorningRoutineEditViewModelType {
     //Actions
     lazy var dismiss: Action<TimeInterval, Void> = { [weak self] this in
         return Action { time in
-            self?.alarmService
-            return self.coordinator.pop(animated: true)
+//            self?.alarmService
+            return this.coordinator.pop(animated: true)
         }
     }(self)
 }
