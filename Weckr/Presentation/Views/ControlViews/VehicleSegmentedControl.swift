@@ -18,7 +18,7 @@ class VehicleSegmentedControl:UIControl {
         }
     }
     
-    var selectedIndex : Int = 0 {
+    var selectedSegmentIndex : Int = 0 {
         didSet{
             displayNewSelectedIndex()
         }
@@ -77,14 +77,14 @@ class VehicleSegmentedControl:UIControl {
             }
         }
         if calculatedIndex != nil {
-            selectedIndex = calculatedIndex!
+            selectedSegmentIndex = calculatedIndex!
             sendActions(for:.valueChanged)
         }
         return false
     }
     
     func displayNewSelectedIndex(){
-        let label = labels[selectedIndex]
+        let label = labels[selectedSegmentIndex]
         self.thumbView.frame = label.frame
     }
     func setupLabels(){

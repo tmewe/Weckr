@@ -41,9 +41,11 @@ class TravelEditViewModel: TravelEditViewModelType {
     
     //Setup
     private let coordinator: SceneCoordinatorType
+    private let mode: TransportMode
     
     init(mode: TransportMode, coordinator: SceneCoordinatorType) {
         self.coordinator = coordinator
+        self.mode = mode
         
         //Inputs
         transportMode = PublishSubject()
@@ -55,8 +57,10 @@ class TravelEditViewModel: TravelEditViewModelType {
     //Actions
     lazy var dismiss: Action<TransportMode, Void> = { [weak self] this in
         return Action { mode in
+            guard mode != self?.mode else { return this.coordinator.pop(animated: true) }
+            
             let userDefaults = UserDefaults.standard
-            userDefaults.set(mode.rawValueInt, forKey: SettingsKeys.travelMode)
+            userDefaults.set(mode.rawValueInt, forKey: SettingsKeys.transportMode)
             userDefaults.synchronize()
             return this.coordinator.pop(animated: true)
         }

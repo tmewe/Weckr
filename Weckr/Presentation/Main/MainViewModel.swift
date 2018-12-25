@@ -166,28 +166,19 @@ class MainViewModel: MainViewModelType {
             .map { $0.uppercased() }
         
         //User defaults
-        let startLocation = locationManager.rx.location
-            .filterNil()
-            .take(1)
-            .map { ($0.coordinate.latitude, $0.coordinate.longitude) }
-            .map(GeoCoordinate.init)
-            .share(replay: 1, scope: .forever)
-        
-        let morningRoutine = userDefaults.rx.observe(TimeInterval.self, SettingsKeys.morningRoutineTime)
+        //Morning routine
+        userDefaults.rx.observe(TimeInterval.self, SettingsKeys.morningRoutineTime)
             .distinctUntilChanged()
             .filterNil()
-        
-        let transportMode = userDefaults.rx.observe(Int.self, SettingsKeys.travelMode)
-            .distinctUntilChanged()
-            .filterNil()
-            .map { TransportMode(mode: $0) }
-        
-        morningRoutine
             .withLatestFrom(nextAlarm) { ($0, $1) }
             .subscribe(onNext: alarmService.updateMorningRoutine)
             .disposed(by: disposeBag)
         
-        transportMode
+        //Transport mode
+        userDefaults.rx.observe(Int.self, SettingsKeys.transportMode)
+            .distinctUntilChanged()
+            .filterNil()
+            .map { TransportMode(mode: $0) }
             .withLatestFrom(nextAlarm) { ($0, $1) }
             .subscribe(onNext: { [weak self] mode, alarm in
                 self?.alarmService.updateTransportMode(mode,

@@ -10,6 +10,6 @@ import Foundation
 
 struct SettingsKeys {
     static let morningRoutineTime = "morningRoutineTime"
-    static let travelMode = "travelMode"
+    static let transportMode = "transportMode"
     static let appHasBeenStarted = "AppHasBeenStarted"
 }

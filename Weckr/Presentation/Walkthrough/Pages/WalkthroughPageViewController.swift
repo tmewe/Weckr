@@ -89,6 +89,7 @@ class WalkthroughPageViewController: UIViewController {
         segmentedControl.autoCenterInSuperview()
         segmentedControl.rx.selectedSegmentIndex
             .map { TransportMode(mode: $0) }
+            .startWith(.car)
             .bind(to: viewModel.inputs.transportMode!)
             .disposed(by: disposeBag)
     }

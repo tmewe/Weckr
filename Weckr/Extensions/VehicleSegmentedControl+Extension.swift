@@ -21,9 +21,9 @@ extension Reactive where Base: VehicleSegmentedControl {
     var value: ControlProperty<Int> {
         return base.rx.controlPropertyWithDefaultEvents(
             getter: { segmentedControl in
-                segmentedControl.selectedIndex
+                segmentedControl.selectedSegmentIndex
         }, setter: { segmentedControl, value in
-            segmentedControl.selectedIndex = value
+            segmentedControl.selectedSegmentIndex = value
         }
         )
     }

@@ -43,6 +43,7 @@ class TravelEditViewController: UIViewController, BindableType {
     func bindViewModel() {
         editView.button.rx.tap
             .withLatestFrom(editView.segmentedControl.rx.selectedSegmentIndex)
+            .debug()
             .map { TransportMode(mode: $0) }
             .debug()
             .bind(to: viewModel.actions.dismiss.inputs)
