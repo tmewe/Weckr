@@ -68,9 +68,6 @@ class WalkthroughViewModel: WalkthroughViewModelType {
         self.viewModelFactory = viewModelFactory
         self.serviceFactory = serviceFactory
         
-        let weatherService = serviceFactory.createWeather()
-        let routingService = serviceFactory.createRouting()
-        let calendarService = serviceFactory.createCalendar()
         let alarmService = serviceFactory.createAlarm()
         
         locationManager.startUpdatingLocation()
@@ -148,13 +145,13 @@ class WalkthroughViewModel: WalkthroughViewModelType {
         }
         
         createTrigger
-            .withLatestFrom(startLocation)
-            .withLatestFrom(vehicle) {              ($0, $1) }
-            .withLatestFrom(morningRoutineTime) {   ($0.0, $0.1, $1) }
+            .withLatestFrom(vehicle)
+            .withLatestFrom(morningRoutineTime) {      ($0, $1) }
+            .withLatestFrom(startLocation) {   ($0.0, $0.1, $1) }
             .flatMapLatest {
-                alarmService.createAlarm(startLocation: $0.0,
-                                         vehicle: $0.1,
-                                         morningRoutineTime: $0.2,
+                alarmService.createAlarm(vehicle: $0.0,
+                                         morningRoutineTime: $0.1,
+                                         startLocation: $0.2,
                                          serviceFactory: serviceFactory) }
             .subscribe(onNext: { _ in
                 coordinator.transition(to: Scene.main(viewModelFactory

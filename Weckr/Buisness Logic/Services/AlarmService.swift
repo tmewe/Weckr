@@ -61,11 +61,13 @@ struct AlarmService: AlarmServiceType {
         return result!
     }
     
-    func update(alarm: Alarm, with morningRoutineTime: TimeInterval) {
+    @discardableResult
+    func update(alarm: Alarm, with morningRoutineTime: TimeInterval) -> Observable<Alarm> {
         let realm = try! Realm()
         try! realm.write {
             alarm.morningRoutine = morningRoutineTime
         }
+        return calculateDate(for: alarm)
     }
     
     func calculateDate(for alarm: Alarm) -> Observable<Alarm> {
@@ -76,13 +78,16 @@ struct AlarmService: AlarmServiceType {
             - Int(alarm.morningRoutine).seconds
             - Int(alarm.route.summary.travelTime).seconds
         
-        alarm.date = alarmDate
+        let realm = try! Realm()
+        try! realm.write {
+            alarm.date = alarmDate
+        }
         return Observable.just(alarm)
     }
     
-    func createAlarm(startLocation: GeoCoordinate,
-                     vehicle: Vehicle,
+    func createAlarm(vehicle: Vehicle,
                      morningRoutineTime: TimeInterval,
+                     startLocation: GeoCoordinate,
                      serviceFactory: ServiceFactoryProtocol) -> Observable<Alarm> {
         
         let calendarService = serviceFactory.createCalendar()
@@ -124,14 +129,11 @@ struct AlarmService: AlarmServiceType {
             .take(1)
             .observeOn(ConcurrentDispatchQueueScheduler(qos: .background))
             .map(Alarm.init)
+            .flatMapLatest (save)
             .flatMapLatest(calculateDate)
-            .flatMapLatest (self.save)
             .observeOn(MainScheduler.instance)
         
         return alarm
-
-
-        
     }
     
 }

@@ -29,10 +29,11 @@ protocol AlarmServiceType {
     @discardableResult
     func currentAlarm() -> Alarm?
     
-    func update(alarm: Alarm, with morningRoutineTime: TimeInterval)
+    @discardableResult
+    func update(alarm: Alarm, with morningRoutineTime: TimeInterval) -> Observable<Alarm>
     
-    func createAlarm(startLocation: GeoCoordinate,
-                     vehicle: Vehicle,
+    func createAlarm(vehicle: Vehicle,
                      morningRoutineTime: TimeInterval,
+                     startLocation: GeoCoordinate,
                      serviceFactory: ServiceFactoryProtocol) -> Observable<Alarm>
 }

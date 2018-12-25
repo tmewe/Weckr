@@ -11,6 +11,8 @@ import RxSwift
 import RxDataSources
 import SwiftDate
 import Action
+import RxCoreLocation
+import CoreLocation
 
 protocol MainViewModelInputsType {
     var toggleRouteVisibility: PublishSubject<Void> { get }
@@ -49,6 +51,8 @@ class MainViewModel: MainViewModelType {
     private let serviceFactory: ServiceFactoryProtocol
     private let viewModelFactory: ViewModelFactoryProtocol
     private let alarmService: AlarmServiceType
+    private let userDefaults = UserDefaults.standard
+    private let locationManager = CLLocationManager()
     private let disposeBag = DisposeBag()
 
     init(serviceFactory: ServiceFactoryProtocol,
@@ -61,7 +65,7 @@ class MainViewModel: MainViewModelType {
         self.coordinator = coordinator
         self.alarmService = serviceFactory.createAlarm()
         
-        let nextAlarm = alarmService.currentAlarmObservable().share(replay: 1, scope: .forever)
+        let nextAlarm = alarmService.currentAlarmObservable().debug().share(replay: 1, scope: .forever)
         
         let alarmItem = nextAlarm.map { [SectionItem.alarm(identity: "alarm", date: $0.date)] }
         let morningRoutineItem = nextAlarm
@@ -158,6 +162,30 @@ class MainViewModel: MainViewModelType {
             .map { $0.date }
             .map { $0.toFormat("EEEE, MMMM dd") }
             .map { $0.uppercased() }
+        
+        //User defaults
+        let startLocation = locationManager.rx.location
+            .filterNil()
+            .take(1)
+            .map { ($0.coordinate.latitude, $0.coordinate.longitude) }
+            .map(GeoCoordinate.init)
+            .share(replay: 1, scope: .forever)
+        
+        let morningRoutine = userDefaults.rx.observe(TimeInterval.self, SettingsKeys.morningRoutineTime)
+            .distinctUntilChanged()
+            .filterNil()
+        
+        let travelMode = userDefaults.rx.observe(Int.self, SettingsKeys.travelMode)
+            .distinctUntilChanged()
+            .filterNil()
+            .map { Vehicle(rawValue: $0) ?? Vehicle.car }
+        
+        morningRoutine
+            .withLatestFrom(nextAlarm) { ($0, $1) }
+            .subscribe(onNext: { [weak self] time, alarm in
+                self?.alarmService.update(alarm: alarm, with: time)
+            })
+            .disposed(by: disposeBag)
     }
     
     //Actions

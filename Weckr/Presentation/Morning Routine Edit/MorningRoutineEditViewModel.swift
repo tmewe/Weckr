@@ -60,6 +60,9 @@ class MorningRoutineEditViewModel: MorningRoutineEditViewModelType {
     lazy var dismiss: Action<TimeInterval, Void> = { [weak self] this in
         return Action { time in
 //            self?.alarmService
+            let userDefaults = UserDefaults.standard
+            userDefaults.set(time, forKey: SettingsKeys.morningRoutineTime)
+            userDefaults.synchronize()
             return this.coordinator.pop(animated: true)
         }
     }(self)
