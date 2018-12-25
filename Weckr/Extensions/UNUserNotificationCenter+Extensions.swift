@@ -11,6 +11,7 @@ import UserNotifications
 import RxSwift
 
 extension Reactive where Base: UNUserNotificationCenter {
+    @discardableResult
     func requestAuthorization(options: UNAuthorizationOptions) -> Observable<(Bool, Error?)> {
         return Observable.create { observer in
             self.base.requestAuthorization(options: options, completionHandler: { (granted, error) in

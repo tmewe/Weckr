@@ -33,7 +33,7 @@ final class MainApplication: MainApplicationProtocol {
     private func startCoordinator(window: UIWindow) {
         let appHasBeenStarted = UserDefaults
             .standard
-            .bool(forKey: SettingsKeys.AppHasBeenStarted)
+            .bool(forKey: SettingsKeys.appHasBeenStarted)
         
         let coordinator = SceneCoordinator(window: window)
         

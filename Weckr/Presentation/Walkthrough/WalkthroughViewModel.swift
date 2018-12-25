@@ -162,7 +162,7 @@ class WalkthroughViewModel: WalkthroughViewModelType {
                 coordinator.transition(to: Scene.main(viewModelFactory
                     .createMain(coordinator: coordinator)),
                                        withType: .modal)
-                UserDefaults.standard.set(true, forKey: SettingsKeys.AppHasBeenStarted)
+                UserDefaults.standard.set(true, forKey: SettingsKeys.appHasBeenStarted)
             })
             .disposed(by: disposeBag)
         

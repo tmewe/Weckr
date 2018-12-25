@@ -49,22 +49,10 @@ class CalendarPageViewModel : WalkthroughSlideableType {
     //Actions
     lazy var continueAction: CocoaAction? = {
         return CocoaAction {
-            let defaults = UserDefaults.standard
-            let calendarAccess = defaults.bool(forKey: SettingsKeys.CalendarAccess)
-            guard calendarAccess == false else {
-                return Observable.empty()
-            }
-            
             let status = EKEventStore.authorizationStatus(for: .event)
             switch (status) {
             case .notDetermined:
                 EKEventStore().rx.requestAccess(to: .event)
-                    .map { $0.0 }
-                    .filter { $0 }
-                    .subscribe(onNext: { granted in
-                        defaults.set(granted, forKey: SettingsKeys.CalendarAccess)
-                    })
-                    .disposed(by: self.disposeBag)
             case .authorized:
                 return Observable.empty()
             case .restricted, .denied:

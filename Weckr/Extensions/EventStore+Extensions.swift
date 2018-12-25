@@ -11,6 +11,7 @@ import RxSwift
 import EventKit
 
 extension Reactive where Base: EKEventStore {
+    @discardableResult
     func requestAccess(to entityType: EKEntityType) -> Observable<(Bool, Error?)> {
         return Observable.create { observer in
             self.base.requestAccess(to: entityType, completion: { (granted, error) in

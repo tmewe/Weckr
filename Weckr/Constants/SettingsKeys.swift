@@ -9,7 +9,7 @@
 import Foundation
 
 struct SettingsKeys {
-    static let CalendarAccess = "CalendarAccess"
-    static let NotificationAuthorization = "NotificationAuthorization"
-    static let AppHasBeenStarted = "AppHasBeenStarted"
+    static let morningRoutineTime = "morningRoutineTime"
+    static let travelMode = "travelMode"
+    static let appHasBeenStarted = "AppHasBeenStarted"
 }

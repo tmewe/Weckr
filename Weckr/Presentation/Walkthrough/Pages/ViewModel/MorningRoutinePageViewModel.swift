@@ -32,6 +32,8 @@ class MorningRoutinePageViewModel : WalkthroughSlideableType {
         
         //Setup
         let strings = Strings.Walkthrough.MorningRoutine.self
+        let userDefaults = UserDefaults.standard
+        let disposeBag = DisposeBag()
         
         //Inputs
         morningRoutineTime = PublishSubject()
@@ -43,6 +45,14 @@ class MorningRoutinePageViewModel : WalkthroughSlideableType {
         topLabelColoredText = Observable.just(strings.titleColored)
         bottomLabelText = Observable.just(strings.subtitle)
         bottomLabelColoredText = Observable.just(strings.subtitleColored)
+        
+        morningRoutineTime?.asObservable()
+            .distinctUntilChanged()
+            .subscribe(onNext: { time in
+                userDefaults.set(time, forKey: SettingsKeys.morningRoutineTime)
+                userDefaults.synchronize()
+            })
+            .disposed(by: disposeBag)
     }
     
     //Actions

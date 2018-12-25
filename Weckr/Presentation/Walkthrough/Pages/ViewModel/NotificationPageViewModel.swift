@@ -49,18 +49,8 @@ class NotificationPageViewModel : WalkthroughSlideableType {
     //Actions
     lazy var continueAction: CocoaAction? = {
         return CocoaAction {
-            let defaults = UserDefaults.standard
-            let notifications = defaults.bool(forKey: SettingsKeys.NotificationAuthorization)
-            guard notifications == false else {
-                return Observable.empty()
-            }
             let center = UNUserNotificationCenter.current()
             center.rx.requestAuthorization(options: [.badge, .alert, .sound])
-                .map { $0.0 }
-                .subscribe(onNext: { granted in
-                    defaults.set(granted, forKey: SettingsKeys.NotificationAuthorization)
-                })
-                .disposed(by: self.disposeBag)
             return Observable.empty()
         }
     }()
