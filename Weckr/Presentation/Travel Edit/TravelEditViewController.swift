@@ -51,7 +51,7 @@ class TravelEditViewController: UIViewController, BindableType {
         viewModel.outputs.currentMode
             .asDriver(onErrorJustReturn: .pedestrian)
             .map { $0.rawValueInt }
-            .delay(0.1)
+            .delay(0.1) //Frame of segmented control needs to be set before executed
             .drive(editView.segmentedControl.rx.selectedSegmentIndex)
             .disposed(by: disposeBag)
     }

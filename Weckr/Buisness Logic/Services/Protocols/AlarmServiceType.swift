@@ -29,11 +29,17 @@ protocol AlarmServiceType {
     @discardableResult
     func currentAlarm() -> Alarm?
     
-    func update(alarm: Alarm, with morningRoutineTime: TimeInterval)
-    func update(alarm: Alarm,
-                with selectedEvent: CalendarEntry,
-                serviceFactory: ServiceFactoryProtocol,
-                disposeBag: DisposeBag)
+    func updateMorningRoutine(_ time: TimeInterval, for alarm: Alarm)
+    
+    func updateTransportMode(_ mode: TransportMode,
+                             for alarm: Alarm,
+                             serviceFactory: ServiceFactoryProtocol,
+                             disposeBag: DisposeBag)
+    
+    func updateSelectedEvent(_ event: CalendarEntry,
+                             for alarm: Alarm,
+                             serviceFactory: ServiceFactoryProtocol,
+                             disposeBag: DisposeBag)
     
     func createAlarm(vehicle: TransportMode,
                      morningRoutineTime: TimeInterval,

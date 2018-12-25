@@ -56,7 +56,7 @@ class MainViewModel: MainViewModelType {
     private let userDefaults = UserDefaults.standard
     private let locationManager = CLLocationManager()
     private let disposeBag = DisposeBag()
-
+    
     init(serviceFactory: ServiceFactoryProtocol,
          viewModelFactory: ViewModelFactoryProtocol,
          coordinator: SceneCoordinatorType) {
@@ -74,8 +74,8 @@ class MainViewModel: MainViewModelType {
             .map { [SectionItem.morningRoutine(identity: "morningroutine", time: $0.morningRoutine)] }
         let eventItem = nextAlarm
             .map { [SectionItem.event(identity: "event",
-                                          title: "FIRST EVENT",
-                                          selectedEvent: $0.selectedEvent)] }
+                                      title: "FIRST EVENT",
+                                      selectedEvent: $0.selectedEvent)] }
         
         //Inputs
         toggleRouteVisibility = PublishSubject()
@@ -88,7 +88,7 @@ class MainViewModel: MainViewModelType {
             .map { alarm -> [SectionItem] in
                 let leaveDate = alarm.date.addingTimeInterval(alarm.morningRoutine)
                 return [SectionItem.routeOverview(identity: "3", route: alarm.route, leaveDate: leaveDate)]
-            }
+        }
         
         //Car route
         
@@ -137,7 +137,7 @@ class MainViewModel: MainViewModelType {
                     }
                 }
                 return items
-            }
+        }
         
         Observable.combineLatest(routeVisiblity, nextAlarm) { visbility, _ in visbility }
             .filter { $0 }
@@ -177,15 +177,23 @@ class MainViewModel: MainViewModelType {
             .distinctUntilChanged()
             .filterNil()
         
-        let travelMode = userDefaults.rx.observe(Int.self, SettingsKeys.travelMode)
+        let transportMode = userDefaults.rx.observe(Int.self, SettingsKeys.travelMode)
             .distinctUntilChanged()
             .filterNil()
-            .map { Vehicle(rawValue: $0) ?? Vehicle.car }
+            .map { TransportMode(mode: $0) }
         
         morningRoutine
             .withLatestFrom(nextAlarm) { ($0, $1) }
-            .subscribe(onNext: { [weak self] time, alarm in
-                self?.alarmService.update(alarm: alarm, with: time)
+            .subscribe(onNext: alarmService.updateMorningRoutine)
+            .disposed(by: disposeBag)
+        
+        transportMode
+            .withLatestFrom(nextAlarm) { ($0, $1) }
+            .subscribe(onNext: { [weak self] mode, alarm in
+                self?.alarmService.updateTransportMode(mode,
+                                                       for: alarm,
+                                                       serviceFactory: serviceFactory,
+                                                       disposeBag: self!.disposeBag)
             })
             .disposed(by: disposeBag)
     }

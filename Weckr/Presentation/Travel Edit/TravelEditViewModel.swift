@@ -55,7 +55,6 @@ class TravelEditViewModel: TravelEditViewModelType {
     //Actions
     lazy var dismiss: Action<TransportMode, Void> = { [weak self] this in
         return Action { mode in
-            //            self?.alarmService
             let userDefaults = UserDefaults.standard
             userDefaults.set(mode.rawValueInt, forKey: SettingsKeys.travelMode)
             userDefaults.synchronize()

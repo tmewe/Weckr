@@ -61,29 +61,57 @@ struct AlarmService: AlarmServiceType {
         return result!
     }
     
-    func update(alarm: Alarm, with morningRoutineTime: TimeInterval) {
+    func updateMorningRoutine(_ time: TimeInterval, for alarm: Alarm) {
         let realm = try! Realm()
         try! realm.write {
-            alarm.morningRoutine = morningRoutineTime
+            alarm.morningRoutine = time
         }
         calculateDate(for: alarm)
     }
     
-    func update(alarm: Alarm,
-                with selectedEvent: CalendarEntry,
-                serviceFactory: ServiceFactoryProtocol,
-                disposeBag: DisposeBag) {
+    func updateTransportMode(_ mode: TransportMode,
+                             for alarm: Alarm,
+                             serviceFactory: ServiceFactoryProtocol,
+                             disposeBag: DisposeBag) {
         
+        updateRoute(for: alarm,
+                    mode: mode,
+                    start: alarm.route.legs.first!.start.position,
+                    event: alarm.selectedEvent,
+                    serviceFactory: serviceFactory,
+                    disposeBag: disposeBag)
+    }
+    
+    func updateSelectedEvent(_ event: CalendarEntry,
+                             for alarm: Alarm,
+                             serviceFactory: ServiceFactoryProtocol,
+                             disposeBag: DisposeBag) {
+        
+        updateRoute(for: alarm,
+                    mode: alarm.route.transportMode,
+                    start: alarm.route.legs.first!.start.position,
+                    event: event,
+                    serviceFactory: serviceFactory,
+                    disposeBag: disposeBag)
+    }
+    
+    private func updateRoute(for alarm: Alarm,
+                             mode: TransportMode,
+                             start: GeoCoordinate,
+                             event: CalendarEntry,
+                             serviceFactory: ServiceFactoryProtocol,
+                             disposeBag: DisposeBag) {
         let routingService = serviceFactory.createRouting()
         routingService.route(
-            with: alarm.route!.transportMode,
-            start: alarm.route.legs.first!.start.position,
-            end: selectedEvent.location,
-            arrival: selectedEvent.startDate)
+            with: mode,
+            start: start,
+            end: event.location,
+            arrival: event.startDate)
             .subscribe(onNext: { route in
                 let realm = try! Realm()
                 try! realm.write {
-                    alarm.selectedEvent = selectedEvent
+                    alarm.route.rawTransportMode = mode.rawValue
+                    alarm.selectedEvent = event
                     alarm.route = route
                 }
                 self.calculateDate(for: alarm)
