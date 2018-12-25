@@ -25,6 +25,7 @@ protocol MainViewModelOutputsType {
 
 protocol MainViewModelActionsType {
     var presentMorningRoutineEdit: CocoaAction { get }
+    var presentTravelEdit: CocoaAction { get }
     var presentCalendarEdit: CocoaAction { get }
 }
 
@@ -197,6 +198,15 @@ class MainViewModel: MainViewModelType {
             let viewModel = self.viewModelFactory
                 .createMorningRoutineEdit(time: alarm.morningRoutine, coordinator: self.coordinator)
             return self.coordinator.transition(to: Scene.morningRoutingEdit(viewModel), withType: .modal)
+        }
+    }()
+    
+    lazy var presentTravelEdit: CocoaAction = {
+        return CocoaAction {
+            guard let alarm = self.alarmService.currentAlarm() else { return Observable.empty() }
+            let viewModel = self.viewModelFactory
+                .createTravelEdit(currentMode: alarm.route.transportMode, coordinator: self.coordinator)
+            return self.coordinator.transition(to: Scene.travelEdit(viewModel), withType: .modal)
         }
     }()
     

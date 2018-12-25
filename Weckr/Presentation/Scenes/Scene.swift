@@ -13,4 +13,5 @@ enum Scene {
     case walkthrough(WalkthroughViewModelType)
     case morningRoutingEdit(MorningRoutineEditViewModelType)
     case calendarEdit(CalendarEditViewModelType)
+    case travelEdit(TravelEditViewModelType)
 }

@@ -26,6 +26,10 @@ extension Scene {
         case .calendarEdit(let viewModel):
             let vc = CalendarEditViewController(viewModel: viewModel)
             return vc
+        case .travelEdit(let viewModel):
+            let vc = TravelEditViewController(viewModel: viewModel)
+            vc.bindViewModel()
+            return vc
         }
     }
 }
