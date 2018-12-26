@@ -85,7 +85,7 @@ class TravelEditView: BaseEditView, TravelEditViewProtocol {
         label.textColor = .white
         label.textAlignment = .left
         label.alpha = 0.7
-        label.text = "Adjust for weather"
+        label.text = Strings.Main.Edit.adjustForWeather
         return label
     }()
 }

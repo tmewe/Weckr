@@ -11,7 +11,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class TravelEditViewController: UIViewController, BindableType {
+class TravelEditViewController: UIViewController, BindableType, InfoAlertDisplayable {
     
     typealias ViewModelType = TravelEditViewModelType
     
@@ -54,6 +54,12 @@ class TravelEditViewController: UIViewController, BindableType {
             .map { $0.rawValueInt }
             .delay(0.1) //Frame of segmented control needs to be set before executed
             .drive(editView.segmentedControl.rx.selectedSegmentIndex)
+            .disposed(by: disposeBag)
+        
+        editView.infoButton.rx.tap
+            .map { (Strings.Main.Edit.adjustForWeatherTitle,
+                    Strings.Main.Edit.adjustForWeatherInfo) }
+            .subscribe(onNext: showInfoAlert)
             .disposed(by: disposeBag)
     }
 }
