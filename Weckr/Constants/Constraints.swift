@@ -74,6 +74,7 @@ struct Constraints {
             static let buttonBottom: CGFloat = 50
             static let switchOffset: CGFloat = 50
             static let switchRight: CGFloat = 50
+            static let spacing: CGFloat = 20
         }
     }
 }

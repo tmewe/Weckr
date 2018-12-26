@@ -56,12 +56,11 @@ class TravelEditView: BaseEditView, TravelEditViewProtocol {
                                     withOffset: insets.switchOffset)
         weatherSwitch.autoPinEdge(.right, to: .right, of: self, withOffset: -insets.switchRight)
         
-//        infoButton.autoSetDimensions(to: CGSize(width: 20, height: 20))
         infoButton.autoAlignAxis(.horizontal, toSameAxisOf: weatherSwitch)
-        infoButton.autoPinEdge(.right, to: .left, of: weatherSwitch, withOffset: -20)
+        infoButton.autoPinEdge(.right, to: .left, of: weatherSwitch, withOffset: -insets.spacing)
         
         infoLabel.autoPinEdge(.left, to: .left, of: self, withOffset: insets.titleLeft)
-        infoLabel.autoPinEdge(.right, to: .left, of: infoButton, withOffset: -50)
+        infoLabel.autoPinEdge(.right, to: .left, of: infoButton, withOffset: -insets.spacing)
         infoLabel.autoAlignAxis(.horizontal, toSameAxisOf: weatherSwitch)
         infoLabel.autoSetDimension(.height, toSize: 30)
     }
