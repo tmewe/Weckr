@@ -43,6 +43,7 @@ class MorningRoutineEditViewController: UIViewController, BindableType {
     func bindViewModel() {
         editView.button.rx.tap
             .withLatestFrom(editView.picker.rx.countDownDuration)
+            .take(1)
             .bind(to: viewModel.actions.dismiss.inputs)
             .disposed(by: disposeBag)
         

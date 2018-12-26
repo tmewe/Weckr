@@ -55,6 +55,7 @@ class CalendarEditViewController: UIViewController, BindableType {
                 self?.editView.tableView.deselectRow(at: indexPath, animated: false)
                 return try! self?.dataSource?.model(at: indexPath) as! EventEditWrapper
             }
+            .take(1)
             .bind(to: viewModel.actions.dismiss.inputs)
             .disposed(by: disposeBag)
     }

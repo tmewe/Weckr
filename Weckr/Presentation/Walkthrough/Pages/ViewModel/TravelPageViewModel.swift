@@ -46,7 +46,14 @@ class TravelPageViewModel : WalkthroughSlideableType {
     }
     
     //Actions
-    lazy var continueAction: CocoaAction? = nil
+    lazy var continueAction: CocoaAction? = {
+        return CocoaAction {
+            let userDefaults = UserDefaults.standard
+            userDefaults.set(true, forKey: SettingsKeys.adjustForWeather)
+            userDefaults.synchronize()
+            return Observable.empty()
+        }
+    }()
 }
 
 extension TravelPageViewModel : WalkthroughSlideableOutputsType, WalkthroughSlideableActionsType, WalkthroughSlideableInputsType {}

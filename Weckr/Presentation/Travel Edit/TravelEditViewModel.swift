@@ -12,14 +12,16 @@ import Action
 
 protocol TravelEditViewModelInputsType {
     var transportMode: PublishSubject<TransportMode> { get }
+    var toggleSwitch: PublishSubject<Void> { get }
 }
 
 protocol TravelEditViewModelOutputsType {
     var currentMode: Observable<TransportMode> { get }
+    var currentSwitchState: Observable<Bool> { get }
 }
 
 protocol TravelEditViewModelActionsType {
-    var dismiss: Action<TransportMode, Void> { get }
+    var dismiss: Action<(Int, Bool), Void> { get }
 }
 
 protocol TravelEditViewModelType {
@@ -35,32 +37,46 @@ class TravelEditViewModel: TravelEditViewModelType {
     
     //Inputs
     var transportMode: PublishSubject<TransportMode>
+    var toggleSwitch: PublishSubject<Void>
     
     //Outputs
     var currentMode: Observable<TransportMode>
+    var currentSwitchState: Observable<Bool>
     
     //Setup
+    private let disposeBag = DisposeBag()
     private let coordinator: SceneCoordinatorType
     private let mode: TransportMode
+    private let switchState: Bool
     
     init(mode: TransportMode, coordinator: SceneCoordinatorType) {
         self.coordinator = coordinator
         self.mode = mode
         
+        let userDefaults = UserDefaults.standard
+        switchState = userDefaults.bool(forKey: SettingsKeys.adjustForWeather)
+        
         //Inputs
         transportMode = PublishSubject()
+        toggleSwitch = PublishSubject()
         
         //Outputs
         currentMode = Observable.just(mode)
+        currentSwitchState = Observable.just(switchState)
     }
     
     //Actions
-    lazy var dismiss: Action<TransportMode, Void> = { [weak self] this in
-        return Action { mode in
-            guard mode != self?.mode else { return this.coordinator.pop(animated: true) }
-            
+    lazy var dismiss: Action<(Int, Bool), Void> = { [weak self] this in
+        return Action { transportMode, switchState in
             let userDefaults = UserDefaults.standard
-            userDefaults.set(mode.rawValueInt, forKey: SettingsKeys.transportMode)
+
+            if switchState != self?.switchState {
+                userDefaults.set(switchState, forKey: SettingsKeys.adjustForWeather)
+            }
+            
+            if transportMode != self?.mode.rawValueInt {
+                userDefaults.set(transportMode, forKey: SettingsKeys.transportMode)
+            }
             userDefaults.synchronize()
             return this.coordinator.pop(animated: true)
         }

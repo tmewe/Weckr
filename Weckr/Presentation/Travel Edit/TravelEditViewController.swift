@@ -43,9 +43,7 @@ class TravelEditViewController: UIViewController, BindableType, InfoAlertDisplay
     func bindViewModel() {
         editView.button.rx.tap
             .withLatestFrom(editView.segmentedControl.rx.selectedSegmentIndex)
-            .debug()
-            .map { TransportMode(mode: $0) }
-            .debug()
+            .withLatestFrom(editView.weatherSwitch.rx.isOn) { ($0, $1) }
             .bind(to: viewModel.actions.dismiss.inputs)
             .disposed(by: disposeBag)
         
@@ -59,7 +57,13 @@ class TravelEditViewController: UIViewController, BindableType, InfoAlertDisplay
         editView.infoButton.rx.tap
             .map { (Strings.Main.Edit.adjustForWeatherTitle,
                     Strings.Main.Edit.adjustForWeatherInfo) }
+            .debug()
             .subscribe(onNext: showInfoAlert)
+            .disposed(by: disposeBag)
+        
+        viewModel.outputs.currentSwitchState
+            .asDriver(onErrorJustReturn: false)
+            .drive(editView.weatherSwitch.rx.isOn)
             .disposed(by: disposeBag)
     }
 }

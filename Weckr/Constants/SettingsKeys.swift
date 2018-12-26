@@ -12,4 +12,5 @@ struct SettingsKeys {
     static let morningRoutineTime = "morningRoutineTime"
     static let transportMode = "transportMode"
     static let appHasBeenStarted = "AppHasBeenStarted"
+    static let adjustForWeather = "adjustForWeather"
 }
