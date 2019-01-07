@@ -139,13 +139,17 @@ class MainViewModel: MainViewModelType {
                 return items
         }
         
-        Observable.combineLatest(routeVisiblity, nextAlarm) { visbility, _ in visbility }
+        let routeRefreshTrigger = Observable
+            .combineLatest(routeVisiblity, nextAlarm) { visbility, _ in visbility }
+            .share(replay: 1, scope: .forever)
+        
+        routeRefreshTrigger
             .filter { $0 }
             .withLatestFrom(routeItemsExpanded)
             .bind(to: routeItemsCar)
             .disposed(by: disposeBag)
         
-        Observable.combineLatest(routeVisiblity, nextAlarm) { visbility, _ in visbility }
+        routeRefreshTrigger
             .filter { !$0 }
             .withLatestFrom(routeOverviewItem)
             .bind(to: routeItemsCar)
