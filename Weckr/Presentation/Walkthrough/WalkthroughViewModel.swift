@@ -25,6 +25,7 @@ protocol WalkthroughViewModelOutputsType {
     var buttonColor: Observable<CGColor> { get }
     var buttonText: Observable<String> { get }
     var createTrigger: Observable<Void> { get }
+    var errorOccurred: Observable<Error?> { get }
 }
 
 protocol WalkthroughViewModelType {
@@ -57,6 +58,7 @@ class WalkthroughViewModel: WalkthroughViewModelType {
     var buttonColor: Observable<CGColor>
     var buttonText: Observable<String>
     var createTrigger: Observable<Void>
+    var errorOccurred: Observable<Error?>
     
     init(pages: [WalkthroughPageViewController],
          viewModelFactory: ViewModelFactoryProtocol,
@@ -134,6 +136,24 @@ class WalkthroughViewModel: WalkthroughViewModelType {
             .map(GeoCoordinate.init)
             .share(replay: 1, scope: .forever)
         
+        //Location status
+        errorOccurred = locationManager.rx.didChangeAuthorization
+            .map { $0.1 }
+            .map { status in
+                switch status {
+                case .restricted, .denied:
+                    return AccessError.location
+                default:
+                    return nil
+                }
+            }
+        //            .filter { $0 == .notDetermined }
+        //            .filter { $0 == .restricted }
+        //            .subscribe(onNext: { status in
+        //                print(status)
+        //            })
+        //            .disposed(by: disposeBag)
+        
         let vehiclePage = pages.filter { $0.viewModel is TravelPageViewModel }.first
         guard let vehicle = vehiclePage?.viewModel.inputs.transportMode else {
             return
@@ -160,7 +180,6 @@ class WalkthroughViewModel: WalkthroughViewModelType {
                 UserDefaults.standard.set(true, forKey: SettingsKeys.appHasBeenStarted)
             })
             .disposed(by: disposeBag)
-        
     }
 }
 

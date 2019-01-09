@@ -12,10 +12,11 @@ import PureLayout
 import RxSwift
 import RxViewController
 
-class WalkthroughViewController: UIViewController, BindableType, LoadingDisplayable {
+class WalkthroughViewController: UIViewController, BindableType, LoadingDisplayable, ErrorDisplayable {
     
     var viewModel: WalkthroughViewModelType!
     var loadingView: LoadingViewProtocol = LoadingView.newAutoLayout()
+    var errorView: ErrorViewProtocol = ErrorView.newAutoLayout()
     private var disposeBag = DisposeBag()
     
     init(viewModel: WalkthroughViewModelType) {
@@ -75,6 +76,10 @@ class WalkthroughViewController: UIViewController, BindableType, LoadingDisplaya
             })
             .disposed(by: disposeBag)
         
+        viewModel.outputs.errorOccurred
+            .subscribe(onNext: { $0 == nil ? self.hideError() : self.showError() })
+            .disposed(by: disposeBag)
+        
         continueButton.rx.tap
             .bind(to: viewModel.inputs.nextPage)
             .disposed(by: disposeBag)
@@ -118,6 +123,7 @@ class WalkthroughViewController: UIViewController, BindableType, LoadingDisplaya
         pagingView.autoPinEdge(.bottom, to: .top, of: continueButton)
         
         loadingView.autoSetDimensions(to: view.frame.size)
+        errorView.autoSetDimensions(to: view.frame.size)
     }
     
     

@@ -61,6 +61,8 @@
 		49941FAE21D3A88F00F91229 /* InfoAlertDisplayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49941FAD21D3A88E00F91229 /* InfoAlertDisplayable.swift */; };
 		499AF40121AEE93C00F4B4FF /* CalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499AF40021AEE93C00F4B4FF /* CalendarService.swift */; };
 		499AF40421AEEC5400F4B4FF /* AccessError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499AF40321AEEC5400F4B4FF /* AccessError.swift */; };
+		49A8B97521E64F7100DA26E0 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A8B97421E64F7100DA26E0 /* ErrorView.swift */; };
+		49A8B97721E6562100DA26E0 /* ErrorDisplayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A8B97621E6562100DA26E0 /* ErrorDisplayable.swift */; };
 		49B4663121CADBB500BE810C /* LoadingDisplayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B4663021CADBB500BE810C /* LoadingDisplayable.swift */; };
 		49B4663521CADE7F00BE810C /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B4663421CADE7F00BE810C /* LoadingView.swift */; };
 		49B4663721CAEE0000BE810C /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B4663621CAEE0000BE810C /* DependencyContainer.swift */; };
@@ -96,6 +98,7 @@
 		49DD02F3219C262C00C57041 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DD02F2219C262C00C57041 /* Weather.swift */; };
 		49DD02F8219C379000C57041 /* TransitLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DD02F7219C379000C57041 /* TransitLine.swift */; };
 		49DD02FE219C3A6600C57041 /* Leg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DD02FD219C3A6600C57041 /* Leg.swift */; };
+		49ED3D0D21E6449F000293EA /* CalendarError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49ED3D0C21E6449F000293EA /* CalendarError.swift */; };
 		49EF7ACE21A709E100FEDFEC /* UNUserNotificationCenter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EF7ACD21A709E100FEDFEC /* UNUserNotificationCenter+Extensions.swift */; };
 		49EF7AD021A72B8D00FEDFEC /* RouteSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EF7ACF21A72B8C00FEDFEC /* RouteSummary.swift */; };
 		49EF7AD221A72CB600FEDFEC /* Waypoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EF7AD121A72CB600FEDFEC /* Waypoint.swift */; };
@@ -176,6 +179,8 @@
 		49941FAD21D3A88E00F91229 /* InfoAlertDisplayable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoAlertDisplayable.swift; sourceTree = "<group>"; };
 		499AF40021AEE93C00F4B4FF /* CalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarService.swift; sourceTree = "<group>"; };
 		499AF40321AEEC5400F4B4FF /* AccessError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessError.swift; sourceTree = "<group>"; };
+		49A8B97421E64F7100DA26E0 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		49A8B97621E6562100DA26E0 /* ErrorDisplayable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorDisplayable.swift; sourceTree = "<group>"; };
 		49B4663021CADBB500BE810C /* LoadingDisplayable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingDisplayable.swift; sourceTree = "<group>"; };
 		49B4663421CADE7F00BE810C /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		49B4663621CAEE0000BE810C /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
@@ -211,6 +216,7 @@
 		49DD02F2219C262C00C57041 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		49DD02F7219C379000C57041 /* TransitLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitLine.swift; sourceTree = "<group>"; };
 		49DD02FD219C3A6600C57041 /* Leg.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Leg.swift; sourceTree = "<group>"; };
+		49ED3D0C21E6449F000293EA /* CalendarError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarError.swift; sourceTree = "<group>"; };
 		49EF7ACD21A709E100FEDFEC /* UNUserNotificationCenter+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UNUserNotificationCenter+Extensions.swift"; sourceTree = "<group>"; };
 		49EF7ACF21A72B8C00FEDFEC /* RouteSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteSummary.swift; sourceTree = "<group>"; };
 		49EF7AD121A72CB600FEDFEC /* Waypoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Waypoint.swift; sourceTree = "<group>"; };
@@ -411,6 +417,7 @@
 			isa = PBXGroup;
 			children = (
 				499AF40321AEEC5400F4B4FF /* AccessError.swift */,
+				49ED3D0C21E6449F000293EA /* CalendarError.swift */,
 				49CE3D2E21AF244C00A05CD0 /* AlarmServiceError.swift */,
 			);
 			path = Errors;
@@ -428,6 +435,7 @@
 			isa = PBXGroup;
 			children = (
 				49B4663421CADE7F00BE810C /* LoadingView.swift */,
+				49A8B97421E64F7100DA26E0 /* ErrorView.swift */,
 			);
 			path = OverlayViews;
 			sourceTree = "<group>";
@@ -537,6 +545,7 @@
 				498DBC8021C1B76A000D40D8 /* EditableCell.swift */,
 				2245868121972D5200072C6C /* WalkthroughSlideable.swift */,
 				49B4663021CADBB500BE810C /* LoadingDisplayable.swift */,
+				49A8B97621E6562100DA26E0 /* ErrorDisplayable.swift */,
 				49941FAD21D3A88E00F91229 /* InfoAlertDisplayable.swift */,
 				22BE369F2193484500B56BF9 /* BindableType.swift */,
 				49BE428021B839ED003EC071 /* Reusable.swift */,
@@ -872,6 +881,7 @@
 				49FAADCF21A073960019D5FA /* LocationPageViewModel.swift in Sources */,
 				499AF40421AEEC5400F4B4FF /* AccessError.swift in Sources */,
 				22C8D188218B2AAD0029C1EA /* SceneCoordinatorType.swift in Sources */,
+				49ED3D0D21E6449F000293EA /* CalendarError.swift in Sources */,
 				2245868221972D5200072C6C /* WalkthroughSlideable.swift in Sources */,
 				22BCC83A218B1BEE00C77CB1 /* AppDelegate.swift in Sources */,
 				49F6210521CD5471006D99A0 /* TransportMode.swift in Sources */,
@@ -910,6 +920,7 @@
 				221202852197121C00474B5D /* UILabel+Extensions.swift in Sources */,
 				4921B8D221A1A69000BD6145 /* EventStore+Extensions.swift in Sources */,
 				493FA95521CE6C2A00C2FFA1 /* SmallLabel.swift in Sources */,
+				49A8B97521E64F7100DA26E0 /* ErrorView.swift in Sources */,
 				49FAADCD21A06B560019D5FA /* CalendarPageViewModel.swift in Sources */,
 				49BE428521B83B72003EC071 /* UITableView+Extensions.swift in Sources */,
 				498ED02021C14A29003FFF5B /* TimeIntervall+Extensions.swift in Sources */,
@@ -925,6 +936,7 @@
 				49DB25DD218DDACD0037CFBB /* WalkthroughViewController.swift in Sources */,
 				49BD679B21CFF10F00A240E6 /* TravelEditView.swift in Sources */,
 				498ED01A21C13A1F003FFF5B /* TileView.swift in Sources */,
+				49A8B97721E6562100DA26E0 /* ErrorDisplayable.swift in Sources */,
 				22C51525219EF6EB003783A7 /* LandingPageViewModel.swift in Sources */,
 				49BD3FDA21D28D1300939766 /* TravelEditViewController.swift in Sources */,
 			);
