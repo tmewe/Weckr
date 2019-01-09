@@ -9,5 +9,5 @@
 import Foundation
 
 enum CalendarError: Error {
-    
+    case noEvents
 }

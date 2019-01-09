@@ -41,6 +41,7 @@ class WalkthroughViewModel: WalkthroughViewModelType {
     //Setup
     private var internalPageNumber = BehaviorSubject(value: 0)
     private var internalButtonColor = BehaviorSubject(value: UIColor.walkthroughPurpleAccent.cgColor)
+    private var error: BehaviorSubject<Error?> = BehaviorSubject(value: nil)
     private let serviceFactory: ServiceFactoryProtocol
     private let viewModelFactory: ViewModelFactoryProtocol
     private let locationManager = CLLocationManager()
@@ -137,9 +138,9 @@ class WalkthroughViewModel: WalkthroughViewModelType {
             .share(replay: 1, scope: .forever)
         
         //Location status
-        errorOccurred = locationManager.rx.didChangeAuthorization
+        locationManager.rx.didChangeAuthorization
             .map { $0.1 }
-            .map { status in
+            .map { status -> Error? in
                 switch status {
                 case .restricted, .denied:
                     return AccessError.location
@@ -147,12 +148,16 @@ class WalkthroughViewModel: WalkthroughViewModelType {
                     return nil
                 }
             }
+            .bind(to: error)
+            .disposed(by: disposeBag)
         //            .filter { $0 == .notDetermined }
         //            .filter { $0 == .restricted }
         //            .subscribe(onNext: { status in
         //                print(status)
         //            })
         //            .disposed(by: disposeBag)
+        
+        errorOccurred = error.asObservable()
         
         let vehiclePage = pages.filter { $0.viewModel is TravelPageViewModel }.first
         guard let vehicle = vehiclePage?.viewModel.inputs.transportMode else {
@@ -178,6 +183,8 @@ class WalkthroughViewModel: WalkthroughViewModelType {
                     .createMain(coordinator: coordinator)),
                                        withType: .modal)
                 UserDefaults.standard.set(true, forKey: SettingsKeys.appHasBeenStarted)
+            }, onError: { error in
+                self.error.onNext(error)
             })
             .disposed(by: disposeBag)
     }
