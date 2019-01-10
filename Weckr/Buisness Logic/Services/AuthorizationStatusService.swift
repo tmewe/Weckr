@@ -13,20 +13,20 @@ import RxSwift
 
 //Only for notification and event store
 protocol AuthorizationStatusServiceType {
-    func notificationAuthorization() -> Observable<Error?>
-    func eventStoreAuthorization() -> Observable<Error?>
+    func notificationAuthorization() -> Observable<AppError?>
+    func eventStoreAuthorization() -> Observable<AppError?>
 }
 
 class AuthorizationStatusService: AuthorizationStatusServiceType {
     
-    func notificationAuthorization() -> Observable<Error?> {
+    func notificationAuthorization() -> Observable<AppError?> {
         let center = UNUserNotificationCenter.current()
         return center.rx.requestAuthorization(options: [.badge, .alert, .sound])
             .map { $0.0 }
             .map { $0 ? nil : AccessError.notification }
     }
     
-    func eventStoreAuthorization() -> Observable<Error?> {
+    func eventStoreAuthorization() -> Observable<AppError?> {
         let status = EKEventStore.authorizationStatus(for: .event)
         guard status == .authorized else { return Observable.just(AccessError.calendar) }
         return Observable.just(nil)

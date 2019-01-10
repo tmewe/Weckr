@@ -22,7 +22,7 @@ protocol MainViewModelInputsType {
 protocol MainViewModelOutputsType {
     var sections: Observable<[AlarmSection]> { get }
     var dateString: Observable<String> { get }
-    var errorOccurred: Observable<Error?> { get }
+    var errorOccurred: Observable<AppError?> { get }
 }
 
 protocol MainViewModelActionsType {
@@ -50,7 +50,7 @@ class MainViewModel: MainViewModelType {
     //Outpus
     var sections: Observable<[AlarmSection]>
     var dateString: Observable<String>
-    var errorOccurred: Observable<Error?>
+    var errorOccurred: Observable<AppError?>
     
     //Setup
     private let coordinator: SceneCoordinatorType
@@ -72,9 +72,9 @@ class MainViewModel: MainViewModelType {
         self.alarmService = serviceFactory.createAlarm()
         
         let authorizationService = serviceFactory.createAuthorizationStatus()
-        let locationError: BehaviorSubject<Error?> = BehaviorSubject(value: nil)
-        let notificationError: BehaviorSubject<Error?> = BehaviorSubject(value: nil)
-        let calendarError: BehaviorSubject<Error?> = BehaviorSubject(value: nil)
+        let locationError: BehaviorSubject<AppError?> = BehaviorSubject(value: nil)
+        let notificationError: BehaviorSubject<AppError?> = BehaviorSubject(value: nil)
+        let calendarError: BehaviorSubject<AppError?> = BehaviorSubject(value: nil)
         
         let nextAlarm = alarmService.currentAlarmObservable().share(replay: 1, scope: .forever)
         
@@ -182,7 +182,7 @@ class MainViewModel: MainViewModelType {
         //Location access status
         locationManager.rx.didChangeAuthorization
             .map { $0.1 }
-            .map { status -> Error? in
+            .map { status -> AppError? in
                 switch status {
                 case .restricted, .denied:
                     return AccessError.location

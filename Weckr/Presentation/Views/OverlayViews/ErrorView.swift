@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 protocol ErrorProtocol {
-    func setError(_ error: Error)
+    func setError(_ error: AppError)
 }
 
 class ErrorView: UIView, ErrorProtocol {
@@ -22,8 +22,8 @@ class ErrorView: UIView, ErrorProtocol {
         setupConstraints()
     }
     
-    func setError(_ error: Error) {
-        messageLabel.text = error.localizedDescription
+    func setError(_ error: AppError) {
+        messageLabel.text = error.localizedMessage
     }
     
     private func setupView() {

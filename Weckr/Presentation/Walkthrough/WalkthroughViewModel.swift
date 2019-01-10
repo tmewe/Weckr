@@ -26,7 +26,7 @@ protocol WalkthroughViewModelOutputsType {
     var buttonColor: Observable<CGColor> { get }
     var buttonText: Observable<String> { get }
     var createTrigger: Observable<Void> { get }
-    var errorOccurred: Observable<Error?> { get }
+    var errorOccurred: Observable<AppError?> { get }
 }
 
 protocol WalkthroughViewModelType {
@@ -58,7 +58,7 @@ class WalkthroughViewModel: WalkthroughViewModelType {
     var buttonColor: Observable<CGColor>
     var buttonText: Observable<String>
     var createTrigger: Observable<Void>
-    var errorOccurred: Observable<Error?>
+    var errorOccurred: Observable<AppError?>
     
     init(pages: [WalkthroughPageViewController],
          viewModelFactory: ViewModelFactoryProtocol,
@@ -75,9 +75,9 @@ class WalkthroughViewModel: WalkthroughViewModelType {
         
         let internalPageNumber = BehaviorSubject(value: 0)
         
-        let locationError: BehaviorSubject<Error?> = BehaviorSubject(value: nil)
-        let notificationError: BehaviorSubject<Error?> = BehaviorSubject(value: nil)
-        let calendarError: BehaviorSubject<Error?> = BehaviorSubject(value: nil)
+        let locationError: BehaviorSubject<AppError?> = BehaviorSubject(value: nil)
+        let notificationError: BehaviorSubject<AppError?> = BehaviorSubject(value: nil)
+        let calendarError: BehaviorSubject<AppError?> = BehaviorSubject(value: nil)
         
         locationManager.startUpdatingLocation()
         
@@ -160,7 +160,7 @@ class WalkthroughViewModel: WalkthroughViewModelType {
         //Location access status
         locationManager.rx.didChangeAuthorization
             .map { $0.1 }
-            .map { status -> Error? in
+            .map { status -> AppError? in
                 switch status {
                 case .restricted, .denied:
                     return AccessError.location

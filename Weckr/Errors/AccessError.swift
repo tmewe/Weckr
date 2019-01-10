@@ -8,8 +8,12 @@
 
 import Foundation
 
-enum AccessError: Error {
+enum AccessError: AppError {
     case calendar
     case location
     case notification
+    
+    var localizedMessage: String {
+        return "yeaf"
+    }
 }

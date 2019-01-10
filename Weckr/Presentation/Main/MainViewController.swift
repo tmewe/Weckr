@@ -61,7 +61,7 @@ class MainViewController: UITableViewController, BindableType, ErrorDisplayable 
         
         viewModel.outputs.errorOccurred
             .asDriver(onErrorJustReturn: nil)
-            .drive(onNext:  { $0 == nil ? self.hideError() : self.showError() })
+            .drive(onNext:  { $0 == nil ? self.hideError() : self.showError(error: $0!) })
             .disposed(by: disposeBag)
         
         tableView.rx.willDisplayCell

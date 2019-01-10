@@ -8,6 +8,10 @@
 
 import Foundation
 
-enum CalendarError: Error {
+enum CalendarError: AppError {
     case noEvents
+    
+    var localizedMessage: String {
+        return "yeaf"
+    }
 }

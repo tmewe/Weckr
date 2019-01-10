@@ -111,6 +111,7 @@
 		49FAADCF21A073960019D5FA /* LocationPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FAADCE21A073960019D5FA /* LocationPageViewModel.swift */; };
 		49FAADD121A075070019D5FA /* NotificationPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FAADD021A075070019D5FA /* NotificationPageViewModel.swift */; };
 		49FEAAB421E79DCD00D19766 /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FEAAB321E79DCD00D19766 /* Localizable.swift */; };
+		49FEAAB621E7AEF300D19766 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FEAAB521E7AEF300D19766 /* AppError.swift */; };
 		829E084E26D392D5A7965F6D /* Pods_Weckr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D8F1BEF8290C85232F136C5 /* Pods_Weckr.framework */; };
 		8415D34C21CA98C200F28E13 /* VehicleSegmentedControl+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415D34B21CA98C200F28E13 /* VehicleSegmentedControl+Rx.swift */; };
 		8415D34E21CA9D1500F28E13 /* UIControl+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415D34D21CA9D1500F28E13 /* UIControl+Extensions.swift */; };
@@ -231,6 +232,7 @@
 		49FAADCE21A073960019D5FA /* LocationPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPageViewModel.swift; sourceTree = "<group>"; };
 		49FAADD021A075070019D5FA /* NotificationPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPageViewModel.swift; sourceTree = "<group>"; };
 		49FEAAB321E79DCD00D19766 /* Localizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localizable.swift; sourceTree = "<group>"; };
+		49FEAAB521E7AEF300D19766 /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
 		8415D34B21CA98C200F28E13 /* VehicleSegmentedControl+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VehicleSegmentedControl+Rx.swift"; sourceTree = "<group>"; };
 		8415D34D21CA9D1500F28E13 /* UIControl+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+Extensions.swift"; sourceTree = "<group>"; };
 		84A6F89621C6B7FA00D55A31 /* VehicleSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleSegmentedControl.swift; sourceTree = "<group>"; };
@@ -421,6 +423,7 @@
 		499AF40221AEEC3500F4B4FF /* Errors */ = {
 			isa = PBXGroup;
 			children = (
+				49FEAAB521E7AEF300D19766 /* AppError.swift */,
 				499AF40321AEEC5400F4B4FF /* AccessError.swift */,
 				49ED3D0C21E6449F000293EA /* CalendarError.swift */,
 				49CE3D2E21AF244C00A05CD0 /* AlarmServiceError.swift */,
@@ -906,6 +909,7 @@
 				84A6F89721C6B7FA00D55A31 /* VehicleSegmentedControl.swift in Sources */,
 				493FA95921CE6FD700C2FFA1 /* RouteTransitTableViewCell.swift in Sources */,
 				49BD3FD721D2581000939766 /* CalendarEditView.swift in Sources */,
+				49FEAAB621E7AEF300D19766 /* AppError.swift in Sources */,
 				84E7CDED2195DD260088CF98 /* Route.swift in Sources */,
 				498ED01E21C13A57003FFF5B /* TileTableViewCell.swift in Sources */,
 				49BD3FD521D256BD00939766 /* CalendarEditViewModel.swift in Sources */,
