@@ -17,6 +17,7 @@ protocol WalkthroughViewModelInputsType {
     var nextPage: PublishSubject<Void> { get }
     var previousPage: PublishSubject<Void> { get }
     var scrollAmount: PublishSubject<CGFloat> { get }
+    var viewWillAppear: PublishSubject<Void> { get }
 }
 
 protocol WalkthroughViewModelOutputsType {
@@ -41,7 +42,11 @@ class WalkthroughViewModel: WalkthroughViewModelType {
     //Setup
     private var internalPageNumber = BehaviorSubject(value: 0)
     private var internalButtonColor = BehaviorSubject(value: UIColor.walkthroughPurpleAccent.cgColor)
-    private var error: BehaviorSubject<Error?> = BehaviorSubject(value: nil)
+    
+    private var locationError: BehaviorSubject<Error?> = BehaviorSubject(value: nil)
+    private var notificationError: BehaviorSubject<Error?> = BehaviorSubject(value: nil)
+    private var calendarError: BehaviorSubject<Error?> = BehaviorSubject(value: nil)
+    
     private let serviceFactory: ServiceFactoryProtocol
     private let viewModelFactory: ViewModelFactoryProtocol
     private let locationManager = CLLocationManager()
@@ -52,6 +57,7 @@ class WalkthroughViewModel: WalkthroughViewModelType {
     var nextPage: PublishSubject<Void>
     var previousPage: PublishSubject<Void>
     var scrollAmount: PublishSubject<CGFloat>
+    var viewWillAppear: PublishSubject<Void>
     
     //Outputs
     var pageNumber: Observable<Int>
@@ -72,6 +78,7 @@ class WalkthroughViewModel: WalkthroughViewModelType {
         self.serviceFactory = serviceFactory
         
         let alarmService = serviceFactory.createAlarm()
+        let authorizationService = serviceFactory.createAuthorizationStatus()
         
         locationManager.startUpdatingLocation()
         
@@ -79,6 +86,7 @@ class WalkthroughViewModel: WalkthroughViewModelType {
         nextPage = PublishSubject()
         previousPage = PublishSubject()
         scrollAmount = PublishSubject()
+        viewWillAppear = PublishSubject()
         
         //Outputs
         pageNumber = internalPageNumber.asObservable()
@@ -130,6 +138,19 @@ class WalkthroughViewModel: WalkthroughViewModelType {
             .take(1)
             .share(replay: 1, scope: .forever)
         
+        let triggerViewModel = internalPageNumber
+            .filter { $0 > 1 }
+            .map { pages[$0-1].viewModel }
+            .share(replay: 1, scope: .forever)
+        
+        let notificationTrigger = triggerViewModel
+            .filter { $0 is NotificationPageViewModel }
+            .take(1)
+        
+        let calendarTrigger = triggerViewModel
+            .filter { $0 is CalendarPageViewModel }
+            .take(1)
+        
         let startLocation = locationManager.rx.location
             .filterNil()
             .take(1)
@@ -148,16 +169,47 @@ class WalkthroughViewModel: WalkthroughViewModelType {
                     return nil
                 }
             }
-            .bind(to: error)
+            .bind(to: locationError)
             .disposed(by: disposeBag)
-        //            .filter { $0 == .notDetermined }
-        //            .filter { $0 == .restricted }
-        //            .subscribe(onNext: { status in
-        //                print(status)
-        //            })
-        //            .disposed(by: disposeBag)
         
-        errorOccurred = error.asObservable()
+        //Notification status
+        let notificationPage = pages.filter { $0.viewModel is NotificationPageViewModel }.first
+        notificationPage!.viewModel.outputs.actionSuccesful
+//            .debug("notification action", trimOutput: true)
+            .map { $0 ? nil : AccessError.notification }
+            .bind(to: notificationError)
+            .disposed(by: disposeBag)
+        
+        viewWillAppear
+            .skipUntil(notificationTrigger)
+            .flatMapLatest { authorizationService.notificationAuthorization() }
+//            .debug("notification", trimOutput: true)
+            .bind(to: notificationError)
+            .disposed(by: disposeBag)
+        
+        //Event status
+        let eventPage = pages.filter { $0.viewModel is CalendarPageViewModel }.first
+        eventPage!.viewModel.outputs.actionSuccesful
+//            .debug("calendar action", trimOutput: true)
+            .map { $0 ? nil : AccessError.calendar }
+            .bind(to: calendarError)
+            .disposed(by: disposeBag)
+        
+        viewWillAppear
+            .skipUntil(calendarTrigger)
+            .flatMapLatest { authorizationService.eventStoreAuthorization() }
+//            .debug("calendar", trimOutput: true)
+            .bind(to: calendarError)
+            .disposed(by: disposeBag)
+        
+        errorOccurred = Observable.combineLatest(locationError, notificationError, calendarError)
+//            .debug("errorOccurred", trimOutput: true)
+            .map { location, notification, event in
+                if location != nil { return location }
+                if notification != nil { return notification }
+                if event != nil { return event }
+                return nil
+            }
         
         let vehiclePage = pages.filter { $0.viewModel is TravelPageViewModel }.first
         guard let vehicle = vehiclePage?.viewModel.inputs.transportMode else {
@@ -183,8 +235,6 @@ class WalkthroughViewModel: WalkthroughViewModelType {
                     .createMain(coordinator: coordinator)),
                                        withType: .modal)
                 UserDefaults.standard.set(true, forKey: SettingsKeys.appHasBeenStarted)
-            }, onError: { error in
-                self.error.onNext(error)
             })
             .disposed(by: disposeBag)
     }

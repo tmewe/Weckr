@@ -16,10 +16,11 @@ class NotificationPageViewModel : WalkthroughSlideableType {
     var inputs: WalkthroughSlideableInputsType { return self }
     var outputs: WalkthroughSlideableOutputsType { return self }
     var actions: WalkthroughSlideableActionsType { return self }
-
+    
     //Setup
     private let disposeBag = DisposeBag()
-
+    private let actionResult = PublishSubject<Bool>()
+    
     //Inputs
     var transportMode: PublishSubject<TransportMode>?
     var morningRoutineTime: PublishSubject<TimeInterval>?
@@ -31,6 +32,7 @@ class NotificationPageViewModel : WalkthroughSlideableType {
     var topLabelColoredText: Observable<String>
     var bottomLabelText: Observable<String>
     var bottomLabelColoredText: Observable<String>
+    var actionSuccesful: Observable<Bool>
     
     init() {
         
@@ -44,6 +46,7 @@ class NotificationPageViewModel : WalkthroughSlideableType {
         topLabelColoredText = Observable.just(strings.titleColored)
         bottomLabelText = Observable.just(strings.subtitle)
         bottomLabelColoredText = Observable.just(strings.subtitleColored)
+        actionSuccesful = actionResult.asObservable().startWith(true)
     }
     
     //Actions
@@ -51,7 +54,9 @@ class NotificationPageViewModel : WalkthroughSlideableType {
         return CocoaAction {
             let center = UNUserNotificationCenter.current()
             center.requestAuthorization(options: [.badge, .alert, .sound],
-                                        completionHandler: {_,_ in })
+                                        completionHandler: {granted, error in
+                                            self.actionResult.onNext(granted)
+            })
             return Observable.empty()
         }
     }()

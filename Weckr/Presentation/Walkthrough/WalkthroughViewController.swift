@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import PureLayout
 import RxSwift
+import RxAppState
 import RxViewController
 
 class WalkthroughViewController: UIViewController, BindableType, LoadingDisplayable, ErrorDisplayable {
@@ -38,20 +39,25 @@ class WalkthroughViewController: UIViewController, BindableType, LoadingDisplaya
         
     func bindViewModel() {
         
-        rx.viewDidLayoutSubviews
+        rx.viewWillLayoutSubviews
             .withLatestFrom(viewModel.outputs.slides)
             .subscribe(onNext: setupSlideScrollView)
+            .disposed(by: disposeBag)
+        
+        UIApplication.shared.rx.didOpenApp
+            .map { _ in Void() }
+            .bind(to: viewModel.inputs.viewWillAppear)
             .disposed(by: disposeBag)
         
         let pageNumberAndSlides = Observable.combineLatest(viewModel.outputs.pageNumber,
                                                            viewModel.outputs.slides)
         
-        Observable.combineLatest(rx.viewDidLayoutSubviews, pageNumberAndSlides)
+        Observable.combineLatest(rx.viewWillLayoutSubviews, pageNumberAndSlides)
             .map { $0.1 }
             .subscribe(onNext: updateCurrentPage)
             .disposed(by: disposeBag)
         
-        Observable.combineLatest(rx.viewDidLayoutSubviews, viewModel.outputs.buttonColor)
+        Observable.combineLatest(rx.viewWillLayoutSubviews, viewModel.outputs.buttonColor)
             .map { $0.1 }
             .asDriver(onErrorJustReturn: UIColor.walkthroughPurpleAccent.cgColor)
             .map { ($0, UIColor.backGroundColorTransparent.cgColor) }
@@ -77,7 +83,8 @@ class WalkthroughViewController: UIViewController, BindableType, LoadingDisplaya
             .disposed(by: disposeBag)
         
         viewModel.outputs.errorOccurred
-            .subscribe(onNext: { $0 == nil ? self.hideError() : self.showError() })
+            .asDriver(onErrorJustReturn: nil)
+            .drive(onNext:  { $0 == nil ? self.hideError() : self.showError() })
             .disposed(by: disposeBag)
         
         continueButton.rx.tap

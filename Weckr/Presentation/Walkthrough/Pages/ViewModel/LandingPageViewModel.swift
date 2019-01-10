@@ -27,7 +27,8 @@ class LandingPageViewModel : WalkthroughSlideableType {
     var topLabelColoredText: Observable<String>
     var bottomLabelText: Observable<String>
     var bottomLabelColoredText: Observable<String>
-    
+    var actionSuccesful: Observable<Bool>
+
     init() {
         
         //Outputs
@@ -37,6 +38,7 @@ class LandingPageViewModel : WalkthroughSlideableType {
         topLabelColoredText = Observable.just(Strings.Walkthrough.Landing.titleColored)
         bottomLabelText = Observable.empty()
         bottomLabelColoredText = Observable.empty()
+        actionSuccesful = Observable.empty()
     }
     
     //Actions

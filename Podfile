@@ -21,4 +21,5 @@ target 'Weckr' do
   pod 'RxCoreLocation', '~> 1.3.1'
   pod 'SwiftDate', '~> 5.0'
   pod 'FoldingCell', '~> 4.0.2'
+  pod 'RxAppState'
 end

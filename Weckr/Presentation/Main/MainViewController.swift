@@ -13,11 +13,13 @@ import RxDataSources
 import FoldingCell
 import Action
 
-class MainViewController: UITableViewController, BindableType {
+class MainViewController: UITableViewController, BindableType, ErrorDisplayable {
     
     typealias ViewModelType = MainViewModelType
     
     var viewModel: ViewModelType!
+    var errorView: ErrorViewProtocol = ErrorView.newAutoLayout()
+
     private var dataSource: RxTableViewSectionedAnimatedDataSource<AlarmSection>!
     private let disposeBag = DisposeBag()
     
@@ -36,6 +38,8 @@ class MainViewController: UITableViewController, BindableType {
         dataSource = configureDataSource()
         setupTableView()
         bindViewModel()
+        
+        errorView.autoSetDimensions(to: view.frame.size)
     }
     
     func bindViewModel() {

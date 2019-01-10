@@ -19,6 +19,7 @@ class CalendarPageViewModel : WalkthroughSlideableType {
     
     //Setup
     private let disposeBag = DisposeBag()
+    private let actionResult = PublishSubject<Bool>()
     
     //Inputs
     var transportMode: PublishSubject<TransportMode>?
@@ -31,6 +32,7 @@ class CalendarPageViewModel : WalkthroughSlideableType {
     var topLabelColoredText: Observable<String>
     var bottomLabelText: Observable<String>
     var bottomLabelColoredText: Observable<String>
+    var actionSuccesful: Observable<Bool>
     
     init() {
         
@@ -44,6 +46,7 @@ class CalendarPageViewModel : WalkthroughSlideableType {
         topLabelColoredText = Observable.just(strings.titleColored)
         bottomLabelText = Observable.just(strings.subtitle)
         bottomLabelColoredText = Observable.just(strings.subtitleColored)
+        actionSuccesful = actionResult.asObservable().startWith(true)
     }
     
     //Actions
@@ -52,10 +55,14 @@ class CalendarPageViewModel : WalkthroughSlideableType {
             let status = EKEventStore.authorizationStatus(for: .event)
             switch (status) {
             case .notDetermined:
-                EKEventStore().requestAccess(to: .event, completion: {_,_ in })
+                EKEventStore().requestAccess(to: .event, completion: { granted, _ in
+                    self.actionResult.onNext(granted)
+                })
             case .authorized:
+                self.actionResult.onNext(true)
                 return Observable.empty()
             case .restricted, .denied:
+                self.actionResult.onNext(false)
                 return Observable.empty()
             }
         return Observable.empty()
