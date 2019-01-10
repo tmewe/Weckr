@@ -12,6 +12,12 @@ enum CalendarError: AppError {
     case noEvents
     
     var localizedMessage: String {
-        return "yeaf"
+        switch self {
+        case .noEvents:
+            return "no events"
+        default:
+            return "undefinded"
+        }
+
     }
 }

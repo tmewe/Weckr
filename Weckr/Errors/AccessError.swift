@@ -14,6 +14,15 @@ enum AccessError: AppError {
     case notification
     
     var localizedMessage: String {
-        return "yeaf"
+        switch self {
+        case .calendar:
+            return "calendar"
+        case .location:
+            return "location"
+        case .notification:
+            return "notification"
+        default:
+            return "undefinded"
+        }
     }
 }

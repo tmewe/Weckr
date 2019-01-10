@@ -8,11 +8,7 @@
 
 import Foundation
 
-enum AlarmServiceError: AppError {
+enum AlarmServiceError: Error {
     case creationFailed
     case deletionFailed(Alarm)
-    
-    var localizedMessage: String {
-        return "yeaf"
-    }
 }
