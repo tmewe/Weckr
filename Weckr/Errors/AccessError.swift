@@ -21,8 +21,6 @@ enum AccessError: AppError {
             return "location"
         case .notification:
             return "notification"
-        default:
-            return "undefinded"
         }
     }
 }
