@@ -157,7 +157,7 @@ class WalkthroughViewModel: WalkthroughViewModelType {
             .map(GeoCoordinate.init)
             .share(replay: 1, scope: .forever)
         
-        //Location status
+        //Location access status
         locationManager.rx.didChangeAuthorization
             .map { $0.1 }
             .map { status -> Error? in
@@ -171,7 +171,7 @@ class WalkthroughViewModel: WalkthroughViewModelType {
             .bind(to: locationError)
             .disposed(by: disposeBag)
         
-        //Notification status
+        //Notification access status
         let notificationPage = pages.filter { $0.viewModel is NotificationPageViewModel }.first
         notificationPage!.viewModel.outputs.actionSuccesful
             .map { $0 ? nil : AccessError.notification }
@@ -184,7 +184,7 @@ class WalkthroughViewModel: WalkthroughViewModelType {
             .bind(to: notificationError)
             .disposed(by: disposeBag)
         
-        //Event status
+        //Event store access status
         let eventPage = pages.filter { $0.viewModel is CalendarPageViewModel }.first
         eventPage!.viewModel.outputs.actionSuccesful
             .map { $0 ? nil : AccessError.calendar }

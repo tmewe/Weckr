@@ -10,32 +10,35 @@ import Foundation
 import UIKit
 
 protocol ErrorProtocol {
-    
+    func setError(_ error: Error)
 }
 
 class ErrorView: UIView, ErrorProtocol {
     
     init() {
         super.init(frame: CGRect.zero)
-        addSubview(messgeLabel)
+        addSubview(messageLabel)
         setupView()
         setupConstraints()
     }
     
+    func setError(_ error: Error) {
+        messageLabel.text = error.localizedDescription
+    }
+    
     private func setupView() {
-        backgroundColor = .black
-        alpha = 0.7
+        backgroundColor = .backgroundColor
     }
     
     private func setupConstraints() {
-        messgeLabel.autoCenterInSuperview()
+        messageLabel.autoCenterInSuperview()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    var messgeLabel: UILabel = {
+    var messageLabel: UILabel = {
         let label = UILabel.newAutoLayout()
         label.text = "fjasklödfjask fklsajf alksd jfklsd jföklsdj föasdfjaö"
         label.textColor = .white

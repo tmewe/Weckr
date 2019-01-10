@@ -12,6 +12,7 @@ import RxCocoa
 import RxDataSources
 import FoldingCell
 import Action
+import RxAppState
 
 class MainViewController: UITableViewController, BindableType, ErrorDisplayable {
     
@@ -43,6 +44,11 @@ class MainViewController: UITableViewController, BindableType, ErrorDisplayable 
     }
     
     func bindViewModel() {
+        UIApplication.shared.rx.didOpenApp
+            .map { _ in Void() }
+            .bind(to: viewModel.inputs.viewWillAppear)
+            .disposed(by: disposeBag)
+        
         viewModel.outputs.sections
             .asDriver(onErrorJustReturn: [])
             .drive(tableView.rx.items(dataSource: dataSource))
@@ -52,6 +58,11 @@ class MainViewController: UITableViewController, BindableType, ErrorDisplayable 
             .asDriver(onErrorJustReturn: "")
             .drive(headerView.dateLabel.rx.text)
             .disposed(by: headerView.disposeBag)
+        
+        viewModel.outputs.errorOccurred
+            .asDriver(onErrorJustReturn: nil)
+            .drive(onNext:  { $0 == nil ? self.hideError() : self.showError() })
+            .disposed(by: disposeBag)
         
         tableView.rx.willDisplayCell
             .subscribe(onNext: { cell, indexPath in

@@ -12,12 +12,13 @@ import UIKit
 protocol ErrorDisplayable {
     typealias ErrorViewProtocol = ErrorProtocol & UIView
     var errorView: ErrorViewProtocol { get set }
-    func showError()
+    func showError(error: Error)
     func hideError()
 }
 
 extension ErrorDisplayable where Self: UIViewController {
-    func showError() {
+    func showError(error: Error) {
+        errorView.setError(error)
         view.addSubview(errorView)
     }
     

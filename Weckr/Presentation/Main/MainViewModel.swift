@@ -16,11 +16,13 @@ import CoreLocation
 
 protocol MainViewModelInputsType {
     var toggleRouteVisibility: PublishSubject<Void> { get }
+    var viewWillAppear: PublishSubject<Void> { get }
 }
 
 protocol MainViewModelOutputsType {
     var sections: Observable<[AlarmSection]> { get }
     var dateString: Observable<String> { get }
+    var errorOccurred: Observable<Error?> { get }
 }
 
 protocol MainViewModelActionsType {
@@ -43,10 +45,12 @@ class MainViewModel: MainViewModelType {
     
     //Inputs
     var toggleRouteVisibility: PublishSubject<Void>
+    var viewWillAppear: PublishSubject<Void>
     
     //Outpus
     var sections: Observable<[AlarmSection]>
     var dateString: Observable<String>
+    var errorOccurred: Observable<Error?>
     
     //Setup
     private let coordinator: SceneCoordinatorType
@@ -67,6 +71,11 @@ class MainViewModel: MainViewModelType {
         self.coordinator = coordinator
         self.alarmService = serviceFactory.createAlarm()
         
+        let authorizationService = serviceFactory.createAuthorizationStatus()
+        let locationError: BehaviorSubject<Error?> = BehaviorSubject(value: nil)
+        let notificationError: BehaviorSubject<Error?> = BehaviorSubject(value: nil)
+        let calendarError: BehaviorSubject<Error?> = BehaviorSubject(value: nil)
+        
         let nextAlarm = alarmService.currentAlarmObservable().share(replay: 1, scope: .forever)
         
         let alarmItem = nextAlarm.map { [SectionItem.alarm(identity: "alarm", date: $0.date)] }
@@ -79,6 +88,7 @@ class MainViewModel: MainViewModelType {
         
         //Inputs
         toggleRouteVisibility = PublishSubject()
+        viewWillAppear = PublishSubject()
         let routeVisiblity: Observable<Bool> = toggleRouteVisibility
             .scan(false) { state, _ in  !state}
             .startWith(false)
@@ -168,6 +178,40 @@ class MainViewModel: MainViewModelType {
             .map { $0.date }
             .map { $0.toFormat("EEEE, MMMM dd") }
             .map { $0.uppercased() }
+        
+        //Location access status
+        locationManager.rx.didChangeAuthorization
+            .map { $0.1 }
+            .map { status -> Error? in
+                switch status {
+                case .restricted, .denied:
+                    return AccessError.location
+                default:
+                    return nil
+                }
+            }
+            .bind(to: locationError)
+            .disposed(by: disposeBag)
+        
+        //Event store access status
+        viewWillAppear
+            .flatMapLatest { authorizationService.eventStoreAuthorization() }
+            .bind(to: calendarError)
+            .disposed(by: disposeBag)
+        
+        //Notification access status
+        viewWillAppear
+            .flatMapLatest { authorizationService.notificationAuthorization() }
+            .bind(to: notificationError)
+            .disposed(by: disposeBag)
+        
+        errorOccurred = Observable.combineLatest(locationError, notificationError, calendarError)
+            .map { location, notification, event in
+                if location != nil { return location }
+                if notification != nil { return notification }
+                if event != nil { return event }
+                return nil
+        }
         
         //User defaults
         //Morning routine
