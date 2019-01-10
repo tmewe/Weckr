@@ -40,13 +40,6 @@ class WalkthroughViewModel: WalkthroughViewModelType {
     var outputs: WalkthroughViewModelOutputsType { return self }
     
     //Setup
-    private var internalPageNumber = BehaviorSubject(value: 0)
-    private var internalButtonColor = BehaviorSubject(value: UIColor.walkthroughPurpleAccent.cgColor)
-    
-    private var locationError: BehaviorSubject<Error?> = BehaviorSubject(value: nil)
-    private var notificationError: BehaviorSubject<Error?> = BehaviorSubject(value: nil)
-    private var calendarError: BehaviorSubject<Error?> = BehaviorSubject(value: nil)
-    
     private let serviceFactory: ServiceFactoryProtocol
     private let viewModelFactory: ViewModelFactoryProtocol
     private let locationManager = CLLocationManager()
@@ -79,6 +72,12 @@ class WalkthroughViewModel: WalkthroughViewModelType {
         
         let alarmService = serviceFactory.createAlarm()
         let authorizationService = serviceFactory.createAuthorizationStatus()
+        
+        let internalPageNumber = BehaviorSubject(value: 0)
+        
+        let locationError: BehaviorSubject<Error?> = BehaviorSubject(value: nil)
+        let notificationError: BehaviorSubject<Error?> = BehaviorSubject(value: nil)
+        let calendarError: BehaviorSubject<Error?> = BehaviorSubject(value: nil)
         
         locationManager.startUpdatingLocation()
         
