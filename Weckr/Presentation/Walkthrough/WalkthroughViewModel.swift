@@ -175,7 +175,6 @@ class WalkthroughViewModel: WalkthroughViewModelType {
         //Notification status
         let notificationPage = pages.filter { $0.viewModel is NotificationPageViewModel }.first
         notificationPage!.viewModel.outputs.actionSuccesful
-//            .debug("notification action", trimOutput: true)
             .map { $0 ? nil : AccessError.notification }
             .bind(to: notificationError)
             .disposed(by: disposeBag)
@@ -183,14 +182,12 @@ class WalkthroughViewModel: WalkthroughViewModelType {
         viewWillAppear
             .skipUntil(notificationTrigger)
             .flatMapLatest { authorizationService.notificationAuthorization() }
-//            .debug("notification", trimOutput: true)
             .bind(to: notificationError)
             .disposed(by: disposeBag)
         
         //Event status
         let eventPage = pages.filter { $0.viewModel is CalendarPageViewModel }.first
         eventPage!.viewModel.outputs.actionSuccesful
-//            .debug("calendar action", trimOutput: true)
             .map { $0 ? nil : AccessError.calendar }
             .bind(to: calendarError)
             .disposed(by: disposeBag)
@@ -198,12 +195,10 @@ class WalkthroughViewModel: WalkthroughViewModelType {
         viewWillAppear
             .skipUntil(calendarTrigger)
             .flatMapLatest { authorizationService.eventStoreAuthorization() }
-//            .debug("calendar", trimOutput: true)
             .bind(to: calendarError)
             .disposed(by: disposeBag)
         
         errorOccurred = Observable.combineLatest(locationError, notificationError, calendarError)
-//            .debug("errorOccurred", trimOutput: true)
             .map { location, notification, event in
                 if location != nil { return location }
                 if notification != nil { return notification }
