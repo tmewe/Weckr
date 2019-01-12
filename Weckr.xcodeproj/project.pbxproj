@@ -27,6 +27,7 @@
 		22C8D18E218B2BF70029C1EA /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C8D18D218B2BF70029C1EA /* MainViewController.swift */; };
 		22C8D190218B2C060029C1EA /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C8D18F218B2C060029C1EA /* MainViewModel.swift */; };
 		22C8D192218B2DEB0029C1EA /* SceneCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C8D191218B2DEB0029C1EA /* SceneCoordinator.swift */; };
+		4916E40A21EA546D0070141F /* AlarmSchedulerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4916E40921EA546D0070141F /* AlarmSchedulerService.swift */; };
 		4921B8D021A1A41700BD6145 /* SettingsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4921B8CF21A1A41700BD6145 /* SettingsKeys.swift */; };
 		4921B8D221A1A69000BD6145 /* EventStore+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4921B8D121A1A69000BD6145 /* EventStore+Rx.swift */; };
 		492460FC21C28EEE001C0D37 /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492460FB21C28EEE001C0D37 /* EventTableViewCell.swift */; };
@@ -148,6 +149,7 @@
 		22C8D18D218B2BF70029C1EA /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		22C8D18F218B2C060029C1EA /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		22C8D191218B2DEB0029C1EA /* SceneCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneCoordinator.swift; sourceTree = "<group>"; };
+		4916E40921EA546D0070141F /* AlarmSchedulerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSchedulerService.swift; sourceTree = "<group>"; };
 		4921B8CF21A1A41700BD6145 /* SettingsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsKeys.swift; sourceTree = "<group>"; };
 		4921B8D121A1A69000BD6145 /* EventStore+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventStore+Rx.swift"; sourceTree = "<group>"; };
 		492460FB21C28EEE001C0D37 /* EventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
@@ -376,6 +378,7 @@
 				499AF40021AEE93C00F4B4FF /* CalendarService.swift */,
 				49CE3D2C21AF235700A05CD0 /* AlarmService.swift */,
 				4953554021E6AD050034FB54 /* AuthorizationStatusService.swift */,
+				4916E40921EA546D0070141F /* AlarmSchedulerService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -913,6 +916,7 @@
 				84E7CDED2195DD260088CF98 /* Route.swift in Sources */,
 				498ED01E21C13A57003FFF5B /* TileTableViewCell.swift in Sources */,
 				49BD3FD521D256BD00939766 /* CalendarEditViewModel.swift in Sources */,
+				4916E40A21EA546D0070141F /* AlarmSchedulerService.swift in Sources */,
 				49CE3D2D21AF235700A05CD0 /* AlarmService.swift in Sources */,
 				84E7CDEB2195DC930088CF98 /* CalendarEntry.swift in Sources */,
 				493FA94D21CE4B3C00C2FFA1 /* RoutePedestrianTableViewCell.swift in Sources */,
