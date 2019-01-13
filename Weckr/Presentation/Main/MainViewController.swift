@@ -116,7 +116,6 @@ class MainViewController: UITableViewController, BindableType, ErrorDisplayable 
         let userNotificationCenter = UNUserNotificationCenter.current()
         
         userNotificationCenter.rx.willPresent
-            .debug()
             .subscribe(onNext: { (center, notification, completion) in
                 print(center)
                 print(notification)

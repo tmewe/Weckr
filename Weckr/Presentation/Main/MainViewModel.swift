@@ -196,7 +196,6 @@ class MainViewModel: MainViewModelType {
         
         //Event store access status
         viewWillAppear
-            .do(onNext: { _ in alarmScheduler.setAlarmNotification(with: Date()) })
             .flatMapLatest { authorizationService.eventStoreAuthorization() }
             .bind(to: calendarError)
             .disposed(by: disposeBag)
@@ -237,6 +236,13 @@ class MainViewModel: MainViewModelType {
                                                        disposeBag: self!.disposeBag)
             })
             .disposed(by: disposeBag)
+        
+        // Notification for new alarm
+        nextAlarm
+            .map { $0.date }
+            .subscribe(onNext: alarmScheduler.setAlarmNotification)
+            .disposed(by: disposeBag)
+//            .do(onNext: { _ in alarmScheduler.setAlarmNotification(with: Date()) })
     }
     
     //Actions

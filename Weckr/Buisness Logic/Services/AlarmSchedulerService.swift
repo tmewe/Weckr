@@ -25,15 +25,15 @@ struct AlarmSchedulerService: AlarmSchedulerServiceType {
         content.categoryIdentifier = "alarm"
         content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "alarm.mp3"))
         
-        let alarmTime = Date() + 61.seconds
-        let components = Calendar.current.dateComponents([.weekday, .hour, .minute], from: alarmTime)
+//        let alarmTime = Date() + 61.seconds
+        let components = Calendar.current.dateComponents([.weekday, .hour, .minute], from: date)
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: components,
                                                     repeats: false)
         let request = UNNotificationRequest(identifier: UUID().uuidString,
                                             content: content,
                                             trigger: trigger)
-        
+                
         notificationCenter.add(request) { (error) in
             if error != nil {
                 print(error!.localizedDescription)
