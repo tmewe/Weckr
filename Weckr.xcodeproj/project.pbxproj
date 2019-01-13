@@ -61,6 +61,7 @@
 		498ED02021C14A29003FFF5B /* TimeIntervall+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498ED01F21C14A29003FFF5B /* TimeIntervall+Extensions.swift */; };
 		498F2D3621B5BC070048A756 /* AlarmSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498F2D3521B5BC070048A756 /* AlarmSection.swift */; };
 		49941FAE21D3A88F00F91229 /* InfoAlertDisplayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49941FAD21D3A88E00F91229 /* InfoAlertDisplayable.swift */; };
+		4996332321EB3E5300B55F45 /* alarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4996332221EB3E5300B55F45 /* alarm.mp3 */; };
 		499AF40121AEE93C00F4B4FF /* CalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499AF40021AEE93C00F4B4FF /* CalendarService.swift */; };
 		499AF40421AEEC5400F4B4FF /* AccessError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499AF40321AEEC5400F4B4FF /* AccessError.swift */; };
 		49A8B97521E64F7100DA26E0 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A8B97421E64F7100DA26E0 /* ErrorView.swift */; };
@@ -183,6 +184,7 @@
 		498ED01F21C14A29003FFF5B /* TimeIntervall+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeIntervall+Extensions.swift"; sourceTree = "<group>"; };
 		498F2D3521B5BC070048A756 /* AlarmSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSection.swift; sourceTree = "<group>"; };
 		49941FAD21D3A88E00F91229 /* InfoAlertDisplayable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoAlertDisplayable.swift; sourceTree = "<group>"; };
+		4996332221EB3E5300B55F45 /* alarm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = alarm.mp3; sourceTree = "<group>"; };
 		499AF40021AEE93C00F4B4FF /* CalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarService.swift; sourceTree = "<group>"; };
 		499AF40321AEEC5400F4B4FF /* AccessError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessError.swift; sourceTree = "<group>"; };
 		49A8B97421E64F7100DA26E0 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
@@ -286,6 +288,7 @@
 		220365AD2195BB48002BDE91 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4996332221EB3E5300B55F45 /* alarm.mp3 */,
 				22BCC840218B1BF000C77CB1 /* Assets.xcassets */,
 				22BCC842218B1BF000C77CB1 /* LaunchScreen.storyboard */,
 				49B4663A21CAF80500BE810C /* Main.storyboard */,
@@ -752,6 +755,7 @@
 				220365B62195BD86002BDE91 /* Localizable.strings in Resources */,
 				22BCC841218B1BF000C77CB1 /* Assets.xcassets in Resources */,
 				49B4663C21CAF80600BE810C /* Main.storyboard in Resources */,
+				4996332321EB3E5300B55F45 /* alarm.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
