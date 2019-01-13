@@ -71,6 +71,7 @@ class MainViewModel: MainViewModelType {
         self.coordinator = coordinator
         self.alarmService = serviceFactory.createAlarm()
         
+        let alarmScheduler = serviceFactory.createAlarmScheduler()
         let authorizationService = serviceFactory.createAuthorizationStatus()
         let locationError: BehaviorSubject<AppError?> = BehaviorSubject(value: nil)
         let notificationError: BehaviorSubject<AppError?> = BehaviorSubject(value: nil)
@@ -195,6 +196,8 @@ class MainViewModel: MainViewModelType {
         
         //Event store access status
         viewWillAppear
+            .debug()
+            .do(onNext: { _ in alarmScheduler.setAlarmNotification(with: Date()) })
             .flatMapLatest { authorizationService.eventStoreAuthorization() }
             .bind(to: calendarError)
             .disposed(by: disposeBag)

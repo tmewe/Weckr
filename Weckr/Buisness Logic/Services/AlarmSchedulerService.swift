@@ -10,22 +10,25 @@ import Foundation
 import UserNotifications
 import SwiftDate
 
-protocol AlarmSchedulerServiceProtocol {
-    func setNotification(with date: Date)
+protocol AlarmSchedulerServiceType {
+    func setAlarmNotification(with date: Date)
 }
 
-struct AlarmSchedulerService: AlarmSchedulerServiceProtocol {
-    func setNotification(with date: Date) {
+struct AlarmSchedulerService: AlarmSchedulerServiceType {
+    func setAlarmNotification(with date: Date) {
         let notificationCenter = UNUserNotificationCenter.current()
         notificationCenter.removeAllPendingNotificationRequests()
 
         let content = UNMutableNotificationContent()
         content.title = "Wake up"
         content.body = "Time to get to your first event"
+        content.categoryIdentifier = "alarm"
         content.sound = .default
         
-        let testDate = Date() + 10.seconds
-        let trigger = UNCalendarNotificationTrigger(dateMatching: testDate.dateComponents,
+        let alarmTime = Date() + 61.seconds
+        let components = Calendar.current.dateComponents([.weekday, .hour, .minute], from: alarmTime)
+        
+        let trigger = UNCalendarNotificationTrigger(dateMatching: components,
                                                     repeats: false)
         let request = UNNotificationRequest(identifier: UUID().uuidString,
                                             content: content,
