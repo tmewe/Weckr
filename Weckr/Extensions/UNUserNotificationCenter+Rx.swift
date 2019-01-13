@@ -38,13 +38,29 @@ extension Reactive where Base: UNUserNotificationCenter {
         return RxUNUserNotificationCenterDelegateProxy.proxy(for: base)
     }
     
-    public var willPresent: ControlEvent<UNNotification> {
+    public typealias UNCenterNotifiation = (center: UNUserNotificationCenter, notification: UNNotification, completion: (UNNotificationPresentationOptions) -> (Void))
+    
+    private func unCenterNotification(_ args: [Any]) throws -> UNCenterNotifiation {
+        typealias __CompletionHandler = @convention(block) (UNNotificationPresentationOptions) -> (Void)
+        let center = try castOrThrow(UNUserNotificationCenter.self, args[0])
+        let notification = try castOrThrow(UNNotification.self, args[1])
+        
+        var closureObject: AnyObject? = nil
+        var mutableArgs = args
+        mutableArgs.withUnsafeMutableBufferPointer { ptr in
+            closureObject = ptr[2] as AnyObject
+        }
+        let __confirmBlockPtr = UnsafeRawPointer(Unmanaged<AnyObject>.passUnretained(closureObject as AnyObject).toOpaque())
+        let completion = unsafeBitCast(__confirmBlockPtr, to: __CompletionHandler.self)
+        
+        return (center, notification, completion)
+    }
+    
+    public var willPresent: ControlEvent<UNCenterNotifiation> {
         let source = delegate
             .methodInvoked(#selector(UNUserNotificationCenterDelegate
                 .userNotificationCenter(_:willPresent:withCompletionHandler:)))
-            .map { a in
-                return try castOrThrow(UNNotification.self, a[1])
-            }
+            .map(unCenterNotification)
         return ControlEvent(events: source)
     }
 }

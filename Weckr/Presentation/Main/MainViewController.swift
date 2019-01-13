@@ -117,8 +117,10 @@ class MainViewController: UITableViewController, BindableType, ErrorDisplayable 
         
         userNotificationCenter.rx.willPresent
             .debug()
-            .subscribe(onNext: { notification in
+            .subscribe(onNext: { (center, notification, completion) in
+                print(center)
                 print(notification)
+                completion([.alert, .sound])
             })
             .disposed(by: disposeBag)
     }
