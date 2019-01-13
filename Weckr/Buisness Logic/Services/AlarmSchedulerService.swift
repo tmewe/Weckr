@@ -23,7 +23,7 @@ struct AlarmSchedulerService: AlarmSchedulerServiceType {
         content.title = "Wake up"
         content.body = "Time to get to your first event"
         content.categoryIdentifier = "alarm"
-        content.sound = .default
+        content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "alarm.mp3"))
         
         let alarmTime = Date() + 61.seconds
         let components = Calendar.current.dateComponents([.weekday, .hour, .minute], from: alarmTime)
