@@ -38,12 +38,12 @@ extension Reactive where Base: UNUserNotificationCenter {
         return RxUNUserNotificationCenterDelegateProxy.proxy(for: base)
     }
     
-    public var didReceiveResponse: ControlEvent<UNUserNotificationCenter> {
+    public var willPresent: ControlEvent<UNNotification> {
         let source = delegate
             .methodInvoked(#selector(UNUserNotificationCenterDelegate
-                .userNotificationCenter(_:didReceive:withCompletionHandler:)))
+                .userNotificationCenter(_:willPresent:withCompletionHandler:)))
             .map { a in
-                return try castOrThrow(UNUserNotificationCenter.self, a[0])
+                return try castOrThrow(UNNotification.self, a[1])
             }
         return ControlEvent(events: source)
     }

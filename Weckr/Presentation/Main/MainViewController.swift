@@ -112,6 +112,15 @@ class MainViewController: UITableViewController, BindableType, ErrorDisplayable 
             .map { self.tableView.deselectRow(at: $0, animated: false) }
             .bind(to: viewModel.actions.presentTravelEdit.inputs)
             .disposed(by: disposeBag)
+        
+        let userNotificationCenter = UNUserNotificationCenter.current()
+        
+        userNotificationCenter.rx.willPresent
+            .debug()
+            .subscribe(onNext: { notification in
+                print(notification)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func configureDataSource() -> RxTableViewSectionedAnimatedDataSource<AlarmSection> {

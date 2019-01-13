@@ -196,7 +196,6 @@ class MainViewModel: MainViewModelType {
         
         //Event store access status
         viewWillAppear
-            .debug()
             .do(onNext: { _ in alarmScheduler.setAlarmNotification(with: Date()) })
             .flatMapLatest { authorizationService.eventStoreAuthorization() }
             .bind(to: calendarError)
