@@ -13,6 +13,7 @@ import RxDataSources
 import FoldingCell
 import Action
 import RxAppState
+import UserNotifications
 
 class MainViewController: UITableViewController, BindableType, ErrorDisplayable {
     

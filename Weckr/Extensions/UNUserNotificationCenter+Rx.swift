@@ -9,6 +9,14 @@
 import Foundation
 import UserNotifications
 import RxSwift
+import RxCocoa
+
+func castOrThrow<T>(_ resultType: T.Type, _ object: Any) throws -> T {
+    guard let returnValue = object as? T else {
+        throw RxCocoaError.castingError(object: object, targetType: resultType)
+    }
+    return returnValue
+}
 
 extension Reactive where Base: UNUserNotificationCenter {
     @discardableResult
@@ -24,5 +32,19 @@ extension Reactive where Base: UNUserNotificationCenter {
             })
             return Disposables.create()
         }
+    }
+    
+    public var delegate: DelegateProxy<UNUserNotificationCenter,UNUserNotificationCenterDelegate> {
+        return RxUNUserNotificationCenterDelegateProxy.proxy(for: base)
+    }
+    
+    public var didReceiveResponse: ControlEvent<UNUserNotificationCenter> {
+        let source = delegate
+            .methodInvoked(#selector(UNUserNotificationCenterDelegate
+                .userNotificationCenter(_:didReceive:withCompletionHandler:)))
+            .map { a in
+                return try castOrThrow(UNUserNotificationCenter.self, a[0])
+            }
+        return ControlEvent(events: source)
     }
 }
