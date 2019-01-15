@@ -30,8 +30,13 @@ class MainViewController: UITableViewController, BindableType {
         super.init(coder: aDecoder)
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {return UIStatusBarStyle.lightContent}
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        UIApplication.shared.statusBarView?.backgroundColor = UIColor.backgroundColor
         view.backgroundColor = .orange
         dataSource = configureDataSource()
         setupTableView()
@@ -48,7 +53,7 @@ class MainViewController: UITableViewController, BindableType {
             .asDriver(onErrorJustReturn: "")
             .drive(headerView.dateLabel.rx.text)
             .disposed(by: headerView.disposeBag)
-        
+            
         tableView.rx.willDisplayCell
             .subscribe(onNext: { cell, indexPath in
                 let insets = Constraints.Main.Tile.self
@@ -98,6 +103,8 @@ class MainViewController: UITableViewController, BindableType {
             .disposed(by: disposeBag)
     }
     
+
+    
     private func configureDataSource() -> RxTableViewSectionedAnimatedDataSource<AlarmSection> {
         let dataSource = RxTableViewSectionedAnimatedDataSource<AlarmSection>(
             configureCell: { dataSource, tableView, indexPath, item in
@@ -133,10 +140,9 @@ class MainViewController: UITableViewController, BindableType {
                 }
         })
         
-        dataSource.animationConfiguration = AnimationConfiguration(insertAnimation: .fade,
+        dataSource.animationConfiguration = AnimationConfiguration(insertAnimation: .top,
                                                                    reloadAnimation: .fade,
                                                                    deleteAnimation: .fade)
-        
         return dataSource
     }
     
