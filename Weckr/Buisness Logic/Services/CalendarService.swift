@@ -37,6 +37,7 @@ struct CalendarService: CalendarServiceType {
                         GeoCoordinate(location: $0.structuredLocation!.geoLocation!))
                 }
                 .map(CalendarEntry.init)
+            guard !events.isEmpty else { return Observable.error(CalendarError.noEvents) }
             return Observable.of(events)
         default:
             return Observable.error(AccessError.calendar)

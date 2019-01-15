@@ -30,6 +30,7 @@ protocol WalkthroughSlideableOutputsType {
     var topLabelColoredText: Observable<String> { get }
     var bottomLabelText: Observable<String> { get }
     var bottomLabelColoredText: Observable<String> { get }
+    var actionSuccesful: Observable<Bool> { get }
 }
 
 protocol WalkthroughSlideableActionsType {

@@ -16,7 +16,7 @@ extension Reactive where Base: UNUserNotificationCenter {
         return Observable.create { observer in
             self.base.requestAuthorization(options: options, completionHandler: { (granted, error) in
                 guard error == nil else {
-                    observer.onError(error!)
+                    observer.onError(AccessError.notification)
                     return
                 }
                 observer.onNext((granted, error))

@@ -25,6 +25,7 @@ protocol ServiceFactoryProtocol {
     func createRouting() -> RoutingServiceType
     func createCalendar() -> CalendarServiceType
     func createAlarm() -> AlarmServiceType
+    func createAuthorizationStatus() -> AuthorizationStatusServiceType
 }
 
 final class DependencyContainer {
@@ -84,5 +85,9 @@ extension DependencyContainer: ServiceFactoryProtocol {
     
     func createAlarm() -> AlarmServiceType {
         return AlarmService()
+    }
+    
+    func createAuthorizationStatus() -> AuthorizationStatusServiceType {
+        return AuthorizationStatusService()
     }
 }

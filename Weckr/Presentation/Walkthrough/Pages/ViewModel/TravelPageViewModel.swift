@@ -27,7 +27,8 @@ class TravelPageViewModel : WalkthroughSlideableType {
     var topLabelColoredText: Observable<String>
     var bottomLabelText: Observable<String>
     var bottomLabelColoredText: Observable<String>
-    
+    var actionSuccesful: Observable<Bool>
+
     init() {
         
         //Setup
@@ -43,6 +44,7 @@ class TravelPageViewModel : WalkthroughSlideableType {
         topLabelColoredText = Observable.just(strings.titleColored)
         bottomLabelText = Observable.just(strings.subtitle)
         bottomLabelColoredText = Observable.just(strings.subtitleColored)
+        actionSuccesful = Observable.empty()
     }
     
     //Actions

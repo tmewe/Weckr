@@ -12,12 +12,15 @@ import RxCocoa
 import RxDataSources
 import FoldingCell
 import Action
+import RxAppState
 
-class MainViewController: UITableViewController, BindableType {
+class MainViewController: UITableViewController, BindableType, ErrorDisplayable {
     
     typealias ViewModelType = MainViewModelType
     
     var viewModel: ViewModelType!
+    var errorView: ErrorViewProtocol = ErrorView.newAutoLayout()
+
     private var dataSource: RxTableViewSectionedAnimatedDataSource<AlarmSection>!
     private let disposeBag = DisposeBag()
     
@@ -41,9 +44,16 @@ class MainViewController: UITableViewController, BindableType {
         dataSource = configureDataSource()
         setupTableView()
         bindViewModel()
+        
+        errorView.autoSetDimensions(to: view.frame.size)
     }
     
     func bindViewModel() {
+        UIApplication.shared.rx.didOpenApp
+            .map { _ in Void() }
+            .bind(to: viewModel.inputs.viewWillAppear)
+            .disposed(by: disposeBag)
+        
         viewModel.outputs.sections
             .asDriver(onErrorJustReturn: [])
             .drive(tableView.rx.items(dataSource: dataSource))
@@ -53,7 +63,12 @@ class MainViewController: UITableViewController, BindableType {
             .asDriver(onErrorJustReturn: "")
             .drive(headerView.dateLabel.rx.text)
             .disposed(by: headerView.disposeBag)
-            
+        
+        viewModel.outputs.errorOccurred
+            .asDriver(onErrorJustReturn: nil)
+            .drive(onNext:  { $0 == nil ? self.hideError() : self.showError(error: $0!) })
+            .disposed(by: disposeBag)
+        
         tableView.rx.willDisplayCell
             .subscribe(onNext: { cell, indexPath in
                 let insets = Constraints.Main.Tile.self
@@ -102,8 +117,6 @@ class MainViewController: UITableViewController, BindableType {
             .bind(to: viewModel.actions.presentTravelEdit.inputs)
             .disposed(by: disposeBag)
     }
-    
-
     
     private func configureDataSource() -> RxTableViewSectionedAnimatedDataSource<AlarmSection> {
         let dataSource = RxTableViewSectionedAnimatedDataSource<AlarmSection>(

@@ -10,12 +10,14 @@ import Foundation
 import UIKit
 import PureLayout
 import RxSwift
+import RxAppState
 import RxViewController
 
-class WalkthroughViewController: UIViewController, BindableType, LoadingDisplayable {
+class WalkthroughViewController: UIViewController, BindableType, LoadingDisplayable, ErrorDisplayable {
     
     var viewModel: WalkthroughViewModelType!
     var loadingView: LoadingViewProtocol = LoadingView.newAutoLayout()
+    var errorView: ErrorViewProtocol = ErrorView.newAutoLayout()
     private var disposeBag = DisposeBag()
     
     init(viewModel: WalkthroughViewModelType) {
@@ -37,20 +39,25 @@ class WalkthroughViewController: UIViewController, BindableType, LoadingDisplaya
         
     func bindViewModel() {
         
-        rx.viewDidLayoutSubviews
+        rx.viewWillLayoutSubviews
             .withLatestFrom(viewModel.outputs.slides)
             .subscribe(onNext: setupSlideScrollView)
+            .disposed(by: disposeBag)
+        
+        UIApplication.shared.rx.didOpenApp
+            .map { _ in Void() }
+            .bind(to: viewModel.inputs.viewWillAppear)
             .disposed(by: disposeBag)
         
         let pageNumberAndSlides = Observable.combineLatest(viewModel.outputs.pageNumber,
                                                            viewModel.outputs.slides)
         
-        Observable.combineLatest(rx.viewDidLayoutSubviews, pageNumberAndSlides)
+        Observable.combineLatest(rx.viewWillLayoutSubviews, pageNumberAndSlides)
             .map { $0.1 }
             .subscribe(onNext: updateCurrentPage)
             .disposed(by: disposeBag)
         
-        Observable.combineLatest(rx.viewDidLayoutSubviews, viewModel.outputs.buttonColor)
+        Observable.combineLatest(rx.viewWillLayoutSubviews, viewModel.outputs.buttonColor)
             .map { $0.1 }
             .asDriver(onErrorJustReturn: UIColor.walkthroughPurpleAccent.cgColor)
             .map { ($0, UIColor.backGroundColorTransparent.cgColor) }
@@ -73,6 +80,11 @@ class WalkthroughViewController: UIViewController, BindableType, LoadingDisplaya
             .subscribe({ _ in
                 self.showLoading()
             })
+            .disposed(by: disposeBag)
+        
+        viewModel.outputs.errorOccurred
+            .asDriver(onErrorJustReturn: nil)
+            .drive(onNext:  { $0 == nil ? self.hideError() : self.showError(error: $0!) })
             .disposed(by: disposeBag)
         
         continueButton.rx.tap
@@ -118,6 +130,7 @@ class WalkthroughViewController: UIViewController, BindableType, LoadingDisplaya
         pagingView.autoPinEdge(.bottom, to: .top, of: continueButton)
         
         loadingView.autoSetDimensions(to: view.frame.size)
+        errorView.autoSetDimensions(to: view.frame.size)
     }
     
     
