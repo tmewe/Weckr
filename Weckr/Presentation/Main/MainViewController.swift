@@ -34,8 +34,13 @@ class MainViewController: UITableViewController, BindableType, ErrorDisplayable 
         super.init(coder: aDecoder)
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {return UIStatusBarStyle.lightContent}
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        UIApplication.shared.statusBarView?.backgroundColor = UIColor.backgroundColor
         view.backgroundColor = .orange
         dataSource = configureDataSource()
         setupTableView()
@@ -159,10 +164,9 @@ class MainViewController: UITableViewController, BindableType, ErrorDisplayable 
                 }
         })
         
-        dataSource.animationConfiguration = AnimationConfiguration(insertAnimation: .fade,
+        dataSource.animationConfiguration = AnimationConfiguration(insertAnimation: .top,
                                                                    reloadAnimation: .fade,
                                                                    deleteAnimation: .fade)
-        
         return dataSource
     }
     

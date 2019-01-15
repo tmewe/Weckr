@@ -29,6 +29,7 @@ struct RoutingService: RoutingServiceType {
                arrival: Date) -> Observable<Route> {
         return hereMaps.rx
             .request(.route(mode: type, start: start, end: end, arrival: arrival))
+            .catchError({_ in throw AccessError.calendar})
             .map(RouteWrapper.self)
             .map { $0.routes.first }
             .asObservable()

@@ -41,9 +41,10 @@ class MorningRoutineEditViewController: UIViewController, BindableType {
     }
     
     func bindViewModel() {
+        
         //FIXME: - Wrong value when picker control never changes
         editView.button.rx.tap
-            .withLatestFrom(editView.picker.rx.countDownDuration)
+            .map{self.editView.picker.countDownDuration}
             .take(1)
             .bind(to: viewModel.actions.dismiss.inputs)
             .disposed(by: disposeBag)
