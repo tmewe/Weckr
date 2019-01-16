@@ -102,6 +102,7 @@ struct Strings {
     
     struct Error {
         static let fixit = "error.fixit".localized
+        static let gotit = "error.gotit".localized
         static let undefinedTitle = "error.undefined.title".localized
         static let undefinedMessage = "error.undefined.message".localized
         

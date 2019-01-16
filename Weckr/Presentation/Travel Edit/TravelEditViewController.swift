@@ -56,8 +56,9 @@ class TravelEditViewController: UIViewController, BindableType, InfoAlertDisplay
             .disposed(by: disposeBag)
         
         editView.infoButton.rx.tap
-            .map { (title: Strings.Main.Edit.adjustForWeatherTitle,
-                    message: Strings.Main.Edit.adjustForWeatherInfo) }
+            .map { AlertInfo(title: Strings.Main.Edit.adjustForWeatherTitle,
+                             message: Strings.Main.Edit.adjustForWeatherInfo,
+                             button: Strings.Main.Edit.clever) }
             .subscribe(onNext: showInfoAlert)
             .disposed(by: disposeBag)
         

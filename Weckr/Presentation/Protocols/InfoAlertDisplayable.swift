@@ -16,7 +16,7 @@ protocol InfoAlertDisplayable {
 extension InfoAlertDisplayable where Self: UIViewController {
     func showInfoAlert(info: AlertInfo) {
         let alert = UIAlertController(title: info.title, message: info.message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: Strings.Main.Edit.clever, style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: info.button, style: .default, handler: nil))
         present(alert, animated: true)
     }
 }

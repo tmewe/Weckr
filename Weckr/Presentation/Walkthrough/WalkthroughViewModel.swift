@@ -13,8 +13,6 @@ import RxCoreLocation
 import CoreLocation
 import SwiftDate
 
-typealias AlertInfo = (title: String, message: String)
-
 protocol WalkthroughViewModelInputsType {
     var nextPage: PublishSubject<Void> { get }
     var previousPage: PublishSubject<Void> { get }
@@ -227,7 +225,9 @@ class WalkthroughViewModel: WalkthroughViewModelType {
                     
                     case let .Failure(error):
                         loadingActive.onNext(false)
-                        let info = AlertInfo(title: "A", message: "f")
+                        let info = AlertInfo(title: error.localizedTitle,
+                                             message: error.localizedMessage,
+                                             button: Strings.Error.gotit)
                         alertInfo.onNext(info)
                 }
                 
