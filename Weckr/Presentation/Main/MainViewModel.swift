@@ -131,6 +131,7 @@ class MainViewModel: MainViewModelType {
                     
                 case .pedestrian, .transit:
                     
+                    var maneuverDate = leaveDate //For transit departure and arrival
                     var skipNext = false
                     let maneuvers = route.legs.first!.maneuvers.dropLast()
                     for (index, maneuver) in maneuvers.enumerated() {
@@ -152,10 +153,13 @@ class MainViewModel: MainViewModelType {
                             let getOn = maneuver
                             let getOff = maneuvers[index + 1]
                             items.append(SectionItem.routeTransit(identity: maneuver.id,
+                                                                  date: maneuverDate,
                                                                   getOn: getOn,
                                                                   getOff: getOff,
                                                                   transitLines: route.transitLines.toArray()))
                         }
+                        
+                        maneuverDate = maneuverDate + maneuver.travelTime.seconds
                     }
                 }
                 return items

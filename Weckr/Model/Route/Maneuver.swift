@@ -13,7 +13,7 @@ import RealmSwift
 @objcMembers class Maneuver: Object, Decodable {
     dynamic var id: String!
     dynamic var instruction: String!
-    dynamic var travelTime: Double = 0.0 //seconds
+    dynamic var travelTime: Int = 0 //seconds
     dynamic var length: Double = 0.0 //meters
     dynamic var lineId: String?
     dynamic var stopName: String?
@@ -42,7 +42,7 @@ import RealmSwift
 
         id = try container.decode(String.self, forKey: .id)
         instruction = try container.decode(String.self, forKey: .instruction)
-        travelTime = try container.decode(Double.self, forKey: .travelTime)
+        travelTime = try container.decode(Int.self, forKey: .travelTime)
         length = try container.decode(Double.self, forKey: .length)
         lineId = try container.decodeIfPresent(String.self, forKey: .lineId)
         stopName = try container.decodeIfPresent(String.self, forKey: .stopName)

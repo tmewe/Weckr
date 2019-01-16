@@ -34,7 +34,7 @@ enum SectionItem {
     
     case routeOverview(identity: String, route: Route, leaveDate: Date)
     case routeCar(identity: String, route: Route)
-    case routeTransit(identity: String, getOn: Maneuver, getOff: Maneuver, transitLines: [TransitLine])
+    case routeTransit(identity: String, date: Date, getOn: Maneuver, getOff: Maneuver, transitLines: [TransitLine])
     case routePedestrian(identity: String, maneuver: Maneuver)
     
     case event(identity: String, title: String, selectedEvent: CalendarEntry)
@@ -49,7 +49,7 @@ extension SectionItem: IdentifiableType, Equatable {
              let .morningRoutine(identity, _),
              let .routeOverview(identity, _, _),
              let .routeCar(identity, _),
-             let .routeTransit(identity, _, _, _),
+             let .routeTransit(identity, _, _, _, _),
              let .routePedestrian(identity, _),
              let .event(identity, _, _):
             return identity

@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SwiftDate
 
 class RouteTransitTableViewCell: TileTableViewCell {
     
@@ -22,7 +23,7 @@ class RouteTransitTableViewCell: TileTableViewCell {
         super.init(coder: aDecoder)
     }
     
-    func configure(with getOn: Maneuver, getOff: Maneuver, lines: [TransitLine]) {
+    func configure(with date: Date, getOn: Maneuver, getOff: Maneuver, lines: [TransitLine]) {
         guard let firstStop = getOn.stopName,
             let finalStop = getOff.stopName,
             let lineId = getOn.lineId else { return }
@@ -47,8 +48,9 @@ class RouteTransitTableViewCell: TileTableViewCell {
         headerInfo.leftLabel.text = line.name.uppercased() + " " + line.destination.uppercased()
         headerInfo.rightLabel.text = "\(Int(getOn.travelTime/60)) min".uppercased()
         
-        departureTimeLabel.text = "08:27"
-        arrivalTimeLabel.text = "08:27"
+        let regionalDate = DateInRegion(date, region: Region.current)
+        departureTimeLabel.text = regionalDate.toFormat("HH:mm")
+        arrivalTimeLabel.text = (regionalDate + getOn.travelTime.seconds).toFormat("HH:mm")
         firstStopLabel.text = firstStop
         finalStopLabel.text = finalStop
         stationsCountLabel.text = stationsCount

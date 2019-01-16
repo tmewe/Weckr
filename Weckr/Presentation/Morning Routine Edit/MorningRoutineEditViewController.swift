@@ -44,7 +44,7 @@ class MorningRoutineEditViewController: UIViewController, BindableType {
         
         //FIXME: - Wrong value when picker control never changes
         editView.button.rx.tap
-            .map{self.editView.picker.countDownDuration}
+            .map{ self.editView.picker.countDownDuration }
             .take(1)
             .bind(to: viewModel.actions.dismiss.inputs)
             .disposed(by: disposeBag)

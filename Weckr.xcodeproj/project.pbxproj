@@ -661,10 +661,10 @@
 			isa = PBXGroup;
 			children = (
 				4924610221C2A7F6001C0D37 /* CellViews */,
+				493FA94B21CE4B1F00C2FFA1 /* Route */,
 				498ED01D21C13A57003FFF5B /* TileTableViewCell.swift */,
 				49BE428221B83A17003EC071 /* AlarmTableViewCell.swift */,
 				498ED01B21C13A39003FFF5B /* MorningRoutineTableViewCell.swift */,
-				493FA94B21CE4B1F00C2FFA1 /* Route */,
 				492460FB21C28EEE001C0D37 /* EventTableViewCell.swift */,
 			);
 			path = Cells;

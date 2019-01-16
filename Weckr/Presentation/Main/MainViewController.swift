@@ -154,9 +154,9 @@ class MainViewController: UITableViewController, BindableType, ErrorDisplayable 
                     let cell: RoutePedestrianTableViewCell = tableView.dequeueReusableCell(indexPath: indexPath)
                     cell.configure(with: maneuver)
                     return cell
-                case let .routeTransit(_, getOn, getOff, transitLines):
+                case let .routeTransit(_, date, getOn, getOff, transitLines):
                     let cell: RouteTransitTableViewCell = tableView.dequeueReusableCell(indexPath: indexPath)
-                    cell.configure(with: getOn, getOff: getOff, lines: transitLines)
+                    cell.configure(with: date, getOn: getOn, getOff: getOff, lines: transitLines)
                     return cell
                 case let .routeCar(_, route):
                     let cell: RouteCarTableViewCell = tableView.dequeueReusableCell(indexPath: indexPath)
