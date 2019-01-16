@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 protocol LoadingProtocol {
-    func starLoading()
+    func startLoading()
     func stopLoading()
 }
 
@@ -27,7 +27,7 @@ class LoadingView: UIView, LoadingProtocol {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func starLoading() {
+    func startLoading() {
         spinner.startAnimating()
     }
     

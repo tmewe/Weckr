@@ -13,7 +13,7 @@ import RxSwift
 import RxAppState
 import RxViewController
 
-class WalkthroughViewController: UIViewController, BindableType, LoadingDisplayable, ErrorDisplayable {
+class WalkthroughViewController: UIViewController, BindableType, LoadingDisplayable, ErrorDisplayable, InfoAlertDisplayable {
     
     var viewModel: WalkthroughViewModelType!
     var loadingView: LoadingViewProtocol = LoadingView.newAutoLayout()
@@ -76,13 +76,23 @@ class WalkthroughViewController: UIViewController, BindableType, LoadingDisplaya
             .drive (previousButton.rx.isHidden)
             .disposed(by: disposeBag)
         
-        viewModel.outputs.createTrigger
+        viewModel.outputs.showLoading
+            .filter { $0 }
             .subscribe({ _ in self.showLoading() })
+            .disposed(by: disposeBag)
+        
+        viewModel.outputs.showLoading
+            .filter(!)
+            .subscribe({ _ in self.hideLoading() })
             .disposed(by: disposeBag)
         
         viewModel.outputs.errorOccurred
             .asDriver(onErrorJustReturn: nil)
             .drive(onNext:  { $0 == nil ? self.hideError() : self.showError(error: $0!) })
+            .disposed(by: disposeBag)
+        
+        viewModel.outputs.showAlert
+            .subscribe(onNext: showInfoAlert)
             .disposed(by: disposeBag)
         
         continueButton.rx.tap

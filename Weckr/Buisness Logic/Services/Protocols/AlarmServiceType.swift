@@ -43,5 +43,5 @@ protocol AlarmServiceType {
     
     @discardableResult
     func createAlarm(startLocation: GeoCoordinate,
-                     serviceFactory: ServiceFactoryProtocol) -> Observable<Alarm>
+                     serviceFactory: ServiceFactoryProtocol) -> Observable<AlarmCreationResult<Alarm>>
 }

@@ -12,28 +12,28 @@ import RxSwift
 import SwiftDate
 
 protocol CalendarServiceType {
-    func fetchEventsForNextDay(calendars: [EKCalendar]?) -> Observable<[CalendarEntry]>
-    func fetchEventsForNextWeek(calendars: [EKCalendar]?) -> Observable<[CalendarEntry]>
+    func fetchEventsForNextDay(calendars: [EKCalendar]?) throws -> Observable<[CalendarEntry]>
+    func fetchEventsForNextWeek(calendars: [EKCalendar]?) throws -> Observable<[CalendarEntry]>
 }
 
 struct CalendarService: CalendarServiceType {
     
-    func fetchEventsForNextDay(calendars: [EKCalendar]?) -> Observable<[CalendarEntry]> {
+    func fetchEventsForNextDay(calendars: [EKCalendar]?) throws -> Observable<[CalendarEntry]> {
         let date = Date() + 1.days
         let dayStart = date.dateAtStartOf(.day)
         let dayEnd = date.dateAtEndOf(.day)
-        return fetchEvents(from: dayStart, to: dayEnd, calendars: calendars)
+        return try fetchEvents(from: dayStart, to: dayEnd, calendars: calendars)
     }
     
-    func fetchEventsForNextWeek(calendars: [EKCalendar]?) -> Observable<[CalendarEntry]> {
+    func fetchEventsForNextWeek(calendars: [EKCalendar]?) throws -> Observable<[CalendarEntry]> {
         let start = Date() + 1.days
         let end = Date() + 8.days
         let weekStart = start.dateAtStartOf(.day)
         let weekEnd = end.dateAtEndOf(.day)
-        return fetchEvents(from: weekStart, to: weekEnd, calendars: calendars)
+        return try fetchEvents(from: weekStart, to: weekEnd, calendars: calendars)
     }
     
-    private func fetchEvents(from startDate: Date, to endDate: Date, calendars: [EKCalendar]?) -> Observable<[CalendarEntry]> {
+    private func fetchEvents(from startDate: Date, to endDate: Date, calendars: [EKCalendar]?) throws -> Observable<[CalendarEntry]> {
         let status = EKEventStore.authorizationStatus(for: .event)
         switch status {
         case .authorized:
@@ -62,10 +62,10 @@ struct CalendarService: CalendarServiceType {
                 
                 date = date + 1.days
             }
-            return Observable.error(CalendarError.noEvents)
+            throw CalendarError.noEvents
             
         default:
-            return Observable.error(AccessError.calendar)
+            throw AccessError.calendar
         }
     }
     

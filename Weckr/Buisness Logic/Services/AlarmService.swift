@@ -13,6 +13,11 @@ import RxRealm
 import SwiftDate
 import CoreLocation
 
+enum AlarmCreationResult<T> {
+    case Success(T)
+    case Failure(AppError)
+}
+
 struct AlarmService: AlarmServiceType {
     
     fileprivate func withRealm<T>(_ operation: String, action: (Realm) throws -> T) -> T? {
@@ -138,7 +143,7 @@ struct AlarmService: AlarmServiceType {
     
     @discardableResult
     func createAlarm(startLocation: GeoCoordinate,
-                     serviceFactory: ServiceFactoryProtocol) -> Observable<Alarm> {
+                     serviceFactory: ServiceFactoryProtocol) -> Observable<AlarmCreationResult<Alarm>> {
         
         let defaults = UserDefaults.standard
         let vehicle = defaults.integer(forKey: SettingsKeys.transportMode)
@@ -150,8 +155,13 @@ struct AlarmService: AlarmServiceType {
         
         let vehicleObservable = Observable.just(vehicle).map { TransportMode(mode: $0) }
         let startLocationObservable = Observable.just(startLocation)
-        let events = calendarService.fetchEventsForNextWeek(calendars: nil).catchError { throw $0 }
+        let events: Observable<[CalendarEntry]>!
+        
+        do { events = try calendarService.fetchEventsForNextWeek(calendars: nil) }
+        catch { return .just(AlarmCreationResult.Failure(CalendarError.noEvents)) }
+        
         let firstEvent = events
+            .debug()
             .map { $0.first }
             .filterNil()
             .share(replay: 1, scope: .forever)
@@ -179,11 +189,13 @@ struct AlarmService: AlarmServiceType {
             .withLatestFrom(morningRoutineObservable) { ($0.0, $0.1, $0.2, $1) }
             .withLatestFrom(firstEvent) {               ($0.0, $0.1, $0.2, $0.3, $1) }
             .withLatestFrom(events) {                   ($0.0, $0.1, $0.2, $0.3, $0.4, $1) }
+            .debug()
             .take(1)
             .observeOn(ConcurrentDispatchQueueScheduler(qos: .background))
             .map(Alarm.init)
             .flatMapLatest (save)
             .flatMapLatest(calculateDate)
+            .map { AlarmCreationResult.Success($0) }
             .observeOn(MainScheduler.instance)
         
         return alarm

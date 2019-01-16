@@ -13,6 +13,8 @@ import RxCoreLocation
 import CoreLocation
 import SwiftDate
 
+typealias AlertInfo = (title: String, message: String)
+
 protocol WalkthroughViewModelInputsType {
     var nextPage: PublishSubject<Void> { get }
     var previousPage: PublishSubject<Void> { get }
@@ -25,8 +27,9 @@ protocol WalkthroughViewModelOutputsType {
     var slides : Observable<[WalkthroughPageViewController]> { get }
     var buttonColor: Observable<CGColor> { get }
     var buttonText: Observable<String> { get }
-    var createTrigger: Observable<Void> { get }
     var errorOccurred: Observable<AppError?> { get }
+    var showAlert: Observable<AlertInfo> { get }
+    var showLoading: Observable<Bool> { get }
 }
 
 protocol WalkthroughViewModelType {
@@ -57,8 +60,9 @@ class WalkthroughViewModel: WalkthroughViewModelType {
     var slides: Observable<[WalkthroughPageViewController]>
     var buttonColor: Observable<CGColor>
     var buttonText: Observable<String>
-    var createTrigger: Observable<Void>
     var errorOccurred: Observable<AppError?>
+    var showAlert: Observable<AlertInfo>
+    var showLoading: Observable<Bool>
     
     init(pages: [WalkthroughPageViewController],
          viewModelFactory: ViewModelFactoryProtocol,
@@ -79,6 +83,9 @@ class WalkthroughViewModel: WalkthroughViewModelType {
         let notificationError: BehaviorSubject<AppError?> = BehaviorSubject(value: nil)
         let calendarError: BehaviorSubject<AppError?> = BehaviorSubject(value: nil)
         
+        let alertInfo: PublishSubject<AlertInfo> = PublishSubject()
+        let loadingActive: PublishSubject<Bool> = PublishSubject()
+        
         locationManager.startUpdatingLocation()
         
         //Inputs
@@ -90,6 +97,8 @@ class WalkthroughViewModel: WalkthroughViewModelType {
         //Outputs
         pageNumber = internalPageNumber.asObservable()
         slides = Observable.of(pages)
+        showAlert = alertInfo.asObservable()
+        showLoading = loadingActive.asObservable().startWith(false)
         
         let currentPageController = scrollAmount
             .withLatestFrom(slides) { ($0, $1) }
@@ -129,12 +138,11 @@ class WalkthroughViewModel: WalkthroughViewModelType {
             .subscribe(onNext: { $0.viewModel.actions.continueAction?.execute(Void()) })
             .disposed(by: disposeBag)
         
-        createTrigger = nextPage
+        let createTrigger = nextPage
             .withLatestFrom(internalPageNumber)
-            .withLatestFrom(slides) {($0, $1)}
-            .filter { $0.0 == $0.1.count }
+            .filter { pages[$0-1].viewModel is DonePageViewModel }
             .map { _ in }
-            .take(1)
+            .do(onNext: previousPage.onNext)
             .share(replay: 1, scope: .forever)
         
         let triggerViewModel = internalPageNumber
@@ -206,15 +214,26 @@ class WalkthroughViewModel: WalkthroughViewModelType {
             }
         
         createTrigger
+            .do(onNext: { loadingActive.onNext(true) })
             .withLatestFrom(startLocation)
-            .flatMapLatest {
-                alarmService.createAlarm(startLocation: $0,
-                                         serviceFactory: serviceFactory) }
-            .subscribe({ _ in
-                coordinator.transition(to: Scene.main(viewModelFactory
-                    .createMain(coordinator: coordinator)),
-                                       withType: .modal)
-                UserDefaults.standard.set(true, forKey: SettingsKeys.appHasBeenStarted)
+            .flatMap { alarmService.createAlarm(startLocation: $0, serviceFactory: serviceFactory) }
+            .subscribe(onNext: { result in
+                switch result {
+                    case .Success(_):
+                        coordinator.transition(to: Scene.main(viewModelFactory
+                            .createMain(coordinator: coordinator)),
+                                               withType: .modal)
+                        UserDefaults.standard.set(true, forKey: SettingsKeys.appHasBeenStarted)
+                    
+                    case let .Failure(error):
+                        loadingActive.onNext(false)
+                        let info = AlertInfo(title: "A", message: "f")
+                        alertInfo.onNext(info)
+                }
+                
+                
+            }, onError: { error in
+                
             })
             .disposed(by: disposeBag)
     }

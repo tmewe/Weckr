@@ -18,7 +18,7 @@ protocol LoadingDisplayable {
 
 extension LoadingDisplayable where Self: UIViewController {
     func showLoading() {
-        loadingView.starLoading()
+        loadingView.startLoading()
         view.addSubview(loadingView)
     }
     
