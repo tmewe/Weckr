@@ -16,6 +16,10 @@ class TravelPageViewModel : WalkthroughSlideableType {
     var outputs: WalkthroughSlideableOutputsType { return self }
     var actions: WalkthroughSlideableActionsType { return self }
     
+    //Setup
+    let disposeBag = DisposeBag()
+    let userDefaults = UserDefaults.standard
+    
     //Inputs
     var transportMode: PublishSubject<TransportMode>?
     var morningRoutineTime: PublishSubject<TimeInterval>?
@@ -45,14 +49,21 @@ class TravelPageViewModel : WalkthroughSlideableType {
         bottomLabelText = Observable.just(strings.subtitle)
         bottomLabelColoredText = Observable.just(strings.subtitleColored)
         actionSuccesful = Observable.empty()
+        
+        transportMode?.asObservable()
+            .distinctUntilChanged()
+            .subscribe(onNext: {
+                self.userDefaults.set($0.rawValueInt, forKey: SettingsKeys.transportMode)
+                self.userDefaults.synchronize()
+            })
+            .disposed(by: disposeBag)
     }
     
     //Actions
     lazy var continueAction: CocoaAction? = {
         return CocoaAction {
-            let userDefaults = UserDefaults.standard
-            userDefaults.set(true, forKey: SettingsKeys.adjustForWeather)
-            userDefaults.synchronize()
+            self.userDefaults.set(false, forKey: SettingsKeys.adjustForWeather)
+            self.userDefaults.synchronize()
             return Observable.empty()
         }
     }()

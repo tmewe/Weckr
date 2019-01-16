@@ -16,6 +16,9 @@ class MorningRoutinePageViewModel : WalkthroughSlideableType {
     var outputs: WalkthroughSlideableOutputsType { return self }
     var actions: WalkthroughSlideableActionsType { return self }
     
+    //Setup
+    let disposeBag = DisposeBag()
+    
     //Inputs
     var transportMode: PublishSubject<TransportMode>?
     var morningRoutineTime: PublishSubject<TimeInterval>?
@@ -34,7 +37,6 @@ class MorningRoutinePageViewModel : WalkthroughSlideableType {
         //Setup
         let strings = Strings.Walkthrough.MorningRoutine.self
         let userDefaults = UserDefaults.standard
-        let disposeBag = DisposeBag()
         
         //Inputs
         morningRoutineTime = PublishSubject()
@@ -49,6 +51,7 @@ class MorningRoutinePageViewModel : WalkthroughSlideableType {
         actionSuccesful = Observable.empty()
         
         morningRoutineTime?.asObservable()
+            .debug()
             .distinctUntilChanged()
             .subscribe(onNext: { time in
                 userDefaults.set(time, forKey: SettingsKeys.morningRoutineTime)
