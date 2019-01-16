@@ -19,8 +19,12 @@ enum DirectionInstruction: String {
     case headWest = "Head west"
     case turnLeft = "Turn left"
     case turnRight = "Turn right"
+    case slightlyLeft = "Turn slightly left"
+    case slightlyRight = "Turn slightly right"
     case continueStraight = "Continue straight"
-    case roundabout = "Walk right" //around the roundabout
+    case takeStreetRight = "Take the street on the right,"
+    case takeStreetLeft = "Take the street on the left,"
+    case roundabout = "Walk right around" // the roundabout
     
     var localized: String {
         let strings = Strings.Directions.self
@@ -45,6 +49,14 @@ enum DirectionInstruction: String {
             return strings.left
         case .turnRight:
             return strings.right
+        case .slightlyLeft:
+            return strings.slightlyLeft
+        case .slightlyRight:
+            return strings.slightlyRight
+        case .takeStreetRight:
+            return strings.takeStreetRight
+        case .takeStreetLeft:
+            return strings.takeStreetLeft
         case .continueStraight:
             return strings.straight
         case .roundabout:

@@ -80,7 +80,11 @@
 "direction.west" = "Head west";
 "direction.left" = "Turn left";
 "direction.right" = "Turn right";
+"direction.slightlyLeft" = "Turn slightly left";
+"direction.slightlyRight" = "Turn slightly right";
 "direction.straight" = "Continue straight";
+"direction.takeStreetRight" = "Take the street on the right";
+"direction.takeStreetLeft" = "Take the street on the left";
 "direction.roundabout" = "Roundabout";
 "direction.drive" = "Drive towards";
 

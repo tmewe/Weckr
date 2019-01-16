@@ -36,16 +36,32 @@ class RoutePedestrianTableViewCell: TileTableViewCell, BasicInfoSubtitleDisplaya
         let words = sentences.first!.components(separatedBy: " ")
         // Turn left onto Danziger Straße.
         
+        //Instruction hat 2 Wörter
         let directionText = words.prefix(2).naturalJoined().noDots
         // Turn left
         
-        let direction = DirectionInstruction(rawValue: directionText)
+        var direction = DirectionInstruction(rawValue: directionText)
+        if direction == nil {
+            //Instruction hat 3 Wörter
+            let directionText = words.prefix(3).naturalJoined().noDots
+            direction = DirectionInstruction(rawValue: directionText)
+        }
+        
+        if direction == nil {
+            //Instruction hat 6 Wörter
+            let directionText = words.prefix(6).naturalJoined().noDots
+            direction = DirectionInstruction(rawValue: directionText)
+        }
         
         var destination = ""
         if direction != nil {
             switch direction! {
             case .roundabout:
                 destination = words.dropFirst(9).naturalJoined()
+            case .slightlyRight, .slightlyLeft:
+                destination = words.dropFirst(4).naturalJoined()
+            case .takeStreetLeft, .takeStreetRight:
+                destination = words.dropFirst(6).naturalJoined()
             default:
                 destination = words.dropFirst(3).naturalJoined()
                 // Danziger Straße

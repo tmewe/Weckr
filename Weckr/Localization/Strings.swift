@@ -95,6 +95,10 @@ struct Strings {
         static let southEast = "direction.southEast".localized
         static let left = "direction.left".localized
         static let right = "direction.right".localized
+        static let slightlyLeft = "direction.slightlyLeft".localized
+        static let slightlyRight = "direction.slightlyRight".localized
+        static let takeStreetRight = "direction.takeStreetRight".localized
+        static let takeStreetLeft = "direction.takeStreetLeft".localized
         static let straight = "direction.straight".localized
         static let roundabout = "direction.roundabout".localized
         static let drive = "direction.drive".localized
