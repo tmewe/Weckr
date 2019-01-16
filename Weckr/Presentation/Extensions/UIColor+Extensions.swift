@@ -102,6 +102,10 @@ extension UIColor {
         return #colorLiteral(red: 0.1411764706, green: 0.1411764706, blue: 0.1411764706, alpha: 0)
     }
     
+    class var error: UIColor {
+        return #colorLiteral(red: 0.968627451, green: 0.2588235294, blue: 0.2156862745, alpha: 1)
+    }
+    
     class var textColor: UIColor {
         return UIColor.white
     }

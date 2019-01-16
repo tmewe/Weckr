@@ -30,5 +30,10 @@ struct Font {
             static let subTitle: CGFloat = 15
             static let timespan: CGFloat = 24
         }
+        
+        struct Overlay {
+            static let errorTitle: CGFloat = 48
+            static let errorMessage: CGFloat = 24
+        }
     }
 }

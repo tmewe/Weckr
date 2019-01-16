@@ -77,4 +77,11 @@ struct Constraints {
             static let spacing: CGFloat = 20
         }
     }
+    
+    struct Error {
+        static let left: CGFloat = 50
+        static let right: CGFloat = 50
+        static let titleTop: CGFloat = 80
+        static let messageTop: CGFloat = 40
+    }
 }
