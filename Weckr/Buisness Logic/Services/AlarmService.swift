@@ -136,6 +136,7 @@ struct AlarmService: AlarmServiceType {
         return Observable.just(alarm)
     }
     
+    @discardableResult
     func createAlarm(startLocation: GeoCoordinate,
                      serviceFactory: ServiceFactoryProtocol) -> Observable<Alarm> {
         

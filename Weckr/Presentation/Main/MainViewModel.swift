@@ -17,6 +17,7 @@ import CoreLocation
 protocol MainViewModelInputsType {
     var toggleRouteVisibility: PublishSubject<Void> { get }
     var viewWillAppear: PublishSubject<Void> { get }
+    var createNewAlarm: PublishSubject<Void> { get }
 }
 
 protocol MainViewModelOutputsType {
@@ -46,6 +47,7 @@ class MainViewModel: MainViewModelType {
     //Inputs
     var toggleRouteVisibility: PublishSubject<Void>
     var viewWillAppear: PublishSubject<Void>
+    var createNewAlarm: PublishSubject<Void>
     
     //Outpus
     var sections: Observable<[AlarmSection]>
@@ -87,9 +89,16 @@ class MainViewModel: MainViewModelType {
                                       title: "FIRST EVENT",
                                       selectedEvent: $0.selectedEvent)] }
         
+        let currentLocation = locationManager.rx.location
+            .filterNil()
+            .map { ($0.coordinate.latitude, $0.coordinate.longitude) }
+            .map(GeoCoordinate.init)
+            .share(replay: 1, scope: .forever)
+        
         //Inputs
         toggleRouteVisibility = PublishSubject()
         viewWillAppear = PublishSubject()
+        createNewAlarm = PublishSubject()
         let routeVisiblity: Observable<Bool> = toggleRouteVisibility
             .scan(false) { state, _ in  !state}
             .startWith(false)
@@ -242,7 +251,13 @@ class MainViewModel: MainViewModelType {
             .map { $0.date }
             .subscribe(onNext: alarmScheduler.setAlarmNotification)
             .disposed(by: disposeBag)
-//            .do(onNext: { _ in alarmScheduler.setAlarmNotification(with: Date()) })
+        
+        //Create new alarm (after notification)
+        createNewAlarm.asObservable()
+            .withLatestFrom(currentLocation)
+            .subscribe(onNext: { self.alarmService
+                .createAlarm(startLocation: $0, serviceFactory: self.serviceFactory) })
+            .disposed(by: disposeBag)
     }
     
     //Actions

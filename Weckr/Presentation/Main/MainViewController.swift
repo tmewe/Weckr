@@ -119,11 +119,9 @@ class MainViewController: UITableViewController, BindableType, ErrorDisplayable 
         let userNotificationCenter = UNUserNotificationCenter.current()
         
         userNotificationCenter.rx.willPresent
-            .subscribe(onNext: { (center, notification, completion) in
-                print(center)
-                print(notification)
-                completion([.alert, .sound])
-            })
+            .do(onNext: { _, _, completion in completion([.alert, .sound]) })
+            .map { _ in }
+            .bind(to: viewModel.inputs.createNewAlarm)
             .disposed(by: disposeBag)
     }
     
