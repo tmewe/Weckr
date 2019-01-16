@@ -205,24 +205,10 @@ class WalkthroughViewModel: WalkthroughViewModelType {
                 return nil
             }
         
-        let vehiclePage = pages.filter { $0.viewModel is TravelPageViewModel }.first
-        guard let vehicle = vehiclePage?.viewModel.inputs.transportMode else {
-            return
-        }
-        
-        let morningRoutinePage = pages.filter { $0.viewModel is MorningRoutinePageViewModel }.first
-        guard let morningRoutineTime = morningRoutinePage?.viewModel.inputs.morningRoutineTime else {
-            return
-        }
-        
         createTrigger
-            .withLatestFrom(vehicle)
-            .withLatestFrom(morningRoutineTime) {      ($0, $1) }
-            .withLatestFrom(startLocation) {   ($0.0, $0.1, $1) }
+            .withLatestFrom(startLocation)
             .flatMapLatest {
-                alarmService.createAlarm(vehicle: $0.0,
-                                         morningRoutineTime: $0.1,
-                                         startLocation: $0.2,
+                alarmService.createAlarm(startLocation: $0,
                                          serviceFactory: serviceFactory) }
             .subscribe(onNext: { _ in
                 coordinator.transition(to: Scene.main(viewModelFactory

@@ -15,9 +15,6 @@ enum CalendarError: AppError {
         switch self {
         case .noEvents:
             return "no events"
-        default:
-            return "undefinded"
         }
-
     }
 }

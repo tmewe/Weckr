@@ -27,6 +27,7 @@
 		22C8D18E218B2BF70029C1EA /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C8D18D218B2BF70029C1EA /* MainViewController.swift */; };
 		22C8D190218B2C060029C1EA /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C8D18F218B2C060029C1EA /* MainViewModel.swift */; };
 		22C8D192218B2DEB0029C1EA /* SceneCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C8D191218B2DEB0029C1EA /* SceneCoordinator.swift */; };
+		4912CC9421EF1F98004E4472 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4912CC9321EF1F98004E4472 /* UIApplication+Extensions.swift */; };
 		4916E40A21EA546D0070141F /* AlarmSchedulerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4916E40921EA546D0070141F /* AlarmSchedulerService.swift */; };
 		4921B8D021A1A41700BD6145 /* SettingsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4921B8CF21A1A41700BD6145 /* SettingsKeys.swift */; };
 		4921B8D221A1A69000BD6145 /* EventStore+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4921B8D121A1A69000BD6145 /* EventStore+Rx.swift */; };
@@ -151,6 +152,7 @@
 		22C8D18D218B2BF70029C1EA /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		22C8D18F218B2C060029C1EA /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		22C8D191218B2DEB0029C1EA /* SceneCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneCoordinator.swift; sourceTree = "<group>"; };
+		4912CC9321EF1F98004E4472 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		4916E40921EA546D0070141F /* AlarmSchedulerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSchedulerService.swift; sourceTree = "<group>"; };
 		4921B8CF21A1A41700BD6145 /* SettingsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsKeys.swift; sourceTree = "<group>"; };
 		4921B8D121A1A69000BD6145 /* EventStore+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventStore+Rx.swift"; sourceTree = "<group>"; };
@@ -533,6 +535,7 @@
 				220365AB2195B741002BDE91 /* UIColor+Extensions.swift */,
 				49BE428421B83B72003EC071 /* UITableView+Extensions.swift */,
 				8415D34D21CA9D1500F28E13 /* UIControl+Extensions.swift */,
+				4912CC9321EF1F98004E4472 /* UIApplication+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -856,6 +859,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4912CC9421EF1F98004E4472 /* UIApplication+Extensions.swift in Sources */,
 				49941FAE21D3A88F00F91229 /* InfoAlertDisplayable.swift in Sources */,
 				4924A26F21A8793B00671450 /* WeatherService.swift in Sources */,
 				49CE3D2B21AF227D00A05CD0 /* AlarmServiceType.swift in Sources */,

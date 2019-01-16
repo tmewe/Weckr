@@ -36,8 +36,6 @@ class MainViewController: UITableViewController, BindableType, ErrorDisplayable 
     
     override var preferredStatusBarStyle: UIStatusBarStyle {return UIStatusBarStyle.lightContent}
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         UIApplication.shared.statusBarView?.backgroundColor = UIColor.backgroundColor

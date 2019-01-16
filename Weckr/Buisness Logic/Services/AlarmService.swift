@@ -43,6 +43,7 @@ struct AlarmService: AlarmServiceType {
         let result = withRealm("getting alarms") { realm -> Observable<Alarm> in
             let alarms = realm.objects(Alarm.self)
             return Observable.array(from: alarms)
+                .debug()
                 .map { alarms in
                     alarms.sorted { $0.date < $1.date }.first(where: { $0.date > Date() }) }
                 .filterNil()
@@ -135,16 +136,18 @@ struct AlarmService: AlarmServiceType {
         return Observable.just(alarm)
     }
     
-    func createAlarm(vehicle: TransportMode,
-                     morningRoutineTime: TimeInterval,
-                     startLocation: GeoCoordinate,
+    func createAlarm(startLocation: GeoCoordinate,
                      serviceFactory: ServiceFactoryProtocol) -> Observable<Alarm> {
+        
+        let defaults = UserDefaults.standard
+        let vehicle = defaults.integer(forKey: SettingsKeys.transportMode)
+        let morningRoutineTime = defaults.double(forKey: SettingsKeys.morningRoutineTime)
         
         let calendarService = serviceFactory.createCalendar()
         let weatherService = serviceFactory.createWeather()
         let routingService = serviceFactory.createRouting()
         
-        let vehicleObservable = Observable.just(vehicle)
+        let vehicleObservable = Observable.just(vehicle).map { TransportMode(mode: $0) }
         let startLocationObservable = Observable.just(startLocation)
         let futureDate = Date() + 1.days
         let events = calendarService.fetchEvents(at: futureDate, calendars: nil)
