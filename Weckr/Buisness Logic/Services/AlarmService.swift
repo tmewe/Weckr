@@ -158,7 +158,8 @@ struct AlarmService: AlarmServiceType {
         let events: Observable<[CalendarEntry]>!
         
         do { events = try calendarService.fetchEventsForNextWeek(calendars: nil) }
-        catch { return .just(AlarmCreationResult.Failure(CalendarError.noEvents)) }
+        catch let error as AppError { return .just(AlarmCreationResult.Failure(error)) }
+        catch { return .just(AlarmCreationResult.Failure(CalendarError.undefined)) }
         
         let firstEvent = events
             .debug()

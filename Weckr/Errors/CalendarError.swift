@@ -10,11 +10,14 @@ import Foundation
 
 enum CalendarError: AppError {
     case noEvents
+    case undefined
     
     var localizedMessage: String {
         switch self {
         case .noEvents:
             return "no events"
+        case .undefined:
+            return "undefined"
         }
     }
 }
