@@ -9,21 +9,36 @@
 import Foundation
 import EventKit
 import RxSwift
+import SwiftDate
 
 protocol CalendarServiceType {
-    func fetchEvents(at date: Date, calendars: [EKCalendar]?) -> Observable<[CalendarEntry]>
+    func fetchEventsForNextDay(calendars: [EKCalendar]?) -> Observable<[CalendarEntry]>
+    func fetchEventsForNextWeek(calendars: [EKCalendar]?) -> Observable<[CalendarEntry]>
 }
 
 struct CalendarService: CalendarServiceType {
     
-    func fetchEvents(at date: Date, calendars: [EKCalendar]?) -> Observable<[CalendarEntry]> {
+    func fetchEventsForNextDay(calendars: [EKCalendar]?) -> Observable<[CalendarEntry]> {
+        let date = Date() + 1.days
+        let dayStart = date.dateAtStartOf(.day)
+        let dayEnd = date.dateAtEndOf(.day)
+        return fetchEvents(from: dayStart, to: dayEnd, calendars: calendars)
+    }
+    
+    func fetchEventsForNextWeek(calendars: [EKCalendar]?) -> Observable<[CalendarEntry]> {
+        let start = Date() + 1.days
+        let end = Date() + 8.days
+        let weekStart = start.dateAtStartOf(.day)
+        let weekEnd = end.dateAtEndOf(.day)
+        return fetchEvents(from: weekStart, to: weekEnd, calendars: calendars)
+    }
+    
+    private func fetchEvents(from startDate: Date, to endDate: Date, calendars: [EKCalendar]?) -> Observable<[CalendarEntry]> {
         let status = EKEventStore.authorizationStatus(for: .event)
         switch status {
         case .authorized:
-            let dayStart = date.dateAtStartOf(.day)
-            let dayEnd = date.dateAtEndOf(.day)
             let store = EKEventStore()
-            let predicate = store.predicateForEvents(withStart: dayStart, end: dayEnd, calendars: calendars)
+            let predicate = store.predicateForEvents(withStart: startDate, end: endDate, calendars: calendars)
             
             let events = store.events(matching: predicate)
                 .sorted { $0.startDate < $1.startDate }
