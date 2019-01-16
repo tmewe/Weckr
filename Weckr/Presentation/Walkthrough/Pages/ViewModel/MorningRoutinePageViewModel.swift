@@ -51,7 +51,6 @@ class MorningRoutinePageViewModel : WalkthroughSlideableType {
         actionSuccesful = Observable.empty()
         
         morningRoutineTime?.asObservable()
-            .debug()
             .distinctUntilChanged()
             .subscribe(onNext: { time in
                 userDefaults.set(time, forKey: SettingsKeys.morningRoutineTime)

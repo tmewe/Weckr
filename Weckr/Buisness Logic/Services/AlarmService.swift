@@ -48,7 +48,6 @@ struct AlarmService: AlarmServiceType {
         let result = withRealm("getting alarms") { realm -> Observable<Alarm> in
             let alarms = realm.objects(Alarm.self)
             return Observable.array(from: alarms)
-                .debug()
                 .map { alarms in
                     alarms.sorted { $0.date < $1.date }.first(where: { $0.date > Date() }) }
                 .filterNil()
@@ -162,7 +161,6 @@ struct AlarmService: AlarmServiceType {
         catch { return .just(AlarmCreationResult.Failure(CalendarError.undefined)) }
         
         let firstEvent = events
-            .debug()
             .map { $0.first }
             .filterNil()
             .share(replay: 1, scope: .forever)
@@ -190,7 +188,6 @@ struct AlarmService: AlarmServiceType {
             .withLatestFrom(morningRoutineObservable) { ($0.0, $0.1, $0.2, $1) }
             .withLatestFrom(firstEvent) {               ($0.0, $0.1, $0.2, $0.3, $1) }
             .withLatestFrom(events) {                   ($0.0, $0.1, $0.2, $0.3, $0.4, $1) }
-            .debug()
             .take(1)
             .observeOn(ConcurrentDispatchQueueScheduler(qos: .background))
             .map(Alarm.init)
