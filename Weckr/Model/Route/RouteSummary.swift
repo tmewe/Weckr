@@ -29,6 +29,7 @@ import RealmSwift
         distance = try container.decode(Int.self, forKey: .distance)
         travelTime = try container.decode(Int.self, forKey: .travelTime)
         trafficTime = try container.decodeIfPresent(Int.self, forKey: .trafficTime) ?? 0
+        if trafficTime < 1 { trafficTime = travelTime }
         text = try container.decode(String.self, forKey: .text)
         
         super.init()

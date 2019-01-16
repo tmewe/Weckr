@@ -108,9 +108,9 @@ class MainViewModel: MainViewModelType {
         
         let routeOverviewItem = nextAlarm
             .map { alarm -> [SectionItem] in
-                let leaveDate = alarm.date.addingTimeInterval(alarm.morningRoutine)
+                let leaveDate = alarm.selectedEvent.startDate - alarm.route.summary.trafficTime.seconds
                 return [SectionItem.routeOverview(identity: "3", route: alarm.route, leaveDate: leaveDate)]
-        }
+            }
         
         //Car route
         
@@ -120,7 +120,7 @@ class MainViewModel: MainViewModelType {
             .map { alarm -> [SectionItem] in
                 
                 let route = alarm.route!
-                let leaveDate = alarm.date.addingTimeInterval(alarm.morningRoutine)
+                let leaveDate = alarm.selectedEvent.startDate - alarm.route.summary.trafficTime.seconds
                 var items = [SectionItem.routeOverview(identity: "3",
                                                        route: route,
                                                        leaveDate: leaveDate)]
