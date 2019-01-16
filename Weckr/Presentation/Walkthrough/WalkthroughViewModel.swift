@@ -210,7 +210,7 @@ class WalkthroughViewModel: WalkthroughViewModelType {
             .flatMapLatest {
                 alarmService.createAlarm(startLocation: $0,
                                          serviceFactory: serviceFactory) }
-            .subscribe(onNext: { _ in
+            .subscribe({ _ in
                 coordinator.transition(to: Scene.main(viewModelFactory
                     .createMain(coordinator: coordinator)),
                                        withType: .modal)

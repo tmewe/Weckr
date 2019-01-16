@@ -77,9 +77,7 @@ class WalkthroughViewController: UIViewController, BindableType, LoadingDisplaya
             .disposed(by: disposeBag)
         
         viewModel.outputs.createTrigger
-            .subscribe({ _ in
-                self.showLoading()
-            })
+            .subscribe({ _ in self.showLoading() })
             .disposed(by: disposeBag)
         
         viewModel.outputs.errorOccurred

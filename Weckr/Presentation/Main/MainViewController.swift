@@ -63,6 +63,11 @@ class MainViewController: UITableViewController, BindableType, ErrorDisplayable 
             .drive(headerView.dateLabel.rx.text)
             .disposed(by: headerView.disposeBag)
         
+        viewModel.outputs.dayString
+            .asDriver(onErrorJustReturn: "")
+            .drive(headerView.titleLabel.rx.text)
+            .disposed(by: headerView.disposeBag)
+        
         viewModel.outputs.errorOccurred
             .asDriver(onErrorJustReturn: nil)
             .drive(onNext:  { $0 == nil ? self.hideError() : self.showError(error: $0!) })

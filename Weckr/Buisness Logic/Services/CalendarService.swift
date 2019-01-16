@@ -38,22 +38,32 @@ struct CalendarService: CalendarServiceType {
         switch status {
         case .authorized:
             let store = EKEventStore()
-            let predicate = store.predicateForEvents(withStart: startDate, end: endDate, calendars: calendars)
+            var date = startDate //For iteration
             
-            let events = store.events(matching: predicate)
-                .sorted { $0.startDate < $1.startDate }
-                //FIXME: Handle events without geolocation, don't just filter them out
-                .filter { $0.structuredLocation?.geoLocation != nil }
-                .filter { !$0.isAllDay }
-                .map { ($0.title!,
-                        $0.startDate!,
-                        $0.endDate!,
-                        $0.location!,
-                        GeoCoordinate(location: $0.structuredLocation!.geoLocation!))
-                }
-                .map(CalendarEntry.init)
-            guard !events.isEmpty else { return Observable.error(CalendarError.noEvents) }
-            return Observable.of(events)
+            while date < endDate {
+                let morning = date.dateAtStartOf(.day)
+                let evening = date.dateAtEndOf(.day)
+                
+                let predicate = store.predicateForEvents(withStart: morning, end: evening, calendars: calendars)
+                
+                let events = store.events(matching: predicate)
+                    .sorted { $0.startDate < $1.startDate }
+                    //FIXME: Handle events without geolocation, don't just filter them out
+                    .filter { $0.structuredLocation?.geoLocation != nil }
+                    .filter { !$0.isAllDay }
+                    .map { ($0.title!,
+                            $0.startDate!,
+                            $0.endDate!,
+                            $0.location!,
+                            GeoCoordinate(location: $0.structuredLocation!.geoLocation!))
+                    }
+                    .map(CalendarEntry.init)
+                guard events.isEmpty else { return Observable.of(events) }
+                
+                date = date + 1.days
+            }
+            return Observable.error(CalendarError.noEvents)
+            
         default:
             return Observable.error(AccessError.calendar)
         }

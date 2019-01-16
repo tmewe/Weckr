@@ -23,6 +23,7 @@ protocol MainViewModelInputsType {
 protocol MainViewModelOutputsType {
     var sections: Observable<[AlarmSection]> { get }
     var dateString: Observable<String> { get }
+    var dayString: Observable<String> { get }
     var errorOccurred: Observable<AppError?> { get }
 }
 
@@ -52,6 +53,7 @@ class MainViewModel: MainViewModelType {
     //Outpus
     var sections: Observable<[AlarmSection]>
     var dateString: Observable<String>
+    var dayString: Observable<String>
     var errorOccurred: Observable<AppError?>
     
     //Setup
@@ -186,8 +188,12 @@ class MainViewModel: MainViewModelType {
         
         dateString = nextAlarm
             .map { $0.date }
-            .map { $0.toFormat("EEEE, MMMM dd") }
+            .map { $0.toFormat("MMMM dd") }
             .map { $0.uppercased() }
+        
+        dayString = nextAlarm
+            .map { $0.date }
+            .map { $0.toFormat("EEEE") }
         
         //Location access status
         locationManager.rx.didChangeAuthorization

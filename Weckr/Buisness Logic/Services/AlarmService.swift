@@ -150,7 +150,7 @@ struct AlarmService: AlarmServiceType {
         
         let vehicleObservable = Observable.just(vehicle).map { TransportMode(mode: $0) }
         let startLocationObservable = Observable.just(startLocation)
-        let events = calendarService.fetchEventsForNextWeek(calendars: nil)
+        let events = calendarService.fetchEventsForNextWeek(calendars: nil).catchError { throw $0 }
         let firstEvent = events
             .map { $0.first }
             .filterNil()
