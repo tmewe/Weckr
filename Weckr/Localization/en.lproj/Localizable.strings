@@ -84,3 +84,15 @@
 "direction.roundabout" = "Roundabout";
 "direction.drive" = "Drive towards";
 
+//Error
+"error.fixit" = "Fix it";
+"error.access.calendar.title" = "Red Alert!";
+"error.access.calendar.message" = "It seems like you revoked Weckr’s access to your Calendar. Without that permission, Weckr can’t do anything for you!";
+"error.access.notification.title" = "Oh Snap!";
+"error.access.notification.message" = "Apparently, you don’t want to receive Notifcations. Weckr needs this permission to ring and warn you when something seems off in your schedule!";
+"error.access.location.title" = "Where are you?";
+"error.access.location.message" = "Weckr is not allowed to use your location. To reliably factor in your travelling times in the morning, Weckr needs to know where you sleep. While this sounds a bit creepy, your data is very safe with Weckr. Promised.";
+"error.calendar.noEvents.title" = "Oh no!";
+"error.calendar.noEvents.message" = "We couldn't find any calendar entries in the next week, please add some events. Don't forget to add a geolocation or adress.";
+"error.undefined.title" = "An error occurred";
+"error.undefined.message" = "We are very sorry but an error occurred.";

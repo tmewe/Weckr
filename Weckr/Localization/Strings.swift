@@ -99,4 +99,24 @@ struct Strings {
         static let roundabout = "direction.roundabout".localized
         static let drive = "direction.drive".localized
     }
+    
+    struct Error {
+        static let fixit = "error.fixit".localized
+        static let undefinedTitle = "error.undefined.title".localized
+        static let undefinedMessage = "error.undefined.message".localized
+        
+        struct Access {
+            static let calendarTitle = "error.access.calendar.title".localized
+            static let calendarMessage = "error.access.calendar.message".localized
+            static let notificationTitle = "error.access.notification.title".localized
+            static let notificationMessage = "error.access.notification.message".localized
+            static let locationTitle = "error.access.location.title".localized
+            static let locationMessage = "error.access.location.message".localized
+        }
+        
+        struct Calendar {
+            static let noEventsTitle = "error.calendar.noEvents.title".localized
+            static let noEventsMessage = "error.calendar.noEvents.message".localized
+        }
+    }
 }

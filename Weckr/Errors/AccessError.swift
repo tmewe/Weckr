@@ -13,14 +13,25 @@ enum AccessError: AppError {
     case location
     case notification
     
+    var localizedTitle: String {
+        switch self {
+        case .calendar:
+            return Strings.Error.Access.calendarTitle
+        case .location:
+            return Strings.Error.Access.locationTitle
+        case .notification:
+            return Strings.Error.Access.notificationTitle
+        }
+    }
+    
     var localizedMessage: String {
         switch self {
         case .calendar:
-            return "calendar"
+            return Strings.Error.Access.calendarMessage
         case .location:
-            return "location"
+            return Strings.Error.Access.locationMessage
         case .notification:
-            return "notification"
+            return Strings.Error.Access.notificationMessage
         }
     }
 }
