@@ -34,7 +34,7 @@ final class MainApplication: MainApplicationProtocol {
         let appHasBeenStarted = UserDefaults
             .standard
             .bool(forKey: SettingsKeys.appHasBeenStarted)
-        
+    
         let coordinator = SceneCoordinator(window: window)
         
         switch appHasBeenStarted {

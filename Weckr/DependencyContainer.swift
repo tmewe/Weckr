@@ -25,6 +25,7 @@ protocol ServiceFactoryProtocol {
     func createRouting() -> RoutingServiceType
     func createCalendar() -> CalendarServiceType
     func createAlarm() -> AlarmServiceType
+    func createGeocoder() -> GeocodingServiceType
     func createAuthorizationStatus() -> AuthorizationStatusServiceType
     func createAlarmScheduler() -> AlarmSchedulerServiceType
 }
@@ -86,6 +87,10 @@ extension DependencyContainer: ServiceFactoryProtocol {
     
     func createAlarm() -> AlarmServiceType {
         return AlarmService()
+    }
+    
+    func createGeocoder() -> GeocodingServiceType {
+        return GeocodingService()
     }
     
     func createAuthorizationStatus() -> AuthorizationStatusServiceType {
