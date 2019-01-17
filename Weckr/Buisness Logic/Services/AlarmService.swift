@@ -151,6 +151,7 @@ struct AlarmService: AlarmServiceType {
         let calendarService = serviceFactory.createCalendar()
         let weatherService = serviceFactory.createWeather()
         let routingService = serviceFactory.createRouting()
+        let geocodingService = serviceFactory.createGeocoder()
         
         let vehicleObservable = Observable.just(vehicle).map { TransportMode(mode: $0) }
         let startLocationObservable = Observable.just(startLocation)
@@ -170,8 +171,7 @@ struct AlarmService: AlarmServiceType {
         let arrival = firstEvent.map { $0.startDate }.filterNil()
         
         let endLocation = firstEvent
-            .map { $0.location }
-            .filterNil()
+            .flatMap { geocodingService.geocode($0) }
         
         let route = Observable
             .combineLatest(vehicleObservable, startLocationObservable, endLocation, arrival)
