@@ -281,18 +281,26 @@ class MainViewModel: MainViewModelType {
             .disposed(by: disposeBag)
         
         //Update events on alarm date
-        
-        //Check for events before next alarm
         viewWillAppear
             .withLatestFrom(currentAlarm)
             .filterNil()
-            .map { $0.date }
-            .withLatestFrom(currentLocation) { ($0, $1) }
-            .flatMap { self.alarmService.createAlarmPrior(to: $0.0,
-                                                          startLocation: $0.1,
-                                                          serviceFactory: self.serviceFactory) }
+            .map { alarmUpdateService.updateEvents(for: $0,
+                                                       serviceFactory: self.serviceFactory,
+                                                       disposeBag: self.disposeBag) }
             .subscribe(onNext: { _ in print("yeah") })
             .disposed(by: disposeBag)
+        
+        //Check for events before next alarm
+//        viewWillAppear
+//            .withLatestFrom(currentAlarm)
+//            .filterNil()
+//            .map { $0.date }
+//            .withLatestFrom(currentLocation) { ($0, $1) }
+//            .flatMap { self.alarmService.createAlarmPrior(to: $0.0,
+//                                                          startLocation: $0.1,
+//                                                          serviceFactory: self.serviceFactory) }
+//            .subscribe(onNext: { _ in print("yeah") })
+//            .disposed(by: disposeBag)
         
         //Create alarm if no alarm
     }

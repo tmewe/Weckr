@@ -100,4 +100,43 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
         }
         return Observable.just(alarm)
     }
+    
+    func updateEvents(for alarm: Alarm,
+                      serviceFactory: ServiceFactoryProtocol,
+                      disposeBag: DisposeBag) {
+        let calendarService = serviceFactory.createCalendar()
+        do {
+//            let events = try calendarService.fetchEvents(at: alarm.date, calendars: nil)
+//                .filterEmpty()
+//                .share(replay: 1, scope: .forever)
+            
+            try calendarService.fetchEvents(at: alarm.date, calendars: nil)
+                .filterEmpty()
+//                .map { $0.first! }
+//                .filter { $0.startDate < alarm.date }
+                .subscribe(onNext: { events in
+                    let realm = try! Realm()
+                    try! realm.write {
+                        alarm.selectedEvent = events.first!
+                        alarm.otherEvents.removeAll()
+                        alarm.otherEvents.append(objectsIn: events)
+                    }
+                    self.calculateDate(for: alarm)
+                })
+                .disposed(by: disposeBag)
+            
+//            events
+//                .filter { $0.first!.startDate > alarm.date }
+//                .filter { $0 != alarm.otherEvents.toArray() }
+//                .subscribe(onNext: { events in
+//                    let realm = try! Realm()
+//                    try! realm.write {
+//                        alarm.otherEvents = events
+//                    }
+//                })
+//                .disposed(by: disposeBag)
+            
+        }
+        catch {  }
+    }
 }

@@ -12,15 +12,14 @@ import RxSwift
 import SwiftDate
 
 protocol CalendarServiceType {
-    func fetchEventsForNextDay(calendars: [EKCalendar]?) throws -> Observable<[CalendarEntry]>
+    func fetchEvents(at date: Date, calendars: [EKCalendar]?) throws -> Observable<[CalendarEntry]>
     func fetchEventsForNextWeek(calendars: [EKCalendar]?) throws -> Observable<[CalendarEntry]>
     func fetchEventsFromNow(to date: Date, calendars: [EKCalendar]?) throws -> Observable<[CalendarEntry]>
 }
 
 struct CalendarService: CalendarServiceType {
     
-    func fetchEventsForNextDay(calendars: [EKCalendar]?) throws -> Observable<[CalendarEntry]> {
-        let date = Date() + 1.days
+    func fetchEvents(at date: Date, calendars: [EKCalendar]?) throws -> Observable<[CalendarEntry]> {
         let dayStart = date.dateAtStartOf(.day)
         let dayEnd = date.dateAtEndOf(.day)
         return try fetchEvents(from: dayStart, to: dayEnd, calendars: calendars)

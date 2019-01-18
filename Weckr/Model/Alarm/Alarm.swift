@@ -18,7 +18,7 @@ import RealmSwift
     dynamic var weather: WeatherForecast!
     dynamic var location: GeoCoordinate!
     dynamic var morningRoutine: TimeInterval = 0.0
-    let otherEvents = List<CalendarEntry>()
+    var otherEvents = List<CalendarEntry>()
     
     override public class func primaryKey() -> String? {
         return "id"
