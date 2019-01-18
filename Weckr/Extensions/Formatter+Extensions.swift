@@ -32,6 +32,7 @@ extension Formatter {
             formatter.setLocalizedDateFormatFromTemplate("HH:mm")
             return formatter;
         }()
+        
     }
     struct TimeInterval {
         static let timeSpan : DateComponentsFormatter = {

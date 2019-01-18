@@ -37,7 +37,7 @@ class RouteOverviewTableViewCell: TileTableViewCell, BasicInfoDisplayable {
         
         let travelTime = TimeInterval(route.summary.travelTime)
         
-        let dateText = leaveDate.timeShort
+        let dateText = leaveDate.timeShortDropZero
         
         infoView.headerInfoView.leftLabel.text = Strings.Cells.RouteOverview.title.uppercased()
         infoView.headerInfoView.rightLabel.text = travelTime.timeSpan.uppercased()

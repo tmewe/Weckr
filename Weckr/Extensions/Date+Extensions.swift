@@ -24,6 +24,12 @@ extension Date {
     var timeShort: String {
         return Formatter.Date.timeShort.string(from: self)
     }
+    
+    var timeShortDropZero: String {
+        var timeShort = self.timeShort
+        if (timeShort.first == "0") { timeShort.remove(at: timeShort.startIndex) }
+        return timeShort
+    }
 }
 
 extension Date: Strideable {
