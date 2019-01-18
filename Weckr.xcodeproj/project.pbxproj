@@ -70,6 +70,7 @@
 		4996332521EB432100B55F45 /* UNUserNotificationCenterDelegate+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4996332421EB432100B55F45 /* UNUserNotificationCenterDelegate+Rx.swift */; };
 		499AF40121AEE93C00F4B4FF /* CalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499AF40021AEE93C00F4B4FF /* CalendarService.swift */; };
 		499AF40421AEEC5400F4B4FF /* AccessError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499AF40321AEEC5400F4B4FF /* AccessError.swift */; };
+		499E6A6021F234EE00C57414 /* AlarmUpdateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499E6A5F21F234EE00C57414 /* AlarmUpdateService.swift */; };
 		49A8B97521E64F7100DA26E0 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A8B97421E64F7100DA26E0 /* ErrorView.swift */; };
 		49A8B97721E6562100DA26E0 /* ErrorDisplayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A8B97621E6562100DA26E0 /* ErrorDisplayable.swift */; };
 		49B4663121CADBB500BE810C /* LoadingDisplayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B4663021CADBB500BE810C /* LoadingDisplayable.swift */; };
@@ -99,8 +100,8 @@
 		49BE428121B839ED003EC071 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BE428021B839ED003EC071 /* Reusable.swift */; };
 		49BE428321B83A17003EC071 /* AlarmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BE428221B83A17003EC071 /* AlarmTableViewCell.swift */; };
 		49BE428521B83B72003EC071 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BE428421B83B72003EC071 /* UITableView+Extensions.swift */; };
-		49CE3D2B21AF227D00A05CD0 /* AlarmServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CE3D2A21AF227D00A05CD0 /* AlarmServiceType.swift */; };
-		49CE3D2D21AF235700A05CD0 /* AlarmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CE3D2C21AF235700A05CD0 /* AlarmService.swift */; };
+		49CE3D2B21AF227D00A05CD0 /* RealmServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CE3D2A21AF227D00A05CD0 /* RealmServiceType.swift */; };
+		49CE3D2D21AF235700A05CD0 /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CE3D2C21AF235700A05CD0 /* RealmService.swift */; };
 		49CE3D2F21AF244C00A05CD0 /* AlarmServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CE3D2E21AF244C00A05CD0 /* AlarmServiceError.swift */; };
 		49DB25DD218DDACD0037CFBB /* WalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DB25DC218DDACD0037CFBB /* WalkthroughViewController.swift */; };
 		49DB25DF218DDAFB0037CFBB /* WalkthroughViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DB25DE218DDAFB0037CFBB /* WalkthroughViewModel.swift */; };
@@ -199,6 +200,7 @@
 		4996332421EB432100B55F45 /* UNUserNotificationCenterDelegate+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UNUserNotificationCenterDelegate+Rx.swift"; sourceTree = "<group>"; };
 		499AF40021AEE93C00F4B4FF /* CalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarService.swift; sourceTree = "<group>"; };
 		499AF40321AEEC5400F4B4FF /* AccessError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessError.swift; sourceTree = "<group>"; };
+		499E6A5F21F234EE00C57414 /* AlarmUpdateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmUpdateService.swift; sourceTree = "<group>"; };
 		49A8B97421E64F7100DA26E0 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		49A8B97621E6562100DA26E0 /* ErrorDisplayable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorDisplayable.swift; sourceTree = "<group>"; };
 		49B4663021CADBB500BE810C /* LoadingDisplayable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingDisplayable.swift; sourceTree = "<group>"; };
@@ -228,8 +230,8 @@
 		49BE428021B839ED003EC071 /* Reusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		49BE428221B83A17003EC071 /* AlarmTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTableViewCell.swift; sourceTree = "<group>"; };
 		49BE428421B83B72003EC071 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
-		49CE3D2A21AF227D00A05CD0 /* AlarmServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmServiceType.swift; sourceTree = "<group>"; };
-		49CE3D2C21AF235700A05CD0 /* AlarmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmService.swift; sourceTree = "<group>"; };
+		49CE3D2A21AF227D00A05CD0 /* RealmServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmServiceType.swift; sourceTree = "<group>"; };
+		49CE3D2C21AF235700A05CD0 /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
 		49CE3D2E21AF244C00A05CD0 /* AlarmServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmServiceError.swift; sourceTree = "<group>"; };
 		49DB25DC218DDACD0037CFBB /* WalkthroughViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughViewController.swift; sourceTree = "<group>"; };
 		49DB25DE218DDAFB0037CFBB /* WalkthroughViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughViewModel.swift; sourceTree = "<group>"; };
@@ -401,7 +403,8 @@
 				4924A26E21A8793B00671450 /* WeatherService.swift */,
 				4959992421AA01F300549D89 /* RoutingService.swift */,
 				499AF40021AEE93C00F4B4FF /* CalendarService.swift */,
-				49CE3D2C21AF235700A05CD0 /* AlarmService.swift */,
+				49CE3D2C21AF235700A05CD0 /* RealmService.swift */,
+				499E6A5F21F234EE00C57414 /* AlarmUpdateService.swift */,
 				4953554021E6AD050034FB54 /* AuthorizationStatusService.swift */,
 				4916E40921EA546D0070141F /* AlarmSchedulerService.swift */,
 				22CF8FB021F0B1EB005FB844 /* GeocodingService.swift */,
@@ -464,7 +467,7 @@
 		499AF40521AEF73400F4B4FF /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				49CE3D2A21AF227D00A05CD0 /* AlarmServiceType.swift */,
+				49CE3D2A21AF227D00A05CD0 /* RealmServiceType.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -883,7 +886,7 @@
 				4912CC9421EF1F98004E4472 /* UIApplication+Extensions.swift in Sources */,
 				49941FAE21D3A88F00F91229 /* InfoAlertDisplayable.swift in Sources */,
 				4924A26F21A8793B00671450 /* WeatherService.swift in Sources */,
-				49CE3D2B21AF227D00A05CD0 /* AlarmServiceType.swift in Sources */,
+				49CE3D2B21AF227D00A05CD0 /* RealmServiceType.swift in Sources */,
 				4924610421C2BC0E001C0D37 /* RouteOverviewTableViewCell.swift in Sources */,
 				493FA95221CE656B00C2FFA1 /* Sequence+Extensions.swift in Sources */,
 				49BD679F21D02DC100A240E6 /* BlurBackgroundDisplayable.swift in Sources */,
@@ -941,6 +944,7 @@
 				493FA95B21CE704600C2FFA1 /* BasicHeaderInfoView.swift in Sources */,
 				498DBC8121C1B76A000D40D8 /* EditableCell.swift in Sources */,
 				4924A26C21A874AF00671450 /* OpenWeatherMap.swift in Sources */,
+				499E6A6021F234EE00C57414 /* AlarmUpdateService.swift in Sources */,
 				49DD02F8219C379000C57041 /* TransitLine.swift in Sources */,
 				4942435C21AA9D5400088AB6 /* Formatter+Extensions.swift in Sources */,
 				493FA95021CE537600C2FFA1 /* DirectionInstruction.swift in Sources */,
@@ -953,7 +957,7 @@
 				498ED01E21C13A57003FFF5B /* TileTableViewCell.swift in Sources */,
 				49BD3FD521D256BD00939766 /* CalendarEditViewModel.swift in Sources */,
 				4916E40A21EA546D0070141F /* AlarmSchedulerService.swift in Sources */,
-				49CE3D2D21AF235700A05CD0 /* AlarmService.swift in Sources */,
+				49CE3D2D21AF235700A05CD0 /* RealmService.swift in Sources */,
 				84E7CDEB2195DC930088CF98 /* CalendarEntry.swift in Sources */,
 				493FA94D21CE4B3C00C2FFA1 /* RoutePedestrianTableViewCell.swift in Sources */,
 				49BD677E21CF98C200A240E6 /* RouteCarTableViewCell.swift in Sources */,

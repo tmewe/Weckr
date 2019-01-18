@@ -11,11 +11,9 @@ import RxSwift
 import RealmSwift
 import CoreLocation
 
-protocol AlarmServiceType {
+protocol RealmServiceType {
     @discardableResult
     func save(alarm: Alarm) -> Observable<Alarm>
-    
-    func calculateDate(for alarm: Alarm) -> Observable<Alarm>
     
 //    @discardableResult
 //    func delete(alarm: Alarm) -> Observable<Void>
@@ -28,18 +26,6 @@ protocol AlarmServiceType {
     
     @discardableResult
     func currentAlarm() -> Alarm?
-    
-    func updateMorningRoutine(_ time: TimeInterval, for alarm: Alarm)
-    
-    func updateTransportMode(_ mode: TransportMode,
-                             for alarm: Alarm,
-                             serviceFactory: ServiceFactoryProtocol,
-                             disposeBag: DisposeBag)
-    
-    func updateSelectedEvent(_ event: CalendarEntry,
-                             for alarm: Alarm,
-                             serviceFactory: ServiceFactoryProtocol,
-                             disposeBag: DisposeBag)
     
     @discardableResult
     func createAlarm(startLocation: GeoCoordinate,

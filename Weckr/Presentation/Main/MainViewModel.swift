@@ -60,7 +60,7 @@ class MainViewModel: MainViewModelType {
     private let coordinator: SceneCoordinatorType
     private let serviceFactory: ServiceFactoryProtocol
     private let viewModelFactory: ViewModelFactoryProtocol
-    private let alarmService: AlarmServiceType
+    private let alarmService: RealmServiceType
     private let userDefaults = UserDefaults.standard
     private let locationManager = CLLocationManager()
     private let disposeBag = DisposeBag()
@@ -74,6 +74,7 @@ class MainViewModel: MainViewModelType {
         self.viewModelFactory = viewModelFactory
         self.coordinator = coordinator
         self.alarmService = serviceFactory.createAlarm()
+        let alarmUpdateService = serviceFactory.createAlarmUpdate()
         
         let alarmScheduler = serviceFactory.createAlarmScheduler()
         let authorizationService = serviceFactory.createAuthorizationStatus()
@@ -239,7 +240,7 @@ class MainViewModel: MainViewModelType {
             .distinctUntilChanged()
             .filterNil()
             .withLatestFrom(nextAlarm) { ($0, $1) }
-            .subscribe(onNext: alarmService.updateMorningRoutine)
+            .subscribe(onNext: alarmUpdateService.updateMorningRoutine)
             .disposed(by: disposeBag)
         
         //Transport mode
@@ -249,7 +250,7 @@ class MainViewModel: MainViewModelType {
             .map { TransportMode(mode: $0) }
             .withLatestFrom(nextAlarm) { ($0, $1) }
             .subscribe(onNext: { [weak self] mode, alarm in
-                self?.alarmService.updateTransportMode(mode,
+                alarmUpdateService.updateTransportMode(mode,
                                                        for: alarm,
                                                        serviceFactory: serviceFactory,
                                                        disposeBag: self!.disposeBag)
@@ -268,6 +269,15 @@ class MainViewModel: MainViewModelType {
             .subscribe(onNext: { self.alarmService
                 .createAlarm(startLocation: $0, serviceFactory: self.serviceFactory) })
             .disposed(by: disposeBag)
+        
+        //Update events on alarm date
+        
+        //Check for events before next alarm
+        viewWillAppear
+            .withLatestFrom(nextAlarm)
+            .map { $0.date }
+        
+        //Create alarm if no alarm
     }
     
     //Actions
