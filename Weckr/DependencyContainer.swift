@@ -24,10 +24,11 @@ protocol ServiceFactoryProtocol {
     func createWeather() -> WeatherServiceType
     func createRouting() -> RoutingServiceType
     func createCalendar() -> CalendarServiceType
-    func createAlarm() -> AlarmServiceType
+    func createAlarm() -> RealmServiceType
     func createGeocoder() -> GeocodingServiceType
     func createAuthorizationStatus() -> AuthorizationStatusServiceType
     func createAlarmScheduler() -> AlarmSchedulerServiceType
+    func createAlarmUpdate() -> AlarmUpdateService
 }
 
 final class DependencyContainer {
@@ -85,8 +86,8 @@ extension DependencyContainer: ServiceFactoryProtocol {
         return CalendarService()
     }
     
-    func createAlarm() -> AlarmServiceType {
-        return AlarmService()
+    func createAlarm() -> RealmServiceType {
+        return RealmService()
     }
     
     func createGeocoder() -> GeocodingServiceType {
@@ -99,5 +100,9 @@ extension DependencyContainer: ServiceFactoryProtocol {
     
     func createAlarmScheduler() -> AlarmSchedulerServiceType {
         return AlarmSchedulerService()
+    }
+    
+    func createAlarmUpdate() -> AlarmUpdateService {
+        return AlarmUpdateService()
     }
 }

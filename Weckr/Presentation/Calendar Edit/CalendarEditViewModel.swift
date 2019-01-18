@@ -42,14 +42,14 @@ class CalendarEditViewModel: CalendarEditViewModelType {
     //Setup
     private let alarm: Alarm
     private let serviceFactory: ServiceFactoryProtocol
-    private let alarmService: AlarmServiceType
+    private let alarmUpdateService: AlarmUpdateServiceType
     private let coordinator: SceneCoordinatorType
     private let disposeBag = DisposeBag()
     
     init(alarm: Alarm, serviceFactory: ServiceFactoryProtocol, coordinator: SceneCoordinatorType) {
         self.alarm = alarm
         self.serviceFactory = serviceFactory
-        self.alarmService = serviceFactory.createAlarm()
+        self.alarmUpdateService = serviceFactory.createAlarmUpdate()
         self.coordinator = coordinator
         
         //Inputs
@@ -88,7 +88,7 @@ class CalendarEditViewModel: CalendarEditViewModelType {
                 return this.coordinator.pop(animated: true)
             }
             
-            this.alarmService.updateSelectedEvent(wrapper.event,
+            this.alarmUpdateService.updateSelectedEvent(wrapper.event,
                                                   for: this.alarm,
                                                   serviceFactory: this.serviceFactory,
                                                   disposeBag: this.disposeBag)

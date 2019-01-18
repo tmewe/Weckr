@@ -214,7 +214,7 @@ class WalkthroughViewModel: WalkthroughViewModelType {
         createTrigger
             .do(onNext: { loadingActive.onNext(true) })
             .withLatestFrom(startLocation)
-            .flatMap { alarmService.createAlarm(startLocation: $0, serviceFactory: serviceFactory) }
+            .flatMap { alarmService.createFirstAlarm(startLocation: $0, serviceFactory: serviceFactory) }
             .subscribe(onNext: { result in
                 switch result {
                     case .Success(_):
