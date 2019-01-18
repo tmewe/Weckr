@@ -14,6 +14,7 @@ import SwiftDate
 protocol CalendarServiceType {
     func fetchEventsForNextDay(calendars: [EKCalendar]?) throws -> Observable<[CalendarEntry]>
     func fetchEventsForNextWeek(calendars: [EKCalendar]?) throws -> Observable<[CalendarEntry]>
+    func fetchEventsFromNow(to date: Date, calendars: [EKCalendar]?) throws -> Observable<[CalendarEntry]>
 }
 
 struct CalendarService: CalendarServiceType {
@@ -31,6 +32,12 @@ struct CalendarService: CalendarServiceType {
         let weekStart = start.dateAtStartOf(.day)
         let weekEnd = end.dateAtEndOf(.day)
         return try fetchEvents(from: weekStart, to: weekEnd, calendars: calendars)
+    }
+    
+    func fetchEventsFromNow(to date: Date, calendars: [EKCalendar]?) throws -> Observable<[CalendarEntry]> {
+        let start = (Date() + 1.days).dateAtStartOf(.day)
+        let end = date.dateAtEndOf(.day)
+        return try fetchEvents(from: start, to: end, calendars: calendars)
     }
     
     private func fetchEvents(from startDate: Date, to endDate: Date, calendars: [EKCalendar]?) throws -> Observable<[CalendarEntry]> {

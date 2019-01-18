@@ -92,7 +92,7 @@ struct RealmService: RealmServiceType {
         let startLocationObservable = Observable.just(startLocation)
         let events: Observable<[CalendarEntry]>!
         
-        do { events = try calendarService.fetchEventsForNextWeek(calendars: nil) }
+        do { events = try calendarService.fetchEventsFromNow(to: date, calendars: nil) }
         catch let error as AppError { return .just(AlarmCreationResult.Failure(error)) }
         catch { return .just(AlarmCreationResult.Failure(CalendarError.undefined)) }
         
