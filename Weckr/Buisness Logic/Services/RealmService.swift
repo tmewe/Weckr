@@ -127,8 +127,8 @@ struct RealmService: RealmServiceType {
             .take(1)
             .observeOn(ConcurrentDispatchQueueScheduler(qos: .background))
             .map(Alarm.init)
-            .flatMapLatest (save)
             .flatMapLatest(alarmUpdateService.calculateDate)
+            .flatMapLatest (save)
             .map { AlarmCreationResult.Success($0) }
             .observeOn(MainScheduler.instance)
         

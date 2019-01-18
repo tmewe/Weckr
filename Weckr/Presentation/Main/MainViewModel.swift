@@ -117,7 +117,7 @@ class MainViewModel: MainViewModelType {
         
         //Car route
         
-        let routeItemsCar: BehaviorSubject<[AlarmSectionItem]> = BehaviorSubject(value: [])
+        let routeItems: BehaviorSubject<[AlarmSectionItem]> = BehaviorSubject(value: [])
         
         let routeItemsExpanded = currentAlarm
             .filterNil()
@@ -176,19 +176,19 @@ class MainViewModel: MainViewModelType {
         routeRefreshTrigger
             .filter { $0 }
             .withLatestFrom(routeItemsExpanded)
-            .bind(to: routeItemsCar)
+            .bind(to: routeItems)
             .disposed(by: disposeBag)
         
         routeRefreshTrigger
             .filter { !$0 }
             .withLatestFrom(routeOverviewItem)
-            .bind(to: routeItemsCar)
+            .bind(to: routeItems)
             .disposed(by: disposeBag)
         
         //Outputs
         sections = Observable.combineLatest(alarmItem,
                                             morningRoutineItem,
-                                            routeItemsCar,
+                                            routeItems,
                                             eventItem)
             .map { $0.0 + $0.1 + $0.2 + $0.3 }
             .map { [AlarmSection(header: "", items: $0)] }
@@ -288,11 +288,10 @@ class MainViewModel: MainViewModelType {
             .filterNil()
             .map { $0.date }
             .withLatestFrom(currentLocation) { ($0, $1) }
-            .subscribe(onNext: { date, location in
-                    self.alarmService.createAlarmPrior(to: date,
-                                                       startLocation: location,
-                                                       serviceFactory: self.serviceFactory)
-            })
+            .flatMap { self.alarmService.createAlarmPrior(to: $0.0,
+                                                          startLocation: $0.1,
+                                                          serviceFactory: self.serviceFactory) }
+            .subscribe(onNext: { _ in print("yeah") })
             .disposed(by: disposeBag)
         
         //Create alarm if no alarm
