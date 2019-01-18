@@ -38,13 +38,16 @@ class MainViewController: UITableViewController, BindableType, ErrorDisplayable 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        UIApplication.shared.statusBarView?.backgroundColor = UIColor.backgroundColor
         view.backgroundColor = .orange
         dataSource = configureDataSource()
         setupTableView()
         bindViewModel()
         
         errorView.autoSetDimensions(to: view.frame.size)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        UIApplication.shared.statusBarView?.backgroundColor = UIColor.backgroundColor
     }
     
     func bindViewModel() {
