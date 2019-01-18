@@ -35,7 +35,7 @@ struct CalendarService: CalendarServiceType {
     
     func fetchEventsFromNow(to date: Date, calendars: [EKCalendar]?) throws -> Observable<[CalendarEntry]> {
         let start = (Date() + 1.days).dateAtStartOf(.day)
-        let end = date.dateAtEndOf(.day)
+        let end = (date - 1.days).dateAtEndOf(.day)
         return try fetchEvents(from: start, to: end, calendars: calendars)
     }
     
