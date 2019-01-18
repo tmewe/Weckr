@@ -89,6 +89,7 @@ class CalendarEditViewController: UIViewController, BindableType {
                     let cell: EventTableViewCell = tableView.dequeueReusableCell(indexPath: indexPath)
                     cell.configure(with: (eventWrapper.description, eventWrapper.event))
                     cell.gradient = eventWrapper.gradient
+                    if (!eventWrapper.selected) { cell.wiggle() }
                     return cell
                 }
                 
