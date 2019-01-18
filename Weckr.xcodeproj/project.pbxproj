@@ -30,6 +30,8 @@
 		22CF8FB121F0B1EB005FB844 /* GeocodingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CF8FB021F0B1EB005FB844 /* GeocodingService.swift */; };
 		22CF8FB321F0B81E005FB844 /* Geocoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CF8FB221F0B81E005FB844 /* Geocoding.swift */; };
 		22CF8FB521F0BB0A005FB844 /* GeocodeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CF8FB421F0BB0A005FB844 /* GeocodeError.swift */; };
+		22CF8FBB21F1F614005FB844 /* CalendarEditTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CF8FBA21F1F613005FB844 /* CalendarEditTitleTableViewCell.swift */; };
+		22CF8FBD21F1FED0005FB844 /* CalendarEditSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CF8FBC21F1FED0005FB844 /* CalendarEditSection.swift */; };
 		4912CC9421EF1F98004E4472 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4912CC9321EF1F98004E4472 /* UIApplication+Extensions.swift */; };
 		4912CC9921EFC2EE004E4472 /* AlertInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4912CC9821EFC2EE004E4472 /* AlertInfo.swift */; };
 		4916E40A21EA546D0070141F /* AlarmSchedulerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4916E40921EA546D0070141F /* AlarmSchedulerService.swift */; };
@@ -159,6 +161,8 @@
 		22CF8FB021F0B1EB005FB844 /* GeocodingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeocodingService.swift; sourceTree = "<group>"; };
 		22CF8FB221F0B81E005FB844 /* Geocoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geocoding.swift; sourceTree = "<group>"; };
 		22CF8FB421F0BB0A005FB844 /* GeocodeError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeocodeError.swift; sourceTree = "<group>"; };
+		22CF8FBA21F1F613005FB844 /* CalendarEditTitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEditTitleTableViewCell.swift; sourceTree = "<group>"; };
+		22CF8FBC21F1FED0005FB844 /* CalendarEditSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEditSection.swift; sourceTree = "<group>"; };
 		4912CC9321EF1F98004E4472 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		4912CC9821EFC2EE004E4472 /* AlertInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertInfo.swift; sourceTree = "<group>"; };
 		4916E40921EA546D0070141F /* AlarmSchedulerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSchedulerService.swift; sourceTree = "<group>"; };
@@ -673,6 +677,7 @@
 				498ED01D21C13A57003FFF5B /* TileTableViewCell.swift */,
 				49BE428221B83A17003EC071 /* AlarmTableViewCell.swift */,
 				498ED01B21C13A39003FFF5B /* MorningRoutineTableViewCell.swift */,
+				22CF8FBA21F1F613005FB844 /* CalendarEditTitleTableViewCell.swift */,
 				492460FB21C28EEE001C0D37 /* EventTableViewCell.swift */,
 			);
 			path = Cells;
@@ -712,6 +717,7 @@
 				84E7CDEA2195DC930088CF98 /* CalendarEntry.swift */,
 				49BD679C21CFF9F000A240E6 /* Gradient.swift */,
 				4912CC9821EFC2EE004E4472 /* AlertInfo.swift */,
+				22CF8FBC21F1FED0005FB844 /* CalendarEditSection.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -884,6 +890,7 @@
 				49941FAE21D3A88F00F91229 /* InfoAlertDisplayable.swift in Sources */,
 				4924A26F21A8793B00671450 /* WeatherService.swift in Sources */,
 				49CE3D2B21AF227D00A05CD0 /* AlarmServiceType.swift in Sources */,
+				22CF8FBD21F1FED0005FB844 /* CalendarEditSection.swift in Sources */,
 				4924610421C2BC0E001C0D37 /* RouteOverviewTableViewCell.swift in Sources */,
 				493FA95221CE656B00C2FFA1 /* Sequence+Extensions.swift in Sources */,
 				49BD679F21D02DC100A240E6 /* BlurBackgroundDisplayable.swift in Sources */,
@@ -956,6 +963,7 @@
 				49CE3D2D21AF235700A05CD0 /* AlarmService.swift in Sources */,
 				84E7CDEB2195DC930088CF98 /* CalendarEntry.swift in Sources */,
 				493FA94D21CE4B3C00C2FFA1 /* RoutePedestrianTableViewCell.swift in Sources */,
+				22CF8FBB21F1F614005FB844 /* CalendarEditTitleTableViewCell.swift in Sources */,
 				49BD677E21CF98C200A240E6 /* RouteCarTableViewCell.swift in Sources */,
 				220365B32195BD2B002BDE91 /* String+Extenstions.swift in Sources */,
 				49B4663721CAEE0000BE810C /* DependencyContainer.swift in Sources */,

@@ -76,6 +76,8 @@ struct Strings {
             static let travelTitle = "edit.travel".localized
             static let done = "edit.done".localized
             static let clever = "edit.clever".localized
+            static let calendarTitle = "edit.calendarEditTitle".localized
+            static let calendarTitleColoredPart = "edit.calendarEditTitleColoredPart".localized
             static let firstEvent = "edit.firstEvent".localized
             static let alternativeEvent = "edit.alternativeEvent".localized
             static let adjustForWeather = "edit.adjustWeather".localized

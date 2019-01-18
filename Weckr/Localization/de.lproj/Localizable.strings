@@ -74,6 +74,8 @@
 "edit.travel" = "Wie bewegst du dich fort?";
 "edit.done" = "Fertig";
 "edit.clever" = "Klever!";
+"edit.calendarEditTitle" = "Für welchen Termin wirst du aufstehen?";
+"edit.calendarEditTitleColoredPart" = "welchen Termin";
 "edit.firstEvent" = "Erster Termin";
 "edit.alternativeEvent" = "Alternative";
 "edit.adjustWeather" = "An Wetter anpassen";
