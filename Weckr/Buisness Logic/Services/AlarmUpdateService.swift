@@ -107,7 +107,10 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
         let calendarService = serviceFactory.createCalendar()
         do {
             
-            try calendarService.fetchEvents(at: alarm.date, calendars: nil)
+            let events = try calendarService.fetchEvents(at: alarm.date, calendars: nil)
+                    .share(replay: 1, scope: .forever)
+            
+            events
                 .filterEmpty()
                 .subscribe(onNext: { events in
                     let realm = try! Realm()
@@ -119,7 +122,18 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
                     self.calculateDate(for: alarm)
                 })
                 .disposed(by: disposeBag)
+            
+            events
+                .filter { $0.isEmpty }
+                .withLatestFrom(Observable.just(alarm))
+                .subscribe(Realm.rx.delete())
+                .disposed(by: disposeBag)
         }
-        catch {  }
+        catch {
+            let realm = try! Realm()
+            try! realm.write {
+                realm.delete(alarm)
+            }
+        }
     }
 }

@@ -287,22 +287,31 @@ class MainViewModel: MainViewModelType {
             .map { alarmUpdateService.updateEvents(for: $0,
                                                        serviceFactory: self.serviceFactory,
                                                        disposeBag: self.disposeBag) }
-            .subscribe(onNext: { _ in })
+            .subscribe(onNext: { _ in print() })
             .disposed(by: disposeBag)
         
         //Check for events before next alarm
         viewWillAppear
             .withLatestFrom(currentAlarm)
             .filterNil()
+            .filter { !$0.isInvalidated } //Needed if alarm gets deleted
             .map { $0.date }
             .withLatestFrom(currentLocation) { ($0, $1) }
             .flatMap { self.alarmService.createAlarmPrior(to: $0.0,
                                                           startLocation: $0.1,
                                                           serviceFactory: self.serviceFactory) }
-            .subscribe(onNext: { _ in })
+            .subscribe(onNext: { _ in print("") })
             .disposed(by: disposeBag)
         
         //Create alarm if no alarm
+        viewWillAppear
+            .withLatestFrom(currentAlarm)
+            .filter { $0 == nil }
+            .withLatestFrom(currentLocation)
+            .flatMap { self.alarmService
+                .createFirstAlarm(startLocation: $0, serviceFactory: serviceFactory) }
+            .subscribe(onNext: { _ in })
+            .disposed(by: disposeBag)
     }
     
     //Actions
