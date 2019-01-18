@@ -58,6 +58,17 @@
 "main.header.tomorrow" = "Morgen";
 "main.header.dayaftertomorrow" = "Übermorgen";
 
+//Cells
+"cells.morningRoutine.title" = "Morgenroutine";
+"cells.morningRoutine.timePrefix" = "Noch";
+"cells.morningRoutine.timeSuffix" = "";
+
+"cells.routeOverview.title" = "Route";
+"cells.routeOverview.timePrefix" = "Um";
+"cells.routeOverview.timeSuffix" = "los";
+
+"cells.firstEvent.title" = "Erster Termin";
+
 //Edit
 "edit.morningRoutine" = "Wie lang ist deine Morgenroutine?";
 "edit.travel" = "Wie bewegst du dich fort?";
@@ -86,7 +97,8 @@
 "direction.takeStreetRight" = "Straße zur Rechten nehmen";
 "direction.takeStreetLeft" = "Straße zur Linken nehmen";
 "direction.roundabout" = "Kreisverkehr";
-"direction.drive" = "Fahre zum";
+"direction.drive" = "Fahre richtung";
+"direction.kilometers" = "Kilometer";
 
 //Error
 "error.fixit" = "Mach es";

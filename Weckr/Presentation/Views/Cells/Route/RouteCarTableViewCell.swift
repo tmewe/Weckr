@@ -34,6 +34,6 @@ class RouteCarTableViewCell: TileTableViewCell, BasicInfoSubtitleDisplayable {
         
         infoView.headerInfoView.leftLabel.text = Strings.Directions.drive.uppercased()
         infoView.infoLabel.text = configuration.legs.last!.end.label
-        distanceLabel.text = "\(distance) kilometers".lowercased()
+        distanceLabel.text = "\(distance) \(Strings.Directions.kilometers)"
     }
 }

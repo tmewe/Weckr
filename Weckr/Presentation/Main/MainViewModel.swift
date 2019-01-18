@@ -88,7 +88,7 @@ class MainViewModel: MainViewModelType {
             .map { [SectionItem.morningRoutine(identity: "morningroutine", time: $0.morningRoutine)] }
         let eventItem = nextAlarm
             .map { [SectionItem.event(identity: "event",
-                                      title: "FIRST EVENT",
+                                      title: Strings.Cells.FirstEvent.title,
                                       selectedEvent: $0.selectedEvent)] }
         
         let currentLocation = locationManager.rx.location

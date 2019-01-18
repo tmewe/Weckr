@@ -84,6 +84,23 @@ struct Strings {
         }
     }
     
+    struct Cells {
+        struct MorningRoutine{
+            static let title = "cells.morningRoutine.title".localized
+            static let timePrefix = "cells.morningRoutine.timePrefix".localized
+            static let timeSuffix = "cells.morningRoutine.timeSuffix".localized
+        }
+        struct RouteOverview {
+            static let title = "cells.routeOverview.title".localized
+            static let timePrefix = "cells.routeOverview.timePrefix".localized
+            static let timeSuffix = "cells.routeOverview.timeSuffix".localized
+        }
+        struct FirstEvent {
+            static let title = "cells.firstEvent.title".localized
+
+        }
+    }
+    
     struct Directions {
         static let north = "direction.north".localized
         static let south = "direction.south".localized
@@ -102,6 +119,7 @@ struct Strings {
         static let straight = "direction.straight".localized
         static let roundabout = "direction.roundabout".localized
         static let drive = "direction.drive".localized
+        static let kilometers = "direction.kilometers".localized
     }
     
     struct Error {

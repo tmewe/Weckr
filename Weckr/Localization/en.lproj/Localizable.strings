@@ -58,6 +58,17 @@
 "main.header.tomorrow" = "Tomorrow";
 "main.header.dayaftertomorrow" = "The day after tomorrow";
 
+//Cells
+"cells.morningRoutine.title" = "Morning Routine";
+"cells.morningRoutine.timePrefix" = "";
+"cells.morningRoutine.timeSuffix" = "left";
+
+"cells.routeOverview.title" = "Route";
+"cells.routeOverview.timePrefix" = "Leave at";
+"cells.routeOverview.timeSuffix" = "";
+
+"cells.firstEvent.title" = "First Event";
+
 //Edit
 "edit.morningRoutine" = "How long is your morning routine?";
 "edit.travel" = "How do you travel?";
@@ -87,6 +98,7 @@
 "direction.takeStreetLeft" = "Take the street on the left";
 "direction.roundabout" = "Roundabout";
 "direction.drive" = "Drive towards";
+"direction.kilometers" = "kilometers";
 
 //Error
 "error.fixit" = "Fix it";

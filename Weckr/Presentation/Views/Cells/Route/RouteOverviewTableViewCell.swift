@@ -43,8 +43,10 @@ class RouteOverviewTableViewCell: TileTableViewCell, BasicInfoDisplayable {
         let regionalDate = DateInRegion(leaveDate, region: Region.current)
         let dateText = regionalDate.toFormat("HH:mm")
         
-        infoView.headerInfoView.leftLabel.text = "TRAVEL"
-        infoView.headerInfoView.rightLabel.text = "\(Int(route.summary.travelTime/60)) min".uppercased()
-        infoView.infoLabel.text = "Leave at " + dateText
+        infoView.headerInfoView.leftLabel.text = Strings.Cells.RouteOverview.title.uppercased()
+        infoView.headerInfoView.rightLabel.text =
+            "\(Int(route.summary.travelTime/60)) min".uppercased()
+        infoView.infoLabel.text = "\(Strings.Cells.RouteOverview.timePrefix) \(dateText) \(Strings.Cells.RouteOverview.timeSuffix)"
+
     }
 }
