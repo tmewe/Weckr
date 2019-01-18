@@ -287,7 +287,7 @@ class MainViewModel: MainViewModelType {
             .map { alarmUpdateService.updateEvents(for: $0,
                                                        serviceFactory: self.serviceFactory,
                                                        disposeBag: self.disposeBag) }
-            .subscribe(onNext: { _ in print("yeah") })
+            .subscribe(onNext: { _ in })
             .disposed(by: disposeBag)
         
         //Check for events before next alarm
@@ -299,7 +299,7 @@ class MainViewModel: MainViewModelType {
             .flatMap { self.alarmService.createAlarmPrior(to: $0.0,
                                                           startLocation: $0.1,
                                                           serviceFactory: self.serviceFactory) }
-            .subscribe(onNext: { _ in print("yeah") })
+            .subscribe(onNext: { _ in })
             .disposed(by: disposeBag)
         
         //Create alarm if no alarm
