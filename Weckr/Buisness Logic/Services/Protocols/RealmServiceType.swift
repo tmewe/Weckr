@@ -22,12 +22,13 @@ protocol RealmServiceType {
 //    func allAlarms() -> Observable<Results<Alarm>>
 
     @discardableResult
-    func currentAlarmObservable() -> Observable<Alarm>
+    func currentAlarmObservable() -> Observable<Alarm?>
     
     @discardableResult
     func currentAlarm() -> Alarm?
     
     @discardableResult
-    func createAlarm(startLocation: GeoCoordinate,
-                     serviceFactory: ServiceFactoryProtocol) -> Observable<AlarmCreationResult<Alarm>>
+    func createAlarmPrior(to date: Date,
+                          startLocation: GeoCoordinate,
+                          serviceFactory: ServiceFactoryProtocol) -> Observable<AlarmCreationResult<Alarm>>
 }

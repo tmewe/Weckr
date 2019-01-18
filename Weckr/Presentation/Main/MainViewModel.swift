@@ -82,12 +82,13 @@ class MainViewModel: MainViewModelType {
         let notificationError: BehaviorSubject<AppError?> = BehaviorSubject(value: nil)
         let calendarError: BehaviorSubject<AppError?> = BehaviorSubject(value: nil)
         
-        let nextAlarm = alarmService.currentAlarmObservable().share(replay: 1, scope: .forever)
+        let currentAlarm = alarmService.currentAlarmObservable().share(replay: 1, scope: .forever)
         
-        let alarmItem = nextAlarm.map { [AlarmSectionItem.alarm(identity: "alarm", date: $0.date)] }
-        let morningRoutineItem = nextAlarm
+        let alarmItem = currentAlarm.filterNil()
+            .map { [AlarmSectionItem.alarm(identity: "alarm", date: $0.date)] }
+        let morningRoutineItem = currentAlarm.filterNil()
             .map { [AlarmSectionItem.morningRoutine(identity: "morningroutine", time: $0.morningRoutine)] }
-        let eventItem = nextAlarm
+        let eventItem = currentAlarm.filterNil()
             .map { [AlarmSectionItem.event(identity: "event",
                                       title: Strings.Cells.FirstEvent.title,
                                       selectedEvent: $0.selectedEvent)] }
@@ -107,7 +108,8 @@ class MainViewModel: MainViewModelType {
             .startWith(false)
             .share(replay: 1, scope: .forever)
         
-        let routeOverviewItem = nextAlarm
+        let routeOverviewItem = currentAlarm
+            .filterNil()
             .map { alarm -> [AlarmSectionItem] in
                 let leaveDate = alarm.selectedEvent.startDate - alarm.route.summary.trafficTime.seconds
                 return [AlarmSectionItem.routeOverview(identity: "3", route: alarm.route, leaveDate: leaveDate)]
@@ -117,7 +119,8 @@ class MainViewModel: MainViewModelType {
         
         let routeItemsCar: BehaviorSubject<[AlarmSectionItem]> = BehaviorSubject(value: [])
         
-        let routeItemsExpanded = nextAlarm
+        let routeItemsExpanded = currentAlarm
+            .filterNil()
             .map { alarm -> [AlarmSectionItem] in
                 
                 let route = alarm.route!
@@ -167,7 +170,7 @@ class MainViewModel: MainViewModelType {
         }
         
         let routeRefreshTrigger = Observable
-            .combineLatest(routeVisiblity, nextAlarm) { visbility, _ in visbility }
+            .combineLatest(routeVisiblity, currentAlarm) { visbility, _ in visbility }
             .share(replay: 1, scope: .forever)
         
         routeRefreshTrigger
@@ -191,14 +194,16 @@ class MainViewModel: MainViewModelType {
             .map { [AlarmSection(header: "", items: $0)] }
             .startWith([])
         
-        dateString = nextAlarm
-            .map { $0.date }
-            .map { $0.monthDayLong }
-            .map { $0.uppercased() }
+        dateString = currentAlarm
+            .map { $0?.date }
+            .map { $0?.monthDayLong }
+            .map { $0?.uppercased() }
+            .replaceNilWith("")
         
-        dayString = nextAlarm
-            .map { $0.date }
-            .map { $0.dayText }
+        dayString = currentAlarm
+            .map { $0?.date }
+            .map { $0?.dayText }
+            .replaceNilWith("No events found")
         
         //Location access status
         locationManager.rx.didChangeAuthorization
@@ -239,7 +244,7 @@ class MainViewModel: MainViewModelType {
         userDefaults.rx.observe(TimeInterval.self, SettingsKeys.morningRoutineTime)
             .distinctUntilChanged()
             .filterNil()
-            .withLatestFrom(nextAlarm) { ($0, $1) }
+            .withLatestFrom(nextAlarm.filterNil()) { ($0, $1) }
             .subscribe(onNext: alarmUpdateService.updateMorningRoutine)
             .disposed(by: disposeBag)
         
@@ -248,7 +253,7 @@ class MainViewModel: MainViewModelType {
             .distinctUntilChanged()
             .filterNil()
             .map { TransportMode(mode: $0) }
-            .withLatestFrom(nextAlarm) { ($0, $1) }
+            .withLatestFrom(nextAlarm.filterNil()) { ($0, $1) }
             .subscribe(onNext: { [weak self] mode, alarm in
                 alarmUpdateService.updateTransportMode(mode,
                                                        for: alarm,
@@ -258,23 +263,28 @@ class MainViewModel: MainViewModelType {
             .disposed(by: disposeBag)
         
         // Notification for new alarm
-        nextAlarm
+        currentAlarm
+            .filterNil()
             .map { $0.date }
             .subscribe(onNext: alarmScheduler.setAlarmNotification)
             .disposed(by: disposeBag)
         
         //Create new alarm (after notification)
         createNewAlarm.asObservable()
+            .withLatestFrom(currentAlarm)
+            .filter { $0 == nil }
             .withLatestFrom(currentLocation)
             .subscribe(onNext: { self.alarmService
-                .createAlarm(startLocation: $0, serviceFactory: self.serviceFactory) })
+                .createAlarmPrior(to: Date() + 1.weeks,
+                                  startLocation: $0,
+                                  serviceFactory: self.serviceFactory) })
             .disposed(by: disposeBag)
         
         //Update events on alarm date
         
         //Check for events before next alarm
         viewWillAppear
-            .withLatestFrom(nextAlarm)
+            .withLatestFrom(currentAlarm)
             .map { $0.date }
         
         //Create alarm if no alarm

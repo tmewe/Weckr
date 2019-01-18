@@ -44,13 +44,13 @@ struct RealmService: RealmServiceType {
     }
     
     @discardableResult
-    func currentAlarmObservable() -> Observable<Alarm> {
-        let result = withRealm("getting alarms") { realm -> Observable<Alarm> in
+    func currentAlarmObservable() -> Observable<Alarm?> {
+        let result = withRealm("getting alarms") { realm -> Observable<Alarm?> in
             let alarms = realm.objects(Alarm.self)
             return Observable.array(from: alarms)
                 .map { alarms in
-                    alarms.sorted { $0.date < $1.date }.first(where: { $0.date > Date() }) }
-                .filterNil()
+                    return alarms.sorted { $0.date < $1.date }.first(where: { $0.date > Date() })
+                }
         }
         return result ?? .empty()
     }
@@ -67,8 +67,16 @@ struct RealmService: RealmServiceType {
     }
     
     @discardableResult
-    func createAlarm(startLocation: GeoCoordinate,
-                     serviceFactory: ServiceFactoryProtocol) -> Observable<AlarmCreationResult<Alarm>> {
+    func createFirstAlarm(startLocation: GeoCoordinate,
+                          serviceFactory: ServiceFactoryProtocol) -> Observable<AlarmCreationResult<Alarm>> {
+        let date = Date() + 1.weeks
+        return createAlarmPrior(to: date, startLocation: startLocation, serviceFactory: serviceFactory)
+    }
+    
+    @discardableResult
+    func createAlarmPrior(to date: Date,
+                          startLocation: GeoCoordinate,
+                          serviceFactory: ServiceFactoryProtocol) -> Observable<AlarmCreationResult<Alarm>> {
         
         let defaults = UserDefaults.standard
         let vehicle = defaults.integer(forKey: SettingsKeys.transportMode)
