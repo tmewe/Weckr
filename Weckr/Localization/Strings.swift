@@ -87,13 +87,15 @@ struct Strings {
     struct Cells {
         struct MorningRoutine{
             static let title = "cells.morningRoutine.title".localized
-            static let timePrefix = "cells.morningRoutine.timePrefix".localized
-            static let timeSuffix = "cells.morningRoutine.timeSuffix".localized
+            static let timePrefix =
+                generatePrefix(from: "cells.morningRoutine.timePrefix".localized)
+            static let timeSuffix =
+                generateSuffix(from: "cells.morningRoutine.timeSuffix".localized)
         }
         struct RouteOverview {
             static let title = "cells.routeOverview.title".localized
-            static let timePrefix = "cells.routeOverview.timePrefix".localized
-            static let timeSuffix = "cells.routeOverview.timeSuffix".localized
+            static let timePrefix = generatePrefix(from: "cells.routeOverview.timePrefix".localized)
+            static let timeSuffix = generateSuffix(from: "cells.routeOverview.timeSuffix".localized)
         }
         struct FirstEvent {
             static let title = "cells.firstEvent.title".localized
@@ -120,6 +122,7 @@ struct Strings {
         static let roundabout = "direction.roundabout".localized
         static let drive = "direction.drive".localized
         static let kilometers = "direction.kilometers".localized
+        static let meters = "direction.meters".localized
     }
     
     struct Error {
@@ -141,5 +144,12 @@ struct Strings {
             static let noEventsTitle = "error.calendar.noEvents.title".localized
             static let noEventsMessage = "error.calendar.noEvents.message".localized
         }
+    }
+    
+    private static func generatePrefix(from: String) -> String {
+        return from.isEmpty ? "" : "\(from) "
+    }
+    private static func generateSuffix(from: String) -> String {
+        return from.isEmpty ? "" : " \(from)"
     }
 }

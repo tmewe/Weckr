@@ -18,5 +18,27 @@ extension Formatter {
             formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
             return formatter
         }()
+        
+        static let dayMonthLong: DateFormatter = {
+            let formatter = DateFormatter();
+            formatter.locale = Locale.autoupdatingCurrent
+            formatter.setLocalizedDateFormatFromTemplate("MMMMd")
+            return formatter
+        }()
+        
+        static let timeShort: DateFormatter = {
+            let formatter = DateFormatter();
+            formatter.locale = Locale.autoupdatingCurrent
+            formatter.setLocalizedDateFormatFromTemplate("HH:mm")
+            return formatter;
+        }()
+    }
+    struct TimeInterval {
+        static let timeSpan : DateComponentsFormatter = {
+            let formatter = DateComponentsFormatter();
+            formatter.allowedUnits = [.day, .hour, .minute]
+            formatter.unitsStyle = .short
+            return formatter
+        }()
     }
 }

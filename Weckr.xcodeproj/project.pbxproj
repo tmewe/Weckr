@@ -288,12 +288,12 @@
 				220365B22195BD2B002BDE91 /* String+Extenstions.swift */,
 				4942435B21AA9D5400088AB6 /* Formatter+Extensions.swift */,
 				4942435D21AA9D7E00088AB6 /* Date+Extensions.swift */,
+				49EF7ACD21A709E100FEDFEC /* UNUserNotificationCenter+Rx.swift */,
 				498ED01F21C14A29003FFF5B /* TimeIntervall+Extensions.swift */,
 				493FA95121CE656B00C2FFA1 /* Sequence+Extensions.swift */,
 				4921B8D121A1A69000BD6145 /* EventStore+Rx.swift */,
 				8415D34B21CA98C200F28E13 /* VehicleSegmentedControl+Rx.swift */,
 				4996332421EB432100B55F45 /* UNUserNotificationCenterDelegate+Rx.swift */,
-				49EF7ACD21A709E100FEDFEC /* UNUserNotificationCenter+Rx.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";

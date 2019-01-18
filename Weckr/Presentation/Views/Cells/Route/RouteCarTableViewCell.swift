@@ -30,10 +30,12 @@ class RouteCarTableViewCell: TileTableViewCell, BasicInfoSubtitleDisplayable {
     }
     
     func configure(with configuration: Route) {
-        let distance = configuration.summary!.distance/1000
-        
+        let distance = configuration.summary!.distance
+        let distanceText = distance < 1000
+            ? "\(distance) \(Strings.Directions.meters)"
+            : "\(distance / 1000) \(Strings.Directions.kilometers)"
         infoView.headerInfoView.leftLabel.text = Strings.Directions.drive.uppercased()
         infoView.infoLabel.text = configuration.legs.last!.end.label
-        distanceLabel.text = "\(distance) \(Strings.Directions.kilometers)"
+        distanceLabel.text = distanceText
     }
 }

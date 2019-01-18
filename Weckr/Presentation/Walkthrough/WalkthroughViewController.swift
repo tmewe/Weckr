@@ -15,6 +15,8 @@ import RxViewController
 
 class WalkthroughViewController: UIViewController, BindableType, LoadingDisplayable, ErrorDisplayable, InfoAlertDisplayable {
     
+    override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
+
     var viewModel: WalkthroughViewModelType!
     var loadingView: LoadingViewProtocol = LoadingView.newAutoLayout()
     var errorView: ErrorViewProtocol = ErrorView.newAutoLayout()

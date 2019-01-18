@@ -68,12 +68,17 @@ class RoutePedestrianTableViewCell: TileTableViewCell, BasicInfoSubtitleDisplaya
             }
         }
         
-        let duration = Int(configuration.travelTime/60)
-        let durationText = duration > 0 ? "\(duration) MIN" : ""
+        let duration = TimeInterval(configuration.travelTime)
+        let durationText = duration.timeSpan.uppercased()
+        
+        let distance = Int(configuration.length)
+        let distanceText = distance < 1000
+            ? "\(distance) \(Strings.Directions.meters)"
+            : "\(distance / 1000) \(Strings.Directions.kilometers)"
         
         infoView.headerInfoView.leftLabel.text = direction?.localized.uppercased()
         infoView.headerInfoView.rightLabel.text = durationText
         infoView.infoLabel.text = destination.noDots
-        distanceLabel.text = "\(Int(configuration.length)) meters"
+        distanceLabel.text = distanceText
     }
 }

@@ -99,6 +99,8 @@
 "direction.roundabout" = "Roundabout";
 "direction.drive" = "Drive towards";
 "direction.kilometers" = "kilometers";
+"direction.meters" = "meters";
+
 
 //Error
 "error.fixit" = "Fix it";
@@ -113,3 +115,6 @@
 "error.calendar.noEvents.message" = "We couldn't find any calendar entries in the next week. Please add some events. Don't forget to add a geolocation or adress.";
 "error.undefined.title" = "An error occurred";
 "error.undefined.message" = "We are very sorry but an error occurred.";
+
+//Formats
+"formats.date.dayAndMonthLong" = "MMMM dd";

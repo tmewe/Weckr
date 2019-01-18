@@ -25,8 +25,7 @@ class AlarmTableViewCell: UITableViewCell, Reusable {
     }
     
     func configure(with date:Date) {
-        let regionalDate = DateInRegion(date, region: Region.current)
-        dateLabel.text = regionalDate.toFormat("HH:mm")
+        dateLabel.text = date.timeShort
     }
     
     private func addSubviews() {

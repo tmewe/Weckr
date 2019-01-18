@@ -35,18 +35,15 @@ class RouteOverviewTableViewCell: TileTableViewCell, BasicInfoDisplayable {
         let route = configuration.0
         let leaveDate = configuration.1
         
-        var duration = Int(route.summary.trafficTime/60)
-        if duration < 1 {
-            duration = Int(route.summary.travelTime/60)
-        }
+        let travelTime = TimeInterval(route.summary.travelTime)
         
-        let regionalDate = DateInRegion(leaveDate, region: Region.current)
-        let dateText = regionalDate.toFormat("HH:mm")
+        let dateText = leaveDate.timeShort
         
         infoView.headerInfoView.leftLabel.text = Strings.Cells.RouteOverview.title.uppercased()
-        infoView.headerInfoView.rightLabel.text =
-            "\(Int(route.summary.travelTime/60)) min".uppercased()
-        infoView.infoLabel.text = "\(Strings.Cells.RouteOverview.timePrefix) \(dateText) \(Strings.Cells.RouteOverview.timeSuffix)"
+        infoView.headerInfoView.rightLabel.text = travelTime.timeSpan.uppercased()
+        infoView.infoLabel.text = Strings.Cells.RouteOverview.timePrefix
+            + dateText
+            + Strings.Cells.RouteOverview.timeSuffix
 
     }
 }

@@ -9,6 +9,14 @@
 import Foundation
 
 extension TimeInterval {
+    
+    var timeSpan: String {
+        if (self < 60) { return "" }
+        return Formatter.TimeInterval.timeSpan.string(from: self)!
+            .replacingOccurrences(of: ",", with: "")
+            .replacingOccurrences(of: ".", with: "")
+    }
+    
     func toHoursMinutes() -> (Int, Int) {
         return (Int(self / 3600), Int((self.truncatingRemainder(dividingBy: 3600)) / 60))
     }

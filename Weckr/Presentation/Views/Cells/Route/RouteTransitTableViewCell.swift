@@ -46,11 +46,10 @@ class RouteTransitTableViewCell: TileTableViewCell {
         let stationsCount = words.suffix(2).naturalJoined().noDots
         
         headerInfo.leftLabel.text = line.name.uppercased() + " " + line.destination.uppercased()
-        headerInfo.rightLabel.text = "\(Int(getOn.travelTime/60)) min".uppercased()
+        headerInfo.rightLabel.text = TimeInterval(getOn.travelTime/60).timeSpan.uppercased()
         
-        let regionalDate = DateInRegion(date, region: Region.current)
-        departureTimeLabel.text = regionalDate.toFormat("HH:mm")
-        arrivalTimeLabel.text = (regionalDate + getOn.travelTime.seconds).toFormat("HH:mm")
+        departureTimeLabel.text = date.timeShort
+        arrivalTimeLabel.text = (date + getOn.travelTime.seconds).timeShort
         firstStopLabel.text = firstStop
         finalStopLabel.text = finalStop
         stationsCountLabel.text = stationsCount

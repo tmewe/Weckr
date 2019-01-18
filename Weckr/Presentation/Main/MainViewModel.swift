@@ -192,12 +192,12 @@ class MainViewModel: MainViewModelType {
         
         dateString = nextAlarm
             .map { $0.date }
-            .map { $0.toFormat("MMMM dd") }
+            .map { $0.monthDayLong }
             .map { $0.uppercased() }
         
         dayString = nextAlarm
             .map { $0.date }
-            .map { $0.toFormat("EEEE") }
+            .map { $0.dayText }
         
         //Location access status
         locationManager.rx.didChangeAuthorization

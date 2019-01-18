@@ -60,8 +60,8 @@
 
 //Cells
 "cells.morningRoutine.title" = "Morgenroutine";
-"cells.morningRoutine.timePrefix" = "Noch";
-"cells.morningRoutine.timeSuffix" = "";
+"cells.morningRoutine.timePrefix" = "";
+"cells.morningRoutine.timeSuffix" = "übrig";
 
 "cells.routeOverview.title" = "Route";
 "cells.routeOverview.timePrefix" = "Um";
@@ -99,6 +99,8 @@
 "direction.roundabout" = "Kreisverkehr";
 "direction.drive" = "Fahre richtung";
 "direction.kilometers" = "Kilometer";
+"direction.meters" = "Meter";
+
 
 //Error
 "error.fixit" = "Mach es";
@@ -113,3 +115,6 @@
 "error.calendar.noEvents.message" = "Nächste Woche sieht dein Kalender verdächtig leer aus. Füg' doch deine Termine hinzu. Wenn du schon dabei bist, vergiss nicht den Ort mit einzutragen";
 "error.undefined.title" = "Schockschwere Not!";
 "error.undefined.message" = "Tut uns sehr leid, ein Fehler ist aufgetreten.";
+
+//Formats
+"formats.date.dayAndMonthLong" = "dd. MMMM";

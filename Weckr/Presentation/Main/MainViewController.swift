@@ -17,11 +17,14 @@ import UserNotifications
 
 class MainViewController: UITableViewController, BindableType, ErrorDisplayable {
     
+    
     typealias ViewModelType = MainViewModelType
     
     var viewModel: ViewModelType!
     var errorView: ErrorViewProtocol = ErrorView.newAutoLayout()
 
+    override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
+    
     private var dataSource: RxTableViewSectionedAnimatedDataSource<AlarmSection>!
     private let disposeBag = DisposeBag()
     
@@ -34,7 +37,6 @@ class MainViewController: UITableViewController, BindableType, ErrorDisplayable 
         super.init(coder: aDecoder)
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {return UIStatusBarStyle.lightContent}
     
     override func viewDidLoad() {
         super.viewDidLoad()

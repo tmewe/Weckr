@@ -43,15 +43,13 @@ class EventTableViewCell: TileTableViewCell, BasicInfoDisplayable {
         infoView.infoLabel.text = event.title
         
         //Timespan
-        let start = DateInRegion(event.startDate, region: Region.current).toFormat("HH:mm")
-        let end = DateInRegion(event.endDate, region: Region.current).toFormat("HH:mm")
+        let start = event.startDate.timeShort
+        let end = event.endDate.timeShort
         timespanLabel.text = start + " - " + end
         
         //Duration
-        let seconds: TimeInterval = TimeInterval(event.startDate.getInterval(toDate: event.endDate, component: .second))
-        let hours = Date(timeIntervalSinceReferenceDate: seconds).toFormat("HH")
-        let minutes = Date(timeIntervalSinceReferenceDate: seconds).toFormat("mm")
-        infoView.headerInfoView.rightLabel.text = hours + " H " + minutes + " MIN"
+        let time: TimeInterval = TimeInterval(event.startDate.getInterval(toDate: event.endDate, component: .second))
+        infoView.headerInfoView.rightLabel.text = time.timeSpan.uppercased()
         
         //Location
         locationLabel.text = event.adress

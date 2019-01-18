@@ -27,10 +27,12 @@ class MorningRoutineTableViewCell: TileTableViewCell {
     }
     
     func configure(with time: TimeInterval) {
-        let formattedTime = Date(timeIntervalSinceReferenceDate: time).toFormat("HH:mm")
+        let formattedTime = time.timeSpan
         infoView.headerInfoView.leftLabel.text = Strings.Cells.MorningRoutine.title.uppercased()
-        infoView.headerInfoView.rightLabel.text = formattedTime + " MIN"
-        infoView.infoLabel.text = "\(Strings.Cells.MorningRoutine.timePrefix) \(formattedTime) \(Strings.Cells.MorningRoutine.timeSuffix)"
+        infoView.headerInfoView.rightLabel.text = formattedTime.uppercased()
+        infoView.infoLabel.text = Strings.Cells.MorningRoutine.timePrefix
+            + formattedTime //TODO: real remaining time!
+            + Strings.Cells.MorningRoutine.timeSuffix
     }
     
     private func addSubviews() {

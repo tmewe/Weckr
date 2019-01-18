@@ -12,6 +12,18 @@ extension Date {
     var xsDateTime: String {
         return Formatter.Date.xsDateTime.string(from: self)
     }
+    
+    var monthDayLong: String {
+        return Formatter.Date.dayMonthLong.string(from: self)
+    }
+    
+    var dayText: String {
+        return self.toFormat("EEEE")
+    }
+    
+    var timeShort: String {
+        return Formatter.Date.timeShort.string(from: self)
+    }
 }
 
 extension Date: Strideable {
