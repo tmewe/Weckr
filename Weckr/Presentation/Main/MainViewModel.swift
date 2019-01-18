@@ -84,11 +84,11 @@ class MainViewModel: MainViewModelType {
         
         let nextAlarm = alarmService.currentAlarmObservable().share(replay: 1, scope: .forever)
         
-        let alarmItem = nextAlarm.map { [SectionItem.alarm(identity: "alarm", date: $0.date)] }
+        let alarmItem = nextAlarm.map { [AlarmSectionItem.alarm(identity: "alarm", date: $0.date)] }
         let morningRoutineItem = nextAlarm
-            .map { [SectionItem.morningRoutine(identity: "morningroutine", time: $0.morningRoutine)] }
+            .map { [AlarmSectionItem.morningRoutine(identity: "morningroutine", time: $0.morningRoutine)] }
         let eventItem = nextAlarm
-            .map { [SectionItem.event(identity: "event",
+            .map { [AlarmSectionItem.event(identity: "event",
                                       title: Strings.Cells.FirstEvent.title,
                                       selectedEvent: $0.selectedEvent)] }
         
@@ -108,27 +108,27 @@ class MainViewModel: MainViewModelType {
             .share(replay: 1, scope: .forever)
         
         let routeOverviewItem = nextAlarm
-            .map { alarm -> [SectionItem] in
+            .map { alarm -> [AlarmSectionItem] in
                 let leaveDate = alarm.selectedEvent.startDate - alarm.route.summary.trafficTime.seconds
-                return [SectionItem.routeOverview(identity: "3", route: alarm.route, leaveDate: leaveDate)]
+                return [AlarmSectionItem.routeOverview(identity: "3", route: alarm.route, leaveDate: leaveDate)]
             }
         
         //Car route
         
-        let routeItemsCar: BehaviorSubject<[SectionItem]> = BehaviorSubject(value: [])
+        let routeItemsCar: BehaviorSubject<[AlarmSectionItem]> = BehaviorSubject(value: [])
         
         let routeItemsExpanded = nextAlarm
-            .map { alarm -> [SectionItem] in
+            .map { alarm -> [AlarmSectionItem] in
                 
                 let route = alarm.route!
                 let leaveDate = alarm.selectedEvent.startDate - alarm.route.summary.trafficTime.seconds
-                var items = [SectionItem.routeOverview(identity: "3",
+                var items = [AlarmSectionItem.routeOverview(identity: "3",
                                                        route: route,
                                                        leaveDate: leaveDate)]
                 
                 switch route.transportMode {
                 case .car:
-                    items.append(SectionItem.routeCar(identity: "4", route: route))
+                    items.append(AlarmSectionItem.routeCar(identity: "4", route: route))
                     
                 case .pedestrian, .transit:
                     
@@ -145,7 +145,7 @@ class MainViewModel: MainViewModelType {
                         switch maneuver.transportType {
                             
                         case .privateTransport:
-                            items.append(SectionItem.routePedestrian(
+                            items.append(AlarmSectionItem.routePedestrian(
                                 identity: maneuver.id,
                                 maneuver: maneuver))
                             
@@ -153,7 +153,7 @@ class MainViewModel: MainViewModelType {
                             skipNext = true
                             let getOn = maneuver
                             let getOff = maneuvers[index + 1]
-                            items.append(SectionItem.routeTransit(identity: maneuver.id,
+                            items.append(AlarmSectionItem.routeTransit(identity: maneuver.id,
                                                                   date: maneuverDate,
                                                                   getOn: getOn,
                                                                   getOff: getOff,

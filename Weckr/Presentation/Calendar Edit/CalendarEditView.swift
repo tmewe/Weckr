@@ -19,7 +19,7 @@ class CalendarEditView: UIView, CalendarEditViewProtocol, BlurBackgroundDisplaya
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         setupBlur(on: blurEffectView, withStyle: .dark)
-        addSubview(tableView)
+        addSubViews()
         setupTableView()
     }
     
@@ -27,8 +27,16 @@ class CalendarEditView: UIView, CalendarEditViewProtocol, BlurBackgroundDisplaya
         super.init(coder: aDecoder)
     }
     
+    private func addSubViews() {
+        addSubview(tableView)
+    }
+    
+
+    
     private func setupTableView() {
         tableView.autoPinEdgesToSuperviewSafeArea()
+        
+        tableView.registerReusableCell(CalendarEditTitleTableViewCell.self)
         tableView.registerReusableCell(EventTableViewCell.self)
 
         tableView.backgroundColor = .clear
@@ -38,6 +46,7 @@ class CalendarEditView: UIView, CalendarEditViewProtocol, BlurBackgroundDisplaya
         tableView.delegate = nil
         tableView.dataSource = nil
         tableView.showsVerticalScrollIndicator = false
+        tableView.tableHeaderView = CalendarEditTitleTableViewCell.newAutoLayout()
         
         tableView.rx.willDisplayCell
             .subscribe(onNext: { cell, indexPath in
@@ -53,4 +62,5 @@ class CalendarEditView: UIView, CalendarEditViewProtocol, BlurBackgroundDisplaya
             })
             .disposed(by: disposeBag)
     }
+    
 }

@@ -18,7 +18,7 @@ class CalendarEditViewController: UIViewController, BindableType {
     
     private let editView = CalendarEditView()
     private let disposeBag = DisposeBag()
-    private var dataSource: RxTableViewSectionedReloadDataSource<EventsSection>!
+    private var dataSource: RxTableViewSectionedReloadDataSource<CalendarEditSection>!
     var viewModel: ViewModelType!
     
     init(viewModel: ViewModelType) {
@@ -55,26 +55,44 @@ class CalendarEditViewController: UIViewController, BindableType {
     func bindViewModel() {
         viewModel.outputs.events
             .asDriver(onErrorJustReturn: [])
-            .drive(editView.tableView.rx.items(dataSource: dataSource))
+            .drive(self.editView.tableView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
         
         editView.tableView.rx.itemSelected
-            .map { [weak self] indexPath in
+            .filter { self.editView.tableView.cellForRow(at: $0) is EventTableViewCell }
+            .map { [weak self] (indexPath) -> EventEditWrapper? in
                 self?.editView.tableView.deselectRow(at: indexPath, animated: false)
-                return try! self?.dataSource?.model(at: indexPath) as! EventEditWrapper
+                let item = try! self?.dataSource?.model(at: indexPath) as! CalendarEditSectionItem
+                switch item {
+                case .title(_):
+                    return nil
+                case let .calendarItem(eventWrapper):
+                    return eventWrapper
+                }
             }
+            .filterNil()
             .take(1)
             .bind(to: viewModel.actions.dismiss.inputs)
             .disposed(by: disposeBag)
     }
     
-    private func configureDataSource() -> RxTableViewSectionedReloadDataSource<EventsSection> {
-        let dataSource = RxTableViewSectionedReloadDataSource<EventsSection>(
+    private func configureDataSource() -> RxTableViewSectionedReloadDataSource<CalendarEditSection> {
+        let dataSource = RxTableViewSectionedReloadDataSource<CalendarEditSection>(
             configureCell: { dataSource, tableView, indexPath, item in
-                let cell = tableView.dequeueReusableCell(indexPath: indexPath) as EventTableViewCell
-                cell.configure(with: (item.description, item.event))
-                cell.gradient = item.gradient
-                return cell
+                
+                switch dataSource[indexPath] {
+                case let .title(text, coloredPart):
+                    let cell: CalendarEditTitleTableViewCell = tableView.dequeueReusableCell(indexPath: indexPath)
+                    cell.configure(with: text, coloredPart: coloredPart)
+                    return cell
+                case let .calendarItem(eventWrapper):
+                    let cell: EventTableViewCell = tableView.dequeueReusableCell(indexPath: indexPath)
+                    cell.configure(with: (eventWrapper.description, eventWrapper.event))
+                    cell.gradient = eventWrapper.gradient
+                    return cell
+                }
+                
+             
         })
     
         return dataSource

@@ -11,11 +11,11 @@ import RxDataSources
 
 struct AlarmSection {
     var header: String
-    var items: [SectionItem]
+    var items: [AlarmSectionItem]
 }
 
 extension AlarmSection: AnimatableSectionModelType {
-    typealias Item = SectionItem
+    typealias Item = AlarmSectionItem
     typealias Identity = String
     
     var identity: String {
@@ -28,7 +28,7 @@ extension AlarmSection: AnimatableSectionModelType {
     }
 }
 
-enum SectionItem {
+enum AlarmSectionItem {
     case alarm(identity: String, date: Date)
     case morningRoutine(identity: String, time: TimeInterval)
     
@@ -40,7 +40,7 @@ enum SectionItem {
     case event(identity: String, title: String, selectedEvent: CalendarEntry)
 }
 
-extension SectionItem: IdentifiableType, Equatable {
+extension AlarmSectionItem: IdentifiableType, Equatable {
     typealias Identity = String
     
     var identity: String {

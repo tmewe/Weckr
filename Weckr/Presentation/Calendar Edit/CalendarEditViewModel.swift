@@ -11,26 +11,11 @@ import RxDataSources
 import RxSwift
 import Action
 
-struct EventEditWrapper {
-    var event: CalendarEntry
-    var description: String
-    var selected: Bool
-    var gradient: Gradient {
-        if selected {
-            return Gradient(left: UIColor.eventCellLeft.cgColor,
-                     right: UIColor.eventCellRight.cgColor)
-        }
-        return Gradient(left: UIColor.eventEditCellLeft.cgColor,
-                 right: UIColor.eventEditCellRight.cgColor)
-    }
-}
-
-typealias EventsSection = SectionModel<String, EventEditWrapper>
 
 protocol CalendarEditViewModelInputsType {}
 
 protocol CalendarEditViewModelOutputsType {
-    var events: Observable<[EventsSection]> { get }
+    var events: Observable<[CalendarEditSection]> { get }
 }
 
 protocol CalendarEditViewModelActionsType {
@@ -52,7 +37,7 @@ class CalendarEditViewModel: CalendarEditViewModelType {
     var selectedEvent: PublishSubject<EventEditWrapper>
     
     //Outputs
-    var events: Observable<[EventsSection]>
+    var events: Observable<[CalendarEditSection]>
     
     //Setup
     private let alarm: Alarm
@@ -70,8 +55,9 @@ class CalendarEditViewModel: CalendarEditViewModelType {
         //Inputs
         selectedEvent = PublishSubject()
         
+        let title = Observable.just([CalendarEditSectionItem.title(text: Strings.Main.Edit.calendarTitle, coloredPart: Strings.Main.Edit.calendarTitleColoredPart)])
         //Outputs
-        events = Observable.just(alarm.otherEvents.toArray())
+        let eventItems: Observable<[CalendarEditSectionItem]> = Observable.just(alarm.otherEvents.toArray())
             .map { events in
                 return events.map { event in
                     
@@ -83,10 +69,16 @@ class CalendarEditViewModel: CalendarEditViewModelType {
                         selected = true
                     }
                     
-                   return EventEditWrapper(event: event, description: desc, selected: selected)
+                   let wrapper = EventEditWrapper(event: event, description: desc, selected: selected)
+                    return CalendarEditSectionItem.calendarItem(event: wrapper)
                 }
             }
-            .map { [EventsSection(model: "Events", items: $0)] }
+        
+        events = Observable
+            .combineLatest(title, eventItems)
+            .map { $0.0 + $0.1 }
+            .map {[CalendarEditSection(header:"", items: $0)]}
+
     }
     
     //Actions
