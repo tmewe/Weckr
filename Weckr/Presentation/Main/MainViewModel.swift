@@ -244,7 +244,7 @@ class MainViewModel: MainViewModelType {
         userDefaults.rx.observe(TimeInterval.self, SettingsKeys.morningRoutineTime)
             .distinctUntilChanged()
             .filterNil()
-            .withLatestFrom(nextAlarm.filterNil()) { ($0, $1) }
+            .withLatestFrom(currentAlarm.filterNil()) { ($0, $1) }
             .subscribe(onNext: alarmUpdateService.updateMorningRoutine)
             .disposed(by: disposeBag)
         
@@ -253,7 +253,7 @@ class MainViewModel: MainViewModelType {
             .distinctUntilChanged()
             .filterNil()
             .map { TransportMode(mode: $0) }
-            .withLatestFrom(nextAlarm.filterNil()) { ($0, $1) }
+            .withLatestFrom(currentAlarm.filterNil()) { ($0, $1) }
             .subscribe(onNext: { [weak self] mode, alarm in
                 alarmUpdateService.updateTransportMode(mode,
                                                        for: alarm,
@@ -285,7 +285,15 @@ class MainViewModel: MainViewModelType {
         //Check for events before next alarm
         viewWillAppear
             .withLatestFrom(currentAlarm)
+            .filterNil()
             .map { $0.date }
+            .withLatestFrom(currentLocation) { ($0, $1) }
+            .subscribe(onNext: { date, location in
+                    self.alarmService.createAlarmPrior(to: date,
+                                                       startLocation: location,
+                                                       serviceFactory: self.serviceFactory)
+            })
+            .disposed(by: disposeBag)
         
         //Create alarm if no alarm
     }
