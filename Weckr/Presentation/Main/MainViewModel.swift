@@ -73,7 +73,7 @@ class MainViewModel: MainViewModelType {
         self.serviceFactory = serviceFactory
         self.viewModelFactory = viewModelFactory
         self.coordinator = coordinator
-        self.alarmService = serviceFactory.createAlarm()
+        self.alarmService = serviceFactory.createRealm()
         let alarmUpdateService = serviceFactory.createAlarmUpdate()
         
         let alarmScheduler = serviceFactory.createAlarmScheduler()

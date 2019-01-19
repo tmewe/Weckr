@@ -72,7 +72,7 @@ class WalkthroughViewModel: WalkthroughViewModelType {
         self.viewModelFactory = viewModelFactory
         self.serviceFactory = serviceFactory
         
-        let alarmService = serviceFactory.createAlarm()
+        let alarmService = serviceFactory.createRealm()
         let authorizationService = serviceFactory.createAuthorizationStatus()
         
         let internalPageNumber = BehaviorSubject(value: 0)
