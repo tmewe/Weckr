@@ -132,6 +132,7 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
         catch {
             let realm = try! Realm()
             try! realm.write {
+                print("Deleted alarm at " + alarm.date.toFormat("DD HH mm"))
                 realm.delete(alarm)
             }
         }

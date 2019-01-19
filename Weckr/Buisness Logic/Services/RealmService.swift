@@ -37,6 +37,7 @@ struct RealmService: RealmServiceType {
             try realm.write {
                 alarm.id = (realm.objects(Alarm.self).max(ofProperty: "id") ?? 0) + 1
                 realm.add(alarm, update: true)
+                print("Created alarm at " + alarm.date.toFormat("DD HH mm"))
             }
             return .just(alarm)
         }
@@ -125,7 +126,7 @@ struct RealmService: RealmServiceType {
             .withLatestFrom(firstEvent) {               ($0.0, $0.1, $0.2, $0.3, $1) }
             .withLatestFrom(events) {                   ($0.0, $0.1, $0.2, $0.3, $0.4, $1) }
             .take(1)
-            .observeOn(ConcurrentDispatchQueueScheduler(qos: .background))
+//            .observeOn(ConcurrentDispatchQueueScheduler(qos: .background))
             .map(Alarm.init)
             .flatMapLatest(alarmUpdateService.calculateDate)
             .flatMapLatest (save)
