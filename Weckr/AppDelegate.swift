@@ -19,5 +19,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         mainApplication.start(window: window!)
         return true
     }
+    
+    func application(_ application: UIApplication,
+                     performFetchWithCompletionHandler
+        completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        
+    }
 }
 

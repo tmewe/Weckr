@@ -759,6 +759,11 @@
 				TargetAttributes = {
 					22BCC835218B1BEE00C77CB1 = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -893,7 +898,7 @@
 				49941FAE21D3A88F00F91229 /* InfoAlertDisplayable.swift in Sources */,
 				4924A26F21A8793B00671450 /* WeatherService.swift in Sources */,
 				49CE3D2B21AF227D00A05CD0 /* RealmServiceType.swift in Sources */,
-				49CE3D2B21AF227D00A05CD0 /* AlarmServiceType.swift in Sources */,
+				49CE3D2B21AF227D00A05CD0 /* RealmServiceType.swift in Sources */,
 				22CF8FBD21F1FED0005FB844 /* CalendarEditSection.swift in Sources */,
 				4924610421C2BC0E001C0D37 /* RouteOverviewTableViewCell.swift in Sources */,
 				493FA95221CE656B00C2FFA1 /* Sequence+Extensions.swift in Sources */,
