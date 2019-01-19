@@ -275,12 +275,10 @@ class MainViewModel: MainViewModelType {
             .filter { $0 == nil }
             .withLatestFrom(currentLocation)
             .subscribe(onNext: { self.alarmService
-                .createAlarmPrior(to: Date() + 1.weeks,
-                                  startLocation: $0,
-                                  serviceFactory: self.serviceFactory) })
+                .createFirstAlarm(startLocation: $0, serviceFactory: serviceFactory) })
             .disposed(by: disposeBag)
         
-        //Update events on alarm date
+        //Update events on current alarm date
         viewWillAppear
             .withLatestFrom(currentAlarm)
             .filterNil()

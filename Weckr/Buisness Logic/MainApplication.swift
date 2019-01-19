@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import CoreLocation
+import RxSwift
 
 protocol MainApplicationProtocol {
     func start(window: UIWindow)
@@ -20,8 +21,9 @@ final class MainApplication: NSObject, MainApplicationProtocol {
     
     private let viewModelFactory: ViewModelFactoryProtocol
     private let serviceFactory: ServiceFactoryProtocol
-    private var locationManager: CLLocationManager?
-    private var currentLocation: GeoCoordinate?
+    private let locationManager = CLLocationManager()
+    private let disposeBag = DisposeBag()
+//    private var currentLocation: GeoCoordinate?
     
     init(viewModelFactory: ViewModelFactoryProtocol,
          serviceFactory: ServiceFactoryProtocol) {
@@ -34,7 +36,7 @@ final class MainApplication: NSObject, MainApplicationProtocol {
         UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplication.backgroundFetchIntervalMinimum)
     
         setupLogging()
-        setupLocationManager()
+//        setupLocationManager()
         startCoordinator(window: window)
     }
     
@@ -44,35 +46,42 @@ final class MainApplication: NSObject, MainApplicationProtocol {
         let started = UserDefaults.standard.bool(forKey: SettingsKeys.appHasBeenStarted)
         guard started else { return }
         
-        locationManager?.requestAlwaysAuthorization()
-        
         let realmService = serviceFactory.createRealm()
+        let updateService = serviceFactory.createAlarmUpdate()
+        let currentLocation = locationManager.rx.location
+            .filterNil()
+            .map { ($0.coordinate.latitude, $0.coordinate.longitude) }
+            .map(GeoCoordinate.init)
+            .share(replay: 1, scope: .forever)
         
         //Create alarm if there is no current alarm
         let currentAlarm = realmService.currentAlarm()
         guard currentAlarm != nil else {
-//            realmService.createFirstAlarm(startLocation: , serviceFactory: dependencyContainer)
+            currentLocation
+                .subscribe(onNext: { realmService
+                    .createFirstAlarm(startLocation: $0, serviceFactory: self.serviceFactory) })
+                .disposed(by: disposeBag)
             completionHandler(.newData)
             return
         }
         
-        print(currentLocation)
+        //Update events on current alarm date
         
-        //Update events on current alarm
         
         //Check for events on prior dates
         
         //Check location and update route for current alarm
+        completionHandler(.noData)
     }
     
     private func setupLogging() {
     }
     
-    private func setupLocationManager() {
-        locationManager = CLLocationManager()
-        locationManager?.delegate = self
-        locationManager?.allowsBackgroundLocationUpdates = true
-    }
+//    private func setupLocationManager() {
+//        locationManager = CLLocationManager()
+//        locationManager?.delegate = self
+//        locationManager?.allowsBackgroundLocationUpdates = true
+//    }
     
     private func startCoordinator(window: UIWindow) {
         let appHasBeenStarted = UserDefaults
@@ -117,9 +126,9 @@ final class MainApplication: NSObject, MainApplicationProtocol {
     }
 }
 
-extension MainApplication: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let mostRecentLocation = locations.last else { return }
-        currentLocation = GeoCoordinate(location: mostRecentLocation)
-    }
-}
+//extension MainApplication: CLLocationManagerDelegate {
+//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        guard let mostRecentLocation = locations.last else { return }
+//        currentLocation = GeoCoordinate(location: mostRecentLocation)
+//    }
+//}
