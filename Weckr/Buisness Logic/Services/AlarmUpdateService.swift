@@ -85,14 +85,7 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
                                    selectedEvent: event,
                                    otherEvents: alarm.otherEvents.toArray())
                 update.id = alarm.id
-                self.calculateDate(for: update)
-                realmService.update(alarm: update)
-//                let realm = try! Realm()
-//                try! realm.write {
-//                    alarm.route.rawTransportMode = mode.rawValue
-//                    alarm.selectedEvent = event
-//                    alarm.route = route
-//                }
+                self.update(alarm: update, service: realmService)
             })
             .disposed(by: disposeBag)
     }
@@ -134,17 +127,7 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
                                        selectedEvent: events.first!,
                                        otherEvents: events)
                     update.id = alarm.id
-                    self.calculateDate(for: update)
-                    realmService.update(alarm: update)
-                    
-                    
-//                    let realm = try! Realm()
-//                    try! realm.write {
-//                        alarm.selectedEvent = events.first!
-//                        alarm.otherEvents.removeAll()
-//                        alarm.otherEvents.append(objectsIn: events)
-//                    }
-//                    self.calculateDate(for: alarm)
+                    self.update(alarm: update, service: realmService)
                 })
                 .disposed(by: disposeBag)
             
@@ -161,5 +144,10 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
                 realm.delete(alarm)
             }
         } catch {}
+    }
+    
+    private func update(alarm: Alarm, service: RealmServiceType) {
+        self.calculateDate(for: alarm)
+        service.update(alarm: alarm)
     }
 }
