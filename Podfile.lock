@@ -2,7 +2,7 @@ PODS:
   - Action (3.9.1):
     - RxCocoa (~> 4.3)
     - RxSwift (~> 4.3)
-  - Alamofire (4.8.0)
+  - Alamofire (4.8.1)
   - Differentiator (3.1.0)
   - FoldingCell (4.0.2)
   - Moya/Core (12.0.1):
@@ -17,13 +17,13 @@ PODS:
     - ObjcExceptionBridging/ObjcExceptionBridging (= 1.0.1)
   - ObjcExceptionBridging/ObjcExceptionBridging (1.0.1)
   - PureLayout (3.1.4)
-  - Realm (3.12.0):
-    - Realm/Headers (= 3.12.0)
-  - Realm/Headers (3.12.0)
-  - RealmSwift (3.12.0):
-    - Realm (= 3.12.0)
-  - Result (4.0.0)
-  - RxAppState (1.3.0):
+  - Realm (3.13.1):
+    - Realm/Headers (= 3.13.1)
+  - Realm/Headers (3.13.1)
+  - RealmSwift (3.13.1):
+    - Realm (= 3.13.1)
+  - Result (4.1.0)
+  - RxAppState (1.4.0):
     - RxCocoa (~> 4.3)
     - RxSwift (~> 4.3)
   - RxCocoa (4.3.1):
@@ -48,6 +48,7 @@ PODS:
     - RxCocoa (>= 4.0.0)
     - RxSwift (>= 4.0.0)
   - SwiftDate (5.0.13)
+  - SwiftyBeaver (1.6.1)
   - XCGLogger (6.1.0):
     - XCGLogger/Core (= 6.1.0)
   - XCGLogger/Core (6.1.0):
@@ -69,6 +70,7 @@ DEPENDENCIES:
   - RxSwift
   - RxViewController
   - SwiftDate (~> 5.0)
+  - SwiftyBeaver
   - XCGLogger
 
 SPEC REPOS:
@@ -93,21 +95,22 @@ SPEC REPOS:
     - RxSwift
     - RxViewController
     - SwiftDate
+    - SwiftyBeaver
     - XCGLogger
 
 SPEC CHECKSUMS:
   Action: 2f461c203c480b17aa99b3bb166e4329ecff6908
-  Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
+  Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
   Differentiator: be49ca3408f0ecfc761e4c7763d20c62be01b9ad
   FoldingCell: 352f0211a53f957b885a1b37d5ffa875da90bca5
   Moya: cf730b3cd9e005401ef37a85143aa141a12fd38f
   "NSObject+Rx": 9884a92f19b610795c431e10b4e601913b59c9e9
   ObjcExceptionBridging: c30e00eb3700467e695faeea30e26e18bd445001
   PureLayout: f08c01b8dec00bb14a1fefa3de4c7d9c265df85e
-  Realm: cdaef23c4ddb36ab1ddffed23f5a7f3332fc5585
-  RealmSwift: 5576324033f0aa5ef1e0a839a3da2281dff47a7f
-  Result: 7645bb3f50c2ce726dd0ff2fa7b6f42bbe6c3713
-  RxAppState: 5d6e04271e66dc496d6d2aac2d92f06ef0f0ae41
+  Realm: 50071da38fe079e0735e47c9f2eae738c68c5996
+  RealmSwift: 8a1e6a02b7a08cd17a31e3115143fb69fe5f3fb9
+  Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
+  RxAppState: aba38f71a5a102cc5d189976889c4179432ce727
   RxCocoa: 78763c7b07d02455598d9fc3c1ad091a28b73635
   RxCoreLocation: e8d0b77260e3c82186f897fe2dee6547af9fbc5d
   RxDataSources: a843bad90c29817f5923ec8163f4af2de084ceb3
@@ -116,8 +119,9 @@ SPEC CHECKSUMS:
   RxSwift: fe0fd770a43acdb7d0a53da411c9b892e69bb6e4
   RxViewController: 359bbc2fda373a78605b2735afb0f9f4f3f6c3e4
   SwiftDate: f4aea5fa9dee812485f34041121a4cbde01b0dee
+  SwiftyBeaver: ccfcdf85a04d429f1633f668650b0ce8020bda3a
   XCGLogger: 7f7f43f15dfe3a305fa1342b7dc29af656289abd
 
-PODFILE CHECKSUM: 95546f5f4479fdd45999242859c0affd4c7d47fa
+PODFILE CHECKSUM: cf255a6d8c5d9695a754e485a020a6dd7577197d
 
 COCOAPODS: 1.5.3

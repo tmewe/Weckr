@@ -68,6 +68,14 @@ public enum AppState: Equatable {
     case terminated
 }
 
+/**
+ Stores the current and the previous App version
+ */
+public struct AppVersion: Equatable {
+    public let previous: String
+    public let current: String
+}
+
 public struct RxAppState {
     /**
      Allows for the app version to be stored by default in the main bundle from `CFBundleShortVersionString` or
@@ -223,6 +231,22 @@ extension RxSwift.Reactive where Base: UIApplication {
     }
     
     /**
+     Observable sequence that emits the previous and the current app version string everytime
+     the user opens the app
+
+     This is a handy sequence for all the times you want to know from what previous
+     app version a user updated the app.
+
+     Typical use case:
+     - Show a what features are new to a user after an update
+
+     -returns: Observable sequence of AppVersion
+     */
+    public var appVersion: Observable<AppVersion> {
+        return base._sharedRxAppState.appVersion
+    }
+
+    /**
      Observable sequence that emits if the app is opened for the first time after an app has updated when the user
      opens the app. This does not occur on first launch of a new app install. See `isFirstLaunch` for that.
      
@@ -239,8 +263,8 @@ extension RxSwift.Reactive where Base: UIApplication {
     }
     
     /**
-     Observable sequence that just emits one value if the app is opened for the first time for a new version
-     or completes empty if this version of the app has been opened before
+     Observable sequence that emits the app's previous and the current version string if the app
+     is opened for the first time after an update
      
      This is a handy sequence for all the times you want to run some code only when a new version of the app
      is launched for the first time
@@ -248,9 +272,9 @@ extension RxSwift.Reactive where Base: UIApplication {
      Typical use case:
      - Show a what's new dialog to users, or prompt review or signup
      
-     -returns: Observable sequence of Void
+     -returns: Observable sequence of AppVersion
      */
-    public var firstLaunchOfNewVersionOnly: Observable<Void> {
+    public var firstLaunchOfNewVersionOnly: Observable<AppVersion> {
         return base._sharedRxAppState.firstLaunchOfNewVersionOnly
     }
 
@@ -311,20 +335,26 @@ fileprivate struct _SharedRxAppState {
         }
         .share(replay: 1, scope: .forever)
     
-    lazy var firstLaunchOnly: Observable<Void> = isFirstLaunch
+    lazy var firstLaunchOnly: Observable<Void> = rx.isFirstLaunch
         .filter { $0 }
         .map { _ in return }
     
-    lazy var isFirstLaunchOfNewVersion: Observable<Bool> = rx.didOpenApp
+    lazy var appVersion: Observable<AppVersion> = rx.didOpenApp
         .map { _ in
             let userDefaults = UserDefaults.standard
-            return userDefaults.string(forKey: DefaultName.previousAppVersion) != userDefaults.string(forKey: DefaultName.currentAppVersion)
+            let currentVersion: String = userDefaults.string(forKey: DefaultName.currentAppVersion) ?? RxAppState.currentAppVersion ?? ""
+            let previousVersion: String = userDefaults.string(forKey: DefaultName.previousAppVersion) ?? currentVersion
+            return AppVersion(previous: previousVersion, current: currentVersion)
         }
         .share(replay: 1, scope: .forever)
     
-    lazy var firstLaunchOfNewVersionOnly: Observable<Void> = isFirstLaunchOfNewVersion
-        .filter { $0 }
-        .map { _ in return }
+    lazy var isFirstLaunchOfNewVersion: Observable<Bool> = appVersion
+        .map { version in
+            return version.previous != version.current
+        }
+    
+    lazy var firstLaunchOfNewVersionOnly: Observable<AppVersion> = appVersion
+        .filter { $0.previous != $0.current }
 }
 
 private var _sharedRxAppStateKey: UInt8 = 0

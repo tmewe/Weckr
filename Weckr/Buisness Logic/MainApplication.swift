@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import CoreLocation
 import RxSwift
+import SwiftyBeaver
 
 protocol MainApplicationProtocol {
     func start(window: UIWindow)
