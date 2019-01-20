@@ -60,13 +60,8 @@ struct RealmService: RealmServiceType {
     func delete(alarm: Alarm) -> Observable<Void> {
         let result = withRealm("deleting") { realm -> Observable<Void> in
             try realm.write {
-                realm.delete(alarm.location)
-                realm.delete(alarm.route)
-                realm.delete(alarm.weather)
-                realm.delete(alarm.selectedEvent)
-                realm.delete(alarm.otherEvents)
+                log.info("Deleting alarm at \(alarm.date!)")
                 realm.delete(alarm)
-                log.info("Deleted alarm at \(alarm.date!)")
             }
             return .empty()
         }

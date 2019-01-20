@@ -133,13 +133,16 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
                 })
                 .disposed(by: disposeBag)
 
-            events
-                .filter { $0.isEmpty }
-                .withLatestFrom(Observable.just(alarm))
-                .subscribe(onNext: { realmService.delete(alarm: $0) })
-                .disposed(by: disposeBag)
+//            events
+//                .filter { $0.isEmpty }
+//                .withLatestFrom(Observable.just(alarm))
+////                .subscribe(onNext: { realmService.delete(alarm: $0) })
+//                .subscribe(Realm.rx.delete())
+//                .disposed(by: disposeBag)
         }
-        catch CalendarError.noEvents { realmService.delete(alarm: alarm) }
+        catch CalendarError.noEvents {
+            realmService.delete(alarm: alarm)
+        }
         catch {}
     }
     
