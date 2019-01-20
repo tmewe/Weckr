@@ -71,7 +71,7 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
                              serviceFactory: ServiceFactoryProtocol,
                              disposeBag: DisposeBag) {
         let routingService = serviceFactory.createRouting()
-        log.info("Update route for alarm at \(alarm.date!) and \(event.title)")
+        log.info("Update route for alarm at \(alarm.date!) and \(event.title!)")
         routingService.route(
             with: mode,
             start: start,
@@ -111,6 +111,7 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
                       serviceFactory: ServiceFactoryProtocol,
                       disposeBag: DisposeBag) {
         let calendarService = serviceFactory.createCalendar()
+        let realmService = serviceFactory.createRealm()
         do {
             
             let events = try calendarService.fetchEvents(at: alarm.date, calendars: nil)
@@ -135,16 +136,11 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
             events
                 .filter { $0.isEmpty }
                 .withLatestFrom(Observable.just(alarm))
-                .subscribe(Realm.rx.delete())
+                .subscribe(onNext: { realmService.delete(alarm: $0) })
                 .disposed(by: disposeBag)
         }
-        catch CalendarError.noEvents {
-            let realm = try! Realm()
-            try! realm.write {
-                log.info("Deleted alarm at " + alarm.date.toFormat("DD HH mm"))
-                realm.delete(alarm)
-            }
-        } catch {}
+        catch CalendarError.noEvents { realmService.delete(alarm: alarm) }
+        catch {}
     }
     
     private func update(alarm: Alarm, service: RealmServiceType) {
