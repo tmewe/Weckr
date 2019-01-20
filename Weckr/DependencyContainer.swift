@@ -29,6 +29,7 @@ protocol ServiceFactoryProtocol {
     func createAuthorizationStatus() -> AuthorizationStatusServiceType
     func createAlarmScheduler() -> AlarmSchedulerServiceType
     func createAlarmUpdate() -> AlarmUpdateService
+    func createBackground() -> BackgroundServiceType
 }
 
 final class DependencyContainer {
@@ -105,5 +106,9 @@ extension DependencyContainer: ServiceFactoryProtocol {
     
     func createAlarmUpdate() -> AlarmUpdateService {
         return AlarmUpdateService()
+    }
+    
+    func createBackground() -> BackgroundServiceType {
+        return BackgroundService()
     }
 }

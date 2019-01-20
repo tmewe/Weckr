@@ -48,8 +48,8 @@ final class MainApplication: NSObject, MainApplicationProtocol {
         let started = UserDefaults.standard.bool(forKey: SettingsKeys.appHasBeenStarted)
         guard started else { return }
         
+        let backgroundService = serviceFactory.createBackground()
         let realmService = serviceFactory.createRealm()
-        let updateService = serviceFactory.createAlarmUpdate()
         let currentLocation = locationManager.rx.location
             .filterNil()
             .map { ($0.coordinate.latitude, $0.coordinate.longitude) }
@@ -59,48 +59,27 @@ final class MainApplication: NSObject, MainApplicationProtocol {
         //Create alarm if there is no current alarm
         let currentAlarm = realmService.currentAlarm()
         guard currentAlarm != nil else {
-            currentLocation
-                .subscribe(onNext: { realmService
-                    .createFirstAlarm(startLocation: $0, serviceFactory: self.serviceFactory) })
-                .disposed(by: disposeBag)
+            backgroundService.createFirstAlarm(at: currentLocation,
+                                               serviceFactory: serviceFactory,
+                                               disposeBag: disposeBag)
             completionHandler(.newData)
             return
         }
         
         //Update events on current alarm date
-        updateCurrent(alarm: currentAlarm, updateService: updateService)
+        backgroundService.updateCurrent(alarm: currentAlarm,
+                                        serviceFactory: serviceFactory,
+                                        disposeBag: disposeBag)
         
         //Check for events before current alarm
-        updateEventsPrior(to: currentAlarm, location: currentLocation, realmService: realmService)
+        backgroundService.updateEventsPrior(to: currentAlarm,
+                                            location: currentLocation,
+                                            serviceFactory: serviceFactory,
+                                            disposeBag: disposeBag)
         
         //Check location and update route for current alarm
         
         completionHandler(.newData)
-    }
-    
-    private func updateCurrent(alarm: Alarm?, updateService: AlarmUpdateServiceType) {
-        Observable.just(alarm)
-            .filterNil()
-            .debug()
-            .map { updateService.updateEvents(for: $0,
-                                              serviceFactory: self.serviceFactory,
-                                              disposeBag: self.disposeBag) }
-            .subscribe(onNext: { _ in print() })
-            .disposed(by: disposeBag)
-    }
-    
-    private func updateEventsPrior(to alarm: Alarm?, location: Observable<GeoCoordinate>, realmService: RealmServiceType) {
-        Observable.just(alarm)
-            .debug()
-            .filterNil()
-            .filter { !$0.isInvalidated } //Needed if alarm gets deleted
-            .map { $0.date }
-            .withLatestFrom(location) { ($0, $1) }
-            .flatMap { realmService.createAlarmPrior(to: $0.0,
-                                                     startLocation: $0.1,
-                                                     serviceFactory: self.serviceFactory) }
-            .subscribe(onNext: { _ in print("") })
-            .disposed(by: disposeBag)
     }
     
     private func setupLogging() {

@@ -32,6 +32,7 @@
 		22CF8FB521F0BB0A005FB844 /* GeocodeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CF8FB421F0BB0A005FB844 /* GeocodeError.swift */; };
 		22CF8FBB21F1F614005FB844 /* CalendarEditTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CF8FBA21F1F613005FB844 /* CalendarEditTitleTableViewCell.swift */; };
 		22CF8FBD21F1FED0005FB844 /* CalendarEditSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CF8FBC21F1FED0005FB844 /* CalendarEditSection.swift */; };
+		490FFDD421F4A21800B6696F /* BackgroundService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490FFDD321F4A21800B6696F /* BackgroundService.swift */; };
 		4912CC9421EF1F98004E4472 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4912CC9321EF1F98004E4472 /* UIApplication+Extensions.swift */; };
 		4912CC9921EFC2EE004E4472 /* AlertInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4912CC9821EFC2EE004E4472 /* AlertInfo.swift */; };
 		4916E40A21EA546D0070141F /* AlarmSchedulerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4916E40921EA546D0070141F /* AlarmSchedulerService.swift */; };
@@ -165,6 +166,7 @@
 		22CF8FB421F0BB0A005FB844 /* GeocodeError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeocodeError.swift; sourceTree = "<group>"; };
 		22CF8FBA21F1F613005FB844 /* CalendarEditTitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEditTitleTableViewCell.swift; sourceTree = "<group>"; };
 		22CF8FBC21F1FED0005FB844 /* CalendarEditSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEditSection.swift; sourceTree = "<group>"; };
+		490FFDD321F4A21800B6696F /* BackgroundService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundService.swift; sourceTree = "<group>"; };
 		4912CC9321EF1F98004E4472 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		4912CC9821EFC2EE004E4472 /* AlertInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertInfo.swift; sourceTree = "<group>"; };
 		4916E40921EA546D0070141F /* AlarmSchedulerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSchedulerService.swift; sourceTree = "<group>"; };
@@ -415,6 +417,7 @@
 				4953554021E6AD050034FB54 /* AuthorizationStatusService.swift */,
 				4916E40921EA546D0070141F /* AlarmSchedulerService.swift */,
 				22CF8FB021F0B1EB005FB844 /* GeocodingService.swift */,
+				490FFDD321F4A21800B6696F /* BackgroundService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -925,6 +928,7 @@
 				22458680219722EF00072C6C /* UIView+Extensions.swift in Sources */,
 				49DB25DF218DDAFB0037CFBB /* WalkthroughViewModel.swift in Sources */,
 				492460FC21C28EEE001C0D37 /* EventTableViewCell.swift in Sources */,
+				490FFDD421F4A21800B6696F /* BackgroundService.swift in Sources */,
 				84E7CDE72195B73F0088CF98 /* Alarm.swift in Sources */,
 				22C8D18E218B2BF70029C1EA /* MainViewController.swift in Sources */,
 				49BD679521CFEACF00A240E6 /* WalkthroughTitleLabel.swift in Sources */,

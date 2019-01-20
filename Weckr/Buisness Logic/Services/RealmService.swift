@@ -125,7 +125,6 @@ struct RealmService: RealmServiceType {
         
         let firstEvent = events
             .map { $0.first }
-            .debug()
             .filterNil()
             .share(replay: 1, scope: .forever)
         
