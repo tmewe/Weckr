@@ -64,7 +64,10 @@ struct CalendarService: CalendarServiceType {
                             GeoCoordinate(location: $0.structuredLocation!.geoLocation!))
                     }
                     .map(CalendarEntry.init)
-                guard events.isEmpty else { return Observable.of(events) }
+                guard events.isEmpty else {
+                    log.info("Found \(events.count) new events at \(date)")
+                    return Observable.of(events)
+                }
                 
                 date = date + 1.days
             }

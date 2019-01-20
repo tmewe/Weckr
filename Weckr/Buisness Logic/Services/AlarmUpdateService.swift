@@ -130,7 +130,7 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
                     self.update(alarm: update, service: realmService)
                 })
                 .disposed(by: disposeBag)
-            
+
             events
                 .filter { $0.isEmpty }
                 .withLatestFrom(Observable.just(alarm))
@@ -140,7 +140,7 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
         catch CalendarError.noEvents {
             let realm = try! Realm()
             try! realm.write {
-                print("Deleted alarm at " + alarm.date.toFormat("DD HH mm"))
+                log.info("Deleted alarm at " + alarm.date.toFormat("DD HH mm"))
                 realm.delete(alarm)
             }
         } catch {}

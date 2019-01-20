@@ -12,6 +12,8 @@ import CoreLocation
 import RxSwift
 import SwiftyBeaver
 
+let log = SwiftyBeaver.self
+
 protocol MainApplicationProtocol {
     func start(window: UIWindow)
     func application(_ application: UIApplication,
@@ -103,6 +105,10 @@ final class MainApplication: NSObject, MainApplicationProtocol {
     }
     
     private func setupLogging() {
+        let console = ConsoleDestination()
+        console.format = "$DHH:mm:ss.SSS$d $C$L$c\t$N[$l] $F - $M"
+        console.minLevel = .verbose
+        log.addDestination(console)
     }
     
 //    private func setupLocationManager() {

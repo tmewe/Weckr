@@ -23,10 +23,10 @@ struct RealmService: RealmServiceType {
     fileprivate func withRealm<T>(_ operation: String, action: (Realm) throws -> T) -> T? {
         do {
             let realm = try Realm()
-            print("Realm is located at:", realm.configuration.fileURL!)
+            log.info("Realm is located at: " + realm.configuration.fileURL!.absoluteString)
             return try action(realm)
         } catch let err {
-            print("Failed \(operation) realm with error: \(err)")
+            log.error("Failed \(operation) realm with error: \(err)")
             return nil
         }
     }
@@ -37,7 +37,7 @@ struct RealmService: RealmServiceType {
             try realm.write {
                 alarm.id = (realm.objects(Alarm.self).max(ofProperty: "id") ?? 0) + 1
                 realm.add(alarm, update: true)
-                print("Created alarm at " + alarm.date.toFormat("DD HH mm"))
+                log.info("Created alarm at " + alarm.date.toFormat("DD HH mm"))
             }
             return .just(alarm)
         }
@@ -49,7 +49,7 @@ struct RealmService: RealmServiceType {
         let result = withRealm("updating") { realm -> Observable<Alarm> in
             try realm.write {
                 realm.add(alarm, update: true)
-                print("Updated alarm at " + alarm.date.toFormat("DD HH mm"))
+                log.info("Updated alarm at " + alarm.date.toFormat("DD HH mm"))
             }
             return .just(alarm)
         }
