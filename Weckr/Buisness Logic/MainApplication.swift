@@ -39,7 +39,6 @@ final class MainApplication: NSObject, MainApplicationProtocol {
         UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplication.backgroundFetchIntervalMinimum)
     
         setupLogging()
-//        setupLocationManager()
         startCoordinator(window: window)
     }
     
@@ -111,12 +110,6 @@ final class MainApplication: NSObject, MainApplicationProtocol {
         log.addDestination(console)
     }
     
-//    private func setupLocationManager() {
-//        locationManager = CLLocationManager()
-//        locationManager?.delegate = self
-//        locationManager?.allowsBackgroundLocationUpdates = true
-//    }
-    
     private func startCoordinator(window: UIWindow) {
         let appHasBeenStarted = UserDefaults
             .standard
@@ -159,10 +152,3 @@ final class MainApplication: NSObject, MainApplicationProtocol {
         return pages
     }
 }
-
-//extension MainApplication: CLLocationManagerDelegate {
-//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        guard let mostRecentLocation = locations.last else { return }
-//        currentLocation = GeoCoordinate(location: mostRecentLocation)
-//    }
-//}
