@@ -84,14 +84,23 @@ class MainViewModel: MainViewModelType {
         
         let currentAlarm = alarmService.currentAlarmObservable().share(replay: 1, scope: .forever)
         
-        let alarmItem = currentAlarm.filterNil()
-            .map { [AlarmSectionItem.alarm(identity: "alarm", date: $0.date)] }
-        let morningRoutineItem = currentAlarm.filterNil()
-            .map { [AlarmSectionItem.morningRoutine(identity: "morningroutine", time: $0.morningRoutine)] }
-        let eventItem = currentAlarm.filterNil()
-            .map { [AlarmSectionItem.event(identity: "event",
+        let alarmItem = currentAlarm
+            .map { alarm -> [AlarmSectionItem] in
+                guard let alarm = alarm else { return [] }
+                return [AlarmSectionItem.alarm(identity: "alarm", date: alarm.date)] }
+        
+        let morningRoutineItem = currentAlarm
+            .map { alarm -> [AlarmSectionItem] in
+                guard let alarm = alarm else { return [] }
+                return [AlarmSectionItem.morningRoutine(identity: "morningroutine",
+                                                        time: alarm.morningRoutine)] }
+        
+        let eventItem = currentAlarm
+            .map { alarm -> [AlarmSectionItem] in
+                guard let alarm = alarm else { return [] }
+                return [AlarmSectionItem.event(identity: "event",
                                       title: Strings.Cells.FirstEvent.title,
-                                      selectedEvent: $0.selectedEvent)] }
+                                      selectedEvent: alarm.selectedEvent)] }
         
         let currentLocation = locationManager.rx.location
             .filterNil()
@@ -109,8 +118,8 @@ class MainViewModel: MainViewModelType {
             .share(replay: 1, scope: .forever)
         
         let routeOverviewItem = currentAlarm
-            .filterNil()
             .map { alarm -> [AlarmSectionItem] in
+                guard let alarm = alarm else { return [] }
                 let leaveDate = alarm.selectedEvent.startDate - alarm.route.summary.trafficTime.seconds
                 return [AlarmSectionItem.routeOverview(identity: "3", route: alarm.route, leaveDate: leaveDate)]
             }
@@ -120,8 +129,9 @@ class MainViewModel: MainViewModelType {
         let routeItems: BehaviorSubject<[AlarmSectionItem]> = BehaviorSubject(value: [])
         
         let routeItemsExpanded = currentAlarm
-            .filterNil()
             .map { alarm -> [AlarmSectionItem] in
+                
+                guard let alarm = alarm else { return [] }
                 
                 let route = alarm.route!
                 let leaveDate = alarm.selectedEvent.startDate - alarm.route.summary.trafficTime.seconds

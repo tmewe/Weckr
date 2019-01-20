@@ -73,6 +73,7 @@
 		499AF40121AEE93C00F4B4FF /* CalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499AF40021AEE93C00F4B4FF /* CalendarService.swift */; };
 		499AF40421AEEC5400F4B4FF /* AccessError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499AF40321AEEC5400F4B4FF /* AccessError.swift */; };
 		499E6A6021F234EE00C57414 /* AlarmUpdateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499E6A5F21F234EE00C57414 /* AlarmUpdateService.swift */; };
+		49A52A9021F47C6800D3B885 /* Realm+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A52A8F21F47C6800D3B885 /* Realm+Extensions.swift */; };
 		49A8B97521E64F7100DA26E0 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A8B97421E64F7100DA26E0 /* ErrorView.swift */; };
 		49A8B97721E6562100DA26E0 /* ErrorDisplayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A8B97621E6562100DA26E0 /* ErrorDisplayable.swift */; };
 		49B4663121CADBB500BE810C /* LoadingDisplayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B4663021CADBB500BE810C /* LoadingDisplayable.swift */; };
@@ -205,6 +206,7 @@
 		499AF40021AEE93C00F4B4FF /* CalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarService.swift; sourceTree = "<group>"; };
 		499AF40321AEEC5400F4B4FF /* AccessError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessError.swift; sourceTree = "<group>"; };
 		499E6A5F21F234EE00C57414 /* AlarmUpdateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmUpdateService.swift; sourceTree = "<group>"; };
+		49A52A8F21F47C6800D3B885 /* Realm+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Realm+Extensions.swift"; sourceTree = "<group>"; };
 		49A8B97421E64F7100DA26E0 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		49A8B97621E6562100DA26E0 /* ErrorDisplayable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorDisplayable.swift; sourceTree = "<group>"; };
 		49B4663021CADBB500BE810C /* LoadingDisplayable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingDisplayable.swift; sourceTree = "<group>"; };
@@ -300,6 +302,7 @@
 				4921B8D121A1A69000BD6145 /* EventStore+Rx.swift */,
 				8415D34B21CA98C200F28E13 /* VehicleSegmentedControl+Rx.swift */,
 				4996332421EB432100B55F45 /* UNUserNotificationCenterDelegate+Rx.swift */,
+				49A52A8F21F47C6800D3B885 /* Realm+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -897,6 +900,7 @@
 				4912CC9421EF1F98004E4472 /* UIApplication+Extensions.swift in Sources */,
 				49941FAE21D3A88F00F91229 /* InfoAlertDisplayable.swift in Sources */,
 				4924A26F21A8793B00671450 /* WeatherService.swift in Sources */,
+				49A52A9021F47C6800D3B885 /* Realm+Extensions.swift in Sources */,
 				49CE3D2B21AF227D00A05CD0 /* RealmServiceType.swift in Sources */,
 				49CE3D2B21AF227D00A05CD0 /* RealmServiceType.swift in Sources */,
 				22CF8FBD21F1FED0005FB844 /* CalendarEditSection.swift in Sources */,
