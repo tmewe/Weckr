@@ -71,6 +71,7 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
                              serviceFactory: ServiceFactoryProtocol,
                              disposeBag: DisposeBag) {
         let routingService = serviceFactory.createRouting()
+        log.info("Update route for alarm at \(alarm.date!) and \(event.title)")
         routingService.route(
             with: mode,
             start: start,

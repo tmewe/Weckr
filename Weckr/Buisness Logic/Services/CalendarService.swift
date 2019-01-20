@@ -65,7 +65,7 @@ struct CalendarService: CalendarServiceType {
                     }
                     .map(CalendarEntry.init)
                 guard events.isEmpty else {
-                    log.info("Found \(events.count) new events at \(date)")
+                    log.info("Found \(events.count) events at \(date)")
                     return Observable.of(events)
                 }
                 

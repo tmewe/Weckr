@@ -37,7 +37,7 @@ struct RealmService: RealmServiceType {
             try realm.write {
                 alarm.id = (realm.objects(Alarm.self).max(ofProperty: "id") ?? 0) + 1
                 realm.add(alarm, update: true)
-                log.info("Created alarm at " + alarm.date.toFormat("DD HH mm"))
+                log.info("Created alarm at \(alarm.date!)")
             }
             return .just(alarm)
         }
@@ -49,7 +49,7 @@ struct RealmService: RealmServiceType {
         let result = withRealm("updating") { realm -> Observable<Alarm> in
             try realm.write {
                 realm.add(alarm, update: true)
-                log.info("Updated alarm at " + alarm.date.toFormat("DD HH mm"))
+                log.info("Updated alarm at \(alarm.date!)")
             }
             return .just(alarm)
         }
