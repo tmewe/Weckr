@@ -14,6 +14,10 @@ import RealmSwift
     let weathers = List<Weather>()
     dynamic var cityName: String!
     
+    override public class func primaryKey() -> String? {
+        return "cityName"
+    }
+    
     enum CodingKeys: String, CodingKey {
         case weathers = "list"
         case city

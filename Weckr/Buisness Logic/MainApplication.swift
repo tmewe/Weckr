@@ -66,12 +66,39 @@ final class MainApplication: NSObject, MainApplicationProtocol {
         }
         
         //Update events on current alarm date
+        updateCurrent(alarm: currentAlarm, updateService: updateService)
         
-        
-        //Check for events on prior dates
+        //Check for events before current alarm
+        updateEventsPrior(to: currentAlarm, location: currentLocation, realmService: realmService)
         
         //Check location and update route for current alarm
-        completionHandler(.noData)
+        
+        completionHandler(.newData)
+    }
+    
+    private func updateCurrent(alarm: Alarm?, updateService: AlarmUpdateServiceType) {
+        Observable.just(alarm)
+            .filterNil()
+            .debug()
+            .map { updateService.updateEvents(for: $0,
+                                              serviceFactory: self.serviceFactory,
+                                              disposeBag: self.disposeBag) }
+            .subscribe(onNext: { _ in print() })
+            .disposed(by: disposeBag)
+    }
+    
+    private func updateEventsPrior(to alarm: Alarm?, location: Observable<GeoCoordinate>, realmService: RealmServiceType) {
+        Observable.just(alarm)
+            .debug()
+            .filterNil()
+            .filter { !$0.isInvalidated } //Needed if alarm gets deleted
+            .map { $0.date }
+            .withLatestFrom(location) { ($0, $1) }
+            .flatMap { realmService.createAlarmPrior(to: $0.0,
+                                                     startLocation: $0.1,
+                                                     serviceFactory: self.serviceFactory) }
+            .subscribe(onNext: { _ in print("") })
+            .disposed(by: disposeBag)
     }
     
     private func setupLogging() {

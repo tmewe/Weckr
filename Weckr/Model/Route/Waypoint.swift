@@ -11,10 +11,16 @@ import Realm
 import RealmSwift
 
 @objcMembers class Waypoint: Object, Decodable {
+    dynamic var id: String!
     dynamic var position: GeoCoordinate!
     dynamic var label: String!
     
+    override public class func primaryKey() -> String? {
+        return "id"
+    }
+    
     enum CodingKeys: String, CodingKey {
+        case id = "linkId"
         case position = "originalPosition"
         case label = "label"
     }
@@ -22,6 +28,7 @@ import RealmSwift
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
+        id = try container.decode(String.self, forKey: .id)
         position = try container.decode(GeoCoordinate.self, forKey: .position)
         label = try container.decode(String.self, forKey: .label)
         

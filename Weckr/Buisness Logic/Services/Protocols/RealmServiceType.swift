@@ -15,6 +15,8 @@ protocol RealmServiceType {
     @discardableResult
     func save(alarm: Alarm) -> Observable<Alarm>
     
+    @discardableResult
+    func update(alarm: Alarm) -> Observable<Alarm>
 //    @discardableResult
 //    func delete(alarm: Alarm) -> Observable<Void>
 //

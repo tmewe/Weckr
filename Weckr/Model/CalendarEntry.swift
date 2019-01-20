@@ -16,6 +16,11 @@ class CalendarEntry: Object {
     @objc dynamic var endDate: Date!
     @objc dynamic var adress: String!
     @objc dynamic var location: GeoCoordinate!
+    @objc dynamic var compoundKey: String!
+    
+    override public class func primaryKey() -> String? {
+        return "compoundKey"
+    }
     
     convenience init(title: String, startDate: Date, endDate: Date, adress: String, location: GeoCoordinate) {
         self.init()
@@ -24,6 +29,7 @@ class CalendarEntry: Object {
         self.endDate = endDate
         self.adress = adress
         self.location = location
+        self.compoundKey = startDate.toFormat("dd:HH:mm") + endDate.toFormat("dd:HH:mm")
     }
     
     override func isEqual(_ object: Any?) -> Bool {

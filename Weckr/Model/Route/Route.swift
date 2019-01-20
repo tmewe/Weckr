@@ -22,6 +22,10 @@ import RealmSwift
         }
     }
     
+    override public class func primaryKey() -> String? {
+        return "rawTransportMode"
+    }
+    
     enum CodingKeys: String, CodingKey {
         case legs = "leg"
         case transitLines = "publicTransportLine"

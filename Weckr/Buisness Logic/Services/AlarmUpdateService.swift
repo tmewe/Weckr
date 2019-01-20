@@ -23,6 +23,9 @@ protocol AlarmUpdateServiceType {
                              for alarm: Alarm,
                              serviceFactory: ServiceFactoryProtocol,
                              disposeBag: DisposeBag)
+    func updateEvents(for alarm: Alarm,
+                      serviceFactory: ServiceFactoryProtocol,
+                      disposeBag: DisposeBag)
 }
 
 struct AlarmUpdateService: AlarmUpdateServiceType {
@@ -74,13 +77,22 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
             end: event.location,
             arrival: event.startDate)
             .subscribe(onNext: { route in
-                let realm = try! Realm()
-                try! realm.write {
-                    alarm.route.rawTransportMode = mode.rawValue
-                    alarm.selectedEvent = event
-                    alarm.route = route
-                }
-                self.calculateDate(for: alarm)
+                let realmService = serviceFactory.createRealm()
+                let update = Alarm(route: route,
+                                   weather: alarm.weather,
+                                   location: start,
+                                   morningRoutine: alarm.morningRoutine,
+                                   selectedEvent: event,
+                                   otherEvents: alarm.otherEvents.toArray())
+                update.id = alarm.id
+                self.calculateDate(for: update)
+                realmService.update(alarm: update)
+//                let realm = try! Realm()
+//                try! realm.write {
+//                    alarm.route.rawTransportMode = mode.rawValue
+//                    alarm.selectedEvent = event
+//                    alarm.route = route
+//                }
             })
             .disposed(by: disposeBag)
     }
@@ -113,13 +125,26 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
             events
                 .filterEmpty()
                 .subscribe(onNext: { events in
-                    let realm = try! Realm()
-                    try! realm.write {
-                        alarm.selectedEvent = events.first!
-                        alarm.otherEvents.removeAll()
-                        alarm.otherEvents.append(objectsIn: events)
-                    }
-                    self.calculateDate(for: alarm)
+                    
+                    let realmService = serviceFactory.createRealm()
+                    let update = Alarm(route: alarm.route,
+                                       weather: alarm.weather,
+                                       location: alarm.location,
+                                       morningRoutine: alarm.morningRoutine,
+                                       selectedEvent: events.first!,
+                                       otherEvents: events)
+                    update.id = alarm.id
+                    self.calculateDate(for: update)
+                    realmService.update(alarm: update)
+                    
+                    
+//                    let realm = try! Realm()
+//                    try! realm.write {
+//                        alarm.selectedEvent = events.first!
+//                        alarm.otherEvents.removeAll()
+//                        alarm.otherEvents.append(objectsIn: events)
+//                    }
+//                    self.calculateDate(for: alarm)
                 })
                 .disposed(by: disposeBag)
             

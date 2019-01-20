@@ -288,7 +288,7 @@ class MainViewModel: MainViewModelType {
             .subscribe(onNext: { _ in print() })
             .disposed(by: disposeBag)
         
-        //Check for events before next alarm
+        //Check for events before current alarm
         viewWillAppear
             .withLatestFrom(currentAlarm)
             .filterNil()

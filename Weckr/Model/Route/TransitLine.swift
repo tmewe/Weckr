@@ -18,6 +18,10 @@ import RealmSwift
     dynamic var type: String!
     dynamic var id: String!
     
+    override public class func primaryKey() -> String? {
+        return "id"
+    }
+    
     enum CodingKeys: String, CodingKey {
         case name = "lineName"
         case foregroundColor = "lineForeground"

@@ -170,7 +170,7 @@ class MainViewController: UITableViewController, BindableType, ErrorDisplayable 
                 }
         })
         
-        dataSource.animationConfiguration = AnimationConfiguration(insertAnimation: .top,
+        dataSource.animationConfiguration = AnimationConfiguration(insertAnimation: .fade,
                                                                    reloadAnimation: .fade,
                                                                    deleteAnimation: .fade)
         return dataSource

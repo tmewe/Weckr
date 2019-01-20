@@ -45,6 +45,18 @@ struct RealmService: RealmServiceType {
     }
     
     @discardableResult
+    func update(alarm: Alarm) -> Observable<Alarm> {
+        let result = withRealm("updating") { realm -> Observable<Alarm> in
+            try realm.write {
+                realm.add(alarm, update: true)
+                print("Updated alarm at " + alarm.date.toFormat("DD HH mm"))
+            }
+            return .just(alarm)
+        }
+        return result ?? .error(AlarmServiceError.creationFailed)
+    }
+    
+    @discardableResult
     func currentAlarmObservable() -> Observable<Alarm?> {
         let result = withRealm("getting alarms") { realm -> Observable<Alarm?> in
             let alarms = realm.objects(Alarm.self)
