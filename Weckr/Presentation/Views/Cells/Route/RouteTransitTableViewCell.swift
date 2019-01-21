@@ -82,10 +82,10 @@ class RouteTransitTableViewCell: TileTableViewCell {
         firstStopLabel.autoPinEdge(.right, to: .right, of: tileView, withOffset: -insets.right)
         
         arrivalTimeLabel.autoSetDimension(.width, toSize: 90)
-        arrivalTimeLabel.autoPinEdge(.top, to: .bottom, of: departureTimeLabel, withOffset: insets.largeSpacing)
+        arrivalTimeLabel.autoPinEdge(.top, to: .bottom, of: firstStopLabel, withOffset: insets.largeSpacing)
         arrivalTimeLabel.autoPinEdge(.left, to: .left, of: tileView, withOffset: insets.left)
         
-        finalStopLabel.autoPinEdge(.top, to: .bottom, of: departureTimeLabel, withOffset: insets.largeSpacing)
+        finalStopLabel.autoPinEdge(.top, to: .bottom, of: firstStopLabel, withOffset: insets.largeSpacing)
         finalStopLabel.autoPinEdge(.left, to: .right, of: arrivalTimeLabel, withOffset: insets.smallSpacing)
         finalStopLabel.autoPinEdge(.right, to: .right, of: tileView, withOffset: -insets.right)
         
