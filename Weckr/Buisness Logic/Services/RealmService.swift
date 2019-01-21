@@ -134,7 +134,6 @@ struct RealmService: RealmServiceType {
         
         let endLocation = firstEvent
             .flatMap(geocodingService.geocode)
-            .debug("location", trimOutput: true)
         
         let route = Observable
             .combineLatest(vehicleObservable, startLocationObservable, endLocation, arrival)
@@ -145,11 +144,8 @@ struct RealmService: RealmServiceType {
         let weatherForecast = startLocationObservable
             .take(1)
             .flatMapLatest(weatherService.forecast)
-            .debug("wea", trimOutput: false)
-//            .flatMapLatest { $0 }
         
         return Observable.zip(route, weatherForecast) { ($0, $1) }
-            .debug("first", trimOutput: true)
             .withLatestFrom(startLocationObservable) {  ($0.0, $0.1, $1) }
             .withLatestFrom(morningRoutineObservable) { ($0.0, $0.1, $0.2, $1) }
             .withLatestFrom(firstEvent) {               ($0.0, $0.1, $0.2, $0.3, $1) }

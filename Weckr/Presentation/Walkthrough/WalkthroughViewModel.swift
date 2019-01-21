@@ -217,7 +217,6 @@ class WalkthroughViewModel: WalkthroughViewModelType {
             .do(onNext: { loadingActive.onNext(true) })
             .withLatestFrom(startLocation)
             .flatMap { self.realmService.createFirstAlarm(startLocation: $0, serviceFactory: serviceFactory) }
-            .debug("walkthrough", trimOutput: true)
             .subscribe(onNext: { result in
                 switch result {
                     case .Success(_):
