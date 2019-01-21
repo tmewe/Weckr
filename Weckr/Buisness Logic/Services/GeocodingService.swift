@@ -19,7 +19,7 @@ class GeocodingService: GeocodingServiceType {
     lazy var geocoder = CLGeocoder()
     
     func geocode(_ entry: CalendarEntry) -> Observable<GeoCoordinate> {
-        if (entry.location != nil) { return Observable.just(entry.location) }
+        if (entry.location.geoLocation != nil) { return Observable.just(entry.location.geoLocation!) }
         return self.geocodeAddressString(address: entry.adress)
             .flatMap(self.processResponse)
     }

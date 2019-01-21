@@ -19,13 +19,14 @@ struct WeatherService: WeatherServiceType {
     private var openWeatherMap: MoyaProvider<OpenWeatherMap>
     
     init(openWeatherMap: MoyaProvider<OpenWeatherMap>
-        = MoyaProvider<OpenWeatherMap>(plugins: [NetworkLoggerPlugin(verbose: false)])) {
+        = MoyaProvider<OpenWeatherMap>(plugins: [NetworkLoggerPlugin(verbose: true)])) {
         self.openWeatherMap = openWeatherMap
     }
     
     func forecast(for position: GeoCoordinate) -> Observable<WeatherForecast> {
         return openWeatherMap.rx
             .request(.fiveDayForecast(lat: position.latitude, long: position.longitude))
+            .debug("weather", trimOutput: true)
             .map(WeatherForecast.self)
             .asObservable()
     }

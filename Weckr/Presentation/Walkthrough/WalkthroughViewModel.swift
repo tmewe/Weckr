@@ -43,6 +43,8 @@ class WalkthroughViewModel: WalkthroughViewModelType {
     //Setup
     private let serviceFactory: ServiceFactoryProtocol
     private let viewModelFactory: ViewModelFactoryProtocol
+    private let realmService: RealmServiceType
+    private let authorizationService: AuthorizationStatusServiceType
     private let locationManager = CLLocationManager()
     private var coordinator: SceneCoordinatorType!
     private let disposeBag = DisposeBag()
@@ -72,8 +74,8 @@ class WalkthroughViewModel: WalkthroughViewModelType {
         self.viewModelFactory = viewModelFactory
         self.serviceFactory = serviceFactory
         
-        let alarmService = serviceFactory.createRealm()
-        let authorizationService = serviceFactory.createAuthorizationStatus()
+        self.realmService = serviceFactory.createRealm()
+        self.authorizationService = serviceFactory.createAuthorizationStatus()
         
         let internalPageNumber = BehaviorSubject(value: 0)
         
@@ -177,6 +179,14 @@ class WalkthroughViewModel: WalkthroughViewModelType {
             .bind(to: locationError)
             .disposed(by: disposeBag)
         
+        errorOccurred = Observable.combineLatest(locationError, notificationError, calendarError)
+            .map { location, notification, event in
+                if location != nil { return location }
+                if notification != nil { return notification }
+                if event != nil { return event }
+                return nil
+        }
+        
         //Notification access status
         let notificationPage = pages.filter { $0.viewModel is NotificationPageViewModel }.first
         notificationPage!.viewModel.outputs.actionSuccesful
@@ -186,7 +196,7 @@ class WalkthroughViewModel: WalkthroughViewModelType {
         
         viewWillAppear
             .skipUntil(notificationTrigger)
-            .flatMapLatest { authorizationService.notificationAuthorization() }
+            .flatMapLatest { self.authorizationService.notificationAuthorization() }
             .bind(to: notificationError)
             .disposed(by: disposeBag)
         
@@ -199,22 +209,15 @@ class WalkthroughViewModel: WalkthroughViewModelType {
         
         viewWillAppear
             .skipUntil(calendarTrigger)
-            .flatMapLatest { authorizationService.eventStoreAuthorization() }
+            .flatMapLatest { self.authorizationService.eventStoreAuthorization() }
             .bind(to: calendarError)
             .disposed(by: disposeBag)
-        
-        errorOccurred = Observable.combineLatest(locationError, notificationError, calendarError)
-            .map { location, notification, event in
-                if location != nil { return location }
-                if notification != nil { return notification }
-                if event != nil { return event }
-                return nil
-            }
         
         createTrigger
             .do(onNext: { loadingActive.onNext(true) })
             .withLatestFrom(startLocation)
-            .flatMap { alarmService.createFirstAlarm(startLocation: $0, serviceFactory: serviceFactory) }
+            .flatMap { self.realmService.createFirstAlarm(startLocation: $0, serviceFactory: serviceFactory) }
+            .debug("walkthrough", trimOutput: true)
             .subscribe(onNext: { result in
                 switch result {
                     case .Success(_):

@@ -59,6 +59,7 @@
 		4959992121A9FFFE00549D89 /* RouteWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4959992021A9FFFE00549D89 /* RouteWrapper.swift */; };
 		4959992521AA01F300549D89 /* RoutingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4959992421AA01F300549D89 /* RoutingService.swift */; };
 		4959992721AA029300549D89 /* HereMaps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4959992621AA029300549D89 /* HereMaps.swift */; };
+		496260C621F638550066D185 /* CalendarLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496260C521F638550066D185 /* CalendarLocation.swift */; };
 		4982E48221A5B730003AC90D /* TravelPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4982E48121A5B730003AC90D /* TravelPageViewModel.swift */; };
 		4982E48421A5B7C5003AC90D /* MorningRoutinePageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4982E48321A5B7C5003AC90D /* MorningRoutinePageViewModel.swift */; };
 		4982E48621A5B877003AC90D /* DonePageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4982E48521A5B877003AC90D /* DonePageViewModel.swift */; };
@@ -193,6 +194,7 @@
 		4959992021A9FFFE00549D89 /* RouteWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteWrapper.swift; sourceTree = "<group>"; };
 		4959992421AA01F300549D89 /* RoutingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutingService.swift; sourceTree = "<group>"; };
 		4959992621AA029300549D89 /* HereMaps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HereMaps.swift; sourceTree = "<group>"; };
+		496260C521F638550066D185 /* CalendarLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarLocation.swift; sourceTree = "<group>"; };
 		4982E48121A5B730003AC90D /* TravelPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelPageViewModel.swift; sourceTree = "<group>"; };
 		4982E48321A5B7C5003AC90D /* MorningRoutinePageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MorningRoutinePageViewModel.swift; sourceTree = "<group>"; };
 		4982E48521A5B877003AC90D /* DonePageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonePageViewModel.swift; sourceTree = "<group>"; };
@@ -724,6 +726,7 @@
 				4924A27321A881F900671450 /* Weather */,
 				49DD02F6219C378000C57041 /* Route */,
 				84E7CDEA2195DC930088CF98 /* CalendarEntry.swift */,
+				496260C521F638550066D185 /* CalendarLocation.swift */,
 				49BD679C21CFF9F000A240E6 /* Gradient.swift */,
 				4912CC9821EFC2EE004E4472 /* AlertInfo.swift */,
 				22CF8FBC21F1FED0005FB844 /* CalendarEditSection.swift */,
@@ -1011,6 +1014,7 @@
 				49B4663521CADE7F00BE810C /* LoadingView.swift in Sources */,
 				4942435E21AA9D7E00088AB6 /* Date+Extensions.swift in Sources */,
 				22C8D184218B28A50029C1EA /* Scene.swift in Sources */,
+				496260C621F638550066D185 /* CalendarLocation.swift in Sources */,
 				49BD679921CFF09900A240E6 /* BaseEditView.swift in Sources */,
 				22C8D18A218B2AC90029C1EA /* SceneTransitionType.swift in Sources */,
 				22C8D190218B2C060029C1EA /* MainViewModel.swift in Sources */,

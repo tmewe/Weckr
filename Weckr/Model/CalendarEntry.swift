@@ -15,14 +15,14 @@ class CalendarEntry: Object {
     @objc dynamic var startDate: Date!
     @objc dynamic var endDate: Date!
     @objc dynamic var adress: String!
-    @objc dynamic var location: GeoCoordinate!
+    @objc dynamic var location: CalendarLocation!
     @objc dynamic var compoundKey: String!
     
     override public class func primaryKey() -> String? {
         return "compoundKey"
     }
     
-    convenience init(title: String, startDate: Date, endDate: Date, adress: String, location: GeoCoordinate) {
+    convenience init(title: String, startDate: Date, endDate: Date, adress: String, location: CalendarLocation) {
         self.init()
         self.title = title
         self.startDate = startDate

@@ -71,12 +71,14 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
                              serviceFactory: ServiceFactoryProtocol,
                              disposeBag: DisposeBag) {
         let routingService = serviceFactory.createRouting()
+        let geocodingService = serviceFactory.createGeocoder()
+        
         log.info("Update route for alarm at \(alarm.date!) and \(event.title!)")
-        routingService.route(
-            with: mode,
-            start: start,
-            end: event.location,
-            arrival: event.startDate)
+        
+        geocodingService
+            .geocode(event)
+            .debug("location", trimOutput: true)
+            .flatMapLatest { routingService.route(with: mode, start: start, end: $0, arrival: event.startDate) }
             .subscribe(onNext: { route in
                 let realmService = serviceFactory.createRealm()
                 let update = Alarm(route: route,
@@ -89,6 +91,24 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
                 self.update(alarm: update, service: realmService)
             })
             .disposed(by: disposeBag)
+        
+//        routingService.route(
+//            with: mode,
+//            start: start,
+//            end: event.location.geoLocation!,
+//            arrival: event.startDate)
+//            .subscribe(onNext: { route in
+//                let realmService = serviceFactory.createRealm()
+//                let update = Alarm(route: route,
+//                                   weather: alarm.weather,
+//                                   location: start,
+//                                   morningRoutine: alarm.morningRoutine,
+//                                   selectedEvent: event,
+//                                   otherEvents: alarm.otherEvents.toArray())
+//                update.id = alarm.id
+//                self.update(alarm: update, service: realmService)
+//            })
+//            .disposed(by: disposeBag)
     }
     
     @discardableResult

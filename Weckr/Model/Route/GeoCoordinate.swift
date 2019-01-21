@@ -11,7 +11,7 @@ import Realm
 import RealmSwift
 import CoreLocation
 
-@objcMembers public class GeoCoordinate: Object, Decodable {
+@objcMembers public class GeoCoordinate: Object, Decodable, RealmOptionalType {
     dynamic var latitude: Double = 0.0
     dynamic var longitude: Double = 0.0
     dynamic var compoundKey: String!
