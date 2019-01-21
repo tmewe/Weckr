@@ -36,7 +36,11 @@ class ErrorView: UIView, BlurBackgroundDisplayable, ErrorProtocol {
     
     private func setupConstraints() {
         let insets = Constraints.Error.self
-        titleLabel.autoPinEdgesToSuperviewSafeArea(with: UIEdgeInsets(top: insets.titleTop, left: insets.left, bottom: 0, right: insets.right), excludingEdge: .bottom)
+        titleLabel.autoPinEdgesToSuperviewSafeArea(with: UIEdgeInsets(top: insets.titleTop,
+                                                                      left: insets.left,
+                                                                      bottom: 0,
+                                                                      right: insets.right),
+                                                   excludingEdge: .bottom)
         messageLabel.autoPinEdge(.left, to: .left, of: self, withOffset: insets.left)
         messageLabel.autoPinEdge(.right, to: .right, of: self, withOffset: -insets.right)
         messageLabel.autoPinEdge(.top, to: .bottom, of: titleLabel, withOffset: insets.messageTop)
