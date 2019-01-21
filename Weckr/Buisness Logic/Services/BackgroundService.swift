@@ -35,7 +35,6 @@ struct BackgroundService: BackgroundServiceType {
         let updateService = serviceFactory.createAlarmUpdate()
         Observable.just(alarm)
             .filterNil()
-            .debug()
             .map { updateService.updateEvents(for: $0,
                                               serviceFactory: serviceFactory,
                                               disposeBag: disposeBag) }
@@ -48,12 +47,12 @@ struct BackgroundService: BackgroundServiceType {
                            serviceFactory: ServiceFactoryProtocol,
                            disposeBag: DisposeBag) {
         let realmService = serviceFactory.createRealm()
-        Observable.just(alarm)
+        let date = Observable.just(alarm)
             .filterNil()
             .filter { !$0.isInvalidated } //Needed if alarm gets deleted
-            .debug()
             .map { $0.date! }
-            .withLatestFrom(location) { ($0, $1) }
+        
+        Observable.combineLatest(date, location)
             .flatMap { realmService.createAlarmPrior(to: $0.0,
                                                      startLocation: $0.1,
                                                      serviceFactory: serviceFactory) }

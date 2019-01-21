@@ -51,6 +51,7 @@ final class MainApplication: NSObject, MainApplicationProtocol {
         let backgroundService = serviceFactory.createBackground()
         let realmService = serviceFactory.createRealm()
         let currentLocation = locationManager.rx.location
+            .debug("location", trimOutput: true)
             .filterNil()
             .map { ($0.coordinate.latitude, $0.coordinate.longitude) }
             .map(GeoCoordinate.init)
