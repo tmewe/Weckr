@@ -72,6 +72,7 @@
 		49941FAE21D3A88F00F91229 /* InfoAlertDisplayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49941FAD21D3A88E00F91229 /* InfoAlertDisplayable.swift */; };
 		4996332321EB3E5300B55F45 /* alarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4996332221EB3E5300B55F45 /* alarm.mp3 */; };
 		4996332521EB432100B55F45 /* UNUserNotificationCenterDelegate+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4996332421EB432100B55F45 /* UNUserNotificationCenterDelegate+Rx.swift */; };
+		4997AD2121F8A63600E68687 /* CLGeocoder+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4997AD2021F8A63600E68687 /* CLGeocoder+Rx.swift */; };
 		499AF40121AEE93C00F4B4FF /* CalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499AF40021AEE93C00F4B4FF /* CalendarService.swift */; };
 		499AF40421AEEC5400F4B4FF /* AccessError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499AF40321AEEC5400F4B4FF /* AccessError.swift */; };
 		499E6A6021F234EE00C57414 /* AlarmUpdateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499E6A5F21F234EE00C57414 /* AlarmUpdateService.swift */; };
@@ -207,6 +208,7 @@
 		49941FAD21D3A88E00F91229 /* InfoAlertDisplayable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoAlertDisplayable.swift; sourceTree = "<group>"; };
 		4996332221EB3E5300B55F45 /* alarm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = alarm.mp3; sourceTree = "<group>"; };
 		4996332421EB432100B55F45 /* UNUserNotificationCenterDelegate+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UNUserNotificationCenterDelegate+Rx.swift"; sourceTree = "<group>"; };
+		4997AD2021F8A63600E68687 /* CLGeocoder+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLGeocoder+Rx.swift"; sourceTree = "<group>"; };
 		499AF40021AEE93C00F4B4FF /* CalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarService.swift; sourceTree = "<group>"; };
 		499AF40321AEEC5400F4B4FF /* AccessError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessError.swift; sourceTree = "<group>"; };
 		499E6A5F21F234EE00C57414 /* AlarmUpdateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmUpdateService.swift; sourceTree = "<group>"; };
@@ -304,6 +306,7 @@
 				498ED01F21C14A29003FFF5B /* TimeIntervall+Extensions.swift */,
 				493FA95121CE656B00C2FFA1 /* Sequence+Extensions.swift */,
 				4921B8D121A1A69000BD6145 /* EventStore+Rx.swift */,
+				4997AD2021F8A63600E68687 /* CLGeocoder+Rx.swift */,
 				8415D34B21CA98C200F28E13 /* VehicleSegmentedControl+Rx.swift */,
 				4996332421EB432100B55F45 /* UNUserNotificationCenterDelegate+Rx.swift */,
 				49A52A8F21F47C6800D3B885 /* Realm+Extensions.swift */,
@@ -1012,6 +1015,7 @@
 				22BE36A02193484500B56BF9 /* BindableType.swift in Sources */,
 				49BD3FD321D256B400939766 /* CalendarEditViewController.swift in Sources */,
 				49B4663521CADE7F00BE810C /* LoadingView.swift in Sources */,
+				4997AD2121F8A63600E68687 /* CLGeocoder+Rx.swift in Sources */,
 				4942435E21AA9D7E00088AB6 /* Date+Extensions.swift in Sources */,
 				22C8D184218B28A50029C1EA /* Scene.swift in Sources */,
 				496260C621F638550066D185 /* CalendarLocation.swift in Sources */,

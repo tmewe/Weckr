@@ -9,6 +9,7 @@
 import Foundation
 import CoreLocation
 import RxSwift
+import RealmSwift
 
 protocol GeocodingServiceType{
     func geocode(_ entry: CalendarEntry) throws -> Observable<GeoCoordinate>
@@ -20,34 +21,17 @@ class GeocodingService: GeocodingServiceType {
     
     func geocode(_ entry: CalendarEntry) throws -> Observable<GeoCoordinate> {
         if (entry.location.geoLocation != nil) { return Observable.just(entry.location.geoLocation!) }
-        return try self.geocodeAddressString(address: entry.adress)
-            .flatMap(self.processResponse)
-    }
-    
-    /// Get an array of CLPlacemark
-    private func geocodeAddressString(address: String) throws -> Observable<[CLPlacemark]> {
-        let sub = BehaviorSubject<[CLPlacemark]>(value: [])
-        geocoder.geocodeAddressString(address, completionHandler: { (placemarks, error) in
-            if (error == nil) { sub.onNext(placemarks!) }
-            else { sub.onError(error!) }
-        })
-        return sub.asObservable()
-    }
-    
-    /// Convert an array of CLPlacemark to a Geocoding Object
-    private func processResponse(_ placemarks: [CLPlacemark]?) throws -> Observable<GeoCoordinate> {
-        var location: CLLocation?
-        if let placemarks = placemarks, placemarks.count > 0 {
-            location = placemarks.first?.location
-        }
         
-        if let location = location {
-            let coord = GeoCoordinate.init(lat: location.coordinate.latitude, long: location.coordinate.longitude)
-            return Observable.just(coord)
-        } else {
-            throw GeocodeError.noMatch
-        }
-        
+        return geocoder.rx.geocodeAddressString(entry.address)
+            .map { $0.0 }
+            .errorOnNil(GeocodeError.noMatch)
+            .errorOnEmpty(GeocodeError.noMatch)
+            .map { $0.first! }
+            .map { $0.location! }
+            .map(GeoCoordinate.init)
+            .do(onNext: { location in
+                let realm = try! Realm()
+                try! realm.write { entry.location.geoLocation = location }
+            })
     }
-    
 }
