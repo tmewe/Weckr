@@ -75,7 +75,8 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
         
         log.info("Update route for alarm at \(alarm.date!) and \(event.title!)")
         
-        geocodingService
+        do {
+        try geocodingService
             .geocode(event)
             .debug("location", trimOutput: true)
             .flatMapLatest { routingService.route(with: mode, start: start, end: $0, arrival: event.startDate) }
@@ -91,6 +92,8 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
                 self.update(alarm: update, service: realmService)
             })
             .disposed(by: disposeBag)
+        } catch {}
+        
         
 //        routingService.route(
 //            with: mode,

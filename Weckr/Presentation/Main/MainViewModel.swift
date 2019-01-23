@@ -25,6 +25,7 @@ protocol MainViewModelOutputsType {
     var dateString: Observable<String> { get }
     var dayString: Observable<String> { get }
     var errorOccurred: Observable<AppError?> { get }
+     var showAlert: Observable<AlertInfo> { get }
 }
 
 protocol MainViewModelActionsType {
@@ -55,6 +56,7 @@ class MainViewModel: MainViewModelType {
     var dateString: Observable<String>
     var dayString: Observable<String>
     var errorOccurred: Observable<AppError?>
+    var showAlert: Observable<AlertInfo>
     
     //Setup
     private let coordinator: SceneCoordinatorType
@@ -70,6 +72,7 @@ class MainViewModel: MainViewModelType {
          coordinator: SceneCoordinatorType) {
         
         //Setup
+        locationManager.startUpdatingLocation()
         self.serviceFactory = serviceFactory
         self.viewModelFactory = viewModelFactory
         self.coordinator = coordinator
@@ -81,6 +84,7 @@ class MainViewModel: MainViewModelType {
         let locationError: BehaviorSubject<AppError?> = BehaviorSubject(value: nil)
         let notificationError: BehaviorSubject<AppError?> = BehaviorSubject(value: nil)
         let calendarError: BehaviorSubject<AppError?> = BehaviorSubject(value: nil)
+        let alertInfo: PublishSubject<AlertInfo> = PublishSubject()
         
         let currentAlarm = alarmService.currentAlarmObservable().share(replay: 1, scope: .forever)
         
@@ -215,6 +219,8 @@ class MainViewModel: MainViewModelType {
             .map { $0?.dayText }
             .replaceNilWith("No events found")
         
+        showAlert = alertInfo.asObservable()
+        
         //Location access status
         locationManager.rx.didChangeAuthorization
             .map { $0.1 }
@@ -318,7 +324,14 @@ class MainViewModel: MainViewModelType {
             .withLatestFrom(currentLocation)
             .flatMap { self.alarmService
                 .createFirstAlarm(startLocation: $0, serviceFactory: serviceFactory) }
-            .subscribe(onNext: { _ in })
+            .subscribe(onNext: { result in
+                if case .Failure(let error) = result {
+                    let info = AlertInfo(title: error.localizedTitle,
+                                         message: error.localizedMessage,
+                                         button: Strings.Error.gotit)
+                    alertInfo.onNext(info)
+                }
+            })
             .disposed(by: disposeBag)
     }
     

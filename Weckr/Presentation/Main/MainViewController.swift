@@ -15,7 +15,7 @@ import Action
 import RxAppState
 import UserNotifications
 
-class MainViewController: UITableViewController, BindableType, ErrorDisplayable {
+class MainViewController: UITableViewController, BindableType, ErrorDisplayable, InfoAlertDisplayable {
     
     
     typealias ViewModelType = MainViewModelType
@@ -76,6 +76,10 @@ class MainViewController: UITableViewController, BindableType, ErrorDisplayable 
         viewModel.outputs.errorOccurred
             .asDriver(onErrorJustReturn: nil)
             .drive(onNext:  configureErrorView)
+            .disposed(by: disposeBag)
+        
+        viewModel.outputs.showAlert
+            .subscribe(onNext: showInfoAlert)
             .disposed(by: disposeBag)
         
         tableView.rx.willDisplayCell

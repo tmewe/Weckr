@@ -132,8 +132,7 @@ struct RealmService: RealmServiceType {
         
         let arrival = firstEvent.map { $0.startDate }.filterNil()
         
-        let endLocation = firstEvent
-            .flatMap(geocodingService.geocode)
+        let endLocation = firstEvent.flatMap(geocodingService.geocode)
         
         let route = Observable
             .combineLatest(vehicleObservable, startLocationObservable, endLocation, arrival)
@@ -144,6 +143,7 @@ struct RealmService: RealmServiceType {
         let weatherForecast = startLocationObservable
             .take(1)
             .flatMapLatest(weatherService.forecast)
+            .debug()
         
         return Observable.zip(route, weatherForecast) { ($0, $1) }
             .withLatestFrom(startLocationObservable) {  ($0.0, $0.1, $1) }
@@ -157,6 +157,7 @@ struct RealmService: RealmServiceType {
             .flatMapLatest (save)
             .map { AlarmCreationResult.Success($0) }
             .observeOn(MainScheduler.instance)
+            .catchError { error in .just(AlarmCreationResult.Failure(GeocodeError.noMatch)) }
         
 //        return alarm
     }

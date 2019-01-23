@@ -8,6 +8,20 @@
 
 import Foundation
 
-enum GeocodeError: Error {
+enum GeocodeError: AppError {
     case noMatch
+    
+    var localizedTitle: String {
+        switch self {
+        case .noMatch:
+            return Strings.Error.Calendar.noEventsTitle
+        }
+    }
+    
+    var localizedMessage: String {
+        switch self {
+        case .noMatch:
+            return Strings.Error.Calendar.noEventsMessage
+        }
+    }
 }
