@@ -109,7 +109,7 @@ struct RealmService: RealmServiceType {
         let result = withRealm("getting locations") { realm -> Observable<LocationCheckResult> in
             let key = location.compoundKey
             let fetched = realm.object(ofType: GeoCoordinate.self, forPrimaryKey: key)
-            guard fetched == nil else { return .just((false, location)) }
+            guard fetched != nil else { return .just((false, location)) }
             return .just((true, fetched!))
         }
         return result!
@@ -187,7 +187,9 @@ struct RealmService: RealmServiceType {
             .flatMapLatest (save)
             .map { AlarmCreationResult.Success($0) }
             .observeOn(MainScheduler.instance)
-            .catchError { error in .just(AlarmCreationResult.Failure(GeocodeError.noMatch)) }
+            .catchError { error in
+                .just(AlarmCreationResult.Failure(GeocodeError.noMatch))
+            }
         
 //        return alarm
     }

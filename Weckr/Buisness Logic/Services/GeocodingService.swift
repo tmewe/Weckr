@@ -17,17 +17,19 @@ protocol GeocodingServiceType{
 
 class GeocodingService: GeocodingServiceType {
     
-    lazy var geocoder = CLGeocoder()
-    
     func geocode(_ entry: CalendarEntry, realmService: RealmServiceType) throws -> Observable<GeoCoordinate> {
+        let geocoder = CLGeocoder()
+
         guard entry.location.geoLocation == nil else {
             return Observable.just(entry.location.geoLocation!)
         }
         
         return geocoder.rx.geocodeAddressString(entry.address)
             .map { $0.0 }
-            .errorOnNil(GeocodeError.noMatch)
-            .errorOnEmpty(GeocodeError.noMatch)
+            .debug("geocoding", trimOutput: true)
+            .catchOnNil { throw(GeocodeError.noMatch) }
+            .catchOnEmpty { throw(GeocodeError.noMatch) }
+//            .errorOnEmpty(GeocodeError.noMatch)
             .map { $0.first! }
             .map { $0.location! }
             .map(GeoCoordinate.init)

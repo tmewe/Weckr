@@ -15,7 +15,8 @@ extension Reactive where Base: CLGeocoder {
         return Observable.create { observer in
             self.base.geocodeAddressString(addressString, completionHandler: { (placemarks, error) in
                 guard error == nil else {
-                    observer.onError(error!)
+                    observer.onNext((nil, error))
+                    observer.onCompleted()
                     return
                 }
                 observer.onNext((placemarks, error))
