@@ -46,14 +46,25 @@ struct RealmService: RealmServiceType {
     
     @discardableResult
     func update(alarm: Alarm) -> Observable<Alarm> {
-        let result = withRealm("updating") { realm -> Observable<Alarm> in
+        let result = withRealm("updating alarm") { realm -> Observable<Alarm> in
             try realm.write {
                 realm.add(alarm, update: true)
                 log.info("Updated alarm at \(alarm.date!)")
             }
             return .just(alarm)
         }
-        return result ?? .error(AlarmServiceError.creationFailed)
+        return result ?? .error(AlarmServiceError.updateFailed)
+    }
+    
+    @discardableResult
+    func update(location: GeoCoordinate, for entry: CalendarEntry) -> Observable<CalendarEntry> {
+        let result = withRealm("updating location on entry") { realm -> Observable<CalendarEntry> in
+            try realm.write {
+                entry.location.geoLocation = location
+            }
+            return .just(entry)
+        }
+        return result ?? .error(AlarmServiceError.updateFailed)
     }
     
     @discardableResult
@@ -89,6 +100,17 @@ struct RealmService: RealmServiceType {
             return alarms
                 .sorted { $0.date < $1.date }
                 .first(where: { $0.date > start })
+        }
+        return result!
+    }
+        
+    //Returns nil if geocoordinate exists
+    func checkExisting(location: GeoCoordinate) -> Observable<LocationCheckResult> {
+        let result = withRealm("getting locations") { realm -> Observable<LocationCheckResult> in
+            let key = location.compoundKey
+            let fetched = realm.object(ofType: GeoCoordinate.self, forPrimaryKey: key)
+            guard fetched == nil else { return .just((false, location)) }
+            return .just((true, fetched!))
         }
         return result!
     }
@@ -132,7 +154,15 @@ struct RealmService: RealmServiceType {
         
         let arrival = firstEvent.map { $0.startDate }.filterNil()
         
-        let endLocation = firstEvent.flatMap(geocodingService.geocode)
+        let endLocation = firstEvent
+            .flatMap{ try geocodingService.geocode($0, realmService: self) }
+//            .catchError { error in throw(error) }
+        
+//        do { endLocation = firstEvent
+//            .flatMap{ try geocodingService.geocode($0, realmService: self) }
+//            .catchError { error in throw(error) } }
+//        catch let error as AppError { return .just(AlarmCreationResult.Failure(error)) }
+//        catch { return .just(AlarmCreationResult.Failure(CalendarError.undefined)) }
         
         let route = Observable
             .combineLatest(vehicleObservable, startLocationObservable, endLocation, arrival)

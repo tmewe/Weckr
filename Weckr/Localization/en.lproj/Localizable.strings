@@ -117,6 +117,8 @@
 "error.calendar.noEvents.message" = "We couldn't find any calendar entries in the next week. Please add some events. Don't forget to add a geolocation or adress.";
 "error.undefined.title" = "An error occurred";
 "error.undefined.message" = "We are very sorry but an error occurred.";
+"error.geocoding.noMatch.title" = "Geocoding error";
+"error.geocoding.noMatch.message" = "We couldn't geocode the address of the first event we found. Please choose an other first event";
 
 //Formats
 "formats.date.dayAndMonthLong" = "MMMM dd";

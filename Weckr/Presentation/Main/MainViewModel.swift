@@ -314,7 +314,15 @@ class MainViewModel: MainViewModelType {
             .flatMap { self.alarmService.createAlarmPrior(to: $0.0,
                                                           startLocation: $0.1,
                                                           serviceFactory: self.serviceFactory) }
-            .subscribe(onNext: { _ in print("") })
+            .subscribe(onNext: { result in
+                print(result)
+//                if case .Failure(let error) = result {
+//                    let info = AlertInfo(title: error.localizedTitle,
+//                                         message: error.localizedMessage,
+//                                         button: Strings.Error.gotit)
+//                    alertInfo.onNext(info)
+//                }
+            })
             .disposed(by: disposeBag)
         
         //Create alarm if no alarm

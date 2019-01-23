@@ -14,14 +14,14 @@ enum GeocodeError: AppError {
     var localizedTitle: String {
         switch self {
         case .noMatch:
-            return Strings.Error.Calendar.noEventsTitle
+            return Strings.Error.GeoCoding.noMatchTitle
         }
     }
     
     var localizedMessage: String {
         switch self {
         case .noMatch:
-            return Strings.Error.Calendar.noEventsMessage
+            return Strings.Error.GeoCoding.noMatchMessage
         }
     }
 }

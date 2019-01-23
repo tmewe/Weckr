@@ -77,8 +77,7 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
         
         do {
         try geocodingService
-            .geocode(event)
-            .debug("location", trimOutput: true)
+            .geocode(event, realmService: serviceFactory.createRealm())
             .flatMapLatest { routingService.route(with: mode, start: start, end: $0, arrival: event.startDate) }
             .subscribe(onNext: { route in
                 let realmService = serviceFactory.createRealm()

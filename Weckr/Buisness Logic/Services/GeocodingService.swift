@@ -12,14 +12,14 @@ import RxSwift
 import RealmSwift
 
 protocol GeocodingServiceType{
-    func geocode(_ entry: CalendarEntry) throws -> Observable<GeoCoordinate>
+    func geocode(_ entry: CalendarEntry, realmService: RealmServiceType) throws -> Observable<GeoCoordinate>
 }
 
 class GeocodingService: GeocodingServiceType {
     
     lazy var geocoder = CLGeocoder()
     
-    func geocode(_ entry: CalendarEntry) throws -> Observable<GeoCoordinate> {
+    func geocode(_ entry: CalendarEntry, realmService: RealmServiceType) throws -> Observable<GeoCoordinate> {
         guard entry.location.geoLocation == nil else {
             return Observable.just(entry.location.geoLocation!)
         }
@@ -31,9 +31,10 @@ class GeocodingService: GeocodingServiceType {
             .map { $0.first! }
             .map { $0.location! }
             .map(GeoCoordinate.init)
-            .do(onNext: { location in
-                let realm = try! Realm()
-                try! realm.write { entry.location.geoLocation = location }
+            .flatMap(realmService.checkExisting)
+            .do(onNext: { result in
+                if result.0 { realmService.update(location: result.1, for: entry) }
             })
+            .map { $0.1 }
     }
 }
