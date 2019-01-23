@@ -91,26 +91,7 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
                 self.update(alarm: update, service: realmService)
             })
             .disposed(by: disposeBag)
-        } catch {}
-        
-        
-//        routingService.route(
-//            with: mode,
-//            start: start,
-//            end: event.location.geoLocation!,
-//            arrival: event.startDate)
-//            .subscribe(onNext: { route in
-//                let realmService = serviceFactory.createRealm()
-//                let update = Alarm(route: route,
-//                                   weather: alarm.weather,
-//                                   location: start,
-//                                   morningRoutine: alarm.morningRoutine,
-//                                   selectedEvent: event,
-//                                   otherEvents: alarm.otherEvents.toArray())
-//                update.id = alarm.id
-//                self.update(alarm: update, service: realmService)
-//            })
-//            .disposed(by: disposeBag)
+        } catch { log.error(error) }
     }
     
     @discardableResult
@@ -154,13 +135,6 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
                     self.update(alarm: update, service: realmService)
                 })
                 .disposed(by: disposeBag)
-
-//            events
-//                .filter { $0.isEmpty }
-//                .withLatestFrom(Observable.just(alarm))
-////                .subscribe(onNext: { realmService.delete(alarm: $0) })
-//                .subscribe(Realm.rx.delete())
-//                .disposed(by: disposeBag)
         }
         catch CalendarError.noEvents {
             realmService.delete(alarm: alarm)
