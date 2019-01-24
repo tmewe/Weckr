@@ -80,6 +80,21 @@ struct RealmService: RealmServiceType {
     }
     
     @discardableResult
+    func deleteOldAlarms() -> Observable<Void> {
+        let result = withRealm("deleting old alarms") { realm -> Observable<Void> in
+            let alarms = realm.objects(Alarm.self)
+            let start = (Date() + 1.days).dateAtStartOf(.day)
+            let filtered = alarms.filter { $0.date < start }
+            
+            try realm.write {
+                realm.delete(filtered)
+            }
+            return .empty()
+        }
+        return result ?? .error(AlarmServiceError.creationFailed)
+    }
+    
+    @discardableResult
     func currentAlarmObservable() -> Observable<Alarm?> {
         let result = withRealm("getting alarms") { realm -> Observable<Alarm?> in
             let alarms = realm.objects(Alarm.self)
