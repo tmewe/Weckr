@@ -113,10 +113,12 @@
 "error.access.notification.message" = "Anscheinend möchtest du keine Benachrichtigungen erhalten. Weckr braucht aber diese Berechtigung zum Klingeln und um dich zu warnen, falls etwas in deinem Kalender nicht stimmt!";
 "error.access.location.title" = "Wo bist du?";
 "error.access.location.message" = "Weckr darf deinen Standort nicht mehr sehen. Um am Morgen deine Wegzeiten verlässlich zu berücksichtigen, muss Weckr wissen, wo du schläfst. Auch wenn das ein bisschen gruselig klingt, sind deine Daten bei Weckr komplett sicher. Versprochen.";
-"error.calendar.noEvents.title" = "Oh no!";
+"error.calendar.noEvents.title" = "Um Himmels Willen!";
 "error.calendar.noEvents.message" = "Nächste Woche sieht dein Kalender verdächtig leer aus. Füg' doch deine Termine hinzu. Wenn du schon dabei bist, vergiss nicht den Ort mit einzutragen";
 "error.undefined.title" = "Schockschwere Not!";
 "error.undefined.message" = "Tut uns sehr leid, ein Fehler ist aufgetreten.";
+"error.geocoding.noMatch.title" = "Du meine Güte!";
+"error.geocoding.noMatch.message" = "Wir können mit der Adresse deines ersten Tremins nichts anfangen! Bitte kontrolliere das nochmal.";
 
 //Formats
 "formats.date.dayAndMonthLong" = "dd. MMMM";

@@ -9,21 +9,20 @@
 
 import UIKit
 
-
 class VehicleSegmentedControl:UIControl {
     
     private var imageViewList = [UIImageView]()
-    var thumbView = UIView()
-    
-    var items: [String] = ["item1", "item2", "item3"] {
-        didSet {
-            setupImageView()
-        }
-    }
+    private var thumbView = UIView()
     
     var selectedIndex : Int = 0 {
         didSet {
             displayNewSelectedIndex()
+        }
+    }
+    
+    private var items: [String] = [] {
+        didSet {
+            setupImageView()
         }
     }
     
@@ -38,7 +37,6 @@ class VehicleSegmentedControl:UIControl {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         setupView()
     }
     
@@ -47,21 +45,26 @@ class VehicleSegmentedControl:UIControl {
         setupView()
     }
     
+    convenience init(selected: Int = 0, imageNames: String...) {
+        self.init();
+        self.items = imageNames
+        self.selectedIndex = selected;
+        setupView()
+    }
+    
     func setupView(){
         layer.masksToBounds = true
-        
+        //TODO: Why don't gradients work?
         self.layer.backgroundColor = UIColor.segmentedControlBackground.cgColor
         
-        
         setupImageView()
-        
         addIndividualItemConstraints(items: imageViewList, mainView: self, padding: 0)
         
         insertSubview(thumbView, at: 0)
-        
     }
     
     func setupImageView(){
+        guard items.count > 0 else { return }
         
         for label in imageViewList {
             label.removeFromSuperview()
@@ -72,8 +75,8 @@ class VehicleSegmentedControl:UIControl {
         for index in 1...items.count {
             let imageView = UIImageView.newAutoLayout()
             self.addSubview(imageView)
-            imageView.contentMode = .center
             
+            imageView.contentMode = .center
             imageView.image = UIImage(named: items[index - 1])?.withRenderingMode(.alwaysTemplate)
             imageView.backgroundColor = UIColor.clear
             imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -87,20 +90,18 @@ class VehicleSegmentedControl:UIControl {
         super.layoutSubviews()
         layer.cornerRadius = frame.height/2.0
         var selectFrame = self.bounds
+        
         let newWidth = selectFrame.width / CGFloat(items.count)
         selectFrame.size.width = newWidth
+        
         thumbView.frame = selectFrame
-        
-        
         thumbView.setGradientForButton(gradient)
         thumbView.layer.cornerRadius = thumbView.frame.height / 2
         
         displayNewSelectedIndex()
-        
     }
     
     override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
-        
         let location = touch.location(in: self)
         
         var calculatedIndex : Int?
@@ -109,7 +110,6 @@ class VehicleSegmentedControl:UIControl {
                 calculatedIndex = index
             }
         }
-        
         
         if calculatedIndex != nil {
             selectedIndex = calculatedIndex!
@@ -120,6 +120,8 @@ class VehicleSegmentedControl:UIControl {
     }
     
     func displayNewSelectedIndex(){
+        guard selectedIndex < imageViewList.count else { return }
+
         for (_, item) in imageViewList.enumerated() {
             item.layer.masksToBounds = true
             item.layer.borderColor = unselectedLabelColor.cgColor
@@ -131,53 +133,86 @@ class VehicleSegmentedControl:UIControl {
         imageView.layer.borderColor = selectedLabelColor.cgColor
         imageView.tintColor = UIColor.white
         
-        UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping:  0.8, initialSpringVelocity: 0.8, options: .curveEaseIn, animations: {
+        UIView.animate(withDuration: 0.5,
+                       delay: 0.0,
+                       usingSpringWithDamping:  0.8,
+                       initialSpringVelocity: 0.8,
+                       options: .curveEaseIn,
+                       animations: {
             self.thumbView.frame = imageView.frame
             
         }, completion: nil)
-        
     }
     
     func addIndividualItemConstraints(items: [UIView], mainView: UIView, padding: CGFloat) {
-        
         for (index, button) in items.enumerated() {
+            let isLast = index == items.count - 1
+            let isFirst = index == 0
             
-            let topConstraint = NSLayoutConstraint(item: button, attribute: .top, relatedBy:.equal, toItem: mainView, attribute: .top, multiplier: 1.0, constant: 0)
-            //
-            let bottomConstraint = NSLayoutConstraint(item: button, attribute: .bottom, relatedBy: .equal, toItem: mainView, attribute: .bottom, multiplier: 1.0, constant: 0)
+
+            let widthConstraint = NSLayoutConstraint(item: button,
+                                                     attribute: .width,
+                                                     relatedBy: .equal,
+                                                     toItem: items.first,
+                                                     attribute: .width,
+                                                     multiplier: 1.0  ,
+                                                     constant: 0)
             
-            var rightConstraint : NSLayoutConstraint!
+            let topConstraint = NSLayoutConstraint(item: button,
+                                                   attribute: .top,
+                                                   relatedBy:.equal,
+                                                   toItem: mainView,
+                                                   attribute: .top,
+                                                   multiplier: 1.0,
+                                                   constant: 0)
             
-            if index == items.count - 1 {
-                
-                rightConstraint = NSLayoutConstraint(item: button, attribute: .right, relatedBy: .equal, toItem: mainView, attribute: .right, multiplier: 1.0, constant: -padding)
-                
-            }else{
-                
-                let nextButton = items[index+1]
-                rightConstraint = NSLayoutConstraint(item: button, attribute: .right, relatedBy: .equal, toItem: nextButton, attribute: .left, multiplier: 1.0, constant: -padding)
-            }
+            let bottomConstraint = NSLayoutConstraint(item: button,
+                                                      attribute: .bottom,
+                                                      relatedBy: .equal,
+                                                      toItem: mainView,
+                                                      attribute: .bottom,
+                                                      multiplier: 1.0,
+                                                      constant: 0)
             
             
-            var leftConstraint : NSLayoutConstraint!
             
-            if index == 0 {
-                
-                leftConstraint = NSLayoutConstraint(item: button, attribute: .left, relatedBy:  .equal, toItem: mainView, attribute: .left, multiplier: 1.0, constant: padding)
-                
-            }else{
-                
-                let prevButton = items[index-1]
-                leftConstraint = NSLayoutConstraint(item: button, attribute: .left, relatedBy: NSLayoutConstraint.Relation.equal, toItem: prevButton, attribute: .right, multiplier: 1.0, constant: padding)
-                
-                let firstItem = items[0]
-                
-                let widthConstraint = NSLayoutConstraint(item: button, attribute: .width, relatedBy: .equal, toItem: firstItem, attribute: .width, multiplier: 1.0  , constant: 0)
-                
-                mainView.addConstraint(widthConstraint)
-            }
+            let leftConstraint = isFirst
+                ? NSLayoutConstraint(item: button,
+                                     attribute: .left,
+                                     relatedBy:  .equal,
+                                     toItem: mainView,
+                                     attribute: .left,
+                                     multiplier: 1.0,
+                                     constant: padding)
+                : NSLayoutConstraint(item: button,
+                                     attribute: .left,
+                                     relatedBy: NSLayoutConstraint.Relation.equal,
+                                     toItem: items[index-1],
+                                     attribute: .right,
+                                     multiplier: 1.0,
+                                     constant: padding)
             
-            mainView.addConstraints([ rightConstraint, leftConstraint, topConstraint, bottomConstraint])
+            let rightConstraint = isLast
+                ? NSLayoutConstraint(item: button,
+                                     attribute: .right,
+                                     relatedBy: .equal,
+                                     toItem: mainView,
+                                     attribute: .right,
+                                     multiplier: 1.0,
+                                     constant: -padding)
+                : NSLayoutConstraint(item: button,
+                                     attribute: .right,
+                                     relatedBy: .equal,
+                                     toItem: items[index+1],
+                                     attribute: .left,
+                                     multiplier: 1.0,
+                                     constant: -padding)
+
+            mainView.addConstraints([widthConstraint,
+                                     topConstraint,
+                                     bottomConstraint,
+                                     leftConstraint,
+                                     rightConstraint])
         }
     }
     

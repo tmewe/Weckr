@@ -66,10 +66,7 @@ class TravelEditView: BaseEditView, TravelEditViewProtocol {
     }
     
     let segmentedControl: VehicleSegmentedControl = {
-        let control = VehicleSegmentedControl()
-        control.items = ["icar.png", "walking.png", "bus.png"]
-        control.selectedIndex = 0
-        return control
+        return SVehicleSegmentedControl(imageNames: "car", "walk", "bus")
     }()
     lazy var switchContainer = UIView.newAutoLayout()
     lazy var weatherSwitch: UISwitch = {
