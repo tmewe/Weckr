@@ -80,7 +80,7 @@ struct RealmService: RealmServiceType {
     }
     
     @discardableResult
-    func deleteOldAlarms() -> Observable<Void> {
+    func deletePastAlarms() -> Observable<Void> {
         let result = withRealm("deleting old alarms") { realm -> Observable<Void> in
             let alarms = realm.objects(Alarm.self)
             let start = (Date() + 1.days).dateAtStartOf(.day)

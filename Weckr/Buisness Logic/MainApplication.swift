@@ -85,6 +85,9 @@ final class MainApplication: NSObject, MainApplicationProtocol {
         
         //Check location and update route for current alarm
         
+        //Delete all past alarms
+        realmService.deletePastAlarms()
+        
         completionHandler(.newData)
     }
     
