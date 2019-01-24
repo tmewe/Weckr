@@ -195,14 +195,13 @@ struct RealmService: RealmServiceType {
             .flatMapLatest(weatherService.forecast)
             .debug("weather", trimOutput: true)
         
-        return Observable.zip(route, weatherForecast) { ($0, $1) }
+        let alarm = Observable.zip(route, weatherForecast) { ($0, $1) }
             .debug("zip", trimOutput: false)
             .withLatestFrom(startLocationObservable) {  ($0.0, $0.1, $1) }
             .withLatestFrom(morningRoutineObservable) { ($0.0, $0.1, $0.2, $1) }
             .withLatestFrom(firstEvent) {               ($0.0, $0.1, $0.2, $0.3, $1) }
             .withLatestFrom(events) {                   ($0.0, $0.1, $0.2, $0.3, $0.4, $1) }
             .take(1)
-//            .observeOn(ConcurrentDispatchQueueScheduler(qos: .background))
             .map(Alarm.init)
             .flatMapLatest(alarmUpdateService.calculateDate)
             .flatMapLatest (save)
@@ -212,27 +211,6 @@ struct RealmService: RealmServiceType {
                 .just(AlarmCreationResult.Failure(GeocodeError.noMatch))
             }
         
-//        return alarm
-    }
-    
-    func createDummyAlarm() {
-        let route = Route()
-        let weather = WeatherForecast()
-        let location = GeoCoordinate(lat: 48.1639, long: 11.5644)
-        let calLocation = CalendarLocation(address: "address", geoLocation: location)
-        let entry = CalendarEntry(title: "Dummy",
-                                  startDate: Date(),
-                                  endDate: Date(),
-                                  adress: "address",
-                                  location: calLocation)
-        
-        let alarm = Alarm(route: route,
-                          weather: weather,
-                          location: location,
-                          morningRoutine: 60,
-                          selectedEvent: entry,
-                          otherEvents: [entry])
-        alarm.date = ( Date() - 1.days ).dateAtStartOf(.day)
-        save(alarm: alarm)
+        return alarm
     }
 }

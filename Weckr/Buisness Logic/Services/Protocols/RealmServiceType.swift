@@ -28,9 +28,6 @@ protocol RealmServiceType {
     
     @discardableResult
     func deletePastAlarms() -> Observable<Void>
-//
-//    @discardableResult
-//    func allAlarms() -> Observable<Results<Alarm>>
 
     @discardableResult
     func currentAlarmObservable() -> Observable<Alarm?>
@@ -48,6 +45,4 @@ protocol RealmServiceType {
     func createAlarmPrior(to date: Date,
                           startLocation: GeoCoordinate,
                           serviceFactory: ServiceFactoryProtocol) -> Observable<AlarmCreationResult<Alarm>>
-    
-    func createDummyAlarm()
 }

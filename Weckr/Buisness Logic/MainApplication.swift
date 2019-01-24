@@ -29,14 +29,11 @@ final class MainApplication: NSObject, MainApplicationProtocol {
     private let backgroundService = BackgroundService()
     private let realmService = RealmService()
     private let updateService = AlarmUpdateService()
-//    private var currentLocation: GeoCoordinate?
     
     init(viewModelFactory: ViewModelFactoryProtocol,
          serviceFactory: ServiceFactoryProtocol) {
         self.viewModelFactory = viewModelFactory
         self.serviceFactory = serviceFactory
-        
-        realmService.deletePastAlarms()
     }
     
     //FIXME: - We need a new coordinator implementation where we dont need the window
