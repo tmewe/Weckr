@@ -11,27 +11,32 @@ import CoreLocation
 import RxSwift
 
 protocol GeocodingServiceType{
-    func geocode(_ entry: CalendarEntry) -> Observable<GeoCoordinate>
+    func geocode(_ entry: CalendarEntry) -> Observable<CalendarEntry>
 }
 
 class GeocodingService: GeocodingServiceType {
     
     lazy var geocoder = CLGeocoder()
     
-    func geocode(_ entry: CalendarEntry) -> Observable<GeoCoordinate> {
-        if (entry.location != nil) { return Observable.just(entry.location) }
-        return self.geocodeAddressString(address: entry.adress)
-            .flatMap(self.processResponse)
+    func geocode(_ entry: CalendarEntry) -> Observable<CalendarEntry> {
+        if (entry.location != nil) { return Observable.just(entry) }
+    return self.geocodeAddressString(address: entry.adress)
+            .map(self.processResponse)
+            .flatMap {$0}
+            .map {
+                entry.location = $0
+                return entry
+            }.debug()
     }
     
     /// Get an array of CLPlacemark
     private func geocodeAddressString(address: String) -> Observable<[CLPlacemark]> {
-        let sub = BehaviorSubject<[CLPlacemark]>(value: [])
+        let sub = PublishSubject<[CLPlacemark]>()
         geocoder.geocodeAddressString(address, completionHandler: { (placemarks, error) in
             if (error == nil) { sub.onNext(placemarks!) }
             else { sub.onError(error!) }
         })
-        return sub.asObservable()
+        return sub
     }
     
     /// Convert an array of CLPlacemark to a Geocoding Object

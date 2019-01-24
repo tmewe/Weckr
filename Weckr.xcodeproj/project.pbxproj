@@ -143,6 +143,7 @@
 		221202842197121C00474B5D /* UILabel+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
 		2245867F219722EF00072C6C /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		2245868121972D5200072C6C /* WalkthroughSlideable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughSlideable.swift; sourceTree = "<group>"; };
+		2292A06F21F9AC28006EDC3A /* Weckr.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Weckr.entitlements; sourceTree = "<group>"; };
 		22975B7C712437B3CE4FCE59 /* Pods-Weckr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weckr.release.xcconfig"; path = "Pods/Target Support Files/Pods-Weckr/Pods-Weckr.release.xcconfig"; sourceTree = "<group>"; };
 		22BCC836218B1BEE00C77CB1 /* Weckr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weckr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22BCC839218B1BEE00C77CB1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -336,6 +337,7 @@
 		22BCC838218B1BEE00C77CB1 /* Weckr */ = {
 			isa = PBXGroup;
 			children = (
+				2292A06F21F9AC28006EDC3A /* Weckr.entitlements */,
 				22BCC839218B1BEE00C77CB1 /* AppDelegate.swift */,
 				49B4663621CAEE0000BE810C /* DependencyContainer.swift */,
 				84E7CDE52195B6D40088CF98 /* Model */,
@@ -759,6 +761,11 @@
 				TargetAttributes = {
 					22BCC835218B1BEE00C77CB1 = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -893,7 +900,7 @@
 				49941FAE21D3A88F00F91229 /* InfoAlertDisplayable.swift in Sources */,
 				4924A26F21A8793B00671450 /* WeatherService.swift in Sources */,
 				49CE3D2B21AF227D00A05CD0 /* RealmServiceType.swift in Sources */,
-				49CE3D2B21AF227D00A05CD0 /* AlarmServiceType.swift in Sources */,
+				49CE3D2B21AF227D00A05CD0 /* RealmServiceType.swift in Sources */,
 				22CF8FBD21F1FED0005FB844 /* CalendarEditSection.swift in Sources */,
 				4924610421C2BC0E001C0D37 /* RouteOverviewTableViewCell.swift in Sources */,
 				493FA95221CE656B00C2FFA1 /* Sequence+Extensions.swift in Sources */,

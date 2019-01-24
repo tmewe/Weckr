@@ -17,7 +17,7 @@ class CalendarEntry: Object {
     @objc dynamic var adress: String!
     @objc dynamic var location: GeoCoordinate!
     
-    convenience init(title: String, startDate: Date, endDate: Date, adress: String, location: GeoCoordinate) {
+    convenience init(title: String, startDate: Date, endDate: Date, adress: String, location: GeoCoordinate?) {
         self.init()
         self.title = title
         self.startDate = startDate

@@ -54,14 +54,12 @@ struct CalendarService: CalendarServiceType {
                 
                 let events = store.events(matching: predicate)
                     .sorted { $0.startDate < $1.startDate }
-                    //FIXME: Handle events without geolocation, don't just filter them out
-                    .filter { $0.structuredLocation?.geoLocation != nil }
                     .filter { !$0.isAllDay }
                     .map { ($0.title!,
                             $0.startDate!,
                             $0.endDate!,
                             $0.location!,
-                            GeoCoordinate(location: $0.structuredLocation!.geoLocation!))
+                            $0.structuredLocation?.geoLocation == nil ? nil : GeoCoordinate(location: $0.structuredLocation!.geoLocation!))
                     }
                     .map(CalendarEntry.init)
                 guard events.isEmpty else { return Observable.of(events) }
