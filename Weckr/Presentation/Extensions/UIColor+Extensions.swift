@@ -173,4 +173,12 @@ extension UIColor {
     class var eventEditCellRight: UIColor {
         return #colorLiteral(red: 0.1411764706, green: 0.2666666667, blue: 0.3098039216, alpha: 1)
     }
+    
+    class var segmentedControlUnselectedTint: UIColor {
+        return #colorLiteral(red: 0.6642268896, green: 0.6642268896, blue: 0.6642268896, alpha: 1)
+    }
+    
+    class var segmentedControlBackground: UIColor {
+        return #colorLiteral(red: 0.2666666667, green: 0.2666666667, blue: 0.2666666667, alpha: 1)
+    }
 }

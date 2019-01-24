@@ -104,6 +104,12 @@ class WalkthroughPageViewController: UIViewController {
     
     let topLabel = WalkthroughTitleLabel(title: "", alignment: .left)
     let bottomLabel = WalkthroughTitleLabel(title: "", alignment: .right)
-    let segmentedControl = VehicleSegmentedControl(items: ["Car", "Pedestrian", "Transit"])
+    let segmentedControl: VehicleSegmentedControl = {
+        //let items = [UIImage(named: "car.png")!, UIImage(named: "car.png")!,UIImage(named: "car.png")!]
+        let control = VehicleSegmentedControl()
+        control.items = ["icar.png", "walking.png", "bus.png"]
+        control.selectedIndex = 0
+        return control
+    }()
     let datePicker = TimePicker()
 }

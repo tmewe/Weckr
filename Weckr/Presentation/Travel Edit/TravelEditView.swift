@@ -65,7 +65,13 @@ class TravelEditView: BaseEditView, TravelEditViewProtocol {
         infoLabel.autoSetDimension(.height, toSize: 30)
     }
     
-    lazy var segmentedControl = VehicleSegmentedControl(items: ["Car", "Pedestrian", "Transit"])
+    let segmentedControl: VehicleSegmentedControl = {
+        //let items = [UIImage(named: "car.png")!, UIImage(named: "car.png")!,UIImage(named: "car.png")!]
+        let control = VehicleSegmentedControl()
+        control.items = ["icar.png", "walking.png", "bus.png"]
+        control.selectedIndex = 0
+        return control
+    }()
     lazy var switchContainer = UIView.newAutoLayout()
     lazy var weatherSwitch: UISwitch = {
         let sw = UISwitch.newAutoLayout()
