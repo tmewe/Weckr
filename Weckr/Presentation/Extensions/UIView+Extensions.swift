@@ -40,6 +40,51 @@ extension UIView {
             layer.insertSublayer(gradientLayer, at: 0)
         }
     }
+    
+    private struct AnimationKey {
+        static let Rotation = "rotation"
+        static let Bounce = "bounce"
+    }
+    
+    public func wiggle(){
+        
+        let wiggleBounceY = 2.0
+        let wiggleBounceDuration = 0.18
+        let wiggleBounceDurationVariance = 0.025
+        
+        let wiggleRotateAngle = 0.02
+        let wiggleRotateDuration = 0.14
+        let wiggleRotateDurationVariance = 0.025
+        
+        
+        //Create rotation animation
+        let rotationAnimation = CAKeyframeAnimation(keyPath: "transform.rotation.z")
+        rotationAnimation.values = [-wiggleRotateAngle, wiggleRotateAngle]
+        rotationAnimation.autoreverses = true
+        rotationAnimation.duration = randomize(interval: wiggleRotateDuration, withVariance: wiggleRotateDurationVariance)
+        rotationAnimation.repeatCount = .infinity
+        
+        //Create bounce animation
+        let bounceAnimation = CAKeyframeAnimation(keyPath: "transform.translation.y")
+        bounceAnimation.values = [wiggleBounceY, 0]
+        bounceAnimation.autoreverses = true
+        bounceAnimation.duration = randomize(interval: wiggleBounceDuration, withVariance: wiggleBounceDurationVariance)
+        bounceAnimation.repeatCount = .infinity
+        
+        //Apply animations to view
+        UIView.animate(withDuration: 0) {
+            self.layer.add(rotationAnimation, forKey: AnimationKey.Rotation)
+            self.layer.add(bounceAnimation, forKey: AnimationKey.Bounce)
+            self.transform = .identity
+        }
+    }
+    
+    // Utility
+    
+    private func randomize(interval: TimeInterval, withVariance variance: Double) -> Double{
+        let random = (Double(arc4random_uniform(1000)) - 500.0) / 500.0
+        return interval + variance * random
+    }
 }
 
 extension Reactive where Base: UIView {

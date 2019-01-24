@@ -144,6 +144,8 @@ struct RealmService: RealmServiceType {
         
         let defaults = UserDefaults.standard
         let vehicle = defaults.integer(forKey: SettingsKeys.transportMode)
+        let adjustForWeatherWanted = defaults.bool(forKey: SettingsKeys.adjustForWeather)
+    
         let morningRoutineTime = defaults.double(forKey: SettingsKeys.morningRoutineTime)
         
         let calendarService = serviceFactory.createCalendar()
@@ -152,7 +154,10 @@ struct RealmService: RealmServiceType {
         let geocodingService = serviceFactory.createGeocoder()
         let alarmUpdateService = serviceFactory.createAlarmUpdate()
         
-        let vehicleObservable = Observable.just(vehicle).map { TransportMode(mode: $0) }
+        let selectedVehicleObservable = Observable.just(vehicle).map { TransportMode(mode: $0) }
+        let adjustWantedObservable = Observable.just(adjustForWeatherWanted)
+        
+        
         let startLocationObservable = Observable.just(startLocation)
         let events: Observable<[CalendarEntry]>!
         
@@ -174,10 +179,21 @@ struct RealmService: RealmServiceType {
             .flatMap{ try geocodingService.geocode($0, realmService: self) }
             .debug("end location", trimOutput: true)
         
+        let weatherForecast = startLocationObservable
+            .map(weatherService.forecast)
+            .flatMapLatest { $0 }
+        
+
+        
         let route = Observable
             .zip(vehicleObservable, startLocationObservable, endLocation, arrival)
             .take(1)
             .flatMapLatest(routingService.route)
+            .withLatestFrom(adjustWantedObservable) {($0, $1)}
+            .map { (params) -> Route in
+                params.0.smartAdjusted = params.1
+                return params.0
+            }
             .share(replay: 1, scope: .forever)
             .debug("route", trimOutput: true)
         

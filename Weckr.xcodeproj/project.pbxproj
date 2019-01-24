@@ -147,6 +147,7 @@
 		221202842197121C00474B5D /* UILabel+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
 		2245867F219722EF00072C6C /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		2245868121972D5200072C6C /* WalkthroughSlideable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughSlideable.swift; sourceTree = "<group>"; };
+		2292A06F21F9AC28006EDC3A /* Weckr.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Weckr.entitlements; sourceTree = "<group>"; };
 		22975B7C712437B3CE4FCE59 /* Pods-Weckr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weckr.release.xcconfig"; path = "Pods/Target Support Files/Pods-Weckr/Pods-Weckr.release.xcconfig"; sourceTree = "<group>"; };
 		22BCC836218B1BEE00C77CB1 /* Weckr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weckr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22BCC839218B1BEE00C77CB1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -346,6 +347,7 @@
 		22BCC838218B1BEE00C77CB1 /* Weckr */ = {
 			isa = PBXGroup;
 			children = (
+				2292A06F21F9AC28006EDC3A /* Weckr.entitlements */,
 				22BCC839218B1BEE00C77CB1 /* AppDelegate.swift */,
 				49B4663621CAEE0000BE810C /* DependencyContainer.swift */,
 				84E7CDE52195B6D40088CF98 /* Model */,
