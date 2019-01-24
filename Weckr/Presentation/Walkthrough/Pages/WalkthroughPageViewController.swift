@@ -85,7 +85,7 @@ class WalkthroughPageViewController: UIViewController {
     
     private func setupSegmentedControl() {
         view.addSubview(segmentedControl)
-        segmentedControl.autoSetDimensions(to: CGSize(width: 300, height: 50))
+        segmentedControl.autoSetDimensions(to: CGSize(width: 300, height: 65))
         segmentedControl.autoCenterInSuperview()
         segmentedControl.rx.selectedSegmentIndex
             .map { TransportMode(mode: $0) }
@@ -105,7 +105,6 @@ class WalkthroughPageViewController: UIViewController {
     let topLabel = WalkthroughTitleLabel(title: "", alignment: .left)
     let bottomLabel = WalkthroughTitleLabel(title: "", alignment: .right)
     let segmentedControl: VehicleSegmentedControl = {
-        //let items = [UIImage(named: "car.png")!, UIImage(named: "car.png")!,UIImage(named: "car.png")!]
         let control = VehicleSegmentedControl()
         control.items = ["icar.png", "walking.png", "bus.png"]
         control.selectedIndex = 0

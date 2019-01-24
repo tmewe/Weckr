@@ -44,7 +44,7 @@ class TravelEditView: BaseEditView, TravelEditViewProtocol {
     private func setupConstraints() {
         let insets = Constraints.Main.Edit.self
         segmentedControl.autoCenterInSuperview()
-        segmentedControl.autoSetDimensions(to: CGSize(width: 300, height: 50))
+        segmentedControl.autoSetDimensions(to: CGSize(width: 300, height: 65))
         
         switchContainer.autoPinEdge(.top, to: .bottom, of: segmentedControl)
         switchContainer.autoPinEdge(.bottom, to: .top, of: button)
@@ -66,7 +66,6 @@ class TravelEditView: BaseEditView, TravelEditViewProtocol {
     }
     
     let segmentedControl: VehicleSegmentedControl = {
-        //let items = [UIImage(named: "car.png")!, UIImage(named: "car.png")!,UIImage(named: "car.png")!]
         let control = VehicleSegmentedControl()
         control.items = ["icar.png", "walking.png", "bus.png"]
         control.selectedIndex = 0
