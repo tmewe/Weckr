@@ -215,4 +215,24 @@ struct RealmService: RealmServiceType {
 //        return alarm
     }
     
+    func createDummyAlarm() {
+        let route = Route()
+        let weather = WeatherForecast()
+        let location = GeoCoordinate(lat: 48.1639, long: 11.5644)
+        let calLocation = CalendarLocation(address: "address", geoLocation: location)
+        let entry = CalendarEntry(title: "Dummy",
+                                  startDate: Date(),
+                                  endDate: Date(),
+                                  adress: "address",
+                                  location: calLocation)
+        
+        let alarm = Alarm(route: route,
+                          weather: weather,
+                          location: location,
+                          morningRoutine: 60,
+                          selectedEvent: entry,
+                          otherEvents: [entry])
+        alarm.date = ( Date() - 1.days ).dateAtStartOf(.day)
+        save(alarm: alarm)
+    }
 }

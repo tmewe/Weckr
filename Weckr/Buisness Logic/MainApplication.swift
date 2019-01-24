@@ -35,6 +35,8 @@ final class MainApplication: NSObject, MainApplicationProtocol {
          serviceFactory: ServiceFactoryProtocol) {
         self.viewModelFactory = viewModelFactory
         self.serviceFactory = serviceFactory
+        
+        realmService.deletePastAlarms()
     }
     
     //FIXME: - We need a new coordinator implementation where we dont need the window

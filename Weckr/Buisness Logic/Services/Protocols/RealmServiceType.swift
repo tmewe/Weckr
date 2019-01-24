@@ -48,4 +48,6 @@ protocol RealmServiceType {
     func createAlarmPrior(to date: Date,
                           startLocation: GeoCoordinate,
                           serviceFactory: ServiceFactoryProtocol) -> Observable<AlarmCreationResult<Alarm>>
+    
+    func createDummyAlarm()
 }
