@@ -232,10 +232,6 @@ class WalkthroughViewModel: WalkthroughViewModelType {
                                              button: Strings.Error.gotit)
                         alertInfo.onNext(info)
                 }
-                
-                
-            }, onError: { error in
-                
             })
             .disposed(by: disposeBag)
     }

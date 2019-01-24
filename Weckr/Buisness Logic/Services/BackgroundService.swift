@@ -11,19 +11,28 @@ import RxSwift
 
 protocol BackgroundServiceType {
     func createFirstAlarm(at location: Observable<GeoCoordinate>,
-                          serviceFactory: ServiceFactoryProtocol, disposeBag: DisposeBag)
-    func updateCurrent(alarm: Alarm?, serviceFactory: ServiceFactoryProtocol, disposeBag: DisposeBag)
-    func updateEventsPrior(to alarm: Alarm?, location: Observable<GeoCoordinate>,
-                           serviceFactory: ServiceFactoryProtocol, disposeBag: DisposeBag)
+                          realmService: RealmServiceType,
+                          serviceFactory: ServiceFactoryProtocol,
+                          disposeBag: DisposeBag)
+    func updateCurrent(alarm: Alarm?,
+                       updateService: AlarmUpdateServiceType,
+                       serviceFactory: ServiceFactoryProtocol,
+                       disposeBag: DisposeBag)
+    func updateEventsPrior(to alarm: Alarm?,
+                           location: Observable<GeoCoordinate>,
+                           realmService: RealmServiceType,
+                           serviceFactory: ServiceFactoryProtocol,
+                           disposeBag: DisposeBag)
 }
 
-struct BackgroundService: BackgroundServiceType {
+class BackgroundService: BackgroundServiceType {
+    
     
     func createFirstAlarm(at location: Observable<GeoCoordinate>,
+                          realmService: RealmServiceType,
                           serviceFactory: ServiceFactoryProtocol,
                           disposeBag: DisposeBag) {
         log.info("Background fetch: New first alarm start")
-        let realmService = serviceFactory.createRealm()
         location
             .debug("background new", trimOutput: true)
             .flatMap { realmService
@@ -32,9 +41,11 @@ struct BackgroundService: BackgroundServiceType {
             .disposed(by: disposeBag)
     }
     
-    func updateCurrent(alarm: Alarm?, serviceFactory: ServiceFactoryProtocol, disposeBag: DisposeBag) {
+    func updateCurrent(alarm: Alarm?,
+                       updateService: AlarmUpdateServiceType,
+                       serviceFactory: ServiceFactoryProtocol,
+                       disposeBag: DisposeBag) {
         log.info("Background fetch: Updated current alarm start")
-        let updateService = serviceFactory.createAlarmUpdate()
         Observable.just(alarm)
             .filterNil()
             .map { updateService.updateEvents(for: $0,
@@ -46,10 +57,10 @@ struct BackgroundService: BackgroundServiceType {
     
     func updateEventsPrior(to alarm: Alarm?,
                            location: Observable<GeoCoordinate>,
+                           realmService: RealmServiceType,
                            serviceFactory: ServiceFactoryProtocol,
                            disposeBag: DisposeBag) {
         log.info("Background fetch: Updated prior to alarm start")
-        let realmService = serviceFactory.createRealm()
         let date = Observable.just(alarm)
             .filterNil()
             .filter { !$0.isInvalidated } //Needed if alarm gets deleted

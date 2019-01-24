@@ -148,6 +148,7 @@ struct RealmService: RealmServiceType {
         let firstEvent = events
             .map { $0.first }
             .filterNil()
+            .debug("first event", trimOutput: false)
             .share(replay: 1, scope: .forever)
         
         let morningRoutineObservable = Observable.just(morningRoutineTime)
@@ -156,26 +157,22 @@ struct RealmService: RealmServiceType {
         
         let endLocation = firstEvent
             .flatMap{ try geocodingService.geocode($0, realmService: self) }
-//            .catchError { error in throw(error) }
-        
-//        do { endLocation = firstEvent
-//            .flatMap{ try geocodingService.geocode($0, realmService: self) }
-//            .catchError { error in throw(error) } }
-//        catch let error as AppError { return .just(AlarmCreationResult.Failure(error)) }
-//        catch { return .just(AlarmCreationResult.Failure(CalendarError.undefined)) }
+            .debug("end location", trimOutput: true)
         
         let route = Observable
-            .combineLatest(vehicleObservable, startLocationObservable, endLocation, arrival)
+            .zip(vehicleObservable, startLocationObservable, endLocation, arrival)
             .take(1)
             .flatMapLatest(routingService.route)
             .share(replay: 1, scope: .forever)
+            .debug("route", trimOutput: true)
         
         let weatherForecast = startLocationObservable
             .take(1)
             .flatMapLatest(weatherService.forecast)
-            .debug()
+            .debug("weather", trimOutput: true)
         
         return Observable.zip(route, weatherForecast) { ($0, $1) }
+            .debug("zip", trimOutput: false)
             .withLatestFrom(startLocationObservable) {  ($0.0, $0.1, $1) }
             .withLatestFrom(morningRoutineObservable) { ($0.0, $0.1, $0.2, $1) }
             .withLatestFrom(firstEvent) {               ($0.0, $0.1, $0.2, $0.3, $1) }

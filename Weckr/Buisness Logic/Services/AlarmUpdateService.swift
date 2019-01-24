@@ -118,10 +118,11 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
         do {
             
             let events = try calendarService.fetchEvents(at: alarm.date, calendars: nil)
+                    .filterEmpty()
                     .share(replay: 1, scope: .forever)
+            let transportMode = TransportMode(mode: UserDefaults.standard.integer(forKey: SettingsKeys.transportMode))
             
             events
-                .filterEmpty()
                 .subscribe(onNext: { events in
                     
                     let realmService = serviceFactory.createRealm()
@@ -133,6 +134,12 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
                                        otherEvents: events)
                     update.id = alarm.id
                     self.update(alarm: update, service: realmService)
+                    self.updateRoute(for: alarm,
+                                     mode: transportMode,
+                                     start: alarm.location,
+                                     event: alarm.selectedEvent,
+                                     serviceFactory: serviceFactory,
+                                     disposeBag: disposeBag)
                 })
                 .disposed(by: disposeBag)
         }

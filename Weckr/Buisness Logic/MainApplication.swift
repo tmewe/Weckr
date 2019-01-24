@@ -26,6 +26,9 @@ final class MainApplication: NSObject, MainApplicationProtocol {
     private let serviceFactory: ServiceFactoryProtocol
     private let locationManager = CLLocationManager()
     private let disposeBag = DisposeBag()
+    private let backgroundService = BackgroundService()
+    private let realmService = RealmService()
+    private let updateService = AlarmUpdateService()
 //    private var currentLocation: GeoCoordinate?
     
     init(viewModelFactory: ViewModelFactoryProtocol,
@@ -43,13 +46,12 @@ final class MainApplication: NSObject, MainApplicationProtocol {
     }
     
     func application(_ application: UIApplication,
-                     performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+                     performFetchWithCompletionHandler
+        completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         
         let started = UserDefaults.standard.bool(forKey: SettingsKeys.appHasBeenStarted)
         guard started else { return }
         
-        let backgroundService = serviceFactory.createBackground()
-        let realmService = serviceFactory.createRealm()
         let currentLocation = locationManager.rx.location
             .debug("location", trimOutput: true)
             .filterNil()
@@ -61,6 +63,7 @@ final class MainApplication: NSObject, MainApplicationProtocol {
         let currentAlarm = realmService.currentAlarm()
         guard currentAlarm != nil else {
             backgroundService.createFirstAlarm(at: currentLocation,
+                                               realmService: realmService,
                                                serviceFactory: serviceFactory,
                                                disposeBag: disposeBag)
             completionHandler(.newData)
@@ -69,12 +72,14 @@ final class MainApplication: NSObject, MainApplicationProtocol {
         
         //Update events on current alarm date
         backgroundService.updateCurrent(alarm: currentAlarm,
+                                        updateService: updateService,
                                         serviceFactory: serviceFactory,
                                         disposeBag: disposeBag)
         
         //Check for events before current alarm
         backgroundService.updateEventsPrior(to: currentAlarm,
                                             location: currentLocation,
+                                            realmService: realmService,
                                             serviceFactory: serviceFactory,
                                             disposeBag: disposeBag)
         

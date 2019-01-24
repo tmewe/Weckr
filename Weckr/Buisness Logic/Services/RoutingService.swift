@@ -19,7 +19,7 @@ struct RoutingService: RoutingServiceType {
     private var hereMaps: MoyaProvider<HereMaps>
     
     init(hereMaps: MoyaProvider<HereMaps>
-        = MoyaProvider<HereMaps>(plugins: [NetworkLoggerPlugin(verbose: false)])) {
+        = MoyaProvider<HereMaps>(plugins: [NetworkLoggerPlugin(verbose: true)])) {
         self.hereMaps = hereMaps
     }
     
