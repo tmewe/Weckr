@@ -10,11 +10,11 @@ import Realm
 import RealmSwift
 
 @objcMembers class Route: Object, Decodable {
-    var smartAdjusted = true;
     let legs = List<Leg>()
     let transitLines = List<TransitLine>()
     dynamic var summary: RouteSummary!
     dynamic var rawTransportMode: String!
+    dynamic var smartAdjusted: Bool = false;
     
     var transportMode: TransportMode {
         get {
