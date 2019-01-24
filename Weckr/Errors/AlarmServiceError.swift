@@ -10,5 +10,6 @@ import Foundation
 
 enum AlarmServiceError: Error {
     case creationFailed
+    case updateFailed
     case deletionFailed(Alarm)
 }

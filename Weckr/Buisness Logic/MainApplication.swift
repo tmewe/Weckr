@@ -8,26 +8,91 @@
 
 import Foundation
 import UIKit
+import CoreLocation
+import RxSwift
+import SwiftyBeaver
+
+let log = SwiftyBeaver.self
 
 protocol MainApplicationProtocol {
     func start(window: UIWindow)
+    func application(_ application: UIApplication,
+                     performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void)
 }
 
-final class MainApplication: MainApplicationProtocol {
+final class MainApplication: NSObject, MainApplicationProtocol {
     
     private let viewModelFactory: ViewModelFactoryProtocol
+    private let serviceFactory: ServiceFactoryProtocol
+    private let locationManager = CLLocationManager()
+    private let disposeBag = DisposeBag()
+    private let backgroundService = BackgroundService()
+    private let realmService = RealmService()
+    private let updateService = AlarmUpdateService()
+//    private var currentLocation: GeoCoordinate?
     
-    init(viewModelFactory: ViewModelFactoryProtocol) {
+    init(viewModelFactory: ViewModelFactoryProtocol,
+         serviceFactory: ServiceFactoryProtocol) {
         self.viewModelFactory = viewModelFactory
+        self.serviceFactory = serviceFactory
     }
     
     //FIXME: - We need a new coordinator implementation where we dont need the window
     func start(window: UIWindow) {
+        UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplication.backgroundFetchIntervalMinimum)
+    
         setupLogging()
         startCoordinator(window: window)
     }
     
+    func application(_ application: UIApplication,
+                     performFetchWithCompletionHandler
+        completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        
+        let started = UserDefaults.standard.bool(forKey: SettingsKeys.appHasBeenStarted)
+        guard started else { return }
+        
+        let currentLocation = locationManager.rx.location
+            .debug("location", trimOutput: true)
+            .filterNil()
+            .map { ($0.coordinate.latitude, $0.coordinate.longitude) }
+            .map(GeoCoordinate.init)
+            .share(replay: 1, scope: .forever)
+        
+        //Create alarm if there is no current alarm
+        let currentAlarm = realmService.currentAlarm()
+        guard currentAlarm != nil else {
+            backgroundService.createFirstAlarm(at: currentLocation,
+                                               realmService: realmService,
+                                               serviceFactory: serviceFactory,
+                                               disposeBag: disposeBag)
+            completionHandler(.newData)
+            return
+        }
+        
+        //Update events on current alarm date
+        backgroundService.updateCurrent(alarm: currentAlarm,
+                                        updateService: updateService,
+                                        serviceFactory: serviceFactory,
+                                        disposeBag: disposeBag)
+        
+        //Check for events before current alarm
+        backgroundService.updateEventsPrior(to: currentAlarm,
+                                            location: currentLocation,
+                                            realmService: realmService,
+                                            serviceFactory: serviceFactory,
+                                            disposeBag: disposeBag)
+        
+        //Check location and update route for current alarm
+        
+        completionHandler(.newData)
+    }
+    
     private func setupLogging() {
+        let console = ConsoleDestination()
+        console.format = "$DHH:mm:ss.SSS$d $C$L$c\t$N[$l] $F - $M"
+        console.minLevel = .verbose
+        log.addDestination(console)
     }
     
     private func startCoordinator(window: UIWindow) {

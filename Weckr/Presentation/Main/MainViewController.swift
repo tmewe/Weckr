@@ -15,7 +15,7 @@ import Action
 import RxAppState
 import UserNotifications
 
-class MainViewController: UITableViewController, BindableType, ErrorDisplayable {
+class MainViewController: UITableViewController, BindableType, ErrorDisplayable, InfoAlertDisplayable {
     
     
     typealias ViewModelType = MainViewModelType
@@ -75,7 +75,11 @@ class MainViewController: UITableViewController, BindableType, ErrorDisplayable 
         
         viewModel.outputs.errorOccurred
             .asDriver(onErrorJustReturn: nil)
-            .drive(onNext:  { $0 == nil ? self.hideError() : self.showError(error: $0!) })
+            .drive(onNext:  configureErrorView)
+            .disposed(by: disposeBag)
+        
+        viewModel.outputs.showAlert
+            .subscribe(onNext: showInfoAlert)
             .disposed(by: disposeBag)
         
         tableView.rx.willDisplayCell
@@ -135,6 +139,18 @@ class MainViewController: UITableViewController, BindableType, ErrorDisplayable 
             .disposed(by: disposeBag)
     }
     
+    private func configureErrorView(error: AppError?) {
+        
+        guard let error = error else {
+            self.hideError()
+            self.tableView.isScrollEnabled = true
+            return
+        }
+        
+        self.tableView.isScrollEnabled = false
+        self.showError(error: error)
+    }
+    
     private func configureDataSource() -> RxTableViewSectionedAnimatedDataSource<AlarmSection> {
         let dataSource = RxTableViewSectionedAnimatedDataSource<AlarmSection>(
             configureCell: { dataSource, tableView, indexPath, item in
@@ -170,7 +186,7 @@ class MainViewController: UITableViewController, BindableType, ErrorDisplayable 
                 }
         })
         
-        dataSource.animationConfiguration = AnimationConfiguration(insertAnimation: .top,
+        dataSource.animationConfiguration = AnimationConfiguration(insertAnimation: .fade,
                                                                    reloadAnimation: .fade,
                                                                    deleteAnimation: .fade)
         return dataSource

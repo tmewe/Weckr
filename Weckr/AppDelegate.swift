@@ -13,11 +13,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     private lazy var dependencyContainer = DependencyContainer()
+    private var mainApplication: MainApplicationProtocol!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        let mainApplication = dependencyContainer.buildApplication()
+        mainApplication = dependencyContainer.buildApplication()
         mainApplication.start(window: window!)
+        log.info("Application did finish launching")
         return true
+    }
+    
+    func application(_ application: UIApplication,
+                     performFetchWithCompletionHandler
+        completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        log.info("Application perform fetch")
+        mainApplication.application(application, performFetchWithCompletionHandler: completionHandler)
     }
 }
 

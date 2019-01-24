@@ -16,6 +16,10 @@ import RealmSwift
     dynamic var humidity: Double = 0.0
     dynamic var rainAmount: Double = 0.0
     
+    override public class func primaryKey() -> String? {
+        return "date"
+    }
+    
     enum CodingKeys: String, CodingKey {
         case date = "dt"
         case main

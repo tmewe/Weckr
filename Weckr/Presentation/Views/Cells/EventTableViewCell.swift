@@ -52,7 +52,7 @@ class EventTableViewCell: TileTableViewCell, BasicInfoDisplayable {
         infoView.headerInfoView.rightLabel.text = time.timeSpan.uppercased()
         
         //Location
-        locationLabel.text = event.adress
+        locationLabel.text = event.address
     }
     
     override func awakeAfter(using aDecoder: NSCoder) -> Any? {

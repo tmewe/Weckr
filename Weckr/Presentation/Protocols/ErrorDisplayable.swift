@@ -21,7 +21,6 @@ extension ErrorDisplayable where Self: UIViewController {
         errorView.setError(error)
         UIApplication.shared.statusBarView?.backgroundColor = UIColor.backGroundColorTransparent
         view.addSubview(errorView)
-        
     }
     
     func hideError() {

@@ -22,4 +22,5 @@ target 'Weckr' do
   pod 'SwiftDate', '~> 5.0'
   pod 'FoldingCell', '~> 4.0.2'
   pod 'RxAppState'
+  pod 'SwiftyBeaver'
 end

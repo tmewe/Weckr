@@ -24,16 +24,18 @@ protocol ServiceFactoryProtocol {
     func createWeather() -> WeatherServiceType
     func createRouting() -> RoutingServiceType
     func createCalendar() -> CalendarServiceType
-    func createAlarm() -> RealmServiceType
+    func createRealm() -> RealmServiceType
     func createGeocoder() -> GeocodingServiceType
     func createAuthorizationStatus() -> AuthorizationStatusServiceType
     func createAlarmScheduler() -> AlarmSchedulerServiceType
     func createAlarmUpdate() -> AlarmUpdateService
+    func createBackground() -> BackgroundServiceType
 }
 
 final class DependencyContainer {
     private lazy var mainApplication: MainApplicationProtocol = MainApplication(
-        viewModelFactory: self
+        viewModelFactory: self,
+        serviceFactory: self
     )
 }
 
@@ -86,7 +88,7 @@ extension DependencyContainer: ServiceFactoryProtocol {
         return CalendarService()
     }
     
-    func createAlarm() -> RealmServiceType {
+    func createRealm() -> RealmServiceType {
         return RealmService()
     }
     
@@ -104,5 +106,9 @@ extension DependencyContainer: ServiceFactoryProtocol {
     
     func createAlarmUpdate() -> AlarmUpdateService {
         return AlarmUpdateService()
+    }
+    
+    func createBackground() -> BackgroundServiceType {
+        return BackgroundService()
     }
 }

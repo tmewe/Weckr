@@ -9,50 +9,34 @@
 import Foundation
 import CoreLocation
 import RxSwift
+import RealmSwift
 
 protocol GeocodingServiceType{
-    func geocode(_ entry: CalendarEntry) -> Observable<CalendarEntry>
+    func geocode(_ entry: CalendarEntry, realmService: RealmServiceType) throws -> Observable<GeoCoordinate>
 }
 
 class GeocodingService: GeocodingServiceType {
     
-    lazy var geocoder = CLGeocoder()
-    
-    func geocode(_ entry: CalendarEntry) -> Observable<CalendarEntry> {
-        if (entry.location != nil) { return Observable.just(entry) }
-    return self.geocodeAddressString(address: entry.adress)
-            .map(self.processResponse)
-            .flatMap {$0}
-            .map {
-                entry.location = $0
-                return entry
-            }.debug()
-    }
-    
-    /// Get an array of CLPlacemark
-    private func geocodeAddressString(address: String) -> Observable<[CLPlacemark]> {
-        let sub = PublishSubject<[CLPlacemark]>()
-        geocoder.geocodeAddressString(address, completionHandler: { (placemarks, error) in
-            if (error == nil) { sub.onNext(placemarks!) }
-            else { sub.onError(error!) }
-        })
-        return sub
-    }
-    
-    /// Convert an array of CLPlacemark to a Geocoding Object
-    private func processResponse(_ placemarks: [CLPlacemark]?) -> Observable<GeoCoordinate> {
-        var location: CLLocation?
-        if let placemarks = placemarks, placemarks.count > 0 {
-            location = placemarks.first?.location
+    func geocode(_ entry: CalendarEntry, realmService: RealmServiceType) throws -> Observable<GeoCoordinate> {
+        let geocoder = CLGeocoder()
+
+        guard entry.location.geoLocation == nil else {
+            return Observable.just(entry.location.geoLocation!)
         }
         
-        if let location = location {
-            let coord = GeoCoordinate.init(lat: location.coordinate.latitude, long: location.coordinate.longitude)
-            return Observable.just(coord)
-        } else {
-            return Observable.error(GeocodeError.noMatch)
-        }
-        
+        return geocoder.rx.geocodeAddressString(entry.address)
+            .map { $0.0 }
+            .debug("geocoding", trimOutput: true)
+            .catchOnNil { throw(GeocodeError.noMatch) }
+            .catchOnEmpty { throw(GeocodeError.noMatch) }
+//            .errorOnEmpty(GeocodeError.noMatch)
+            .map { $0.first! }
+            .map { $0.location! }
+            .map(GeoCoordinate.init)
+            .flatMap(realmService.checkExisting)
+            .do(onNext: { result in
+                if result.0 { realmService.update(location: result.1, for: entry) }
+            })
+            .map { $0.1 }
     }
-    
 }

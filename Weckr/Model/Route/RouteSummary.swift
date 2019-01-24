@@ -16,6 +16,10 @@ import RealmSwift
     dynamic var trafficTime: Int = 0 //seconds
     dynamic var text: String!
     
+    override public class func primaryKey() -> String? {
+        return "distance"
+    }
+    
     enum CodingKeys: String, CodingKey {
         case distance = "distance"
         case travelTime = "travelTime"

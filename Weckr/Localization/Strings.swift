@@ -146,6 +146,11 @@ struct Strings {
             static let noEventsTitle = "error.calendar.noEvents.title".localized
             static let noEventsMessage = "error.calendar.noEvents.message".localized
         }
+        
+        struct GeoCoding {
+            static let noMatchTitle = "error.geocoding.noMatch.title".localized
+            static let noMatchMessage = "error.geocoding.noMatch.message".localized
+        }
     }
     
     private static func generatePrefix(from: String) -> String {

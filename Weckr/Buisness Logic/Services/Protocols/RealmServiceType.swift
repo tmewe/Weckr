@@ -11,12 +11,20 @@ import RxSwift
 import RealmSwift
 import CoreLocation
 
+public typealias LocationCheckResult = (Bool, GeoCoordinate)
+
 protocol RealmServiceType {
     @discardableResult
     func save(alarm: Alarm) -> Observable<Alarm>
     
-//    @discardableResult
-//    func delete(alarm: Alarm) -> Observable<Void>
+    @discardableResult
+    func update(alarm: Alarm) -> Observable<Alarm>
+    
+    @discardableResult
+    func update(location: GeoCoordinate, for entry: CalendarEntry) -> Observable<CalendarEntry>
+    
+    @discardableResult
+    func delete(alarm: Alarm) -> Observable<Void>
 //
 //    @discardableResult
 //    func allAlarms() -> Observable<Results<Alarm>>
@@ -26,6 +34,8 @@ protocol RealmServiceType {
     
     @discardableResult
     func currentAlarm() -> Alarm?
+    
+    func checkExisting(location: GeoCoordinate) -> Observable<LocationCheckResult>
     
     @discardableResult
     func createFirstAlarm(startLocation: GeoCoordinate,

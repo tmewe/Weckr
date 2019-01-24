@@ -23,10 +23,10 @@ struct RealmService: RealmServiceType {
     fileprivate func withRealm<T>(_ operation: String, action: (Realm) throws -> T) -> T? {
         do {
             let realm = try Realm()
-            print("Realm is located at:", realm.configuration.fileURL!)
+            log.info("Realm is located at: " + realm.configuration.fileURL!.absoluteString)
             return try action(realm)
         } catch let err {
-            print("Failed \(operation) realm with error: \(err)")
+            log.error("Failed \(operation) realm with error: \(err)")
             return nil
         }
     }
@@ -37,10 +37,46 @@ struct RealmService: RealmServiceType {
             try realm.write {
                 alarm.id = (realm.objects(Alarm.self).max(ofProperty: "id") ?? 0) + 1
                 realm.add(alarm, update: true)
+                log.info("Created alarm at \(alarm.date!)")
             }
             return .just(alarm)
         }
         return result ?? .error(AlarmServiceError.creationFailed)
+    }
+    
+    @discardableResult
+    func update(alarm: Alarm) -> Observable<Alarm> {
+        let result = withRealm("updating alarm") { realm -> Observable<Alarm> in
+            try realm.write {
+                realm.add(alarm, update: true)
+                log.info("Updated alarm at \(alarm.date!)")
+            }
+            return .just(alarm)
+        }
+        return result ?? .error(AlarmServiceError.updateFailed)
+    }
+    
+    @discardableResult
+    func update(location: GeoCoordinate, for entry: CalendarEntry) -> Observable<CalendarEntry> {
+        let result = withRealm("updating location on entry") { realm -> Observable<CalendarEntry> in
+            try realm.write {
+                entry.location.geoLocation = location
+            }
+            return .just(entry)
+        }
+        return result ?? .error(AlarmServiceError.updateFailed)
+    }
+    
+    @discardableResult
+    func delete(alarm: Alarm) -> Observable<Void> {
+        let result = withRealm("deleting") { realm -> Observable<Void> in
+            try realm.write {
+                log.info("Deleting alarm at \(alarm.date!)")
+                realm.delete(alarm)
+            }
+            return .empty()
+        }
+        return result ?? .error(AlarmServiceError.deletionFailed(alarm))
     }
     
     @discardableResult
@@ -49,7 +85,8 @@ struct RealmService: RealmServiceType {
             let alarms = realm.objects(Alarm.self)
             return Observable.array(from: alarms)
                 .map { alarms in
-                    return alarms.sorted { $0.date < $1.date }.first(where: { $0.date > Date() })
+                    let start = (Date() + 1.days).dateAtStartOf(.day)
+                    return alarms.sorted { $0.date < $1.date }.first(where: { $0.date > start })
                 }
         }
         return result ?? .empty()
@@ -59,9 +96,21 @@ struct RealmService: RealmServiceType {
     func currentAlarm() -> Alarm? {
         let result = withRealm("getting alarms") { realm -> Alarm? in
             let alarms = realm.objects(Alarm.self)
+            let start = (Date() + 1.days).dateAtStartOf(.day)
             return alarms
                 .sorted { $0.date < $1.date }
-                .first(where: { $0.date > Date() })
+                .first(where: { $0.date > start })
+        }
+        return result!
+    }
+        
+    //Returns nil if geocoordinate exists
+    func checkExisting(location: GeoCoordinate) -> Observable<LocationCheckResult> {
+        let result = withRealm("getting locations") { realm -> Observable<LocationCheckResult> in
+            let key = location.compoundKey
+            let fetched = realm.object(ofType: GeoCoordinate.self, forPrimaryKey: key)
+            guard fetched != nil else { return .just((false, location)) }
+            return .just((true, fetched!))
         }
         return result!
     }
@@ -104,6 +153,7 @@ struct RealmService: RealmServiceType {
         let firstEvent = events
             .map { $0.first }
             .filterNil()
+            .debug("first event", trimOutput: false)
             .share(replay: 1, scope: .forever)
         
         let morningRoutineObservable = Observable.just(morningRoutineTime)
@@ -111,8 +161,8 @@ struct RealmService: RealmServiceType {
         let arrival = firstEvent.map { $0.startDate }.filterNil()
         
         let endLocation = firstEvent
-            .map { $0.location! }
-            .debug()
+            .flatMap{ try geocodingService.geocode($0, realmService: self) }
+            .debug("end location", trimOutput: true)
         
         let weatherForecast = startLocationObservable
             .map(weatherService.forecast)
@@ -121,7 +171,7 @@ struct RealmService: RealmServiceType {
 
         
         let route = Observable
-            .combineLatest(selectedVehicleObservable, startLocationObservable, endLocation, arrival)
+            .zip(vehicleObservable, startLocationObservable, endLocation, arrival)
             .take(1)
             .flatMapLatest(routingService.route)
             .withLatestFrom(adjustWantedObservable) {($0, $1)}
@@ -130,21 +180,31 @@ struct RealmService: RealmServiceType {
                 return params.0
             }
             .share(replay: 1, scope: .forever)
+            .debug("route", trimOutput: true)
         
-        let alarm = Observable.zip(route, weatherForecast) { ($0, $1) }
+        let weatherForecast = startLocationObservable
+            .take(1)
+            .flatMapLatest(weatherService.forecast)
+            .debug("weather", trimOutput: true)
+        
+        return Observable.zip(route, weatherForecast) { ($0, $1) }
+            .debug("zip", trimOutput: false)
             .withLatestFrom(startLocationObservable) {  ($0.0, $0.1, $1) }
             .withLatestFrom(morningRoutineObservable) { ($0.0, $0.1, $0.2, $1) }
             .withLatestFrom(firstEvent) {               ($0.0, $0.1, $0.2, $0.3, $1) }
             .withLatestFrom(events) {                   ($0.0, $0.1, $0.2, $0.3, $0.4, $1) }
             .take(1)
-            .observeOn(ConcurrentDispatchQueueScheduler(qos: .background))
+//            .observeOn(ConcurrentDispatchQueueScheduler(qos: .background))
             .map(Alarm.init)
             .flatMapLatest(alarmUpdateService.calculateDate)
             .flatMapLatest (save)
             .map { AlarmCreationResult.Success($0) }
             .observeOn(MainScheduler.instance)
+            .catchError { error in
+                .just(AlarmCreationResult.Failure(GeocodeError.noMatch))
+            }
         
-        return alarm
+//        return alarm
     }
     
 }

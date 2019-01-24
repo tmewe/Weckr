@@ -65,11 +65,26 @@ UIApplication.shared.rx.firstLaunchOnly
     })
     .disposed(by: disposeBag)
 ```
-You want to show your user a message when he opens the app for the first time after an update?
+You want to show your user what features are new when he opens the app for the first time after an update?
 
 ```swift
 UIApplication.shared.rx.firstLaunchOfNewVersionOnly
-    .subscribe(onNext: { _ in
+    .subscribe(onNext: { version in
+        let previousAppVersion = version.previous
+        let currentAppVersion = version.current
+        // show what has changed between
+        // the previous and the current version
+    })
+    .disposed(by: disposeBag)
+```
+
+You want check the previous and the current app version each time the user opens the app?
+
+```swift
+UIApplication.shared.rx.appVersion
+    .subscribe(onNext: { version in
+        let previousAppVersion = version.previous
+        let currentAppVersion = version.current
         // run your code
     })
     .disposed(by: disposeBag)
@@ -77,7 +92,7 @@ UIApplication.shared.rx.firstLaunchOfNewVersionOnly
 
 You want to keep track of how many times the user has opened your app? Simply do this:
 
-```
+```swift
 UIApplication.shared.rx.didOpenAppCount
     .subscribe(onNext: { count in
         print("app opened \(count) times")

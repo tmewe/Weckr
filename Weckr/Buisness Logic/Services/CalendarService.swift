@@ -54,15 +54,20 @@ struct CalendarService: CalendarServiceType {
                 
                 let events = store.events(matching: predicate)
                     .sorted { $0.startDate < $1.startDate }
+                    //FIXME: Handle events without geolocation, don't just filter them out
+                    .filter { $0.structuredLocation != nil }
                     .filter { !$0.isAllDay }
                     .map { ($0.title!,
                             $0.startDate!,
                             $0.endDate!,
                             $0.location!,
-                            $0.structuredLocation?.geoLocation == nil ? nil : GeoCoordinate(location: $0.structuredLocation!.geoLocation!))
+                            CalendarLocation(location: $0.structuredLocation!))
                     }
                     .map(CalendarEntry.init)
-                guard events.isEmpty else { return Observable.of(events) }
+                guard events.isEmpty else {
+                    log.info("Found \(events.count) events at \(date)")
+                    return Observable.of(events)
+                }
                 
                 date = date + 1.days
             }

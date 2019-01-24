@@ -27,6 +27,10 @@ import RealmSwift
         }
     }
     
+    override public class func primaryKey() -> String? {
+        return "id"
+    }
+    
     enum CodingKeys: String, CodingKey {
         case id = "id"
         case instruction = "instruction"
