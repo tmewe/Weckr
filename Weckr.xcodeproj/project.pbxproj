@@ -32,6 +32,7 @@
 		22CF8FB521F0BB0A005FB844 /* GeocodeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CF8FB421F0BB0A005FB844 /* GeocodeError.swift */; };
 		22CF8FBB21F1F614005FB844 /* CalendarEditTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CF8FBA21F1F613005FB844 /* CalendarEditTitleTableViewCell.swift */; };
 		22CF8FBD21F1FED0005FB844 /* CalendarEditSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CF8FBC21F1FED0005FB844 /* CalendarEditSection.swift */; };
+		490A133521F9D552004B74D7 /* MoyaNetworkActivityPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490A133421F9D552004B74D7 /* MoyaNetworkActivityPlugin.swift */; };
 		490FFDD421F4A21800B6696F /* BackgroundService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490FFDD321F4A21800B6696F /* BackgroundService.swift */; };
 		4912CC9421EF1F98004E4472 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4912CC9321EF1F98004E4472 /* UIApplication+Extensions.swift */; };
 		4912CC9921EFC2EE004E4472 /* AlertInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4912CC9821EFC2EE004E4472 /* AlertInfo.swift */; };
@@ -169,6 +170,7 @@
 		22CF8FB421F0BB0A005FB844 /* GeocodeError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeocodeError.swift; sourceTree = "<group>"; };
 		22CF8FBA21F1F613005FB844 /* CalendarEditTitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEditTitleTableViewCell.swift; sourceTree = "<group>"; };
 		22CF8FBC21F1FED0005FB844 /* CalendarEditSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEditSection.swift; sourceTree = "<group>"; };
+		490A133421F9D552004B74D7 /* MoyaNetworkActivityPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaNetworkActivityPlugin.swift; sourceTree = "<group>"; };
 		490FFDD321F4A21800B6696F /* BackgroundService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundService.swift; sourceTree = "<group>"; };
 		4912CC9321EF1F98004E4472 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		4912CC9821EFC2EE004E4472 /* AlertInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertInfo.swift; sourceTree = "<group>"; };
@@ -408,6 +410,7 @@
 			children = (
 				4924A26B21A874AF00671450 /* OpenWeatherMap.swift */,
 				4959992621AA029300549D89 /* HereMaps.swift */,
+				490A133421F9D552004B74D7 /* MoyaNetworkActivityPlugin.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -830,6 +833,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Weckr/Pods-Weckr-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Action/Action.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/BOTNetworkActivityIndicator/BOTNetworkActivityIndicator.framework",
 				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
 				"${BUILT_PRODUCTS_DIR}/FoldingCell/FoldingCell.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
@@ -857,6 +861,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Action.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BOTNetworkActivityIndicator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FoldingCell.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
@@ -990,6 +995,7 @@
 				84E7CDED2195DD260088CF98 /* Route.swift in Sources */,
 				498ED01E21C13A57003FFF5B /* TileTableViewCell.swift in Sources */,
 				49BD3FD521D256BD00939766 /* CalendarEditViewModel.swift in Sources */,
+				490A133521F9D552004B74D7 /* MoyaNetworkActivityPlugin.swift in Sources */,
 				4916E40A21EA546D0070141F /* AlarmSchedulerService.swift in Sources */,
 				49CE3D2D21AF235700A05CD0 /* RealmService.swift in Sources */,
 				84E7CDEB2195DC930088CF98 /* CalendarEntry.swift in Sources */,

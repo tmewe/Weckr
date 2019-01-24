@@ -3,6 +3,7 @@ PODS:
     - RxCocoa (~> 4.3)
     - RxSwift (~> 4.3)
   - Alamofire (4.8.1)
+  - BOTNetworkActivityIndicator (1.0.0)
   - Differentiator (3.1.0)
   - FoldingCell (4.0.2)
   - Moya/Core (12.0.1):
@@ -56,6 +57,7 @@ PODS:
 
 DEPENDENCIES:
   - Action
+  - BOTNetworkActivityIndicator
   - FoldingCell (~> 4.0.2)
   - Moya/RxSwift (~> 12.0)
   - "NSObject+Rx"
@@ -77,6 +79,7 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Action
     - Alamofire
+    - BOTNetworkActivityIndicator
     - Differentiator
     - FoldingCell
     - Moya
@@ -101,6 +104,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Action: 2f461c203c480b17aa99b3bb166e4329ecff6908
   Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
+  BOTNetworkActivityIndicator: 2c084665276a49463c088ad3b68030f29d88eeba
   Differentiator: be49ca3408f0ecfc761e4c7763d20c62be01b9ad
   FoldingCell: 352f0211a53f957b885a1b37d5ffa875da90bca5
   Moya: cf730b3cd9e005401ef37a85143aa141a12fd38f
@@ -122,6 +126,6 @@ SPEC CHECKSUMS:
   SwiftyBeaver: ccfcdf85a04d429f1633f668650b0ce8020bda3a
   XCGLogger: 7f7f43f15dfe3a305fa1342b7dc29af656289abd
 
-PODFILE CHECKSUM: cf255a6d8c5d9695a754e485a020a6dd7577197d
+PODFILE CHECKSUM: ed31d71114e22edd761c91736b9b872b1dcc891a
 
 COCOAPODS: 1.5.3

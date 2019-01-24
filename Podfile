@@ -23,4 +23,5 @@ target 'Weckr' do
   pod 'FoldingCell', '~> 4.0.2'
   pod 'RxAppState'
   pod 'SwiftyBeaver'
+  pod 'BOTNetworkActivityIndicator'
 end
