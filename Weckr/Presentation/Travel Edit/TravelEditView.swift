@@ -44,7 +44,7 @@ class TravelEditView: BaseEditView, TravelEditViewProtocol {
     private func setupConstraints() {
         let insets = Constraints.Main.Edit.self
         segmentedControl.autoCenterInSuperview()
-        segmentedControl.autoSetDimensions(to: CGSize(width: 300, height: 50))
+        segmentedControl.autoSetDimensions(to: CGSize(width: 300, height: 65))
         
         switchContainer.autoPinEdge(.top, to: .bottom, of: segmentedControl)
         switchContainer.autoPinEdge(.bottom, to: .top, of: button)
@@ -65,7 +65,12 @@ class TravelEditView: BaseEditView, TravelEditViewProtocol {
         infoLabel.autoSetDimension(.height, toSize: 30)
     }
     
-    lazy var segmentedControl = VehicleSegmentedControl(items: ["Car", "Pedestrian", "Transit"])
+    let segmentedControl: VehicleSegmentedControl = {
+        let control = VehicleSegmentedControl()
+        control.items = ["icar.png", "walking.png", "bus.png"]
+        control.selectedIndex = 0
+        return control
+    }()
     lazy var switchContainer = UIView.newAutoLayout()
     lazy var weatherSwitch: UISwitch = {
         let sw = UISwitch.newAutoLayout()

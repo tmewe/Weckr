@@ -778,7 +778,7 @@
 						CreatedOnToolsVersion = 10.1;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
-								enabled = 1;
+								enabled = 0;
 							};
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -1198,7 +1198,6 @@
 			baseConfigurationReference = 8592F6B004899364C54363F9 /* Pods-Weckr.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Weckr/Weckr.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 57REX7BTC9;
 				INFOPLIST_FILE = Weckr/Info.plist;
@@ -1219,7 +1218,6 @@
 			baseConfigurationReference = 22975B7C712437B3CE4FCE59 /* Pods-Weckr.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Weckr/Weckr.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 57REX7BTC9;
 				INFOPLIST_FILE = Weckr/Info.plist;
