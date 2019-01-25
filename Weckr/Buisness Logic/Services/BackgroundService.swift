@@ -49,8 +49,7 @@ class BackgroundService: BackgroundServiceType {
         Observable.just(alarm)
             .filterNil()
             .map { updateService.updateEvents(for: $0,
-                                              serviceFactory: serviceFactory,
-                                              disposeBag: disposeBag) }
+                                              serviceFactory: serviceFactory) }
             .subscribe(onNext: { _ in log.info("Background fetch: Updated current alarm finish") })
             .disposed(by: disposeBag)
     }

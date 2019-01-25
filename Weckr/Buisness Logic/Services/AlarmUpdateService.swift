@@ -17,15 +17,12 @@ protocol AlarmUpdateServiceType {
     func calculateDate(for alarm: Alarm) -> Observable<Alarm>
     func updateTransportMode(_ mode: TransportMode,
                              for alarm: Alarm,
-                             serviceFactory: ServiceFactoryProtocol,
-                             disposeBag: DisposeBag)
+                             serviceFactory: ServiceFactoryProtocol) -> Observable<Void>
     func updateSelectedEvent(_ event: CalendarEntry,
                              for alarm: Alarm,
-                             serviceFactory: ServiceFactoryProtocol,
-                             disposeBag: DisposeBag)
+                             serviceFactory: ServiceFactoryProtocol) -> Observable<Void>
     func updateEvents(for alarm: Alarm,
-                      serviceFactory: ServiceFactoryProtocol,
-                      disposeBag: DisposeBag)
+                      serviceFactory: ServiceFactoryProtocol) -> Observable<Void>
 //    func updateLocation(for alarm: Alarm, location: GeoCoordinate, disposeBag: DisposeBag)
 }
 
@@ -41,46 +38,41 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
     
     func updateTransportMode(_ mode: TransportMode,
                              for alarm: Alarm,
-                             serviceFactory: ServiceFactoryProtocol,
-                             disposeBag: DisposeBag) {
+                             serviceFactory: ServiceFactoryProtocol) -> Observable<Void> {
         
-        updateRoute(for: alarm,
+        return updateRoute(for: alarm,
                     mode: mode,
                     start: alarm.route.legs.first!.start.position,
                     event: alarm.selectedEvent,
-                    serviceFactory: serviceFactory,
-                    disposeBag: disposeBag)
+                    serviceFactory: serviceFactory)
     }
     
     func updateSelectedEvent(_ event: CalendarEntry,
                              for alarm: Alarm,
-                             serviceFactory: ServiceFactoryProtocol,
-                             disposeBag: DisposeBag) {
+                             serviceFactory: ServiceFactoryProtocol) -> Observable<Void> {
         
-        updateRoute(for: alarm,
+        return updateRoute(for: alarm,
                     mode: alarm.route.transportMode,
                     start: alarm.route.legs.first!.start.position,
                     event: event,
-                    serviceFactory: serviceFactory,
-                    disposeBag: disposeBag)
+                    serviceFactory: serviceFactory)
     }
     
     private func updateRoute(for alarm: Alarm,
                              mode: TransportMode,
                              start: GeoCoordinate,
                              event: CalendarEntry,
-                             serviceFactory: ServiceFactoryProtocol,
-                             disposeBag: DisposeBag) {
+                             serviceFactory: ServiceFactoryProtocol) -> Observable<Void> {
         let routingService = serviceFactory.createRouting()
         let geocodingService = serviceFactory.createGeocoder()
         
         log.info("Update route for alarm at \(alarm.date!) and \(event.title!)")
         
-        do {
-        try geocodingService
+        return try! geocodingService
             .geocode(event, realmService: serviceFactory.createRealm())
+            .debug()
             .flatMapLatest { routingService.route(with: mode, start: start, end: $0, arrival: event.startDate) }
-            .subscribe(onNext: { route in
+            .map { route in
                 let realmService = serviceFactory.createRealm()
                 let update = Alarm(route: route,
                                    weather: alarm.weather,
@@ -90,9 +82,7 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
                                    otherEvents: alarm.otherEvents.toArray())
                 update.id = alarm.id
                 self.update(alarm: update, service: realmService)
-            })
-            .disposed(by: disposeBag)
-        } catch { log.error(error) }
+            }
     }
     
     @discardableResult
@@ -112,21 +102,19 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
     }
     
     func updateEvents(for alarm: Alarm,
-                      serviceFactory: ServiceFactoryProtocol,
-                      disposeBag: DisposeBag) {
+                      serviceFactory: ServiceFactoryProtocol) -> Observable<Void> {
         let calendarService = serviceFactory.createCalendar()
         let realmService = serviceFactory.createRealm()
         do {
             
-            let events = try calendarService.fetchEvents(at: alarm.date, calendars: nil)
-                    .filterEmpty()
-                    .share(replay: 1, scope: .forever)
+            let events = try calendarService
+                .fetchEvents(at: alarm.date, calendars: nil)
+                .filterEmpty()
+                .share(replay: 1, scope: .forever)
             let transportMode = TransportMode(mode: UserDefaults.standard.integer(forKey: SettingsKeys.transportMode))
             
-            events
-                .subscribe(onNext: { events in
-                    
-                    let realmService = serviceFactory.createRealm()
+            return events
+                .map { events in
                     let update = Alarm(route: alarm.route,
                                        weather: alarm.weather,
                                        location: alarm.location,
@@ -134,24 +122,27 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
                                        selectedEvent: events.first!,
                                        otherEvents: events)
                     update.id = alarm.id
-                    self.update(alarm: update, service: realmService)
+                    return update
+                }
+                .map { return self.update(alarm: $0, service: realmService) } 
+                .flatMapLatest { alarm in
                     self.updateRoute(for: alarm,
-                                     mode: transportMode,
-                                     start: alarm.location,
-                                     event: alarm.selectedEvent,
-                                     serviceFactory: serviceFactory,
-                                     disposeBag: disposeBag)
-                })
-                .disposed(by: disposeBag)
+                                    mode: transportMode,
+                                    start: alarm.location,
+                                    event: alarm.selectedEvent,
+                                    serviceFactory: serviceFactory) }
         }
         catch CalendarError.noEvents {
             realmService.delete(alarm: alarm)
+            return .empty()
         }
-        catch {}
+        catch { return .empty() }
     }
     
-    private func update(alarm: Alarm, service: RealmServiceType) {
+    @discardableResult
+    private func update(alarm: Alarm, service: RealmServiceType) -> Alarm {
         self.calculateDate(for: alarm)
         service.update(alarm: alarm)
+        return alarm
     }
 }

@@ -200,12 +200,9 @@ class MainViewModel: MainViewModelType {
             .filterNil()
             .map { TransportMode(mode: $0) }
             .withLatestFrom(currentAlarm.filterNil()) { ($0, $1) }
-            .subscribe(onNext: { [weak self] mode, alarm in
-                alarmUpdateService.updateTransportMode(mode,
-                                                       for: alarm,
-                                                       serviceFactory: serviceFactory,
-                                                       disposeBag: self!.disposeBag)
-            })
+            .withLatestFrom(Observable.just(serviceFactory)) { ($0.0, $0.1, $1) }
+            .flatMapLatest(alarmUpdateService.updateTransportMode)
+            .subscribe(onNext: { _ in log.info("Update route finished") })
             .disposed(by: disposeBag)
         
         // Notification for new alarm
@@ -228,9 +225,8 @@ class MainViewModel: MainViewModelType {
         viewWillAppear
             .withLatestFrom(currentAlarm)
             .filterNil()
-            .map { alarmUpdateService.updateEvents(for: $0,
-                                                       serviceFactory: self.serviceFactory,
-                                                       disposeBag: self.disposeBag) }
+            .withLatestFrom(Observable.just(serviceFactory)) { ($0, $1) }
+            .flatMapLatest(alarmUpdateService.updateEvents)
             .subscribe(onNext: { _ in print() })
             .disposed(by: disposeBag)
         
