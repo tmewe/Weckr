@@ -84,7 +84,7 @@ class WalkthroughViewModel: WalkthroughViewModelType {
         let calendarError: BehaviorSubject<AppError?> = BehaviorSubject(value: nil)
         
         let alertInfo: PublishSubject<AlertInfo> = PublishSubject()
-        let loadingActive: PublishSubject<Bool> = PublishSubject()
+        let loadingInfo: PublishSubject<Bool> = PublishSubject()
         
         locationManager.startUpdatingLocation()
         
@@ -98,7 +98,9 @@ class WalkthroughViewModel: WalkthroughViewModelType {
         pageNumber = internalPageNumber.asObservable()
         slides = Observable.of(pages)
         showAlert = alertInfo.asObservable()
-        showLoading = loadingActive.asObservable().startWith(false)
+        showLoading = loadingInfo.asObservable()
+            .startWith(false)
+            .share(replay: 1, scope: .forever)
         
         let currentPageController = scrollAmount
             .withLatestFrom(slides) { ($0, $1) }
@@ -215,7 +217,7 @@ class WalkthroughViewModel: WalkthroughViewModelType {
             .disposed(by: disposeBag)
         
         createTrigger
-            .do(onNext: { loadingActive.onNext(true) })
+            .do(onNext: { loadingInfo.onNext(true) })
             .withLatestFrom(startLocation)
             .flatMap { self.realmService.createFirstAlarm(startLocation: $0, serviceFactory: serviceFactory) }
             .subscribe(onNext: { result in
@@ -227,7 +229,7 @@ class WalkthroughViewModel: WalkthroughViewModelType {
                         UserDefaults.standard.set(true, forKey: SettingsKeys.appHasBeenStarted)
                     
                     case let .Failure(error):
-                        loadingActive.onNext(false)
+                        loadingInfo.onNext(false)
                         let info = AlertInfo(title: error.localizedTitle,
                                              message: error.localizedMessage,
                                              button: Strings.Error.gotit)

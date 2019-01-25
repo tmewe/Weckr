@@ -26,6 +26,7 @@ protocol AlarmUpdateServiceType {
     func updateEvents(for alarm: Alarm,
                       serviceFactory: ServiceFactoryProtocol,
                       disposeBag: DisposeBag)
+//    func updateLocation(for alarm: Alarm, location: GeoCoordinate, disposeBag: DisposeBag)
 }
 
 struct AlarmUpdateService: AlarmUpdateServiceType {
