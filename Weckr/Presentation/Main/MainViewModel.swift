@@ -63,6 +63,7 @@ class MainViewModel: MainViewModelType {
     private let serviceFactory: ServiceFactoryProtocol
     private let viewModelFactory: ViewModelFactoryProtocol
     private let alarmService: RealmServiceType
+    private let alarmSectionService: AlarmSectionServiceType
     private let userDefaults = UserDefaults.standard
     private let locationManager = CLLocationManager()
     private let disposeBag = DisposeBag()
@@ -77,6 +78,7 @@ class MainViewModel: MainViewModelType {
         self.viewModelFactory = viewModelFactory
         self.coordinator = coordinator
         self.alarmService = serviceFactory.createRealm()
+        self.alarmSectionService = serviceFactory.createAlarmSection()
         let alarmUpdateService = serviceFactory.createAlarmUpdate()
         
         let alarmScheduler = serviceFactory.createAlarmScheduler()
@@ -87,24 +89,6 @@ class MainViewModel: MainViewModelType {
         let alertInfo: PublishSubject<AlertInfo> = PublishSubject()
         
         let currentAlarm = alarmService.currentAlarmObservable().share(replay: 1, scope: .forever)
-        
-        let alarmItem = currentAlarm
-            .map { alarm -> [AlarmSectionItem] in
-                guard let alarm = alarm else { return [] }
-                return [AlarmSectionItem.alarm(identity: "alarm", date: alarm.date)] }
-        
-        let morningRoutineItem = currentAlarm
-            .map { alarm -> [AlarmSectionItem] in
-                guard let alarm = alarm else { return [] }
-                return [AlarmSectionItem.morningRoutine(identity: "morningroutine",
-                                                        time: alarm.morningRoutine)] }
-        
-        let eventItem = currentAlarm
-            .map { alarm -> [AlarmSectionItem] in
-                guard let alarm = alarm else { return [] }
-                return [AlarmSectionItem.event(identity: "event",
-                                      title: Strings.Cells.FirstEvent.title,
-                                      selectedEvent: alarm.selectedEvent)] }
         
         let currentLocation = locationManager.rx.location
             .filterNil()
@@ -121,67 +105,13 @@ class MainViewModel: MainViewModelType {
             .startWith(false)
             .share(replay: 1, scope: .forever)
         
-        let routeOverviewItem = currentAlarm
-            .map { alarm -> [AlarmSectionItem] in
-                guard let alarm = alarm else { return [] }
-                let leaveDate = alarm.selectedEvent.startDate - alarm.route.summary.trafficTime.seconds
-                return [AlarmSectionItem.routeOverview(identity: "3", route: alarm.route, leaveDate: leaveDate)]
-            }
-        
-        //Car route
-        
+        //Route
+        let alarmItem = alarmSectionService.alarmItem(for: currentAlarm)
+        let morningRoutineItem = alarmSectionService.morningRoutineItem(for: currentAlarm)
+        let routeOverviewItem = alarmSectionService.routeOverviewItem(for: currentAlarm)
+        let routeItemsExpanded = alarmSectionService.allRouteItems(for: currentAlarm)
+        let eventItem = alarmSectionService.eventItem(for: currentAlarm)
         let routeItems: BehaviorSubject<[AlarmSectionItem]> = BehaviorSubject(value: [])
-        
-        let routeItemsExpanded = currentAlarm
-            .map { alarm -> [AlarmSectionItem] in
-                
-                guard let alarm = alarm else { return [] }
-                
-                let route = alarm.route!
-                let leaveDate = alarm.selectedEvent.startDate - alarm.route.summary.trafficTime.seconds
-                var items = [AlarmSectionItem.routeOverview(identity: "3",
-                                                       route: route,
-                                                       leaveDate: leaveDate)]
-                
-                switch route.transportMode {
-                case .car:
-                    items.append(AlarmSectionItem.routeCar(identity: "4", route: route))
-                    
-                case .pedestrian, .transit:
-                    
-                    var maneuverDate = leaveDate //For transit departure and arrival
-                    var skipNext = false
-                    let maneuvers = route.legs.first!.maneuvers.dropLast()
-                    for (index, maneuver) in maneuvers.enumerated() {
-                        
-                        guard !skipNext else {
-                            skipNext = false
-                            continue
-                        }
-                        
-                        switch maneuver.transportType {
-                            
-                        case .privateTransport:
-                            items.append(AlarmSectionItem.routePedestrian(
-                                identity: maneuver.id,
-                                maneuver: maneuver))
-                            
-                        case .publicTransport:
-                            skipNext = true
-                            let getOn = maneuver
-                            let getOff = maneuvers[index + 1]
-                            items.append(AlarmSectionItem.routeTransit(identity: maneuver.id,
-                                                                  date: maneuverDate,
-                                                                  getOn: getOn,
-                                                                  getOff: getOff,
-                                                                  transitLines: route.transitLines.toArray()))
-                        }
-                        
-                        maneuverDate = maneuverDate + maneuver.travelTime.seconds
-                    }
-                }
-                return items
-        }
         
         let routeRefreshTrigger = Observable
             .combineLatest(routeVisiblity, currentAlarm) { visbility, _ in visbility }
