@@ -165,6 +165,14 @@ class WalkthroughViewModel: WalkthroughViewModelType {
             .map(GeoCoordinate.init)
             .share(replay: 1, scope: .forever)
         
+        errorOccurred = Observable.combineLatest(locationError, notificationError, calendarError)
+            .map { location, notification, event in
+                if location != nil { return location }
+                if notification != nil { return notification }
+                if event != nil { return event }
+                return nil
+        }
+        
         //Location access status
         locationManager.rx.didChangeAuthorization
             .map { $0.1 }
@@ -173,19 +181,12 @@ class WalkthroughViewModel: WalkthroughViewModelType {
                 case .restricted, .denied:
                     return AccessError.location
                 default:
+                    self.locationManager.startUpdatingLocation()
                     return nil
                 }
             }
             .bind(to: locationError)
             .disposed(by: disposeBag)
-        
-        errorOccurred = Observable.combineLatest(locationError, notificationError, calendarError)
-            .map { location, notification, event in
-                if location != nil { return location }
-                if notification != nil { return notification }
-                if event != nil { return event }
-                return nil
-        }
         
         //Notification access status
         let notificationPage = pages.filter { $0.viewModel is NotificationPageViewModel }.first
