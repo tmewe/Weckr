@@ -57,6 +57,7 @@
 "main.header.today" = "Heute";
 "main.header.tomorrow" = "Morgen";
 "main.header.dayaftertomorrow" = "Übermorgen";
+"main.header.error" = "Keine Events";
 
 //Cells
 "cells.morningRoutine.title" = "Morgenroutine";

@@ -17,7 +17,6 @@ import UserNotifications
 
 class MainViewController: UITableViewController, BindableType, ErrorDisplayable, InfoAlertDisplayable {
     
-    
     typealias ViewModelType = MainViewModelType
     
     var viewModel: ViewModelType!

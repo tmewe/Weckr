@@ -70,6 +70,7 @@ struct Strings {
         static let today = "main.header.today".localized
         static let tomorrow = "main.header.tomorrow".localized
         static let dayAfterTomorrow = "main.header.dayaftertomorrow".localized
+        static let error = "main.header.error".localized
         
         struct Edit {
             static let morningRoutineTitle = "edit.morningRoutine".localized

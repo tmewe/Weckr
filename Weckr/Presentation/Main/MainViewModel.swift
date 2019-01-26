@@ -147,7 +147,7 @@ class MainViewModel: MainViewModelType {
         dayString = currentAlarm
             .map { $0?.date }
             .map { $0?.dayText }
-            .replaceNilWith("No events found")
+            .replaceNilWith(Strings.Main.error)
         
         showAlert = alertInfo.asObservable()
         
