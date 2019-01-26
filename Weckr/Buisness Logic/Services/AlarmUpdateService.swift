@@ -145,8 +145,13 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
     func update(location: GeoCoordinate,
                 for alarm: Alarm,
                 serviceFactory: ServiceFactoryProtocol) -> Observable<Void> {
-//        let first = CLLocation
-//        let distance = alarm.location.
+        
+        let first = CLLocation(coordinate: alarm.location)
+        let second = CLLocation(coordinate: location)
+        let distance = first.distance(from: second) //meters
+        
+        guard distance > 200 else { return .empty() }
+        
         return .empty()
     }
     
