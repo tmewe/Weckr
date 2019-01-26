@@ -191,7 +191,9 @@ class MainViewModel: MainViewModelType {
             .distinctUntilChanged()
             .filterNil()
             .withLatestFrom(currentAlarm.filterNil()) { ($0, $1) }
-            .subscribe(onNext: alarmUpdateService.updateMorningRoutine)
+            .withLatestFrom(Observable.just(serviceFactory)) { ($0.0, $0.1, $1) }
+            .flatMapLatest(alarmUpdateService.updateMorningRoutine)
+            .subscribe(onNext: { _ in log.info("Morning routine update finished") })
             .disposed(by: disposeBag)
         
         //Transport mode
@@ -203,6 +205,19 @@ class MainViewModel: MainViewModelType {
             .withLatestFrom(Observable.just(serviceFactory)) { ($0.0, $0.1, $1) }
             .flatMapLatest(alarmUpdateService.updateTransportMode)
             .subscribe(onNext: { _ in log.info("Update route finished") })
+            .disposed(by: disposeBag)
+        
+        //Selected event
+        let selectedEvent = currentAlarm
+            .filterNil()
+            .map { $0.selectedEvent! }
+            .distinctUntilChanged()
+        
+        selectedEvent
+            .withLatestFrom(currentAlarm.filterNil()) { ($0, $1) }
+            .withLatestFrom(Observable.just(serviceFactory)) { ($0.0, $0.1, $1) }
+            .flatMapLatest(alarmUpdateService.updateSelectedEvent)
+            .subscribe(onNext: { _ in log.info("Update selected event finished") })
             .disposed(by: disposeBag)
         
         // Notification for new alarm

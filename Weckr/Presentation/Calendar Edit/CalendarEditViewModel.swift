@@ -39,14 +39,14 @@ class CalendarEditViewModel: CalendarEditViewModelType {
     //Setup
     private let alarm: Alarm
     private let serviceFactory: ServiceFactoryProtocol
-    private let alarmUpdateService: AlarmUpdateServiceType
+    private let realmService: RealmServiceType
     private let coordinator: SceneCoordinatorType
     private let disposeBag = DisposeBag()
     
     init(alarm: Alarm, serviceFactory: ServiceFactoryProtocol, coordinator: SceneCoordinatorType) {
         self.alarm = alarm
         self.serviceFactory = serviceFactory
-        self.alarmUpdateService = serviceFactory.createAlarmUpdate()
+        self.realmService = serviceFactory.createRealm()
         self.coordinator = coordinator
         
         //Outputs
@@ -86,10 +86,8 @@ class CalendarEditViewModel: CalendarEditViewModelType {
                 return this.coordinator.pop(animated: true)
             }
             
-            this.alarmUpdateService.updateSelectedEvent(wrapper.event,
-                                                        for: this.alarm,
-                                                        serviceFactory: this.serviceFactory)
-            return this.coordinator.pop(animated: true)
+            return this.realmService.update(selectedEvent: wrapper.event, for: this.alarm)
+                .flatMapLatest { _ in this.coordinator.pop(animated: true) }
         }
     }(self)
 }

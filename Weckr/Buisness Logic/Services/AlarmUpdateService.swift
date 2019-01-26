@@ -14,7 +14,9 @@ import SwiftDate
 import CoreLocation
 
 protocol AlarmUpdateServiceType {
-    func updateMorningRoutine(_ time: TimeInterval, for alarm: Alarm)
+    func updateMorningRoutine(_ time: TimeInterval,
+                              for alarm: Alarm,
+                              serviceFactory: ServiceFactoryProtocol) -> Observable<Void>
     func updateTransportMode(_ mode: TransportMode,
                              for alarm: Alarm,
                              serviceFactory: ServiceFactoryProtocol) -> Observable<Void>
@@ -22,8 +24,8 @@ protocol AlarmUpdateServiceType {
                 for alarm: Alarm,
                 serviceFactory: ServiceFactoryProtocol) -> Observable<Void>
     func updateSelectedEvent(_ event: CalendarEntry,
-                for alarm: Alarm,
-                serviceFactory: ServiceFactoryProtocol) -> Observable<Void>
+                             for alarm: Alarm,
+                             serviceFactory: ServiceFactoryProtocol) -> Observable<Void>
     func updateEvents(for alarm: Alarm,
                       serviceFactory: ServiceFactoryProtocol) -> Observable<Void>
     func calculateDate(for alarm: Alarm) -> Observable<Alarm>
@@ -31,12 +33,13 @@ protocol AlarmUpdateServiceType {
 
 struct AlarmUpdateService: AlarmUpdateServiceType {
     
-    func updateMorningRoutine(_ time: TimeInterval, for alarm: Alarm) {
-        let realm = try! Realm()
-        try! realm.write {
-            alarm.morningRoutine = time
-        }
-        calculateDate(for: alarm)
+    func updateMorningRoutine(_ time: TimeInterval,
+                              for alarm: Alarm,
+                              serviceFactory: ServiceFactoryProtocol) -> Observable<Void> {
+        let realmService = serviceFactory.createRealm()
+        return realmService.update(morningRoutine: time, for: alarm)
+            .flatMapLatest(calculateDate)
+            .map { _ in Void() }
     }
     
     func updateTransportMode(_ mode: TransportMode,
@@ -77,19 +80,22 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
             .geocode(event, realmService: serviceFactory.createRealm())
             .debug()
             .flatMapLatest { routingService.route(with: mode, start: start, end: $0, arrival: event.startDate) }
-            .map { route in
-                let update = Alarm(route: route,
-                                   weather: alarm.weather,
-                                   location: start,
-                                   morningRoutine: alarm.morningRoutine,
-                                   selectedEvent: event,
-                                   otherEvents: alarm.otherEvents.toArray())
-                update.id = alarm.id
-                return update
-            }
-            .withLatestFrom(Observable.just(realmService)) { ($0, $1) }
-            .flatMapLatest(update)
+            .withLatestFrom(Observable.just(alarm)) { ($0, $1) }
+            .flatMapLatest(realmService.update)
             .flatMapLatest(schedulerService.setAlarmUpdateNotification)
+        
+//            .map { route in
+//                let update = Alarm(route: route,
+//                                   weather: alarm.weather,
+//                                   location: start,
+//                                   morningRoutine: alarm.morningRoutine,
+//                                   selectedEvent: event,
+//                                   otherEvents: alarm.otherEvents.toArray())
+//                update.id = alarm.id
+//                return update
+//            }
+//            .withLatestFrom(Observable.just(realmService)) { ($0, $1) }
+//            .flatMapLatest(update)
     }
     
     @discardableResult
@@ -121,16 +127,8 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
             let transportMode = TransportMode(mode: UserDefaults.standard.integer(forKey: SettingsKeys.transportMode))
             
             return events
-                .map { events in
-                    let update = Alarm(route: alarm.route,
-                                       weather: alarm.weather,
-                                       location: alarm.location,
-                                       morningRoutine: alarm.morningRoutine,
-                                       selectedEvent: events.first!,
-                                       otherEvents: events)
-                    update.id = alarm.id
-                    return update
-                }
+                .withLatestFrom(Observable.just(alarm)) { ($0, $1) }
+                .flatMapLatest(realmService.update)
                 .withLatestFrom(Observable.just(realmService)) { ($0, $1) }
                 .flatMapLatest(update)
                 .withLatestFrom(Observable.just(transportMode)) { ($0, $1) }

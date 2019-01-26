@@ -27,6 +27,18 @@ protocol RealmServiceType {
     func update(location: GeoCoordinate, for alarm: Alarm) -> Observable<Alarm>
     
     @discardableResult
+    func update(selectedEvent: CalendarEntry, for alarm: Alarm) -> Observable<Alarm>
+    
+    @discardableResult
+    func update(morningRoutine time: TimeInterval, for alarm: Alarm) -> Observable<Alarm>
+    
+    @discardableResult
+    func update(_ route: Route, for alarm: Alarm) -> Observable<Alarm>
+    
+    @discardableResult
+    func update(_ events: [CalendarEntry], for alarm: Alarm) -> Observable<Alarm>
+    
+    @discardableResult
     func delete(alarm: Alarm, alarmScheduler: AlarmSchedulerServiceType) -> Observable<Void>
     
     @discardableResult
