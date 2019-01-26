@@ -123,6 +123,7 @@ struct Strings {
         static let takeStreetLeft = "direction.takeStreetLeft".localized
         static let straight = "direction.straight".localized
         static let roundabout = "direction.roundabout".localized
+        static let walkTo = "direction.walkto".localized
         static let drive = "direction.drive".localized
         static let kilometers = "direction.kilometers".localized
         static let meters = "direction.meters".localized

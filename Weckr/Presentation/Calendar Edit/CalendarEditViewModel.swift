@@ -33,9 +33,6 @@ class CalendarEditViewModel: CalendarEditViewModelType {
     var outputs: CalendarEditViewModelOutputsType { return self }
     var actions: CalendarEditViewModelActionsType { return self }
     
-    //Inputs
-    var selectedEvent: PublishSubject<EventEditWrapper>
-    
     //Outputs
     var events: Observable<[CalendarEditSection]>
     
@@ -52,11 +49,12 @@ class CalendarEditViewModel: CalendarEditViewModelType {
         self.alarmUpdateService = serviceFactory.createAlarmUpdate()
         self.coordinator = coordinator
         
-        //Inputs
-        selectedEvent = PublishSubject()
-        
-        let title = Observable.just([CalendarEditSectionItem.title(text: Strings.Main.Edit.calendarTitle, coloredPart: Strings.Main.Edit.calendarTitleColoredPart)])
         //Outputs
+        let title = Observable.just([
+            CalendarEditSectionItem.title(text: Strings.Main.Edit.calendarTitle,
+                                          coloredPart: Strings.Main.Edit.calendarTitleColoredPart)
+            ])
+        
         let eventItems: Observable<[CalendarEditSectionItem]> = Observable.just(alarm.otherEvents.toArray())
             .map { events in
                 return events.map { event in
@@ -77,7 +75,7 @@ class CalendarEditViewModel: CalendarEditViewModelType {
         events = Observable
             .combineLatest(title, eventItems)
             .map { $0.0 + $0.1 }
-            .map {[CalendarEditSection(header:"", items: $0)]}
+            .map { [CalendarEditSection(header:"", items: $0)] }
 
     }
     

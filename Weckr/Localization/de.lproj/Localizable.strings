@@ -100,6 +100,7 @@
 "direction.takeStreetRight" = "Straße zur Rechten nehmen";
 "direction.takeStreetLeft" = "Straße zur Linken nehmen";
 "direction.roundabout" = "Kreisverkehr";
+"direction.walkto" = "Gehe zu";
 "direction.drive" = "Fahre richtung";
 "direction.kilometers" = "Kilometer";
 "direction.meters" = "Meter";
