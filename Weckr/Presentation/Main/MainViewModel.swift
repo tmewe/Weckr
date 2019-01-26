@@ -209,6 +209,7 @@ class MainViewModel: MainViewModelType {
         currentAlarm
             .filterNil()
             .map { $0.date }
+            .delay(2.0, scheduler: MainScheduler.instance)
             .flatMapLatest(alarmScheduler.setAlarmNotification)
             .subscribe(onNext: { _ in log.info("notification for alarm set")})
             .disposed(by: disposeBag)

@@ -29,7 +29,6 @@ struct AlarmSchedulerService: AlarmSchedulerServiceType {
         content.categoryIdentifier = "alarm"
         content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "alarm.mp3"))
         
-//        let alarmTime = Date() + 61.seconds
         let components = Calendar.current.dateComponents([.weekday, .hour, .minute], from: date)
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: components,
@@ -59,7 +58,6 @@ struct AlarmSchedulerService: AlarmSchedulerServiceType {
     
     func setAlarmUpdateNotification(for alarm: Alarm) -> Observable<Void> {
         let notificationCenter = UNUserNotificationCenter.current()
-        notificationCenter.removeAllPendingNotificationRequests()
         
         let month = Formatter.Date.dayMonthLong.string(from: alarm.date)
         let time = Formatter.Date.timeShort.string(from: alarm.date)

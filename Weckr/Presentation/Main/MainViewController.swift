@@ -132,7 +132,7 @@ class MainViewController: UITableViewController, BindableType, ErrorDisplayable,
         let userNotificationCenter = UNUserNotificationCenter.current()
         
         userNotificationCenter.rx.willPresent
-//            .filter { $0.notification.request.content.categoryIdentifier == "alarm" }
+            .filter { $0.notification.request.content.categoryIdentifier == "alarm" }
             .do(onNext: { _, _, completion in completion([.alert, .sound]) })
             .map { _ in }
             .bind(to: viewModel.inputs.createNewAlarm)
