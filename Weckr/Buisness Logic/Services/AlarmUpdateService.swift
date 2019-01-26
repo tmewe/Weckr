@@ -14,7 +14,7 @@ import SwiftDate
 import CoreLocation
 
 protocol AlarmUpdateServiceType {
-    func update(morningRoutine time: TimeInterval, for alarm: Alarm)
+    func updateMorningRoutine(_ time: TimeInterval, for alarm: Alarm)
     func updateTransportMode(_ mode: TransportMode,
                              for alarm: Alarm,
                              serviceFactory: ServiceFactoryProtocol) -> Observable<Void>
@@ -31,7 +31,7 @@ protocol AlarmUpdateServiceType {
 
 struct AlarmUpdateService: AlarmUpdateServiceType {
     
-    func update(morningRoutine time: TimeInterval, for alarm: Alarm) {
+    func updateMorningRoutine(_ time: TimeInterval, for alarm: Alarm) {
         let realm = try! Realm()
         try! realm.write {
             alarm.morningRoutine = time
@@ -85,8 +85,11 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
                                    selectedEvent: event,
                                    otherEvents: alarm.otherEvents.toArray())
                 update.id = alarm.id
-                self.update(alarm: update, service: realmService)
+                return update
             }
+            .withLatestFrom(Observable.just(realmService)) { ($0, $1) }
+            .flatMapLatest(update)
+            .flatMapLatest(schedulerService.setAlarmUpdateNotification)
     }
     
     @discardableResult
@@ -128,16 +131,16 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
                     update.id = alarm.id
                     return update
                 }
-                .map { return self.update(alarm: $0, service: realmService) } 
-                .flatMapLatest { alarm in
-                    self.updateRoute(for: alarm,
-                                    mode: transportMode,
-                                    event: alarm.selectedEvent,
-                                    serviceFactory: serviceFactory) }
+                .withLatestFrom(Observable.just(realmService)) { ($0, $1) }
+                .flatMapLatest(update)
+                .withLatestFrom(Observable.just(transportMode)) { ($0, $1) }
+                .withLatestFrom(Observable.just(alarm.selectedEvent)) { ($0.0, $0.1, $1) }
+                .withLatestFrom(Observable.just(serviceFactory)) { ($0.0, $0.1, $0.2, $1) }
+                .flatMapLatest(updateRoute)
         }
         catch CalendarError.noEvents {
-            realmService.delete(alarm: alarm, alarmScheduler: serviceFactory.createAlarmScheduler())
-            return .empty()
+            return realmService.delete(alarm: alarm,
+                                       alarmScheduler: serviceFactory.createAlarmScheduler())
         }
         catch { return .empty() }
     }
@@ -147,6 +150,8 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
                 serviceFactory: ServiceFactoryProtocol) -> Observable<Void> {
         
         let realmService = serviceFactory.createRealm()
+        
+        guard !alarm.isInvalidated else { return .empty() }
         
         let first = CLLocation(coordinate: alarm.location)
         let second = CLLocation(coordinate: location)
@@ -162,9 +167,8 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
     }
     
     @discardableResult
-    private func update(alarm: Alarm, service: RealmServiceType) -> Alarm {
-        self.calculateDate(for: alarm)
-        service.update(alarm: alarm)
-        return alarm
+    private func update(alarm: Alarm, service: RealmServiceType) -> Observable<Alarm> {
+        return calculateDate(for: alarm)
+            .flatMapLatest(service.update)
     }
 }

@@ -9,15 +9,17 @@
 import Foundation
 import UserNotifications
 import SwiftDate
+import RxSwift
 
 protocol AlarmSchedulerServiceType {
-    func setAlarmNotification(with date: Date)
-    func setNoAlarmNotification()
-    func setAlarmUpdateNotification(for alarm: Alarm)
+    func setAlarmNotification(with date: Date) -> Observable<Void>
+    func setNoAlarmNotification() -> Observable<Void>
+    func setAlarmUpdateNotification(for alarm: Alarm) -> Observable<Void>
 }
 
 struct AlarmSchedulerService: AlarmSchedulerServiceType {
-    func setAlarmNotification(with date: Date) {
+    
+    func setAlarmNotification(with date: Date) -> Observable<Void> {
         let notificationCenter = UNUserNotificationCenter.current()
         notificationCenter.removeAllPendingNotificationRequests()
 
@@ -36,10 +38,10 @@ struct AlarmSchedulerService: AlarmSchedulerServiceType {
                                             content: content,
                                             trigger: trigger)
                 
-        add(request: request, to: notificationCenter)
+        return add(request: request, to: notificationCenter)
     }
     
-    func setNoAlarmNotification() {
+    func setNoAlarmNotification() -> Observable<Void> {
         let notificationCenter = UNUserNotificationCenter.current()
         notificationCenter.removeAllPendingNotificationRequests()
         
@@ -52,10 +54,10 @@ struct AlarmSchedulerService: AlarmSchedulerServiceType {
         let request = UNNotificationRequest(identifier: UUID().uuidString,
                                             content: content,
                                             trigger: trigger)
-        add(request: request, to: notificationCenter)
+        return add(request: request, to: notificationCenter)
     }
     
-    func setAlarmUpdateNotification(for alarm: Alarm) {
+    func setAlarmUpdateNotification(for alarm: Alarm) -> Observable<Void> {
         let notificationCenter = UNUserNotificationCenter.current()
         notificationCenter.removeAllPendingNotificationRequests()
         
@@ -71,14 +73,10 @@ struct AlarmSchedulerService: AlarmSchedulerServiceType {
         let request = UNNotificationRequest(identifier: UUID().uuidString,
                                             content: content,
                                             trigger: trigger)
-        add(request: request, to: notificationCenter)
+        return add(request: request, to: notificationCenter)
     }
     
-    private func add(request: UNNotificationRequest, to center: UNUserNotificationCenter) {
-        center.add(request) { (error) in
-            if error != nil {
-                log.error(error!.localizedDescription)
-            }
-        }
+    private func add(request: UNNotificationRequest, to center: UNUserNotificationCenter) -> Observable<Void> {
+        return center.rx.add(request).debug("notification", trimOutput: true).map { _ in Void() }
     }
 }

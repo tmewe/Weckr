@@ -36,7 +36,7 @@ final class MainApplication: NSObject, MainApplicationProtocol {
     //FIXME: - We need a new coordinator implementation where we dont need the window
     func start(window: UIWindow) {
         UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplication.backgroundFetchIntervalMinimum)
-    
+        
         setupLogging()
         startCoordinator(window: window)
     }
@@ -60,26 +60,36 @@ final class MainApplication: NSObject, MainApplicationProtocol {
             .share(replay: 1, scope: .forever)
         
         let currentAlarm = realmService.currentAlarm()
-
+        
         //Create alarm if there is no current alarm
         if currentAlarm == nil {
-            Observable.just(currentAlarm)
+            let first = Observable.just(currentAlarm)
                 .withLatestFrom(Observable.just(currentLocation))
                 .withLatestFrom(Observable.just(realmService)) { ($0, $1) }
                 .withLatestFrom(Observable.just(serviceFactory)) { ($0.0, $0.1, $1) }
                 .flatMapLatest(backgroundService.createFirstAlarm)
-                .subscribe(onNext: { result in
-                    switch result {
-                    case .Success(_):
-                        completionHandler(.newData)
-                    case .Failure(_):
-                        //Send notification
-                        schedulerService.setNoAlarmNotification()
-                        completionHandler(.noData)
-                    }
-                })
+                .take(1)
+                .share(replay: 1, scope: .forever)
+            
+            first
+                .filter(filterSuccessfulAlarmCreation)
+                .map { _ in Void() }
+                .flatMapLatest(schedulerService.setNoAlarmNotification)
+                .subscribe(onNext: { _ in completionHandler(.noData) })
                 .disposed(by: disposeBag)
+            
+            first
+                .filter { !self.filterSuccessfulAlarmCreation(for: $0) }
+                .map { _ in Void() }
+                .subscribe(onNext: { _ in completionHandler(.newData) })
+                .disposed(by: disposeBag)
+
         } else {
+            
+            let alarm = Observable.just(currentAlarm)
+                .filterNil()
+                .filter { !$0.isInvalidated }
+            
             //Update events on current alarm date
             let current = backgroundService.updateCurrent(alarm: currentAlarm,
                                                           updateService: updateService,
@@ -93,7 +103,7 @@ final class MainApplication: NSObject, MainApplicationProtocol {
             
             //Check location and update route for current alarm
             let location = currentLocation
-                .withLatestFrom(Observable.just(currentAlarm).filterNil()) { ($0, $1) }
+                .withLatestFrom(alarm) { ($0, $1) }
                 .withLatestFrom(Observable.just(updateService)) { ($0.0, $0.1, $1) }
                 .withLatestFrom(Observable.just(serviceFactory)) { ($0.0, $0.1, $0.2, $1) }
                 .flatMapLatest(backgroundService.updateUserLocation)
@@ -118,7 +128,7 @@ final class MainApplication: NSObject, MainApplicationProtocol {
         let appHasBeenStarted = UserDefaults
             .standard
             .bool(forKey: SettingsKeys.appHasBeenStarted)
-    
+        
         let coordinator = SceneCoordinator(window: window)
         
         switch appHasBeenStarted {
@@ -134,6 +144,8 @@ final class MainApplication: NSObject, MainApplicationProtocol {
             coordinator.transition(to: Scene.walkthrough(walkthroughViewModel), withType: .root)
         }
     }
+    
+    //Helper
     
     private func createPages() -> [WalkthroughPageViewController] {
         let landingViewModel = LandingPageViewModel()
@@ -154,5 +166,12 @@ final class MainApplication: NSObject, MainApplicationProtocol {
         let pages = [landingPage, calendarPage, locationPage,
                      notificationPage, travelPage, routinePage, donePage]
         return pages
+    }
+    
+    private func filterSuccessfulAlarmCreation(for result: AlarmCreationResult<Alarm>) -> Bool {
+        switch result {
+        case .Success(_): return false
+        case .Failure(_): return true
+        }
     }
 }

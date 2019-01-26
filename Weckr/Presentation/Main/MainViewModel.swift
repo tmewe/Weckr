@@ -191,7 +191,7 @@ class MainViewModel: MainViewModelType {
             .distinctUntilChanged()
             .filterNil()
             .withLatestFrom(currentAlarm.filterNil()) { ($0, $1) }
-            .subscribe(onNext: alarmUpdateService.update)
+            .subscribe(onNext: alarmUpdateService.updateMorningRoutine)
             .disposed(by: disposeBag)
         
         //Transport mode
@@ -209,7 +209,8 @@ class MainViewModel: MainViewModelType {
         currentAlarm
             .filterNil()
             .map { $0.date }
-            .subscribe(onNext: alarmScheduler.setAlarmNotification)
+            .flatMapLatest(alarmScheduler.setAlarmNotification)
+            .subscribe(onNext: { _ in log.info("notification for alarm set")})
             .disposed(by: disposeBag)
         
         //Create new alarm (after notification)
