@@ -13,22 +13,24 @@ import RxRealm
 import SwiftDate
 
 protocol AlarmUpdateServiceType {
-    func updateMorningRoutine(_ time: TimeInterval, for alarm: Alarm)
-    func calculateDate(for alarm: Alarm) -> Observable<Alarm>
-    func updateTransportMode(_ mode: TransportMode,
+    func update(morningRoutine time: TimeInterval, for alarm: Alarm)
+    func update(transportMode mode: TransportMode,
                              for alarm: Alarm,
                              serviceFactory: ServiceFactoryProtocol) -> Observable<Void>
-    func updateSelectedEvent(_ event: CalendarEntry,
-                             for alarm: Alarm,
-                             serviceFactory: ServiceFactoryProtocol) -> Observable<Void>
+    func update(location: GeoCoordinate,
+                for alarm: Alarm,
+                serviceFactory: ServiceFactoryProtocol) -> Observable<Void>
+    func update(selectedEvent event: CalendarEntry,
+                for alarm: Alarm,
+                serviceFactory: ServiceFactoryProtocol) -> Observable<Void>
     func updateEvents(for alarm: Alarm,
                       serviceFactory: ServiceFactoryProtocol) -> Observable<Void>
-//    func updateLocation(for alarm: Alarm, location: GeoCoordinate, disposeBag: DisposeBag)
+    func calculateDate(for alarm: Alarm) -> Observable<Alarm>
 }
 
 struct AlarmUpdateService: AlarmUpdateServiceType {
     
-    func updateMorningRoutine(_ time: TimeInterval, for alarm: Alarm) {
+    func update(morningRoutine time: TimeInterval, for alarm: Alarm) {
         let realm = try! Realm()
         try! realm.write {
             alarm.morningRoutine = time
@@ -36,7 +38,7 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
         calculateDate(for: alarm)
     }
     
-    func updateTransportMode(_ mode: TransportMode,
+    func update(transportMode mode: TransportMode,
                              for alarm: Alarm,
                              serviceFactory: ServiceFactoryProtocol) -> Observable<Void> {
         
@@ -47,7 +49,7 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
                     serviceFactory: serviceFactory)
     }
     
-    func updateSelectedEvent(_ event: CalendarEntry,
+    func update(selectedEvent event: CalendarEntry,
                              for alarm: Alarm,
                              serviceFactory: ServiceFactoryProtocol) -> Observable<Void> {
         
@@ -137,6 +139,12 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
             return .empty()
         }
         catch { return .empty() }
+    }
+    
+    func update(location: GeoCoordinate,
+                for alarm: Alarm,
+                serviceFactory: ServiceFactoryProtocol) -> Observable<Void> {
+        return .empty()
     }
     
     @discardableResult
