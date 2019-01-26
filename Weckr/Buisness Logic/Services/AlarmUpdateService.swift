@@ -69,6 +69,7 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
         let routingService = serviceFactory.createRouting()
         let geocodingService = serviceFactory.createGeocoder()
         let realmService = serviceFactory.createRealm()
+        let schedulerService = serviceFactory.createAlarmScheduler()
         
         guard let start = alarm.location else { return .empty() }
         
@@ -146,6 +147,7 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
                 serviceFactory: ServiceFactoryProtocol) -> Observable<Void> {
         
         let realmService = serviceFactory.createRealm()
+        
         let first = CLLocation(coordinate: alarm.location)
         let second = CLLocation(coordinate: location)
         let distance = first.distance(from: second) //meters
