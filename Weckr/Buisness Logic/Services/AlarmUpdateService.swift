@@ -133,7 +133,7 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
                                     serviceFactory: serviceFactory) }
         }
         catch CalendarError.noEvents {
-            realmService.delete(alarm: alarm)
+            realmService.delete(alarm: alarm, alarmScheduler: serviceFactory.createAlarmScheduler())
             return .empty()
         }
         catch { return .empty() }

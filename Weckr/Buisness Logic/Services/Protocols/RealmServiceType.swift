@@ -24,7 +24,7 @@ protocol RealmServiceType {
     func update(location: GeoCoordinate, for entry: CalendarEntry) -> Observable<CalendarEntry>
     
     @discardableResult
-    func delete(alarm: Alarm) -> Observable<Void>
+    func delete(alarm: Alarm, alarmScheduler: AlarmSchedulerServiceType) -> Observable<Void>
     
     @discardableResult
     func deletePastAlarms() -> Observable<Void>

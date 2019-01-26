@@ -68,14 +68,14 @@ struct RealmService: RealmServiceType {
     }
     
     @discardableResult
-    func delete(alarm: Alarm) -> Observable<Void> {
+    func delete(alarm: Alarm, alarmScheduler: AlarmSchedulerServiceType) -> Observable<Void> {
         let result = withRealm("deleting") { realm -> Observable<Void> in
             try realm.write {
                 log.info("Deleting alarm at \(alarm.date!)")
                 realm.delete(alarm)
             }
             let alarms = realm.objects(Alarm.self)
-            if alarms.isEmpty { AlarmSchedulerService().setNoAlarmNotification() }
+            if alarms.isEmpty { alarmScheduler.setNoAlarmNotification() }
             return .empty()
         }
         return result ?? .error(AlarmServiceError.deletionFailed(alarm))
