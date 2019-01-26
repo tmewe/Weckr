@@ -11,6 +11,7 @@ import RxSwift
 import RealmSwift
 import RxRealm
 import SwiftDate
+import CoreLocation
 
 protocol AlarmUpdateServiceType {
     func update(morningRoutine time: TimeInterval, for alarm: Alarm)
@@ -144,6 +145,8 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
     func update(location: GeoCoordinate,
                 for alarm: Alarm,
                 serviceFactory: ServiceFactoryProtocol) -> Observable<Void> {
+//        let first = CLLocation
+//        let distance = alarm.location.
         return .empty()
     }
     
