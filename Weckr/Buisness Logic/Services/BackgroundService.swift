@@ -20,6 +20,10 @@ protocol BackgroundServiceType {
                            location: Observable<GeoCoordinate>,
                            realmService: RealmServiceType,
                            serviceFactory: ServiceFactoryProtocol) -> Observable<Void>
+    func updateUserLocation(_ location: GeoCoordinate,
+                            alarm: Alarm,
+                            updateService: AlarmUpdateServiceType,
+                            serviceFactory: ServiceFactoryProtocol) -> Observable<Void>
 }
 
 class BackgroundService: BackgroundServiceType {
@@ -57,5 +61,12 @@ class BackgroundService: BackgroundServiceType {
             .withLatestFrom(Observable.just(serviceFactory)) { ($0.0, $0.1, $1) }
             .flatMapLatest(realmService.createAlarmPrior)
             .map { _ in Void() }
+    }
+    
+    func updateUserLocation(_ location: GeoCoordinate,
+                            alarm: Alarm,
+                            updateService: AlarmUpdateServiceType,
+                            serviceFactory: ServiceFactoryProtocol) -> Observable<Void> {
+        return updateService.updateLocation(location, for: alarm, serviceFactory: serviceFactory)
     }
 }

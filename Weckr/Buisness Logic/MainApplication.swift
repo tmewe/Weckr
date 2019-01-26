@@ -92,11 +92,16 @@ final class MainApplication: NSObject, MainApplicationProtocol {
                                                             serviceFactory: serviceFactory)
             
             //Check location and update route for current alarm
+            let location = currentLocation
+                .withLatestFrom(Observable.just(currentAlarm).filterNil()) { ($0, $1) }
+                .withLatestFrom(Observable.just(updateService)) { ($0.0, $0.1, $1) }
+                .withLatestFrom(Observable.just(serviceFactory)) { ($0.0, $0.1, $0.2, $1) }
+                .flatMapLatest(backgroundService.updateUserLocation)
             
             //Delete all past
             let deletePast = realmService.deletePastAlarms()
             
-            Observable.combineLatest(current, prior, deletePast)
+            Observable.combineLatest(current, prior, location, deletePast)
                 .subscribe(onNext: { _ in completionHandler(.newData)} )
                 .disposed(by: disposeBag)
         }
