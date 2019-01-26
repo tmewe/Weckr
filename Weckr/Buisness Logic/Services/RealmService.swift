@@ -74,6 +74,8 @@ struct RealmService: RealmServiceType {
                 log.info("Deleting alarm at \(alarm.date!)")
                 realm.delete(alarm)
             }
+            let alarms = realm.objects(Alarm.self)
+            if alarms.isEmpty { AlarmSchedulerService().setNoAlarmNotification() }
             return .empty()
         }
         return result ?? .error(AlarmServiceError.deletionFailed(alarm))

@@ -12,7 +12,7 @@ import RxSwift
 protocol BackgroundServiceType {
     func createFirstAlarm(at location: Observable<GeoCoordinate>,
                           realmService: RealmServiceType,
-                          serviceFactory: ServiceFactoryProtocol) -> Observable<Void>
+                          serviceFactory: ServiceFactoryProtocol) -> Observable<AlarmCreationResult<Alarm>>
     func updateCurrent(alarm: Alarm?,
                        updateService: AlarmUpdateServiceType,
                        serviceFactory: ServiceFactoryProtocol) -> Observable<Void>
@@ -26,12 +26,11 @@ class BackgroundService: BackgroundServiceType {
     
     func createFirstAlarm(at location: Observable<GeoCoordinate>,
                           realmService: RealmServiceType,
-                          serviceFactory: ServiceFactoryProtocol) -> Observable<Void> {
+                          serviceFactory: ServiceFactoryProtocol) -> Observable<AlarmCreationResult<Alarm>> {
         log.info("Background fetch: New first alarm start")
         return location
             .withLatestFrom(Observable.just(serviceFactory)) { ($0, $1) }
             .flatMapLatest(realmService.createFirstAlarm)
-            .map { _ in Void() }
     }
     
     func updateCurrent(alarm: Alarm?,

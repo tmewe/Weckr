@@ -12,6 +12,7 @@ import SwiftDate
 
 protocol AlarmSchedulerServiceType {
     func setAlarmNotification(with date: Date)
+    func setNoAlarmNotification()
 }
 
 struct AlarmSchedulerService: AlarmSchedulerServiceType {
@@ -34,9 +35,29 @@ struct AlarmSchedulerService: AlarmSchedulerServiceType {
                                             content: content,
                                             trigger: trigger)
                 
-        notificationCenter.add(request) { (error) in
+        add(request: request, to: notificationCenter)
+    }
+    
+    func setNoAlarmNotification() {
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.removeAllPendingNotificationRequests()
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Attention"
+        content.body = "I couldn't find any events in the upcoming week, so I won't wake you in the morning!"
+        content.categoryIdentifier = "warning"
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+        let request = UNNotificationRequest(identifier: UUID().uuidString,
+                                            content: content,
+                                            trigger: trigger)
+        add(request: request, to: notificationCenter)
+    }
+    
+    private func add(request: UNNotificationRequest, to center: UNUserNotificationCenter) {
+        center.add(request) { (error) in
             if error != nil {
-                print(error!.localizedDescription)
+                log.error(error!.localizedDescription)
             }
         }
     }

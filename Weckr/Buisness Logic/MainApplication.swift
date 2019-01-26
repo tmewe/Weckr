@@ -26,9 +26,6 @@ final class MainApplication: NSObject, MainApplicationProtocol {
     private let serviceFactory: ServiceFactoryProtocol
     private let locationManager = CLLocationManager()
     private let disposeBag = DisposeBag()
-    private let backgroundService = BackgroundService()
-    private let realmService = RealmService()
-    private let updateService = AlarmUpdateService()
     
     init(viewModelFactory: ViewModelFactoryProtocol,
          serviceFactory: ServiceFactoryProtocol) {
@@ -48,6 +45,11 @@ final class MainApplication: NSObject, MainApplicationProtocol {
                      performFetchWithCompletionHandler
         completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         
+        let backgroundService = serviceFactory.createBackground()
+        let realmService = serviceFactory.createRealm()
+        let updateService = serviceFactory.createAlarmUpdate()
+        let schedulerService = serviceFactory.createAlarmScheduler()
+        
         let started = UserDefaults.standard.bool(forKey: SettingsKeys.appHasBeenStarted)
         guard started else { return }
         
@@ -60,32 +62,44 @@ final class MainApplication: NSObject, MainApplicationProtocol {
         let currentAlarm = realmService.currentAlarm()
 
         //Create alarm if there is no current alarm
-        let first = Observable.just(currentAlarm)
-            .filter { $0 == nil }
-            .withLatestFrom(Observable.just(currentLocation))
-            .withLatestFrom(Observable.just(realmService)) { ($0, $1) }
-            .withLatestFrom(Observable.just(serviceFactory)) { ($0.0, $0.1, $1) }
-            .flatMapLatest(backgroundService.createFirstAlarm)
-        
-        //Update events on current alarm date
-        let current = backgroundService.updateCurrent(alarm: currentAlarm,
-                                        updateService: updateService,
-                                        serviceFactory: serviceFactory)
-        
-        //Check for events before current alarm
-        let prior = backgroundService.updateEventsPrior(to: currentAlarm,
-                                                        location: currentLocation,
-                                                        realmService: realmService,
-                                                        serviceFactory: serviceFactory)
-        
-        //Check location and update route for current alarm
-        
-        //Delete all past alarms
-//        realmService.deletePastAlarms()
-        
-        Observable.combineLatest(first, current, prior)
-            .subscribe(onNext: { _ in completionHandler(.newData)} )
-            .disposed(by: disposeBag)
+        if currentAlarm == nil {
+            Observable.just(currentAlarm)
+                .withLatestFrom(Observable.just(currentLocation))
+                .withLatestFrom(Observable.just(realmService)) { ($0, $1) }
+                .withLatestFrom(Observable.just(serviceFactory)) { ($0.0, $0.1, $1) }
+                .flatMapLatest(backgroundService.createFirstAlarm)
+                .subscribe(onNext: { result in
+                    switch result {
+                    case .Success(_):
+                        completionHandler(.newData)
+                    case .Failure(_):
+                        //Send notification
+                        schedulerService.setNoAlarmNotification()
+                        completionHandler(.noData)
+                    }
+                })
+                .disposed(by: disposeBag)
+        } else {
+            //Update events on current alarm date
+            let current = backgroundService.updateCurrent(alarm: currentAlarm,
+                                                          updateService: updateService,
+                                                          serviceFactory: serviceFactory)
+            
+            //Check for events before current alarm
+            let prior = backgroundService.updateEventsPrior(to: currentAlarm,
+                                                            location: currentLocation,
+                                                            realmService: realmService,
+                                                            serviceFactory: serviceFactory)
+            
+            //Check location and update route for current alarm
+            
+            //Delete all past
+            let deletePast = realmService.deletePastAlarms()
+            
+            Observable.combineLatest(current, prior, deletePast)
+                .subscribe(onNext: { _ in completionHandler(.newData)} )
+                .disposed(by: disposeBag)
+        }
     }
     
     private func setupLogging() {
