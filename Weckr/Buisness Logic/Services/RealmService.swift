@@ -68,6 +68,17 @@ struct RealmService: RealmServiceType {
     }
     
     @discardableResult
+    func update(location: GeoCoordinate, for alarm: Alarm) -> Observable<Alarm> {
+        let result = withRealm("updating location on alarm") { realm -> Observable<Alarm> in
+            try realm.write {
+                alarm.location = location
+            }
+            return .just(alarm)
+        }
+        return result ?? .error(AlarmServiceError.updateFailed)
+    }
+    
+    @discardableResult
     func delete(alarm: Alarm, alarmScheduler: AlarmSchedulerServiceType) -> Observable<Void> {
         let result = withRealm("deleting") { realm -> Observable<Void> in
             try realm.write {

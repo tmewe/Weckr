@@ -201,7 +201,7 @@ class MainViewModel: MainViewModelType {
             .map { TransportMode(mode: $0) }
             .withLatestFrom(currentAlarm.filterNil()) { ($0, $1) }
             .withLatestFrom(Observable.just(serviceFactory)) { ($0.0, $0.1, $1) }
-            .flatMapLatest(alarmUpdateService.update)
+            .flatMapLatest(alarmUpdateService.updateTransportMode)
             .subscribe(onNext: { _ in log.info("Update route finished") })
             .disposed(by: disposeBag)
         
@@ -237,18 +237,9 @@ class MainViewModel: MainViewModelType {
             .filter { !$0.isInvalidated } //Needed if alarm gets deleted
             .map { $0.date }
             .withLatestFrom(currentLocation) { ($0, $1) }
-            .flatMap { self.alarmService.createAlarmPrior(to: $0.0,
-                                                          startLocation: $0.1,
-                                                          serviceFactory: self.serviceFactory) }
-            .subscribe(onNext: { result in
-                print(result)
-//                if case .Failure(let error) = result {
-//                    let info = AlertInfo(title: error.localizedTitle,
-//                                         message: error.localizedMessage,
-//                                         button: Strings.Error.gotit)
-//                    alertInfo.onNext(info)
-//                }
-            })
+            .withLatestFrom(Observable.just(serviceFactory)) { ($0.0, $0.1, $1) }
+            .flatMap(self.alarmService.createAlarmPrior)
+            .subscribe(onNext: { result in log.info(result) })
             .disposed(by: disposeBag)
         
         //Create alarm if no alarm
@@ -256,8 +247,8 @@ class MainViewModel: MainViewModelType {
             .withLatestFrom(currentAlarm)
             .filter { $0 == nil }
             .withLatestFrom(currentLocation)
-            .flatMap { self.alarmService
-                .createFirstAlarm(startLocation: $0, serviceFactory: serviceFactory) }
+            .withLatestFrom(Observable.just(serviceFactory)) { ($0, $1) }
+            .flatMap(alarmService.createFirstAlarm)
             .subscribe(onNext: { result in
                 if case .Failure(let error) = result {
                     let info = AlertInfo(title: error.localizedTitle,
@@ -266,6 +257,14 @@ class MainViewModel: MainViewModelType {
                     alertInfo.onNext(info)
                 }
             })
+            .disposed(by: disposeBag)
+        
+        //Check user location
+        currentLocation
+            .withLatestFrom(currentAlarm.filterNil()) { ($0, $1) }
+            .withLatestFrom(Observable.just(serviceFactory)) { ($0.0, $0.1, $1) }
+            .flatMapLatest(alarmUpdateService.updateLocation)
+            .subscribe(onNext: { _ in log.info("Location update finished") })
             .disposed(by: disposeBag)
     }
     

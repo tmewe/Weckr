@@ -15,13 +15,13 @@ import CoreLocation
 
 protocol AlarmUpdateServiceType {
     func update(morningRoutine time: TimeInterval, for alarm: Alarm)
-    func update(transportMode mode: TransportMode,
+    func updateTransportMode(_ mode: TransportMode,
                              for alarm: Alarm,
                              serviceFactory: ServiceFactoryProtocol) -> Observable<Void>
-    func update(location: GeoCoordinate,
+    func updateLocation(_ location: GeoCoordinate,
                 for alarm: Alarm,
                 serviceFactory: ServiceFactoryProtocol) -> Observable<Void>
-    func update(selectedEvent event: CalendarEntry,
+    func updateSelectedEvent(_ event: CalendarEntry,
                 for alarm: Alarm,
                 serviceFactory: ServiceFactoryProtocol) -> Observable<Void>
     func updateEvents(for alarm: Alarm,
@@ -39,44 +39,44 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
         calculateDate(for: alarm)
     }
     
-    func update(transportMode mode: TransportMode,
+    func updateTransportMode(_ mode: TransportMode,
                              for alarm: Alarm,
                              serviceFactory: ServiceFactoryProtocol) -> Observable<Void> {
         
         return updateRoute(for: alarm,
                     mode: mode,
-                    start: alarm.route.legs.first!.start.position,
                     event: alarm.selectedEvent,
                     serviceFactory: serviceFactory)
     }
     
-    func update(selectedEvent event: CalendarEntry,
+    func updateSelectedEvent(_ event: CalendarEntry,
                              for alarm: Alarm,
                              serviceFactory: ServiceFactoryProtocol) -> Observable<Void> {
         
         return updateRoute(for: alarm,
                     mode: alarm.route.transportMode,
-                    start: alarm.route.legs.first!.start.position,
                     event: event,
                     serviceFactory: serviceFactory)
     }
     
     private func updateRoute(for alarm: Alarm,
                              mode: TransportMode,
-                             start: GeoCoordinate,
                              event: CalendarEntry,
                              serviceFactory: ServiceFactoryProtocol) -> Observable<Void> {
-        let routingService = serviceFactory.createRouting()
-        let geocodingService = serviceFactory.createGeocoder()
         
         log.info("Update route for alarm at \(alarm.date!) and \(event.title!)")
+        
+        let routingService = serviceFactory.createRouting()
+        let geocodingService = serviceFactory.createGeocoder()
+        let realmService = serviceFactory.createRealm()
+        
+        guard let start = alarm.location else { return .empty() }
         
         return try! geocodingService
             .geocode(event, realmService: serviceFactory.createRealm())
             .debug()
             .flatMapLatest { routingService.route(with: mode, start: start, end: $0, arrival: event.startDate) }
             .map { route in
-                let realmService = serviceFactory.createRealm()
                 let update = Alarm(route: route,
                                    weather: alarm.weather,
                                    location: start,
@@ -131,7 +131,6 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
                 .flatMapLatest { alarm in
                     self.updateRoute(for: alarm,
                                     mode: transportMode,
-                                    start: alarm.location,
                                     event: alarm.selectedEvent,
                                     serviceFactory: serviceFactory) }
         }
@@ -142,17 +141,22 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
         catch { return .empty() }
     }
     
-    func update(location: GeoCoordinate,
+    func updateLocation(_ location: GeoCoordinate,
                 for alarm: Alarm,
                 serviceFactory: ServiceFactoryProtocol) -> Observable<Void> {
         
+        let realmService = serviceFactory.createRealm()
         let first = CLLocation(coordinate: alarm.location)
         let second = CLLocation(coordinate: location)
         let distance = first.distance(from: second) //meters
         
         guard distance > 200 else { return .empty() }
-        
-        return .empty()
+        return realmService
+            .update(location: location, for: alarm)
+            .flatMap { self.updateRoute(for: $0,
+                                        mode: alarm.route.transportMode,
+                                        event: alarm.selectedEvent,
+                                        serviceFactory: serviceFactory) }
     }
     
     @discardableResult

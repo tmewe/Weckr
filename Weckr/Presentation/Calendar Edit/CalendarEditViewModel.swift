@@ -88,9 +88,9 @@ class CalendarEditViewModel: CalendarEditViewModelType {
                 return this.coordinator.pop(animated: true)
             }
             
-            this.alarmUpdateService.update(selectedEvent: wrapper.event,
-                                                  for: this.alarm,
-                                                  serviceFactory: this.serviceFactory)
+            this.alarmUpdateService.updateSelectedEvent(wrapper.event,
+                                                        for: this.alarm,
+                                                        serviceFactory: this.serviceFactory)
             return this.coordinator.pop(animated: true)
         }
     }(self)
