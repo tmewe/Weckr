@@ -34,7 +34,6 @@
 		22CF8FBD21F1FED0005FB844 /* CalendarEditSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CF8FBC21F1FED0005FB844 /* CalendarEditSection.swift */; };
 		490A133521F9D552004B74D7 /* MoyaNetworkActivityPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490A133421F9D552004B74D7 /* MoyaNetworkActivityPlugin.swift */; };
 		490FFDD421F4A21800B6696F /* BackgroundService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490FFDD321F4A21800B6696F /* BackgroundService.swift */; };
-		4912CC9421EF1F98004E4472 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4912CC9321EF1F98004E4472 /* UIApplication+Extensions.swift */; };
 		4912CC9921EFC2EE004E4472 /* AlertInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4912CC9821EFC2EE004E4472 /* AlertInfo.swift */; };
 		4916E40A21EA546D0070141F /* AlarmSchedulerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4916E40921EA546D0070141F /* AlarmSchedulerService.swift */; };
 		4921B8D021A1A41700BD6145 /* SettingsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4921B8CF21A1A41700BD6145 /* SettingsKeys.swift */; };
@@ -77,9 +76,9 @@
 		499AF40121AEE93C00F4B4FF /* CalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499AF40021AEE93C00F4B4FF /* CalendarService.swift */; };
 		499AF40421AEEC5400F4B4FF /* AccessError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499AF40321AEEC5400F4B4FF /* AccessError.swift */; };
 		499E6A6021F234EE00C57414 /* AlarmUpdateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499E6A5F21F234EE00C57414 /* AlarmUpdateService.swift */; };
-		49A52A9021F47C6800D3B885 /* Realm+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A52A8F21F47C6800D3B885 /* Realm+Extensions.swift */; };
 		49A8B97521E64F7100DA26E0 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A8B97421E64F7100DA26E0 /* ErrorView.swift */; };
 		49A8B97721E6562100DA26E0 /* ErrorDisplayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A8B97621E6562100DA26E0 /* ErrorDisplayable.swift */; };
+		49AA026021FB7616003CA519 /* AlarmSectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49AA025F21FB7616003CA519 /* AlarmSectionService.swift */; };
 		49B4663121CADBB500BE810C /* LoadingDisplayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B4663021CADBB500BE810C /* LoadingDisplayable.swift */; };
 		49B4663521CADE7F00BE810C /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B4663421CADE7F00BE810C /* LoadingView.swift */; };
 		49B4663721CAEE0000BE810C /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B4663621CAEE0000BE810C /* DependencyContainer.swift */; };
@@ -107,6 +106,7 @@
 		49BE428121B839ED003EC071 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BE428021B839ED003EC071 /* Reusable.swift */; };
 		49BE428321B83A17003EC071 /* AlarmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BE428221B83A17003EC071 /* AlarmTableViewCell.swift */; };
 		49BE428521B83B72003EC071 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BE428421B83B72003EC071 /* UITableView+Extensions.swift */; };
+		49CDA9CA21FC80250066343C /* CLLocation+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CDA9C921FC80250066343C /* CLLocation+Extensions.swift */; };
 		49CE3D2B21AF227D00A05CD0 /* RealmServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CE3D2A21AF227D00A05CD0 /* RealmServiceType.swift */; };
 		49CE3D2D21AF235700A05CD0 /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CE3D2C21AF235700A05CD0 /* RealmService.swift */; };
 		49CE3D2F21AF244C00A05CD0 /* AlarmServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CE3D2E21AF244C00A05CD0 /* AlarmServiceError.swift */; };
@@ -172,7 +172,6 @@
 		22CF8FBC21F1FED0005FB844 /* CalendarEditSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEditSection.swift; sourceTree = "<group>"; };
 		490A133421F9D552004B74D7 /* MoyaNetworkActivityPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaNetworkActivityPlugin.swift; sourceTree = "<group>"; };
 		490FFDD321F4A21800B6696F /* BackgroundService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundService.swift; sourceTree = "<group>"; };
-		4912CC9321EF1F98004E4472 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		4912CC9821EFC2EE004E4472 /* AlertInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertInfo.swift; sourceTree = "<group>"; };
 		4916E40921EA546D0070141F /* AlarmSchedulerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSchedulerService.swift; sourceTree = "<group>"; };
 		4921B8CF21A1A41700BD6145 /* SettingsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsKeys.swift; sourceTree = "<group>"; };
@@ -215,9 +214,9 @@
 		499AF40021AEE93C00F4B4FF /* CalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarService.swift; sourceTree = "<group>"; };
 		499AF40321AEEC5400F4B4FF /* AccessError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessError.swift; sourceTree = "<group>"; };
 		499E6A5F21F234EE00C57414 /* AlarmUpdateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmUpdateService.swift; sourceTree = "<group>"; };
-		49A52A8F21F47C6800D3B885 /* Realm+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Realm+Extensions.swift"; sourceTree = "<group>"; };
 		49A8B97421E64F7100DA26E0 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		49A8B97621E6562100DA26E0 /* ErrorDisplayable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorDisplayable.swift; sourceTree = "<group>"; };
+		49AA025F21FB7616003CA519 /* AlarmSectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSectionService.swift; sourceTree = "<group>"; };
 		49B4663021CADBB500BE810C /* LoadingDisplayable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingDisplayable.swift; sourceTree = "<group>"; };
 		49B4663421CADE7F00BE810C /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		49B4663621CAEE0000BE810C /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
@@ -245,6 +244,7 @@
 		49BE428021B839ED003EC071 /* Reusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		49BE428221B83A17003EC071 /* AlarmTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTableViewCell.swift; sourceTree = "<group>"; };
 		49BE428421B83B72003EC071 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
+		49CDA9C921FC80250066343C /* CLLocation+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocation+Extensions.swift"; sourceTree = "<group>"; };
 		49CE3D2A21AF227D00A05CD0 /* RealmServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmServiceType.swift; sourceTree = "<group>"; };
 		49CE3D2C21AF235700A05CD0 /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
 		49CE3D2E21AF244C00A05CD0 /* AlarmServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmServiceError.swift; sourceTree = "<group>"; };
@@ -312,7 +312,7 @@
 				4997AD2021F8A63600E68687 /* CLGeocoder+Rx.swift */,
 				8415D34B21CA98C200F28E13 /* VehicleSegmentedControl+Rx.swift */,
 				4996332421EB432100B55F45 /* UNUserNotificationCenterDelegate+Rx.swift */,
-				49A52A8F21F47C6800D3B885 /* Realm+Extensions.swift */,
+				49CDA9C921FC80250066343C /* CLLocation+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -428,6 +428,7 @@
 				4916E40921EA546D0070141F /* AlarmSchedulerService.swift */,
 				22CF8FB021F0B1EB005FB844 /* GeocodingService.swift */,
 				490FFDD321F4A21800B6696F /* BackgroundService.swift */,
+				49AA025F21FB7616003CA519 /* AlarmSectionService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -577,7 +578,6 @@
 				220365AB2195B741002BDE91 /* UIColor+Extensions.swift */,
 				49BE428421B83B72003EC071 /* UITableView+Extensions.swift */,
 				8415D34D21CA9D1500F28E13 /* UIControl+Extensions.swift */,
-				4912CC9321EF1F98004E4472 /* UIApplication+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -918,12 +918,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				22CF8FB321F0B81E005FB844 /* Geocoding.swift in Sources */,
-				4912CC9421EF1F98004E4472 /* UIApplication+Extensions.swift in Sources */,
 				49941FAE21D3A88F00F91229 /* InfoAlertDisplayable.swift in Sources */,
 				4924A26F21A8793B00671450 /* WeatherService.swift in Sources */,
-				49A52A9021F47C6800D3B885 /* Realm+Extensions.swift in Sources */,
 				49CE3D2B21AF227D00A05CD0 /* RealmServiceType.swift in Sources */,
 				49CE3D2B21AF227D00A05CD0 /* RealmServiceType.swift in Sources */,
+				49AA026021FB7616003CA519 /* AlarmSectionService.swift in Sources */,
 				22CF8FBD21F1FED0005FB844 /* CalendarEditSection.swift in Sources */,
 				4924610421C2BC0E001C0D37 /* RouteOverviewTableViewCell.swift in Sources */,
 				493FA95221CE656B00C2FFA1 /* Sequence+Extensions.swift in Sources */,
@@ -970,6 +969,7 @@
 				4996332521EB432100B55F45 /* UNUserNotificationCenterDelegate+Rx.swift in Sources */,
 				49BD678521CFA17700A240E6 /* Strings.swift in Sources */,
 				493FA95721CE6CC900C2FFA1 /* LargeLabel.swift in Sources */,
+				49CDA9CA21FC80250066343C /* CLLocation+Extensions.swift in Sources */,
 				49BE428321B83A17003EC071 /* AlarmTableViewCell.swift in Sources */,
 				49FAADCF21A073960019D5FA /* LocationPageViewModel.swift in Sources */,
 				499AF40421AEEC5400F4B4FF /* AccessError.swift in Sources */,
@@ -1199,7 +1199,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MZTB89FPHK;
+				DEVELOPMENT_TEAM = 57REX7BTC9;
 				INFOPLIST_FILE = Weckr/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1219,7 +1219,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MZTB89FPHK;
+				DEVELOPMENT_TEAM = 57REX7BTC9;
 				INFOPLIST_FILE = Weckr/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -16,6 +16,10 @@ class RoutePedestrianTableViewCell: TileTableViewCell, BasicInfoSubtitleDisplaya
     var infoView = BasicInfoView()
     var distanceLabel = SmallLabel()
     
+    override var topPadding: TileTableViewCell.PaddingSize { return .small }
+    override var bottomPadding: TileTableViewCell.PaddingSize { return .small }
+
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         gradient = Gradient(left: UIColor.routeCellLeft.cgColor,

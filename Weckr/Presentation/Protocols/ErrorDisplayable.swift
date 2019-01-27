@@ -19,12 +19,10 @@ protocol ErrorDisplayable {
 extension ErrorDisplayable where Self: UIViewController {
     func showError(error: AppError) {
         errorView.setError(error)
-        UIApplication.shared.statusBarView?.backgroundColor = UIColor.backGroundColorTransparent
         view.addSubview(errorView)
     }
     
     func hideError() {
-        UIApplication.shared.statusBarView?.backgroundColor = UIColor.backgroundColor
         errorView.removeFromSuperview()
     }
 }

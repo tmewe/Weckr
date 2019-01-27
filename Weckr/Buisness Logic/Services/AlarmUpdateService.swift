@@ -11,87 +11,91 @@ import RxSwift
 import RealmSwift
 import RxRealm
 import SwiftDate
+import CoreLocation
 
 protocol AlarmUpdateServiceType {
-    func updateMorningRoutine(_ time: TimeInterval, for alarm: Alarm)
-    func calculateDate(for alarm: Alarm) -> Observable<Alarm>
+    func updateMorningRoutine(_ time: TimeInterval,
+                              for alarm: Alarm,
+                              serviceFactory: ServiceFactoryProtocol) -> Observable<Void>
     func updateTransportMode(_ mode: TransportMode,
                              for alarm: Alarm,
-                             serviceFactory: ServiceFactoryProtocol,
-                             disposeBag: DisposeBag)
+                             serviceFactory: ServiceFactoryProtocol) -> Observable<Void>
+    func updateLocation(_ location: GeoCoordinate,
+                for alarm: Alarm,
+                serviceFactory: ServiceFactoryProtocol) -> Observable<Void>
     func updateSelectedEvent(_ event: CalendarEntry,
                              for alarm: Alarm,
-                             serviceFactory: ServiceFactoryProtocol,
-                             disposeBag: DisposeBag)
+                             serviceFactory: ServiceFactoryProtocol) -> Observable<Void>
     func updateEvents(for alarm: Alarm,
-                      serviceFactory: ServiceFactoryProtocol,
-                      disposeBag: DisposeBag)
+                      serviceFactory: ServiceFactoryProtocol) -> Observable<Void>
+    func calculateDate(for alarm: Alarm) -> Observable<Alarm>
 }
 
 struct AlarmUpdateService: AlarmUpdateServiceType {
     
-    func updateMorningRoutine(_ time: TimeInterval, for alarm: Alarm) {
-        let realm = try! Realm()
-        try! realm.write {
-            alarm.morningRoutine = time
-        }
-        calculateDate(for: alarm)
+    func updateMorningRoutine(_ time: TimeInterval,
+                              for alarm: Alarm,
+                              serviceFactory: ServiceFactoryProtocol) -> Observable<Void> {
+        let realmService = serviceFactory.createRealm()
+        return realmService.update(morningRoutine: time, for: alarm)
+            .flatMapLatest(calculateDate)
+            .map { _ in Void() }
     }
     
     func updateTransportMode(_ mode: TransportMode,
                              for alarm: Alarm,
-                             serviceFactory: ServiceFactoryProtocol,
-                             disposeBag: DisposeBag) {
+                             serviceFactory: ServiceFactoryProtocol) -> Observable<Void> {
         
-        updateRoute(for: alarm,
+        return updateRoute(for: alarm,
                     mode: mode,
-                    start: alarm.route.legs.first!.start.position,
                     event: alarm.selectedEvent,
-                    serviceFactory: serviceFactory,
-                    disposeBag: disposeBag)
+                    serviceFactory: serviceFactory)
     }
     
     func updateSelectedEvent(_ event: CalendarEntry,
                              for alarm: Alarm,
-                             serviceFactory: ServiceFactoryProtocol,
-                             disposeBag: DisposeBag) {
+                             serviceFactory: ServiceFactoryProtocol) -> Observable<Void> {
         
-        updateRoute(for: alarm,
+        return updateRoute(for: alarm,
                     mode: alarm.route.transportMode,
-                    start: alarm.route.legs.first!.start.position,
                     event: event,
-                    serviceFactory: serviceFactory,
-                    disposeBag: disposeBag)
+                    serviceFactory: serviceFactory)
     }
     
     private func updateRoute(for alarm: Alarm,
                              mode: TransportMode,
-                             start: GeoCoordinate,
                              event: CalendarEntry,
-                             serviceFactory: ServiceFactoryProtocol,
-                             disposeBag: DisposeBag) {
-        let routingService = serviceFactory.createRouting()
-        let geocodingService = serviceFactory.createGeocoder()
+                             serviceFactory: ServiceFactoryProtocol) -> Observable<Void> {
         
         log.info("Update route for alarm at \(alarm.date!) and \(event.title!)")
         
-        do {
-        try geocodingService
+        let routingService = serviceFactory.createRouting()
+        let geocodingService = serviceFactory.createGeocoder()
+        let realmService = serviceFactory.createRealm()
+        let schedulerService = serviceFactory.createAlarmScheduler()
+        
+        guard let start = alarm.location else { return .empty() }
+        
+        return try! geocodingService
             .geocode(event, realmService: serviceFactory.createRealm())
+            .debug()
             .flatMapLatest { routingService.route(with: mode, start: start, end: $0, arrival: event.startDate) }
-            .subscribe(onNext: { route in
-                let realmService = serviceFactory.createRealm()
-                let update = Alarm(route: route,
-                                   weather: alarm.weather,
-                                   location: start,
-                                   morningRoutine: alarm.morningRoutine,
-                                   selectedEvent: event,
-                                   otherEvents: alarm.otherEvents.toArray())
-                update.id = alarm.id
-                self.update(alarm: update, service: realmService)
-            })
-            .disposed(by: disposeBag)
-        } catch { log.error(error) }
+            .withLatestFrom(Observable.just(alarm)) { ($0, $1) }
+            .flatMapLatest(realmService.update)
+            .flatMapLatest(schedulerService.setAlarmUpdateNotification)
+        
+//            .map { route in
+//                let update = Alarm(route: route,
+//                                   weather: alarm.weather,
+//                                   location: start,
+//                                   morningRoutine: alarm.morningRoutine,
+//                                   selectedEvent: event,
+//                                   otherEvents: alarm.otherEvents.toArray())
+//                update.id = alarm.id
+//                return update
+//            }
+//            .withLatestFrom(Observable.just(realmService)) { ($0, $1) }
+//            .flatMapLatest(update)
     }
     
     @discardableResult
@@ -111,46 +115,58 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
     }
     
     func updateEvents(for alarm: Alarm,
-                      serviceFactory: ServiceFactoryProtocol,
-                      disposeBag: DisposeBag) {
+                      serviceFactory: ServiceFactoryProtocol) -> Observable<Void> {
         let calendarService = serviceFactory.createCalendar()
         let realmService = serviceFactory.createRealm()
         do {
             
-            let events = try calendarService.fetchEvents(at: alarm.date, calendars: nil)
-                    .filterEmpty()
-                    .share(replay: 1, scope: .forever)
+            let events = try calendarService
+                .fetchEvents(at: alarm.date, calendars: nil)
+                .filterEmpty()
+                .share(replay: 1, scope: .forever)
             let transportMode = TransportMode(mode: UserDefaults.standard.integer(forKey: SettingsKeys.transportMode))
             
-            events
-                .subscribe(onNext: { events in
-                    
-                    let realmService = serviceFactory.createRealm()
-                    let update = Alarm(route: alarm.route,
-                                       weather: alarm.weather,
-                                       location: alarm.location,
-                                       morningRoutine: alarm.morningRoutine,
-                                       selectedEvent: events.first!,
-                                       otherEvents: events)
-                    update.id = alarm.id
-                    self.update(alarm: update, service: realmService)
-                    self.updateRoute(for: alarm,
-                                     mode: transportMode,
-                                     start: alarm.location,
-                                     event: alarm.selectedEvent,
-                                     serviceFactory: serviceFactory,
-                                     disposeBag: disposeBag)
-                })
-                .disposed(by: disposeBag)
+            return events
+                .withLatestFrom(Observable.just(alarm)) { ($0, $1) }
+                .flatMapLatest(realmService.update)
+                .withLatestFrom(Observable.just(realmService)) { ($0, $1) }
+                .flatMapLatest(update)
+                .withLatestFrom(Observable.just(transportMode)) { ($0, $1) }
+                .withLatestFrom(Observable.just(alarm.selectedEvent)) { ($0.0, $0.1, $1) }
+                .withLatestFrom(Observable.just(serviceFactory)) { ($0.0, $0.1, $0.2, $1) }
+                .flatMapLatest(updateRoute)
         }
         catch CalendarError.noEvents {
-            realmService.delete(alarm: alarm)
+            return realmService.delete(alarm: alarm,
+                                       alarmScheduler: serviceFactory.createAlarmScheduler())
         }
-        catch {}
+        catch { return .empty() }
     }
     
-    private func update(alarm: Alarm, service: RealmServiceType) {
-        self.calculateDate(for: alarm)
-        service.update(alarm: alarm)
+    func updateLocation(_ location: GeoCoordinate,
+                for alarm: Alarm,
+                serviceFactory: ServiceFactoryProtocol) -> Observable<Void> {
+        
+        let realmService = serviceFactory.createRealm()
+        
+        guard !alarm.isInvalidated else { return .empty() }
+        
+        let first = CLLocation(coordinate: alarm.location)
+        let second = CLLocation(coordinate: location)
+        let distance = first.distance(from: second) //meters
+        
+        guard distance > 200 else { return .empty() }
+        return realmService
+            .update(location: location, for: alarm)
+            .flatMap { self.updateRoute(for: $0,
+                                        mode: alarm.route.transportMode,
+                                        event: alarm.selectedEvent,
+                                        serviceFactory: serviceFactory) }
+    }
+    
+    @discardableResult
+    private func update(alarm: Alarm, service: RealmServiceType) -> Observable<Alarm> {
+        return calculateDate(for: alarm)
+            .flatMapLatest(service.update)
     }
 }

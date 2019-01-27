@@ -9,13 +9,17 @@
 import Foundation
 import UserNotifications
 import SwiftDate
+import RxSwift
 
 protocol AlarmSchedulerServiceType {
-    func setAlarmNotification(with date: Date)
+    func setAlarmNotification(with date: Date) -> Observable<Void>
+    func setNoAlarmNotification() -> Observable<Void>
+    func setAlarmUpdateNotification(for alarm: Alarm) -> Observable<Void>
 }
 
 struct AlarmSchedulerService: AlarmSchedulerServiceType {
-    func setAlarmNotification(with date: Date) {
+    
+    func setAlarmNotification(with date: Date) -> Observable<Void> {
         let notificationCenter = UNUserNotificationCenter.current()
         notificationCenter.removeAllPendingNotificationRequests()
 
@@ -25,7 +29,6 @@ struct AlarmSchedulerService: AlarmSchedulerServiceType {
         content.categoryIdentifier = "alarm"
         content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "alarm.mp3"))
         
-//        let alarmTime = Date() + 61.seconds
         let components = Calendar.current.dateComponents([.weekday, .hour, .minute], from: date)
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: components,
@@ -34,10 +37,44 @@ struct AlarmSchedulerService: AlarmSchedulerServiceType {
                                             content: content,
                                             trigger: trigger)
                 
-        notificationCenter.add(request) { (error) in
-            if error != nil {
-                print(error!.localizedDescription)
-            }
-        }
+        return add(request: request, to: notificationCenter)
+    }
+    
+    func setNoAlarmNotification() -> Observable<Void> {
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.removeAllPendingNotificationRequests()
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Attention"
+        content.body = "I couldn't find any events in the upcoming week, so I won't wake you in the morning!"
+        content.categoryIdentifier = "warning"
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+        let request = UNNotificationRequest(identifier: UUID().uuidString,
+                                            content: content,
+                                            trigger: trigger)
+        return add(request: request, to: notificationCenter)
+    }
+    
+    func setAlarmUpdateNotification(for alarm: Alarm) -> Observable<Void> {
+        let notificationCenter = UNUserNotificationCenter.current()
+        
+        let month = Formatter.Date.dayMonthLong.string(from: alarm.date)
+        let time = Formatter.Date.timeShort.string(from: alarm.date)
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Oh hey"
+        content.body = "I detected some changes. Your next alarm rings at \(time) on \(month)"
+        content.categoryIdentifier = "update"
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+        let request = UNNotificationRequest(identifier: UUID().uuidString,
+                                            content: content,
+                                            trigger: trigger)
+        return add(request: request, to: notificationCenter)
+    }
+    
+    private func add(request: UNNotificationRequest, to center: UNUserNotificationCenter) -> Observable<Void> {
+        return center.rx.add(request).debug("notification", trimOutput: true).map { _ in Void() }
     }
 }

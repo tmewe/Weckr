@@ -34,6 +34,20 @@ extension Reactive where Base: UNUserNotificationCenter {
         }
     }
     
+    func add(_ request: UNNotificationRequest) -> Observable<Error?> {
+        return Observable.create { observer in
+            self.base.add(request, withCompletionHandler: { error in
+                guard error == nil else {
+                    observer.onError(error!)
+                    return
+                }
+                observer.onNext(error)
+                observer.onCompleted()
+            })
+            return Disposables.create()
+        }
+    }
+    
     public var delegate: DelegateProxy<UNUserNotificationCenter,UNUserNotificationCenterDelegate> {
         return RxUNUserNotificationCenterDelegateProxy.proxy(for: base)
     }

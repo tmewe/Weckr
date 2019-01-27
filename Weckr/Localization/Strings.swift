@@ -70,6 +70,7 @@ struct Strings {
         static let today = "main.header.today".localized
         static let tomorrow = "main.header.tomorrow".localized
         static let dayAfterTomorrow = "main.header.dayaftertomorrow".localized
+        static let error = "main.header.error".localized
         
         struct Edit {
             static let morningRoutineTitle = "edit.morningRoutine".localized
@@ -122,6 +123,7 @@ struct Strings {
         static let takeStreetLeft = "direction.takeStreetLeft".localized
         static let straight = "direction.straight".localized
         static let roundabout = "direction.roundabout".localized
+        static let walkTo = "direction.walkto".localized
         static let drive = "direction.drive".localized
         static let kilometers = "direction.kilometers".localized
         static let meters = "direction.meters".localized

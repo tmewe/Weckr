@@ -84,7 +84,7 @@ class WalkthroughViewModel: WalkthroughViewModelType {
         let calendarError: BehaviorSubject<AppError?> = BehaviorSubject(value: nil)
         
         let alertInfo: PublishSubject<AlertInfo> = PublishSubject()
-        let loadingActive: PublishSubject<Bool> = PublishSubject()
+        let loadingInfo: PublishSubject<Bool> = PublishSubject()
         
         locationManager.startUpdatingLocation()
         
@@ -98,7 +98,9 @@ class WalkthroughViewModel: WalkthroughViewModelType {
         pageNumber = internalPageNumber.asObservable()
         slides = Observable.of(pages)
         showAlert = alertInfo.asObservable()
-        showLoading = loadingActive.asObservable().startWith(false)
+        showLoading = loadingInfo.asObservable()
+            .startWith(false)
+            .share(replay: 1, scope: .forever)
         
         let currentPageController = scrollAmount
             .withLatestFrom(slides) { ($0, $1) }
@@ -165,6 +167,14 @@ class WalkthroughViewModel: WalkthroughViewModelType {
             .map(GeoCoordinate.init)
             .share(replay: 1, scope: .forever)
         
+        errorOccurred = Observable.combineLatest(locationError, notificationError, calendarError)
+            .map { location, notification, event in
+                if location != nil { return location }
+                if notification != nil { return notification }
+                if event != nil { return event }
+                return nil
+        }
+        
         //Location access status
         locationManager.rx.didChangeAuthorization
             .map { $0.1 }
@@ -173,19 +183,12 @@ class WalkthroughViewModel: WalkthroughViewModelType {
                 case .restricted, .denied:
                     return AccessError.location
                 default:
+                    self.locationManager.startUpdatingLocation()
                     return nil
                 }
             }
             .bind(to: locationError)
             .disposed(by: disposeBag)
-        
-        errorOccurred = Observable.combineLatest(locationError, notificationError, calendarError)
-            .map { location, notification, event in
-                if location != nil { return location }
-                if notification != nil { return notification }
-                if event != nil { return event }
-                return nil
-        }
         
         //Notification access status
         let notificationPage = pages.filter { $0.viewModel is NotificationPageViewModel }.first
@@ -214,7 +217,7 @@ class WalkthroughViewModel: WalkthroughViewModelType {
             .disposed(by: disposeBag)
         
         createTrigger
-            .do(onNext: { loadingActive.onNext(true) })
+            .do(onNext: { loadingInfo.onNext(true) })
             .withLatestFrom(startLocation)
             .flatMap { self.realmService.createFirstAlarm(startLocation: $0, serviceFactory: serviceFactory) }
             .subscribe(onNext: { result in
@@ -226,7 +229,7 @@ class WalkthroughViewModel: WalkthroughViewModelType {
                         UserDefaults.standard.set(true, forKey: SettingsKeys.appHasBeenStarted)
                     
                     case let .Failure(error):
-                        loadingActive.onNext(false)
+                        loadingInfo.onNext(false)
                         let info = AlertInfo(title: error.localizedTitle,
                                              message: error.localizedMessage,
                                              button: Strings.Error.gotit)

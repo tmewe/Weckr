@@ -33,30 +33,28 @@ class CalendarEditViewModel: CalendarEditViewModelType {
     var outputs: CalendarEditViewModelOutputsType { return self }
     var actions: CalendarEditViewModelActionsType { return self }
     
-    //Inputs
-    var selectedEvent: PublishSubject<EventEditWrapper>
-    
     //Outputs
     var events: Observable<[CalendarEditSection]>
     
     //Setup
     private let alarm: Alarm
     private let serviceFactory: ServiceFactoryProtocol
-    private let alarmUpdateService: AlarmUpdateServiceType
+    private let realmService: RealmServiceType
     private let coordinator: SceneCoordinatorType
     private let disposeBag = DisposeBag()
     
     init(alarm: Alarm, serviceFactory: ServiceFactoryProtocol, coordinator: SceneCoordinatorType) {
         self.alarm = alarm
         self.serviceFactory = serviceFactory
-        self.alarmUpdateService = serviceFactory.createAlarmUpdate()
+        self.realmService = serviceFactory.createRealm()
         self.coordinator = coordinator
         
-        //Inputs
-        selectedEvent = PublishSubject()
-        
-        let title = Observable.just([CalendarEditSectionItem.title(text: Strings.Main.Edit.calendarTitle, coloredPart: Strings.Main.Edit.calendarTitleColoredPart)])
         //Outputs
+        let title = Observable.just([
+            CalendarEditSectionItem.title(text: Strings.Main.Edit.calendarTitle,
+                                          coloredPart: Strings.Main.Edit.calendarTitleColoredPart)
+            ])
+        
         let eventItems: Observable<[CalendarEditSectionItem]> = Observable.just(alarm.otherEvents.toArray())
             .map { events in
                 return events.map { event in
@@ -77,7 +75,7 @@ class CalendarEditViewModel: CalendarEditViewModelType {
         events = Observable
             .combineLatest(title, eventItems)
             .map { $0.0 + $0.1 }
-            .map {[CalendarEditSection(header:"", items: $0)]}
+            .map { [CalendarEditSection(header:"", items: $0)] }
 
     }
     
@@ -88,11 +86,8 @@ class CalendarEditViewModel: CalendarEditViewModelType {
                 return this.coordinator.pop(animated: true)
             }
             
-            this.alarmUpdateService.updateSelectedEvent(wrapper.event,
-                                                  for: this.alarm,
-                                                  serviceFactory: this.serviceFactory,
-                                                  disposeBag: this.disposeBag)
-            return this.coordinator.pop(animated: true)
+            return this.realmService.update(selectedEvent: wrapper.event, for: this.alarm)
+                .flatMapLatest { _ in this.coordinator.pop(animated: true) }
         }
     }(self)
 }

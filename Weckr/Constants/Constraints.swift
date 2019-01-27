@@ -48,6 +48,8 @@ struct Constraints {
             static let defaultHeight: CGFloat = 100
             static let top: CGFloat = 10
             static let bottom: CGFloat = 10
+            static let topSmall: CGFloat = 5
+            static let bottomSmall: CGFloat = 5
             static let left: CGFloat = 20
             static let right: CGFloat = 20
         }

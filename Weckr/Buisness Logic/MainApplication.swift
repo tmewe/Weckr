@@ -26,9 +26,6 @@ final class MainApplication: NSObject, MainApplicationProtocol {
     private let serviceFactory: ServiceFactoryProtocol
     private let locationManager = CLLocationManager()
     private let disposeBag = DisposeBag()
-    private let backgroundService = BackgroundService()
-    private let realmService = RealmService()
-    private let updateService = AlarmUpdateService()
     
     init(viewModelFactory: ViewModelFactoryProtocol,
          serviceFactory: ServiceFactoryProtocol) {
@@ -39,7 +36,7 @@ final class MainApplication: NSObject, MainApplicationProtocol {
     //FIXME: - We need a new coordinator implementation where we dont need the window
     func start(window: UIWindow) {
         UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplication.backgroundFetchIntervalMinimum)
-    
+        
         setupLogging()
         startCoordinator(window: window)
     }
@@ -48,46 +45,76 @@ final class MainApplication: NSObject, MainApplicationProtocol {
                      performFetchWithCompletionHandler
         completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         
+        let backgroundService = serviceFactory.createBackground()
+        let realmService = serviceFactory.createRealm()
+        let updateService = serviceFactory.createAlarmUpdate()
+        let schedulerService = serviceFactory.createAlarmScheduler()
+        
         let started = UserDefaults.standard.bool(forKey: SettingsKeys.appHasBeenStarted)
         guard started else { return }
         
         let currentLocation = locationManager.rx.location
-            .debug("location", trimOutput: true)
             .filterNil()
             .map { ($0.coordinate.latitude, $0.coordinate.longitude) }
             .map(GeoCoordinate.init)
             .share(replay: 1, scope: .forever)
         
-        //Create alarm if there is no current alarm
         let currentAlarm = realmService.currentAlarm()
-        guard currentAlarm != nil else {
-            backgroundService.createFirstAlarm(at: currentLocation,
-                                               realmService: realmService,
-                                               serviceFactory: serviceFactory,
-                                               disposeBag: disposeBag)
-            completionHandler(.newData)
-            return
+        
+        //Create alarm if there is no current alarm
+        if currentAlarm == nil {
+            let first = Observable.just(currentAlarm)
+                .withLatestFrom(Observable.just(currentLocation))
+                .withLatestFrom(Observable.just(realmService)) { ($0, $1) }
+                .withLatestFrom(Observable.just(serviceFactory)) { ($0.0, $0.1, $1) }
+                .flatMapLatest(backgroundService.createFirstAlarm)
+                .take(1)
+                .share(replay: 1, scope: .forever)
+            
+            first
+                .filter(filterSuccessfulAlarmCreation)
+                .map { _ in Void() }
+                .flatMapLatest(schedulerService.setNoAlarmNotification)
+                .subscribe(onNext: { _ in completionHandler(.noData) })
+                .disposed(by: disposeBag)
+            
+            first
+                .filter { !self.filterSuccessfulAlarmCreation(for: $0) }
+                .map { _ in Void() }
+                .subscribe(onNext: { _ in completionHandler(.newData) })
+                .disposed(by: disposeBag)
+
+        } else {
+            
+            let alarm = Observable.just(currentAlarm)
+                .filterNil()
+                .filter { !$0.isInvalidated }
+            
+            //Update events on current alarm date
+            let current = backgroundService.updateCurrent(alarm: currentAlarm,
+                                                          updateService: updateService,
+                                                          serviceFactory: serviceFactory)
+            
+            //Check for events before current alarm
+            let prior = backgroundService.updateEventsPrior(to: currentAlarm,
+                                                            location: currentLocation,
+                                                            realmService: realmService,
+                                                            serviceFactory: serviceFactory)
+            
+            //Check location and update route for current alarm
+            let location = currentLocation
+                .withLatestFrom(alarm) { ($0, $1) }
+                .withLatestFrom(Observable.just(updateService)) { ($0.0, $0.1, $1) }
+                .withLatestFrom(Observable.just(serviceFactory)) { ($0.0, $0.1, $0.2, $1) }
+                .flatMapLatest(backgroundService.updateUserLocation)
+            
+            //Delete all past
+            let deletePast = realmService.deletePastAlarms()
+            
+            Observable.combineLatest(current, prior, location, deletePast)
+                .subscribe(onNext: { _ in completionHandler(.newData)} )
+                .disposed(by: disposeBag)
         }
-        
-        //Update events on current alarm date
-        backgroundService.updateCurrent(alarm: currentAlarm,
-                                        updateService: updateService,
-                                        serviceFactory: serviceFactory,
-                                        disposeBag: disposeBag)
-        
-        //Check for events before current alarm
-        backgroundService.updateEventsPrior(to: currentAlarm,
-                                            location: currentLocation,
-                                            realmService: realmService,
-                                            serviceFactory: serviceFactory,
-                                            disposeBag: disposeBag)
-        
-        //Check location and update route for current alarm
-        
-        //Delete all past alarms
-        realmService.deletePastAlarms()
-        
-        completionHandler(.newData)
     }
     
     private func setupLogging() {
@@ -101,7 +128,7 @@ final class MainApplication: NSObject, MainApplicationProtocol {
         let appHasBeenStarted = UserDefaults
             .standard
             .bool(forKey: SettingsKeys.appHasBeenStarted)
-    
+        
         let coordinator = SceneCoordinator(window: window)
         
         switch appHasBeenStarted {
@@ -117,6 +144,8 @@ final class MainApplication: NSObject, MainApplicationProtocol {
             coordinator.transition(to: Scene.walkthrough(walkthroughViewModel), withType: .root)
         }
     }
+    
+    //Helper
     
     private func createPages() -> [WalkthroughPageViewController] {
         let landingViewModel = LandingPageViewModel()
@@ -137,5 +166,12 @@ final class MainApplication: NSObject, MainApplicationProtocol {
         let pages = [landingPage, calendarPage, locationPage,
                      notificationPage, travelPage, routinePage, donePage]
         return pages
+    }
+    
+    private func filterSuccessfulAlarmCreation(for result: AlarmCreationResult<Alarm>) -> Bool {
+        switch result {
+        case .Success(_): return false
+        case .Failure(_): return true
+        }
     }
 }

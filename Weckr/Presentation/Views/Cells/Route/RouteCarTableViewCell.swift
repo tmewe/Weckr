@@ -13,6 +13,9 @@ class RouteCarTableViewCell: TileTableViewCell, BasicInfoSubtitleDisplayable {
     
     typealias Configuration = Route
     
+    override var topPadding: TileTableViewCell.PaddingSize { return .small }
+    override var bottomPadding: TileTableViewCell.PaddingSize { return .small }
+
     var infoView = BasicInfoView()
     var distanceLabel = SmallLabel.newAutoLayout()
     

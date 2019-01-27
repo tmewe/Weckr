@@ -68,12 +68,74 @@ struct RealmService: RealmServiceType {
     }
     
     @discardableResult
-    func delete(alarm: Alarm) -> Observable<Void> {
+    func update(location: GeoCoordinate, for alarm: Alarm) -> Observable<Alarm> {
+        let result = withRealm("updating location on alarm") { realm -> Observable<Alarm> in
+            try realm.write {
+                alarm.location = location
+            }
+            return .just(alarm)
+        }
+        return result ?? .error(AlarmServiceError.updateFailed)
+    }
+    
+    func update(selectedEvent: CalendarEntry, for alarm: Alarm) -> Observable<Alarm> {
+        let result = withRealm("updating selected event on alarm") { realm -> Observable<Alarm> in
+            try realm.write {
+                alarm.selectedEvent = selectedEvent
+            }
+            return .just(alarm)
+        }
+        return result ?? .error(AlarmServiceError.updateFailed)
+    }
+    
+    @discardableResult
+    func update(morningRoutine time: TimeInterval, for alarm: Alarm) -> Observable<Alarm> {
+        let result = withRealm("updating selected event on alarm") { realm -> Observable<Alarm> in
+            try realm.write {
+                alarm.morningRoutine = time
+            }
+            return .just(alarm)
+        }
+        return result ?? .error(AlarmServiceError.updateFailed)
+    }
+    
+    @discardableResult
+    func update(_ route: Route, for alarm: Alarm) -> Observable<Alarm> {
+        let result = withRealm("updating selected event on alarm") { realm -> Observable<Alarm> in
+            try realm.write {
+                realm.add(route, update: true)
+                alarm.route = route
+            }
+            return .just(alarm)
+        }
+        return result ?? .error(AlarmServiceError.updateFailed)
+    }
+    
+    @discardableResult
+    func update(_ events: [CalendarEntry], for alarm: Alarm) -> Observable<Alarm> {
+        guard !events.isEmpty else { return .error(AlarmServiceError.updateFailed) }
+        
+        let result = withRealm("updating selected event on alarm") { realm -> Observable<Alarm> in
+            try realm.write {
+                realm.add(events, update: true)
+                alarm.otherEvents.removeAll()
+                alarm.otherEvents.append(objectsIn: events)
+                alarm.selectedEvent = events.first!
+            }
+            return .just(alarm)
+        }
+        return result ?? .error(AlarmServiceError.updateFailed)
+    }
+    
+    @discardableResult
+    func delete(alarm: Alarm, alarmScheduler: AlarmSchedulerServiceType) -> Observable<Void> {
         let result = withRealm("deleting") { realm -> Observable<Void> in
             try realm.write {
                 log.info("Deleting alarm at \(alarm.date!)")
                 realm.delete(alarm)
             }
+            let alarms = realm.objects(Alarm.self)
+            if alarms.isEmpty { return alarmScheduler.setNoAlarmNotification() }
             return .empty()
         }
         return result ?? .error(AlarmServiceError.deletionFailed(alarm))

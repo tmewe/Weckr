@@ -12,65 +12,61 @@ import RxSwift
 protocol BackgroundServiceType {
     func createFirstAlarm(at location: Observable<GeoCoordinate>,
                           realmService: RealmServiceType,
-                          serviceFactory: ServiceFactoryProtocol,
-                          disposeBag: DisposeBag)
+                          serviceFactory: ServiceFactoryProtocol) -> Observable<AlarmCreationResult<Alarm>>
     func updateCurrent(alarm: Alarm?,
                        updateService: AlarmUpdateServiceType,
-                       serviceFactory: ServiceFactoryProtocol,
-                       disposeBag: DisposeBag)
+                       serviceFactory: ServiceFactoryProtocol) -> Observable<Void>
     func updateEventsPrior(to alarm: Alarm?,
                            location: Observable<GeoCoordinate>,
                            realmService: RealmServiceType,
-                           serviceFactory: ServiceFactoryProtocol,
-                           disposeBag: DisposeBag)
+                           serviceFactory: ServiceFactoryProtocol) -> Observable<Void>
+    func updateUserLocation(_ location: GeoCoordinate,
+                            alarm: Alarm,
+                            updateService: AlarmUpdateServiceType,
+                            serviceFactory: ServiceFactoryProtocol) -> Observable<Void>
 }
 
 class BackgroundService: BackgroundServiceType {
     
-    
     func createFirstAlarm(at location: Observable<GeoCoordinate>,
                           realmService: RealmServiceType,
-                          serviceFactory: ServiceFactoryProtocol,
-                          disposeBag: DisposeBag) {
+                          serviceFactory: ServiceFactoryProtocol) -> Observable<AlarmCreationResult<Alarm>> {
         log.info("Background fetch: New first alarm start")
-        location
-            .debug("background new", trimOutput: true)
-            .flatMap { realmService
-                .createFirstAlarm(startLocation: $0, serviceFactory: serviceFactory) }
-            .subscribe(onNext: { _ in log.info("Background fetch: New first alarm end") })
-            .disposed(by: disposeBag)
+        return location
+            .withLatestFrom(Observable.just(serviceFactory)) { ($0, $1) }
+            .flatMapLatest(realmService.createFirstAlarm)
     }
     
     func updateCurrent(alarm: Alarm?,
                        updateService: AlarmUpdateServiceType,
-                       serviceFactory: ServiceFactoryProtocol,
-                       disposeBag: DisposeBag) {
+                       serviceFactory: ServiceFactoryProtocol) -> Observable<Void> {
         log.info("Background fetch: Updated current alarm start")
-        Observable.just(alarm)
+        return Observable.just(alarm)
             .filterNil()
-            .map { updateService.updateEvents(for: $0,
-                                              serviceFactory: serviceFactory,
-                                              disposeBag: disposeBag) }
-            .subscribe(onNext: { _ in log.info("Background fetch: Updated current alarm finish") })
-            .disposed(by: disposeBag)
+            .withLatestFrom(Observable.just(serviceFactory)) { ($0, $1) }
+            .flatMapLatest(updateService.updateEvents)
     }
     
     func updateEventsPrior(to alarm: Alarm?,
                            location: Observable<GeoCoordinate>,
                            realmService: RealmServiceType,
-                           serviceFactory: ServiceFactoryProtocol,
-                           disposeBag: DisposeBag) {
+                           serviceFactory: ServiceFactoryProtocol) -> Observable<Void> {
         log.info("Background fetch: Updated prior to alarm start")
         let date = Observable.just(alarm)
             .filterNil()
             .filter { !$0.isInvalidated } //Needed if alarm gets deleted
             .map { $0.date! }
         
-        Observable.combineLatest(date, location)
-            .flatMap { realmService.createAlarmPrior(to: $0.0,
-                                                     startLocation: $0.1,
-                                                     serviceFactory: serviceFactory) }
-            .subscribe(onNext: { _ in log.info("Background fetch: Updated prior to alarm end") })
-            .disposed(by: disposeBag)
+        return Observable.combineLatest(date, location)
+            .withLatestFrom(Observable.just(serviceFactory)) { ($0.0, $0.1, $1) }
+            .flatMapLatest(realmService.createAlarmPrior)
+            .map { _ in Void() }
+    }
+    
+    func updateUserLocation(_ location: GeoCoordinate,
+                            alarm: Alarm,
+                            updateService: AlarmUpdateServiceType,
+                            serviceFactory: ServiceFactoryProtocol) -> Observable<Void> {
+        return updateService.updateLocation(location, for: alarm, serviceFactory: serviceFactory)
     }
 }

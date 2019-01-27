@@ -15,8 +15,7 @@ import Action
 import RxAppState
 import UserNotifications
 
-class MainViewController: UITableViewController, BindableType, ErrorDisplayable, InfoAlertDisplayable {
-    
+class MainViewController: UIViewController, BindableType, ErrorDisplayable, InfoAlertDisplayable {
     
     typealias ViewModelType = MainViewModelType
     
@@ -27,6 +26,10 @@ class MainViewController: UITableViewController, BindableType, ErrorDisplayable,
     
     private var dataSource: RxTableViewSectionedAnimatedDataSource<AlarmSection>!
     private let disposeBag = DisposeBag()
+    
+    let tableViewController = UITableViewController();
+    
+    var tableView: UITableView! { return tableViewController.tableView }
     
     init(viewModel: ViewModelType) {
         super.init(nibName: nil, bundle: nil)
@@ -40,16 +43,12 @@ class MainViewController: UITableViewController, BindableType, ErrorDisplayable,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .orange
+        view.backgroundColor = .backgroundColor
+
         dataSource = configureDataSource()
         setupTableView()
         bindViewModel()
-        
         errorView.autoSetDimensions(to: view.frame.size)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        UIApplication.shared.statusBarView?.backgroundColor = UIColor.backgroundColor
     }
     
     func bindViewModel() {
@@ -85,12 +84,17 @@ class MainViewController: UITableViewController, BindableType, ErrorDisplayable,
         tableView.rx.willDisplayCell
             .subscribe(onNext: { cell, indexPath in
                 let insets = Constraints.Main.Tile.self
-                let frame = CGRect(x: insets.left, y: insets.top,
-                                   width: cell.frame.width-insets.left-insets.right,
-                                   height: cell.frame.height-insets.top-insets.bottom)
                 
                 guard let tileCell = cell as? TileTableViewCell else { return }
                 guard let gradient = tileCell.gradient else { return }
+                
+                let topInset = tileCell.topPadding == .small ? insets.topSmall : insets.top
+                let bottomInset = tileCell.bottomPadding == .small ? insets.bottomSmall : insets.bottom
+
+                let frame = CGRect(x: insets.left, y: insets.top,
+                                   width: cell.frame.width - insets.left - insets.right,
+                                   height: cell.frame.height - topInset - bottomInset)
+                
                 tileCell.tileView.frame = frame
                 tileCell.tileView.setGradientForCell(gradient)
             })
@@ -133,6 +137,7 @@ class MainViewController: UITableViewController, BindableType, ErrorDisplayable,
         let userNotificationCenter = UNUserNotificationCenter.current()
         
         userNotificationCenter.rx.willPresent
+            .filter { $0.notification.request.content.categoryIdentifier == "alarm" }
             .do(onNext: { _, _, completion in completion([.alert, .sound]) })
             .map { _ in }
             .bind(to: viewModel.inputs.createNewAlarm)
@@ -202,6 +207,12 @@ class MainViewController: UITableViewController, BindableType, ErrorDisplayable,
 extension MainViewController {
     
     fileprivate func setupTableView() {
+        view.addSubview(tableViewController.view)
+        tableViewController.view.autoPinEdge(.top, to: .top, of: view, withOffset: UIApplication.shared.statusBarFrame.height)
+        tableViewController.view.autoPinEdge(.bottom, to: .bottom, of: view, withOffset: 0)
+        tableViewController.view.autoPinEdge(.left, to: .left, of: view, withOffset: 0)
+        tableViewController.view.autoPinEdge(.right, to: .right, of: view, withOffset: 0)
+        
         tableView.registerReusableCell(AlarmTableViewCell.self)
         tableView.registerReusableCell(MorningRoutineTableViewCell.self)
         tableView.registerReusableCell(EventTableViewCell.self)

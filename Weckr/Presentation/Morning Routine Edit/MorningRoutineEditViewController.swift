@@ -32,15 +32,7 @@ class MorningRoutineEditViewController: UIViewController, BindableType {
         super.viewDidLoad()
         setupViews()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        UIApplication.shared.statusBarView?.backgroundColor = UIColor.backGroundColorTransparent
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        UIApplication.shared.statusBarView?.backgroundColor = UIColor.backgroundColor
-    }
-    
+
     private func setupViews() {
         view.isOpaque = false
         view.backgroundColor = .clear
