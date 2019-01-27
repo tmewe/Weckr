@@ -82,6 +82,7 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
             .flatMapLatest { routingService.route(with: mode, start: start, end: $0, arrival: event.startDate) }
             .withLatestFrom(Observable.just(alarm)) { ($0, $1) }
             .flatMapLatest(realmService.update)
+            .flatMapLatest(calculateDate)
             .flatMapLatest(schedulerService.setAlarmUpdateNotification)
         
 //            .map { route in
@@ -162,11 +163,5 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
                                         mode: alarm.route.transportMode,
                                         event: alarm.selectedEvent,
                                         serviceFactory: serviceFactory) }
-    }
-    
-    @discardableResult
-    private func update(alarm: Alarm, service: RealmServiceType) -> Observable<Alarm> {
-        return calculateDate(for: alarm)
-            .flatMapLatest(service.update)
     }
 }
