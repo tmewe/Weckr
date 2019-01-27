@@ -76,13 +76,16 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
         
         guard let start = alarm.location else { return .empty() }
         
-        return try! geocodingService
-            .geocode(event, realmService: serviceFactory.createRealm())
-            .flatMapLatest { routingService.route(with: mode, start: start, end: $0, arrival: event.startDate) }
-            .withLatestFrom(Observable.just(alarm)) { ($0, $1) }
-            .flatMapLatest(realmService.update)
-            .flatMapLatest(calculateDate)
-            .flatMapLatest(schedulerService.setAlarmUpdateNotification)
+        do {
+            return try geocodingService
+                .geocode(event, realmService: serviceFactory.createRealm())
+                .flatMapLatest { routingService.route(with: mode, start: start, end: $0, arrival: event.startDate) }
+                .withLatestFrom(Observable.just(alarm)) { ($0, $1) }
+                .flatMapLatest(realmService.update)
+                .flatMapLatest(calculateDate)
+                .flatMapLatest(schedulerService.setAlarmUpdateNotification)
+        } catch { return .empty() }
+        
     }
     
     @discardableResult
