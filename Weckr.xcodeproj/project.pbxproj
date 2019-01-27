@@ -60,6 +60,7 @@
 		4959992521AA01F300549D89 /* RoutingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4959992421AA01F300549D89 /* RoutingService.swift */; };
 		4959992721AA029300549D89 /* HereMaps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4959992621AA029300549D89 /* HereMaps.swift */; };
 		496260C621F638550066D185 /* CalendarLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496260C521F638550066D185 /* CalendarLocation.swift */; };
+		497ADFBD21FE571F003A7316 /* WalkthroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497ADFBC21FE571F003A7316 /* WalkthroughView.swift */; };
 		4982E48221A5B730003AC90D /* TravelPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4982E48121A5B730003AC90D /* TravelPageViewModel.swift */; };
 		4982E48421A5B7C5003AC90D /* MorningRoutinePageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4982E48321A5B7C5003AC90D /* MorningRoutinePageViewModel.swift */; };
 		4982E48621A5B877003AC90D /* DonePageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4982E48521A5B877003AC90D /* DonePageViewModel.swift */; };
@@ -198,6 +199,7 @@
 		4959992421AA01F300549D89 /* RoutingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutingService.swift; sourceTree = "<group>"; };
 		4959992621AA029300549D89 /* HereMaps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HereMaps.swift; sourceTree = "<group>"; };
 		496260C521F638550066D185 /* CalendarLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarLocation.swift; sourceTree = "<group>"; };
+		497ADFBC21FE571F003A7316 /* WalkthroughView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughView.swift; sourceTree = "<group>"; };
 		4982E48121A5B730003AC90D /* TravelPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelPageViewModel.swift; sourceTree = "<group>"; };
 		4982E48321A5B7C5003AC90D /* MorningRoutinePageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MorningRoutinePageViewModel.swift; sourceTree = "<group>"; };
 		4982E48521A5B877003AC90D /* DonePageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonePageViewModel.swift; sourceTree = "<group>"; };
@@ -540,23 +542,16 @@
 		49B4664021CAF8F100BE810C /* Walkthrough */ = {
 			isa = PBXGroup;
 			children = (
-				49B4664121CAF92100BE810C /* Pages */,
+				49B4664221CAF93100BE810C /* PageViewModel */,
+				22C51526219EFB2D003783A7 /* WalkthroughPageViewController.swift */,
+				497ADFBC21FE571F003A7316 /* WalkthroughView.swift */,
 				49DB25DC218DDACD0037CFBB /* WalkthroughViewController.swift */,
 				49DB25DE218DDAFB0037CFBB /* WalkthroughViewModel.swift */,
 			);
 			path = Walkthrough;
 			sourceTree = "<group>";
 		};
-		49B4664121CAF92100BE810C /* Pages */ = {
-			isa = PBXGroup;
-			children = (
-				49B4664221CAF93100BE810C /* ViewModel */,
-				22C51526219EFB2D003783A7 /* WalkthroughPageViewController.swift */,
-			);
-			path = Pages;
-			sourceTree = "<group>";
-		};
-		49B4664221CAF93100BE810C /* ViewModel */ = {
+		49B4664221CAF93100BE810C /* PageViewModel */ = {
 			isa = PBXGroup;
 			children = (
 				22C51524219EF6EB003783A7 /* LandingPageViewModel.swift */,
@@ -567,7 +562,7 @@
 				4982E48321A5B7C5003AC90D /* MorningRoutinePageViewModel.swift */,
 				4982E48521A5B877003AC90D /* DonePageViewModel.swift */,
 			);
-			path = ViewModel;
+			path = PageViewModel;
 			sourceTree = "<group>";
 		};
 		49B4664321CAF97100BE810C /* Extensions */ = {
@@ -1038,6 +1033,7 @@
 				49BD679B21CFF10F00A240E6 /* TravelEditView.swift in Sources */,
 				498ED01A21C13A1F003FFF5B /* TileView.swift in Sources */,
 				49A8B97721E6562100DA26E0 /* ErrorDisplayable.swift in Sources */,
+				497ADFBD21FE571F003A7316 /* WalkthroughView.swift in Sources */,
 				22C51525219EF6EB003783A7 /* LandingPageViewModel.swift in Sources */,
 				49BD3FDA21D28D1300939766 /* TravelEditViewController.swift in Sources */,
 			);
