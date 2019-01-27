@@ -27,7 +27,6 @@ struct WeatherService: WeatherServiceType {
     func forecast(for position: GeoCoordinate) -> Observable<WeatherForecast> {
         return openWeatherMap.rx
             .request(.fiveDayForecast(lat: position.latitude, long: position.longitude))
-            .debug("weather request", trimOutput: false)
             .map(WeatherForecast.self)
             .asObservable()
     }

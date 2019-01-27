@@ -26,10 +26,8 @@ class GeocodingService: GeocodingServiceType {
         
         return geocoder.rx.geocodeAddressString(entry.address)
             .map { $0.0 }
-            .debug("geocoding", trimOutput: true)
             .catchOnNil { throw(GeocodeError.noMatch) }
             .catchOnEmpty { throw(GeocodeError.noMatch) }
-//            .errorOnEmpty(GeocodeError.noMatch)
             .map { $0.first! }
             .map { $0.location! }
             .map(GeoCoordinate.init)

@@ -75,6 +75,6 @@ struct AlarmSchedulerService: AlarmSchedulerServiceType {
     }
     
     private func add(request: UNNotificationRequest, to center: UNUserNotificationCenter) -> Observable<Void> {
-        return center.rx.add(request).debug("notification", trimOutput: true).map { _ in Void() }
+        return center.rx.add(request).map { _ in Void() }
     }
 }

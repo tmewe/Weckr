@@ -78,25 +78,11 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
         
         return try! geocodingService
             .geocode(event, realmService: serviceFactory.createRealm())
-            .debug()
             .flatMapLatest { routingService.route(with: mode, start: start, end: $0, arrival: event.startDate) }
             .withLatestFrom(Observable.just(alarm)) { ($0, $1) }
             .flatMapLatest(realmService.update)
             .flatMapLatest(calculateDate)
             .flatMapLatest(schedulerService.setAlarmUpdateNotification)
-        
-//            .map { route in
-//                let update = Alarm(route: route,
-//                                   weather: alarm.weather,
-//                                   location: start,
-//                                   morningRoutine: alarm.morningRoutine,
-//                                   selectedEvent: event,
-//                                   otherEvents: alarm.otherEvents.toArray())
-//                update.id = alarm.id
-//                return update
-//            }
-//            .withLatestFrom(Observable.just(realmService)) { ($0, $1) }
-//            .flatMapLatest(update)
     }
     
     @discardableResult
