@@ -130,8 +130,6 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
             return events
                 .withLatestFrom(Observable.just(alarm)) { ($0, $1) }
                 .flatMapLatest(realmService.update)
-                .withLatestFrom(Observable.just(realmService)) { ($0, $1) }
-                .flatMapLatest(update)
                 .withLatestFrom(Observable.just(transportMode)) { ($0, $1) }
                 .withLatestFrom(Observable.just(alarm.selectedEvent)) { ($0.0, $0.1, $1) }
                 .withLatestFrom(Observable.just(serviceFactory)) { ($0.0, $0.1, $0.2, $1) }
