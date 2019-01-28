@@ -207,6 +207,18 @@ class MainViewModel: MainViewModelType {
             .subscribe(onNext: { _ in log.info("Update route finished") })
             .disposed(by: disposeBag)
         
+        //Smart Adjust
+        userDefaults.rx.observe(Bool.self, SettingsKeys.adjustForWeather)
+            .distinctUntilChanged()
+            .withLatestFrom(userDefaults.rx.observe(Int.self, SettingsKeys.transportMode))
+            .filterNil()
+            .map { TransportMode(mode: $0) }
+            .withLatestFrom(currentAlarm.filterNil()) { ($0, $1) }
+            .withLatestFrom(Observable.just(serviceFactory)) { ($0.0, $0.1, $1) }
+            .flatMapLatest(alarmUpdateService.updateTransportMode)
+            .subscribe(onNext: { _ in log.info("Update route finished") })
+            .disposed(by: disposeBag)
+        
         //Selected event
         let selectedEvent = currentAlarm
             .filterNil()
@@ -300,7 +312,7 @@ class MainViewModel: MainViewModelType {
         return CocoaAction {
             guard let alarm = self.alarmService.currentAlarm() else { return Observable.empty() }
             let viewModel = self.viewModelFactory
-                .createTravelEdit(currentMode: alarm.route.transportMode, coordinator: self.coordinator)
+                .createTravelEdit(coordinator: self.coordinator)
             return self.coordinator.transition(to: Scene.travelEdit(viewModel), withType: .modal)
         }
     }()
