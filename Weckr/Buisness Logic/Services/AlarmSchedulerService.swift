@@ -24,8 +24,8 @@ struct AlarmSchedulerService: AlarmSchedulerServiceType {
         notificationCenter.removeAllPendingNotificationRequests()
 
         let content = UNMutableNotificationContent()
-        content.title = "Wake up"
-        content.body = "Time to get to your first event"
+        content.title = Strings.Notifications.alarm.title
+        content.body = Strings.Notifications.alarm.message
         content.categoryIdentifier = "alarm"
         content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "alarm.mp3"))
         
@@ -45,8 +45,8 @@ struct AlarmSchedulerService: AlarmSchedulerServiceType {
         notificationCenter.removeAllPendingNotificationRequests()
         
         let content = UNMutableNotificationContent()
-        content.title = "Attention"
-        content.body = "I couldn't find any events in the upcoming week, so I won't wake you in the morning!"
+        content.title = Strings.Notifications.noEvents.title
+        content.body = Strings.Notifications.noEvents.message
         content.categoryIdentifier = "warning"
         
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
@@ -63,8 +63,9 @@ struct AlarmSchedulerService: AlarmSchedulerServiceType {
         let time = Formatter.Date.timeShort.string(from: alarm.date)
         
         let content = UNMutableNotificationContent()
-        content.title = "Oh hey"
-        content.body = "I detected some changes. Your next alarm rings at \(time) on \(month)"
+        let strings = Strings.Notifications.changes.self
+        content.title = strings.title
+        content.body =  strings.message + time + strings.on + month
         content.categoryIdentifier = "update"
         
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)

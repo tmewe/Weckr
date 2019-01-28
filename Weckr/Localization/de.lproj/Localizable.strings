@@ -83,6 +83,17 @@
 "edit.adjustWeather.title" = "Lauf doch nicht durch den Regen!";
 "edit.adjustWeather.info" = "Wenn du Weckr an das Wetter anpassen lässt, wird er automatisch dein Fortbewegungsmittel wechseln!";
 
+//Notifications
+"notifications.alarm.title" = "Aufgewacht";
+"notifications.alarm.message" = "Es wird Zeit zu deinem ersten Event zu gehen!";
+
+"notifications.noEvents.title" = "Aufgepasst";
+"notifications.noEvents.message" = "Ich konnte in der kommenden Woche keine Termine finden, ich werde dich also nicht wecken!";
+
+"notifications.changes.title" = "Was geht ab?";
+"notifications.changes.message" = "Ich habe Veränderungen bemerkt. Dein nächster Wecker klingelt um";
+"notifications.changes.on" = "am";
+
 //Directions
 "direction.north" = "Nach Norden";
 "direction.northWest" = "Nach Nordwesten";
