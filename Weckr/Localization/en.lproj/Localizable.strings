@@ -1,0 +1,138 @@
+/* 
+  Localizable.strings
+  Weckr
+
+  Created by Tim Lehmann on 09.11.18.
+  Copyright © 2018 Tim Lehmann. All rights reserved.
+*/
+
+//Landing
+"walkthrough.landing.title" = "Let your Alarm work for You.";
+"walkthrough.landing.title.coloredPart" = "You";
+"walkthrough.landing.buttonTitle" = "How?";
+
+//Calendar
+"walkthrough.calendar.title" = "Weckr knows your schedule...";
+"walkthrough.calendar.title.coloredPart" = "Weckr";
+"walkthrough.calendar.title2" = "and rings right on time.";
+"walkthrough.calendar.title2.coloredPart" = "right on time.";
+"walkthrough.calendar.buttonTitle" = "Wow!";
+
+//Location
+"walkthrough.location.title" = "It will also know where to go...";
+"walkthrough.location.title.coloredPart" = "where";
+"walkthrough.location.title2" = "and how to get there.";
+"walkthrough.location.title2.coloredPart" = "how";
+"walkthrough.location.buttonTitle" = "Great!";
+
+//Notification
+"walkthrough.notification.title" = "Don’t worry about oversleeping!";
+"walkthrough.notification.title.coloredPart" = "";
+"walkthrough.notification.title2" = "Weckr notices irregularities and warns you in the evening!";
+"walkthrough.notification.title2.coloredPart" = "irregularities";
+"walkthrough.notification.buttonTitle" = "Neat!";
+
+//Travel
+"walkthrough.travel.title" = "How do you travel?";
+"walkthrough.travel.title.coloredPart" = "travel";
+"walkthrough.travel.title2" = "";
+"walkthrough.travel.title2.coloredPart" = "";
+"walkthrough.travel.buttonTitle" = "Continue";
+
+//Morning routine
+"walkthrough.morningroutine.title" = "How long is your morning routine?";
+"walkthrough.morningroutine.title.coloredPart" = "morning routine";
+"walkthrough.morningroutine.title2" = "";
+"walkthrough.morningroutine.title2.coloredPart" = "";
+"walkthrough.morningroutine.buttonTitle" = "Done!";
+
+//Done
+"walkthrough.done.title" = "All done";
+"walkthrough.done.title.coloredPart" = "";
+"walkthrough.done.title2" = "Welcome to your new Alarm!";
+"walkthrough.done.title2.coloredPart" = "Alarm!";
+"walkthrough.done.buttonTitle" = "Gooo!";
+
+//Main
+"main.header.today" = "Today";
+"main.header.tomorrow" = "Tomorrow";
+"main.header.dayaftertomorrow" = "The day after tomorrow";
+"main.header.error" = "No events found";
+
+//Cells
+"cells.morningRoutine.title" = "Morning Routine";
+"cells.morningRoutine.timePrefix" = "";
+"cells.morningRoutine.timeSuffix" = "left";
+
+"cells.routeOverview.title" = "Route";
+"cells.routeOverview.smartAdjustedTitle" = "Smart Adjusted Route";
+"cells.routeOverview.timePrefix" = "Leave at";
+"cells.routeOverview.timeSuffix" = "";
+
+"cells.firstEvent.title" = "First Event";
+
+//Edit
+"edit.morningRoutine" = "How long is your morning routine?";
+"edit.travel" = "How do you travel?";
+"edit.done" = "Done";
+"edit.clever" = "Clever";
+"edit.calendarEditTitle" = "Which event will you get up for?";
+"edit.calendarEditTitleColoredPart" = "Which event";
+"edit.firstEvent" = "First event";
+"edit.alternativeEvent" = "Alternative";
+"edit.adjustWeather" = "Adjust for weather";
+"edit.adjustWeather.title" = "Don’t walk in the rain!";
+"edit.adjustWeather.info" = "If you let Weckr adjust for weather, it will automatically switch your means of transport.";
+
+//Notifications
+"notifications.alarm.title" = "Wake up";
+"notifications.alarm.message" = "Time to get to your first event";
+
+"notifications.noEvents.title" = "Attention";
+"notifications.noEvents.message" = "I couldn't find any events in the upcoming week, so I won't wake you in the morning!";
+
+"notifications.changes.title" = "Oh hey";
+"notifications.changes.message" = "I detected some changes. Your next alarm rings at ";
+"notifications.changes.on" = " on ";
+
+//Directions
+"direction.north" = "Head north";
+"direction.northWest" = "Head northwest";
+"direction.northEast" = "Head northeast";
+"direction.south" = "Head south";
+"direction.southWest" = "Head southwest";
+"direction.southEast" = "Head southeast";
+"direction.east" = "Head east";
+"direction.west" = "Head west";
+"direction.left" = "Turn left";
+"direction.right" = "Turn right";
+"direction.slightlyLeft" = "Turn slightly left";
+"direction.slightlyRight" = "Turn slightly right";
+"direction.straight" = "Continue straight";
+"direction.takeStreetRight" = "Take the street on the right";
+"direction.takeStreetLeft" = "Take the street on the left";
+"direction.roundabout" = "Roundabout";
+"direction.walkto" = "Walk to";
+"direction.drive" = "Drive towards";
+"direction.kilometers" = "kilometers";
+"direction.meters" = "meters";
+
+
+//Error
+"error.fixit" = "Fix it";
+"error.gotit" = "Got it";
+"error.access.calendar.title" = "Red Alert!";
+"error.access.calendar.message" = "It seems like you revoked Weckr’s access to your Calendar. Without that permission, Weckr can’t do anything for you!";
+"error.access.notification.title" = "Oh Snap!";
+"error.access.notification.message" = "Apparently, you don’t want to receive Notifcations. Weckr needs this permission to ring and warn you when something seems off in your schedule!";
+"error.access.location.title" = "Where are you?";
+"error.access.location.message" = "Weckr is not allowed to use your location. To reliably factor in your travelling times in the morning, Weckr needs to know where you sleep. While this sounds a bit creepy, your data is very safe with Weckr. Promised.";
+"error.calendar.noEvents.title" = "Oh no!";
+"error.calendar.noEvents.message" = "We couldn't find any calendar entries in the next week. Please add some events. Don't forget to add a geolocation or adress.";
+"error.undefined.title" = "An error occurred";
+"error.undefined.message" = "We are very sorry but an error occurred.";
+"error.geocoding.noMatch.title" = "Geocoding error";
+"error.geocoding.noMatch.message" = "We couldn't geocode the address of the first event we found. Please choose an other first event";
+
+//Formats
+"formats.date.dayAndMonthLong" = "MMMM dd";

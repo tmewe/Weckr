@@ -1,0 +1,6 @@
+framework module BOTNetworkActivityIndicator {
+  umbrella header "BOTNetworkActivityIndicator-umbrella.h"
+
+  export *
+  module * { export * }
+}

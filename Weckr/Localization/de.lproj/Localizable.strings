@@ -1,0 +1,138 @@
+/* 
+  Localizable.strings
+  Weckr
+
+  Created by Tim Lehmann on 09.11.18.
+  Copyright © 2018 Tim Lehmann. All rights reserved.
+*/
+
+//Landing
+"walkthrough.landing.title" = "Lass deinen Wecker für dich arbeiten.";
+"walkthrough.landing.title.coloredPart" = "arbeiten";
+"walkthrough.landing.buttonTitle" = "Wie?";
+
+//Calendar
+"walkthrough.calendar.title" = "Weckr kennt deinen Terminplan...";
+"walkthrough.calendar.title.coloredPart" = "Weckr";
+"walkthrough.calendar.title2" = "und klingelt genau zur richtigen Zeit.";
+"walkthrough.calendar.title2.coloredPart" = "zur richtigen Zeit";
+"walkthrough.calendar.buttonTitle" = "Wow!";
+
+//Location
+"walkthrough.location.title" = "Er weiß auch, wohin du musst...";
+"walkthrough.location.title.coloredPart" = "wohin";
+"walkthrough.location.title2" = "und wie du dorthin kommst.";
+"walkthrough.location.title2.coloredPart" = "wie";
+"walkthrough.location.buttonTitle" = "Toll!";
+
+//Notification
+"walkthrough.notification.title" = "Hab keine Angst zu verschlafen!";
+"walkthrough.notification.title.coloredPart" = "keine Angst";
+"walkthrough.notification.title2" = "Weckr erkennt Unregelmäßigkeiten und warnt dich am Vorabend!";
+"walkthrough.notification.title2.coloredPart" = "Unregelmäßigkeiten";
+"walkthrough.notification.buttonTitle" = "Nett!";
+
+//Travel
+"walkthrough.travel.title" = "Wie bewegst du dich fort?";
+"walkthrough.travel.title.coloredPart" = "bewegst";
+"walkthrough.travel.title2" = "";
+"walkthrough.travel.title2.coloredPart" = "";
+"walkthrough.travel.buttonTitle" = "Weiter";
+
+//Morning routine
+"walkthrough.morningroutine.title" = "Wie lang ist deine Morgenroutine?";
+"walkthrough.morningroutine.title.coloredPart" = "Morgenroutine";
+"walkthrough.morningroutine.title2" = "";
+"walkthrough.morningroutine.title2.coloredPart" = "";
+"walkthrough.morningroutine.buttonTitle" = "Fertig!";
+
+//Done
+"walkthrough.done.title" = "Alles bereit";
+"walkthrough.done.title.coloredPart" = "";
+"walkthrough.done.title2" = "Willkommen zu deinem neuen Wecker!";
+"walkthrough.done.title2.coloredPart" = "Wecker!";
+"walkthrough.done.buttonTitle" = "Loos!";
+
+//Main
+"main.header.today" = "Heute";
+"main.header.tomorrow" = "Morgen";
+"main.header.dayaftertomorrow" = "Übermorgen";
+"main.header.error" = "Keine Events";
+
+//Cells
+"cells.morningRoutine.title" = "Morgenroutine";
+"cells.morningRoutine.timePrefix" = "";
+"cells.morningRoutine.timeSuffix" = "übrig";
+
+"cells.routeOverview.title" = "Route";
+"cells.routeOverview.smartAdjustedTitle" = "Angepasste Route";
+"cells.routeOverview.timePrefix" = "Um";
+"cells.routeOverview.timeSuffix" = "los";
+
+"cells.firstEvent.title" = "Erster Termin";
+
+//Edit
+"edit.morningRoutine" = "Wie lang ist deine Morgenroutine?";
+"edit.travel" = "Wie bewegst du dich fort?";
+"edit.done" = "Fertig";
+"edit.clever" = "Klever!";
+"edit.calendarEditTitle" = "Für welchen Termin wirst du aufstehen?";
+"edit.calendarEditTitleColoredPart" = "welchen Termin";
+"edit.firstEvent" = "Erster Termin";
+"edit.alternativeEvent" = "Alternative";
+"edit.adjustWeather" = "An Wetter anpassen";
+"edit.adjustWeather.title" = "Lauf doch nicht durch den Regen!";
+"edit.adjustWeather.info" = "Wenn du Weckr an das Wetter anpassen lässt, wird er automatisch dein Fortbewegungsmittel wechseln!";
+
+//Notifications
+"notifications.alarm.title" = "Aufgewacht";
+"notifications.alarm.message" = "Es wird Zeit zu deinem ersten Event zu gehen!";
+
+"notifications.noEvents.title" = "Aufgepasst";
+"notifications.noEvents.message" = "Ich konnte in der kommenden Woche keine Termine finden, ich werde dich also nicht wecken!";
+
+"notifications.changes.title" = "Was geht ab?";
+"notifications.changes.message" = "Ich habe Veränderungen bemerkt. Dein nächster Wecker klingelt um";
+"notifications.changes.on" = "am";
+
+//Directions
+"direction.north" = "Nach Norden";
+"direction.northWest" = "Nach Nordwesten";
+"direction.northEast" = "Nach Nordosten";
+"direction.south" = "Nach Süden";
+"direction.southWest" = "Nach Südwesten";
+"direction.southEast" = "Nach Südosten";
+"direction.east" = "Nach Osten";
+"direction.west" = "Nach Westen";
+"direction.left" = "Links abbiegen";
+"direction.right" = "Rechts abbiegen";
+"direction.slightlyLeft" = "Leicht links abbiegen";
+"direction.slightlyRight" = "Leicht rechts abbiegen";
+"direction.straight" = "Weiter geradeaus";
+"direction.takeStreetRight" = "Straße zur Rechten nehmen";
+"direction.takeStreetLeft" = "Straße zur Linken nehmen";
+"direction.roundabout" = "Kreisverkehr";
+"direction.walkto" = "Gehe zu";
+"direction.drive" = "Fahre richtung";
+"direction.kilometers" = "Kilometer";
+"direction.meters" = "Meter";
+
+
+//Error
+"error.fixit" = "Mach es";
+"error.gotit" = "Verstanden";
+"error.access.calendar.title" = "Roter Alarm!";
+"error.access.calendar.message" = "Scheint, als hättest du Weckr die Kalenderberechtigung entzogen. Ohne die kann er dir leider nicht mehr helfen!";
+"error.access.notification.title" = "Grundgütiger!";
+"error.access.notification.message" = "Anscheinend möchtest du keine Benachrichtigungen erhalten. Weckr braucht aber diese Berechtigung zum Klingeln und um dich zu warnen, falls etwas in deinem Kalender nicht stimmt!";
+"error.access.location.title" = "Wo bist du?";
+"error.access.location.message" = "Weckr darf deinen Standort nicht mehr sehen. Um am Morgen deine Wegzeiten verlässlich zu berücksichtigen, muss Weckr wissen, wo du schläfst. Auch wenn das ein bisschen gruselig klingt, sind deine Daten bei Weckr komplett sicher. Versprochen.";
+"error.calendar.noEvents.title" = "Um Himmels Willen!";
+"error.calendar.noEvents.message" = "Nächste Woche sieht dein Kalender verdächtig leer aus. Füg' doch deine Termine hinzu. Wenn du schon dabei bist, vergiss nicht den Ort mit einzutragen";
+"error.undefined.title" = "Schockschwere Not!";
+"error.undefined.message" = "Tut uns sehr leid, ein Fehler ist aufgetreten.";
+"error.geocoding.noMatch.title" = "Du meine Güte!";
+"error.geocoding.noMatch.message" = "Wir können mit der Adresse deines ersten Tremins nichts anfangen! Bitte kontrolliere das nochmal.";
+
+//Formats
+"formats.date.dayAndMonthLong" = "dd. MMMM";
