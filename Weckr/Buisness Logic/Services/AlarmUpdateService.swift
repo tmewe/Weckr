@@ -26,6 +26,9 @@ protocol AlarmUpdateServiceType {
     func updateSelectedEvent(_ event: CalendarEntry,
                              for alarm: Alarm,
                              serviceFactory: ServiceFactoryProtocol) -> Observable<Void>
+    func updateWeather(at location: GeoCoordinate, alarm: Alarm, serviceFactory: ServiceFactoryProtocol)
+        -> Observable<Void>
+    
     func updateEvents(for alarm: Alarm,
                       serviceFactory: ServiceFactoryProtocol) -> Observable<Void>
     func calculateDate(for alarm: Alarm) -> Observable<Alarm>
@@ -82,11 +85,7 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
             forecast: alarm.weather,
             forTime: alarm.selectedEvent.startDate)
         
-        let adjustedVehicle = smartAdjust(
-            selected: mode,
-            adjust: UserDefaults.standard.bool(forKey: SettingsKeys.adjustForWeather),
-            forecast: alarm.weather,
-            forTime: alarm.selectedEvent.startDate)
+        let adjustedVehicle = smartAdjust(adjustDue: smartAdjustDue, selected: mode)
         
         do {
             return try geocodingService
@@ -128,16 +127,11 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
                 .share(replay: 1, scope: .forever)
             let transportMode = TransportMode(mode: UserDefaults.standard.integer(forKey: SettingsKeys.transportMode))
             
-            let adjustedVehicle = smartAdjust(
-                selected: transportMode,
-                adjust: UserDefaults.standard.bool(forKey: SettingsKeys.adjustForWeather),
-                forecast: alarm.weather,
-                forTime: alarm.selectedEvent.startDate)
             
             return events
                 .withLatestFrom(Observable.just(alarm)) { ($0, $1) }
                 .flatMapLatest(realmService.update)
-                .withLatestFrom(Observable.just(adjustedVehicle)) { ($0, $1) }
+                .withLatestFrom(Observable.just(transportMode)) { ($0, $1) }
                 .withLatestFrom(Observable.just(alarm.selectedEvent)) { ($0.0, $0.1, $1) }
                 .withLatestFrom(Observable.just(serviceFactory)) { ($0.0, $0.1, $0.2, $1) }
                 .flatMapLatest(updateRoute)
@@ -170,10 +164,27 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
                                         serviceFactory: serviceFactory) }
     }
     
+    func updateWeather(at location: GeoCoordinate, alarm: Alarm, serviceFactory: ServiceFactoryProtocol)
+        -> Observable<Void>{
+        let weatherService = serviceFactory.createWeather()
+        let realmService = serviceFactory.createRealm()
+        
+        let forecast = weatherService.forecast(for: location)
+        
+        let selectedTransport = TransportMode(mode: UserDefaults.standard.integer(forKey: SettingsKeys.transportMode))
+        
+        let result = Observable.combineLatest(forecast, Observable.just(alarm))
+            .flatMap{realmService.update(forecast: $0.0, for: $0.1)}
+            //Update Route when forecast is complete
+            .flatMap{ self.updateRoute(for: $0, mode: selectedTransport, event: $0.selectedEvent, serviceFactory: serviceFactory)}
+        
+        return result
+    }
     
-    func smartAdjust(selected: TransportMode, adjust: Bool, forecast: WeatherForecast, forTime: Date)
+    
+    func smartAdjust(adjustDue: Bool, selected: TransportMode)
         -> TransportMode {
-            return (isSmartAdjustDue(selected: selected, adjust: adjust, forecast: forecast, forTime: forTime))
+            return adjustDue
                 ? .transit
                 : selected
     }

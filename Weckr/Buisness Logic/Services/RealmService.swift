@@ -78,6 +78,18 @@ struct RealmService: RealmServiceType {
         return result ?? .error(AlarmServiceError.updateFailed)
     }
     
+    @discardableResult
+    func update(forecast: WeatherForecast, for alarm: Alarm) -> Observable<Alarm>
+    {
+        let result = withRealm("updating forecast on alarm") { realm -> Observable<Alarm> in
+            try realm.write {
+                alarm.weather = forecast
+            }
+            return .just(alarm)
+        }
+        return result ?? .error(AlarmServiceError.updateFailed)
+    }
+    
     func update(selectedEvent: CalendarEntry, for alarm: Alarm) -> Observable<Alarm> {
         let result = withRealm("updating selected event on alarm") { realm -> Observable<Alarm> in
             try realm.write {
@@ -248,10 +260,7 @@ struct RealmService: RealmServiceType {
                                                       firstEvent.map {$0.startDate})
             .map(alarmUpdateService.isSmartAdjustDue)
         
-        let adjustedVehicle = Observable.combineLatest(selectedVehicleObservable,
-                                                       adjustWantedObservable,
-                                                       weatherForecast,
-                                                       firstEvent.map {$0.startDate})
+        let adjustedVehicle = Observable.combineLatest(smartAdjustDue, selectedVehicleObservable)
             .map(alarmUpdateService.smartAdjust)
         
         

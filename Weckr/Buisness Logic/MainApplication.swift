@@ -108,10 +108,17 @@ final class MainApplication: NSObject, MainApplicationProtocol {
                 .withLatestFrom(Observable.just(serviceFactory)) { ($0.0, $0.1, $0.2, $1) }
                 .flatMapLatest(backgroundService.updateUserLocation)
             
+            //Fetch new Weather forecast and check if route needs to be smart adjusted
+            let weather = currentLocation
+                .withLatestFrom(alarm) { ($0, $1) }
+                .withLatestFrom(Observable.just(updateService)) { ($0.0, $0.1, $1) }
+                .withLatestFrom(Observable.just(serviceFactory)) { ($0.0, $0.1, $0.2, $1) }
+                .flatMapLatest(backgroundService.updateWeather)
+            
             //Delete all past
             let deletePast = realmService.deletePastAlarms()
             
-            Observable.combineLatest(current, prior, location, deletePast)
+            Observable.combineLatest(current, prior, location, weather, deletePast)
                 .subscribe(onNext: { _ in completionHandler(.newData)} )
                 .disposed(by: disposeBag)
         }

@@ -24,6 +24,7 @@ protocol BackgroundServiceType {
                             alarm: Alarm,
                             updateService: AlarmUpdateServiceType,
                             serviceFactory: ServiceFactoryProtocol) -> Observable<Void>
+    func updateWeather(at location: GeoCoordinate, alarm: Alarm, updateService:AlarmUpdateServiceType, serviceFactory: ServiceFactoryProtocol) -> Observable<Void>
 }
 
 class BackgroundService: BackgroundServiceType {
@@ -68,5 +69,10 @@ class BackgroundService: BackgroundServiceType {
                             updateService: AlarmUpdateServiceType,
                             serviceFactory: ServiceFactoryProtocol) -> Observable<Void> {
         return updateService.updateLocation(location, for: alarm, serviceFactory: serviceFactory)
+    }
+    
+    func updateWeather(at location: GeoCoordinate, alarm: Alarm, updateService:AlarmUpdateServiceType, serviceFactory: ServiceFactoryProtocol)
+        -> Observable<Void> {
+        return updateService.updateWeather(at: location, alarm: alarm, serviceFactory: serviceFactory)
     }
 }
