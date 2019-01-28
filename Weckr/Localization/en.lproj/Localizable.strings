@@ -84,6 +84,17 @@
 "edit.adjustWeather.title" = "Don’t walk in the rain!";
 "edit.adjustWeather.info" = "If you let Weckr adjust for weather, it will automatically switch your means of transport.";
 
+//Notifications
+"notifications.alarm.title" = "Wake up";
+"notifications.alarm.message" = "Time to get to your first event";
+
+"notifications.noEvents.title" = "Attention";
+"notifications.noEvents.message" = "I couldn't find any events in the upcoming week, so I won't wake you in the morning!";
+
+"notifications.changes.title" = "Oh hey";
+"notifications.changes.message" = "I detected some changes. Your next alarm rings at";
+"notifications.changes.on" = "on";
+
 //Directions
 "direction.north" = "Head north";
 "direction.northWest" = "Head northwest";

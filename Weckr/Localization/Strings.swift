@@ -107,6 +107,22 @@ struct Strings {
         }
     }
     
+    struct Notifications {
+        struct alarm {
+            static let title = "notifications.alarm.title".localized
+            static let message = "notifications.alarm.message".localized
+        }
+        struct noEvents {
+            static let title = "notifications.noEvents.title".localized
+            static let message = "notifications.noEvents.message".localized
+        }
+        struct changes {
+            static let title = "notifications.changes.title".localized
+            static let message = "notifications.changes.message".localized
+            static let on = "notifications.changes.on".localized
+        }
+    }
+    
     struct Directions {
         static let north = "direction.north".localized
         static let south = "direction.south".localized
