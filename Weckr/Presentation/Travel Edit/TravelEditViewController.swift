@@ -41,7 +41,6 @@ class TravelEditViewController: UIViewController, BindableType, InfoAlertDisplay
     }
     
     func bindViewModel() {
-        //FIXME: - Wrong value when switch or segmented control never changes
         editView.button.rx.tap
             .map {(self.editView.segmentedControl.selectedIndex,
                    self.editView.weatherSwitch.isOn)}
