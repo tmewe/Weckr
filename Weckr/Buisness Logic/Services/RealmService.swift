@@ -78,6 +78,18 @@ struct RealmService: RealmServiceType {
         return result ?? .error(AlarmServiceError.updateFailed)
     }
     
+    @discardableResult
+    func update(forecast: WeatherForecast, for alarm: Alarm) -> Observable<Alarm>
+    {
+        let result = withRealm("updating forecast on alarm") { realm -> Observable<Alarm> in
+            try realm.write {
+                alarm.weather = forecast
+            }
+            return .just(alarm)
+        }
+        return result ?? .error(AlarmServiceError.updateFailed)
+    }
+    
     func update(selectedEvent: CalendarEntry, for alarm: Alarm) -> Observable<Alarm> {
         let result = withRealm("updating selected event on alarm") { realm -> Observable<Alarm> in
             try realm.write {
@@ -145,7 +157,7 @@ struct RealmService: RealmServiceType {
     func deletePastAlarms() -> Observable<Void> {
         let result = withRealm("deleting old alarms") { realm -> Observable<Void> in
             let alarms = realm.objects(Alarm.self)
-            let start = (Date() + 1.days).dateAtStartOf(.day)
+            let start = Date()
             let filtered = alarms.filter { $0.date < start }
             
             try realm.write {
@@ -162,8 +174,10 @@ struct RealmService: RealmServiceType {
             let alarms = realm.objects(Alarm.self)
             return Observable.array(from: alarms)
                 .map { alarms in
-                    let start = (Date() + 1.days).dateAtStartOf(.day)
-                    return alarms.sorted { $0.date < $1.date }.first(where: { $0.date > start })
+                    let start = Date()
+                    return alarms
+                        .sorted { $0.date < $1.date }
+                        .first(where: { $0.date > start })
                 }
         }
         return result ?? .empty()
@@ -173,7 +187,7 @@ struct RealmService: RealmServiceType {
     func currentAlarm() -> Alarm? {
         let result = withRealm("getting alarms") { realm -> Alarm? in
             let alarms = realm.objects(Alarm.self)
-            let start = (Date() + 1.days).dateAtStartOf(.day)
+            let start = Date()
             return alarms
                 .sorted { $0.date < $1.date }
                 .first(where: { $0.date > start })
@@ -226,6 +240,10 @@ struct RealmService: RealmServiceType {
         catch let error as AppError { return .just(AlarmCreationResult.Failure(error)) }
         catch { return .just(AlarmCreationResult.Failure(CalendarError.undefined)) }
         
+        let weatherForecast = startLocationObservable
+            .take(1)
+            .flatMapLatest(weatherService.forecast)
+        
         let firstEvent = events
             .map { $0.first }
             .filterNil()
@@ -238,20 +256,23 @@ struct RealmService: RealmServiceType {
         let endLocation = firstEvent
             .flatMap{ try geocodingService.geocode($0, realmService: self) }
         
+        let smartAdjustDue = Observable.combineLatest(selectedVehicleObservable,
+                                                      adjustWantedObservable,
+                                                      weatherForecast,
+                                                      firstEvent.map {$0.startDate})
+            .map(alarmUpdateService.isSmartAdjustDue)
+        
+        let adjustedVehicle = Observable.combineLatest(smartAdjustDue, selectedVehicleObservable)
+            .map(alarmUpdateService.smartAdjust)
+        
+        
+        
+        
         let route = Observable
-            .zip(selectedVehicleObservable, startLocationObservable, endLocation, arrival)
+            .zip(adjustedVehicle, startLocationObservable, endLocation, arrival, smartAdjustDue)
             .take(1)
             .flatMapLatest(routingService.route)
-            .withLatestFrom(adjustWantedObservable) {($0, $1)}
-            .map { (params) -> Route in
-                params.0.smartAdjusted = params.1
-                return params.0
-            }
             .share(replay: 1, scope: .forever)
-        
-        let weatherForecast = startLocationObservable
-            .take(1)
-            .flatMapLatest(weatherService.forecast)
         
         let alarm = Observable.zip(route, weatherForecast) { ($0, $1) }
             .withLatestFrom(startLocationObservable) {  ($0.0, $0.1, $1) }

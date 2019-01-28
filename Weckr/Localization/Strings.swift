@@ -97,6 +97,7 @@ struct Strings {
         }
         struct RouteOverview {
             static let title = "cells.routeOverview.title".localized
+            static let smartAdjustedTitle = "cells.routeOverview.smartAdjustedTitle".localized
             static let timePrefix = generatePrefix(from: "cells.routeOverview.timePrefix".localized)
             static let timeSuffix = generateSuffix(from: "cells.routeOverview.timeSuffix".localized)
         }

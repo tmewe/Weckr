@@ -16,7 +16,7 @@ protocol ViewModelFactoryProtocol {
         -> MorningRoutineEditViewModelType
     func createCalendarEdit(alarm: Alarm, coordinator: SceneCoordinatorType)
         -> CalendarEditViewModelType
-    func createTravelEdit(currentMode: TransportMode, coordinator: SceneCoordinatorType)
+    func createTravelEdit(coordinator: SceneCoordinatorType)
         -> TravelEditViewModelType
 }
 
@@ -70,9 +70,8 @@ extension DependencyContainer: ViewModelFactoryProtocol {
         return CalendarEditViewModel(alarm: alarm, serviceFactory: self, coordinator: coordinator)
     }
     
-    func createTravelEdit(currentMode: TransportMode,
-                          coordinator: SceneCoordinatorType) -> TravelEditViewModelType {
-        return TravelEditViewModel(mode: currentMode, coordinator: coordinator)
+    func createTravelEdit(coordinator: SceneCoordinatorType) -> TravelEditViewModelType {
+        return TravelEditViewModel(coordinator: coordinator)
     }
 }
 

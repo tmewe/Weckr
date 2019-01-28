@@ -49,11 +49,11 @@ class TravelEditViewModel: TravelEditViewModelType {
     private let mode: TransportMode
     private let switchState: Bool
     
-    init(mode: TransportMode, coordinator: SceneCoordinatorType) {
+    init(coordinator: SceneCoordinatorType) {
         self.coordinator = coordinator
-        self.mode = mode
         
         let userDefaults = UserDefaults.standard
+        self.mode = TransportMode(mode: userDefaults.integer(forKey: SettingsKeys.transportMode))
         switchState = userDefaults.bool(forKey: SettingsKeys.adjustForWeather)
         
         //Inputs

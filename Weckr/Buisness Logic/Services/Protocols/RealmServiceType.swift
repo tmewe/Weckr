@@ -27,6 +27,9 @@ protocol RealmServiceType {
     func update(location: GeoCoordinate, for alarm: Alarm) -> Observable<Alarm>
     
     @discardableResult
+    func update(forecast: WeatherForecast, for alarm: Alarm) -> Observable<Alarm>
+    
+    @discardableResult
     func update(selectedEvent: CalendarEntry, for alarm: Alarm) -> Observable<Alarm>
     
     @discardableResult

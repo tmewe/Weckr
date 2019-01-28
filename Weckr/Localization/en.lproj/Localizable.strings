@@ -65,6 +65,7 @@
 "cells.morningRoutine.timeSuffix" = "left";
 
 "cells.routeOverview.title" = "Route";
+"cells.routeOverview.smartAdjustedTitle" = "Smart Adjusted Route";
 "cells.routeOverview.timePrefix" = "Leave at";
 "cells.routeOverview.timeSuffix" = "";
 
@@ -91,8 +92,8 @@
 "notifications.noEvents.message" = "I couldn't find any events in the upcoming week, so I won't wake you in the morning!";
 
 "notifications.changes.title" = "Oh hey";
-"notifications.changes.message" = "I detected some changes. Your next alarm rings at";
-"notifications.changes.on" = "on";
+"notifications.changes.message" = "I detected some changes. Your next alarm rings at ";
+"notifications.changes.on" = " on ";
 
 //Directions
 "direction.north" = "Head north";

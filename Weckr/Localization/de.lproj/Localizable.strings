@@ -65,6 +65,7 @@
 "cells.morningRoutine.timeSuffix" = "übrig";
 
 "cells.routeOverview.title" = "Route";
+"cells.routeOverview.smartAdjustedTitle" = "Angepasste Route";
 "cells.routeOverview.timePrefix" = "Um";
 "cells.routeOverview.timeSuffix" = "los";
 

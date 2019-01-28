@@ -26,6 +26,9 @@ protocol AlarmUpdateServiceType {
     func updateSelectedEvent(_ event: CalendarEntry,
                              for alarm: Alarm,
                              serviceFactory: ServiceFactoryProtocol) -> Observable<Void>
+    func updateWeather(at location: GeoCoordinate, alarm: Alarm, serviceFactory: ServiceFactoryProtocol)
+        -> Observable<Void>
+    
     func updateEvents(for alarm: Alarm,
                       serviceFactory: ServiceFactoryProtocol) -> Observable<Void>
     func calculateDate(for alarm: Alarm) -> Observable<Alarm>
@@ -76,10 +79,18 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
         
         guard let start = alarm.location else { return .empty() }
         
+        let smartAdjustDue = isSmartAdjustDue(
+            selected: mode,
+            adjust: UserDefaults.standard.bool(forKey: SettingsKeys.adjustForWeather),
+            forecast: alarm.weather,
+            forTime: alarm.selectedEvent.startDate)
+        
+        let adjustedVehicle = smartAdjust(adjustDue: smartAdjustDue, selected: mode)
+        
         do {
             return try geocodingService
                 .geocode(event, realmService: serviceFactory.createRealm())
-                .flatMapLatest { routingService.route(with: mode, start: start, end: $0, arrival: event.startDate) }
+                .flatMapLatest { routingService.route(with:adjustedVehicle, start: start, end: $0, arrival: event.startDate, smartAdjusted: smartAdjustDue) }
                 .withLatestFrom(Observable.just(alarm)) { ($0, $1) }
                 .flatMapLatest(realmService.update)
                 .flatMapLatest(calculateDate)
