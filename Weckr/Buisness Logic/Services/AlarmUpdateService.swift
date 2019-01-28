@@ -93,9 +93,13 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
         guard let eventStartDate = alarm.selectedEvent.startDate else {
             return Observable.just(alarm)
         }
-        let alarmDate = eventStartDate
+        var alarmDate = eventStartDate
             - Int(alarm.morningRoutine).seconds
             - Int(alarm.route.summary.travelTime).seconds
+        
+        if (alarmDate.isBeforeDate(eventStartDate.dateAtStartOf(.day), granularity: .nanosecond)) {
+            alarmDate = eventStartDate.dateAtStartOf(.day) - 59.minutes
+        }
         
         let realm = try! Realm()
         try! realm.write {
@@ -150,5 +154,44 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
                                         mode: alarm.route.transportMode,
                                         event: alarm.selectedEvent,
                                         serviceFactory: serviceFactory) }
+    }
+    
+    func updateWeather(at location: GeoCoordinate, alarm: Alarm, serviceFactory: ServiceFactoryProtocol)
+        -> Observable<Void>{
+        let weatherService = serviceFactory.createWeather()
+        let realmService = serviceFactory.createRealm()
+        
+        let forecast = weatherService.forecast(for: location)
+        
+        let selectedTransport = TransportMode(mode: UserDefaults.standard.integer(forKey: SettingsKeys.transportMode))
+        
+        let result = Observable.combineLatest(forecast, Observable.just(alarm))
+            .flatMap{realmService.update(forecast: $0.0, for: $0.1)}
+            //Update Route when forecast is complete
+            .flatMap{ self.updateRoute(for: $0, mode: selectedTransport, event: $0.selectedEvent, serviceFactory: serviceFactory)}
+        
+        return result
+    }
+    
+    
+    func smartAdjust(adjustDue: Bool, selected: TransportMode)
+        -> TransportMode {
+            return adjustDue
+                ? .transit
+                : selected
+    }
+    
+    func isSmartAdjustDue(selected: TransportMode, adjust: Bool, forecast: WeatherForecast, forTime: Date) -> Bool {
+        if (!adjust || selected != .pedestrian) { return false }
+        for (index, weather) in forecast.weathers.enumerated() {
+            guard (index + 1 < forecast.weathers.count) else { return false }
+            let date = Date(timeIntervalSince1970: TimeInterval(weather.date))
+            let nextDate = Date(timeIntervalSince1970: TimeInterval(forecast.weathers[index+1].date))
+            
+            if (forTime.isInRange(date: date, and: nextDate) && weather.rainAmount >= 0.5) {
+                return true
+            }
+        }
+        return false
     }
 }
