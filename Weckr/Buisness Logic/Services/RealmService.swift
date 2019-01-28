@@ -174,8 +174,10 @@ struct RealmService: RealmServiceType {
             let alarms = realm.objects(Alarm.self)
             return Observable.array(from: alarms)
                 .map { alarms in
-                    let start = (Date() + 1.days).dateAtStartOf(.day)
-                    return alarms.sorted { $0.date < $1.date }.first(where: { $0.date > start })
+                    let start = Date()
+                    return alarms
+                        .sorted { $0.date < $1.date }
+                        .first(where: { $0.date > start })
                 }
         }
         return result ?? .empty()
@@ -185,7 +187,7 @@ struct RealmService: RealmServiceType {
     func currentAlarm() -> Alarm? {
         let result = withRealm("getting alarms") { realm -> Alarm? in
             let alarms = realm.objects(Alarm.self)
-            let start = (Date() + 1.days).dateAtStartOf(.day)
+            let start = Date()
             return alarms
                 .sorted { $0.date < $1.date }
                 .first(where: { $0.date > start })
