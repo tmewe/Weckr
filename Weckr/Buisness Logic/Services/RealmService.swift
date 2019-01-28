@@ -226,6 +226,10 @@ struct RealmService: RealmServiceType {
         catch let error as AppError { return .just(AlarmCreationResult.Failure(error)) }
         catch { return .just(AlarmCreationResult.Failure(CalendarError.undefined)) }
         
+        let weatherForecast = startLocationObservable
+            .take(1)
+            .flatMapLatest(weatherService.forecast)
+        
         let firstEvent = events
             .map { $0.first }
             .filterNil()
@@ -238,20 +242,26 @@ struct RealmService: RealmServiceType {
         let endLocation = firstEvent
             .flatMap{ try geocodingService.geocode($0, realmService: self) }
         
+        let smartAdjustDue = Observable.combineLatest(selectedVehicleObservable,
+                                                      adjustWantedObservable,
+                                                      weatherForecast,
+                                                      firstEvent.map {$0.startDate})
+            .map(alarmUpdateService.isSmartAdjustDue)
+        
+        let adjustedVehicle = Observable.combineLatest(selectedVehicleObservable,
+                                                       adjustWantedObservable,
+                                                       weatherForecast,
+                                                       firstEvent.map {$0.startDate})
+            .map(alarmUpdateService.smartAdjust)
+        
+        
+        
+        
         let route = Observable
-            .zip(selectedVehicleObservable, startLocationObservable, endLocation, arrival)
+            .zip(adjustedVehicle, startLocationObservable, endLocation, arrival, smartAdjustDue)
             .take(1)
             .flatMapLatest(routingService.route)
-            .withLatestFrom(adjustWantedObservable) {($0, $1)}
-            .map { (params) -> Route in
-                params.0.smartAdjusted = params.1
-                return params.0
-            }
             .share(replay: 1, scope: .forever)
-        
-        let weatherForecast = startLocationObservable
-            .take(1)
-            .flatMapLatest(weatherService.forecast)
         
         let alarm = Observable.zip(route, weatherForecast) { ($0, $1) }
             .withLatestFrom(startLocationObservable) {  ($0.0, $0.1, $1) }

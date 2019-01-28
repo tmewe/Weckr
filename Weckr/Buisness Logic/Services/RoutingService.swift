@@ -11,7 +11,7 @@ import Moya
 import RxSwift
 
 protocol RoutingServiceType {
-    func route(with type: TransportMode, start: GeoCoordinate, end: GeoCoordinate, arrival: Date) -> Observable<Route>
+    func route(with type: TransportMode, start: GeoCoordinate, end: GeoCoordinate, arrival: Date, smartAdjusted: Bool) -> Observable<Route>
 }
 
 struct RoutingService: RoutingServiceType {
@@ -27,13 +27,18 @@ struct RoutingService: RoutingServiceType {
     func route(with type: TransportMode,
                start: GeoCoordinate,
                end: GeoCoordinate,
-               arrival: Date) -> Observable<Route> {
+               arrival: Date,
+               smartAdjusted: Bool) -> Observable<Route> {
         return hereMaps.rx
             .request(.route(mode: type, start: start, end: end, arrival: arrival))
             .catchError({_ in throw AccessError.calendar})
             .map(RouteWrapper.self)
             .map { $0.routes.first }
             .asObservable()
+            .map{ route -> Route? in
+                route?.smartAdjusted = smartAdjusted
+                return route
+            }
             .filterNil()
     }
 }
