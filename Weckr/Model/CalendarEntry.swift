@@ -29,7 +29,7 @@ class CalendarEntry: Object {
         self.endDate = endDate
         self.address = adress
         self.location = location
-        self.compoundKey = startDate.toFormat("dd:HH:mm") + endDate.toFormat("dd:HH:mm")
+        self.compoundKey = title + startDate.toFormat("dd:HH:mm") + endDate.toFormat("dd:HH:mm") + address
     }
     
     override func isEqual(_ object: Any?) -> Bool {

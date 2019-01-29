@@ -128,6 +128,7 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
             let transportMode = TransportMode(mode: UserDefaults.standard.integer(forKey: SettingsKeys.transportMode))
             
             return events
+                .debug("events", trimOutput: false)
                 .withLatestFrom(Observable.just(alarm)) { ($0, $1) }
                 .flatMapLatest(realmService.update)
                 .withLatestFrom(Observable.just(transportMode)) { ($0, $1) }

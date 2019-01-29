@@ -55,7 +55,8 @@ class CalendarEditViewModel: CalendarEditViewModelType {
                                           coloredPart: Strings.Main.Edit.calendarTitleColoredPart)
             ])
         
-        let eventItems: Observable<[CalendarEditSectionItem]> = Observable.just(alarm.otherEvents.toArray())
+        let eventItems: Observable<[CalendarEditSectionItem]> =
+            Observable.just(alarm.otherEvents.toArray())
             .map { events in
                 return events.map { event in
                     
