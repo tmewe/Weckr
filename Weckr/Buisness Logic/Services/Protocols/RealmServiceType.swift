@@ -52,9 +52,7 @@ protocol RealmServiceType {
     
     @discardableResult
     func currentAlarm() -> Alarm?
-    
-    func checkExisting(location: GeoCoordinate) -> Observable<LocationCheckResult>
-    
+        
     @discardableResult
     func createFirstAlarm(startLocation: GeoCoordinate,
                           serviceFactory: ServiceFactoryProtocol) -> Observable<AlarmCreationResult<Alarm>>

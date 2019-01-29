@@ -31,7 +31,6 @@ class GeocodingService: GeocodingServiceType {
             .map { $0.first! }
             .map { $0.location! }
             .map(GeoCoordinate.init)
-            .flatMap(realmService.checkExisting)
             .do(onNext: { result in
                 if result.0 { realmService.update(location: result.1, for: entry) }
             })

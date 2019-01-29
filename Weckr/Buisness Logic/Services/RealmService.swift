@@ -194,17 +194,6 @@ struct RealmService: RealmServiceType {
         }
         return result!
     }
-        
-    //Returns nil if geocoordinate exists
-    func checkExisting(location: GeoCoordinate) -> Observable<LocationCheckResult> {
-        let result = withRealm("getting locations") { realm -> Observable<LocationCheckResult> in
-            let key = location.compoundKey
-            let fetched = realm.object(ofType: GeoCoordinate.self, forPrimaryKey: key)
-            guard fetched != nil else { return .just((false, location)) }
-            return .just((true, fetched!))
-        }
-        return result!
-    }
     
     @discardableResult
     func createFirstAlarm(startLocation: GeoCoordinate,
