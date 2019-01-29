@@ -108,10 +108,6 @@ struct AlarmUpdateService: AlarmUpdateServiceType {
             - Int(alarm.morningRoutine).seconds
             - Int(alarm.route.summary.travelTime).seconds
         
-        if (alarmDate.isBeforeDate(eventStartDate.dateAtStartOf(.day), granularity: .nanosecond)) {
-            alarmDate = eventStartDate.dateAtStartOf(.day) - 59.minutes
-        }
-        
         let realm = try! Realm()
         try! realm.write {
             alarm.date = alarmDate
