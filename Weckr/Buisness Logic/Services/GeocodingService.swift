@@ -31,9 +31,5 @@ class GeocodingService: GeocodingServiceType {
             .map { $0.first! }
             .map { $0.location! }
             .map(GeoCoordinate.init)
-            .do(onNext: { result in
-                if result.0 { realmService.update(location: result.1, for: entry) }
-            })
-            .map { $0.1 }
     }
 }
