@@ -18,7 +18,7 @@ extension Date {
     }
     
     var dayText: String {
-        return self.toFormat("EEEE")
+        return Formatter.Date.dayText.string(from: self)
     }
     
     var timeShort: String {

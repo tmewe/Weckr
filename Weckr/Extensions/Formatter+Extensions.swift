@@ -33,6 +33,13 @@ extension Formatter {
             return formatter;
         }()
         
+        static let dayText: DateFormatter = {
+            let formatter = DateFormatter();
+            formatter.locale = Locale.autoupdatingCurrent
+            formatter.setLocalizedDateFormatFromTemplate("EEEE")
+            return formatter;
+        }()
+        
     }
     struct TimeInterval {
         static let timeSpan : DateComponentsFormatter = {
