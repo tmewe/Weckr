@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="Screenshots/Icon.png" alt="drawing" style="width:150px;"/>
+</p>
+
 # Weckr
 
 ### Let your alarm work for you.
